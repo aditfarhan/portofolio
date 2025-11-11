@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { portfolio } from "@/data/portfolio";
 import type { Project } from "@/data/portfolio";
+import ProfileCard from "./ProfileCard";
 
 /**
  * HomeDeck - Two-card flip animation between Profile and Projects
@@ -28,7 +29,9 @@ export default function HomeDeck() {
       <article
         className={`group bg-card border border-token rounded-lg ${
           isCompact ? "p-3" : "p-4"
-        } flex flex-col ${isCompact ? "gap-1" : "gap-2"} card-floating`}
+        } flex flex-col ${
+          isCompact ? "gap-1" : "gap-2"
+        } card-floating shimmer-card`}
       >
         <header>
           <h3
@@ -95,87 +98,6 @@ export default function HomeDeck() {
           </div>
         ) : null}
       </article>
-    );
-  }
-
-  // Full Profile Card Component for right side (same as left default)
-  function FullProfileCard() {
-    return (
-      <div className="h-full flex flex-col items-center justify-center gap-3 text-center">
-        <div
-          className="w-full h-1.5 rounded-full bg-[linear-gradient(90deg,var(--brand-a),var(--brand-b),var(--brand-c))]"
-          aria-hidden="true"
-        ></div>
-        <div
-          className="mx-auto mt-2 inline-flex items-center justify-center w-12 h-12 rounded-full border border-token bg-card/80 font-bold select-none"
-          aria-label="Avatar initials"
-        >
-          MAF
-        </div>
-
-        <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight">
-          Muhammad Aditia Farhan
-        </h1>
-
-        <div className="text-xs sm:text-sm text-muted text-center">
-          <p>Software Engineer · 5+ yrs · Politeknik Negeri Bandung (2020)</p>
-          <p className="mt-1">
-            Scalable web apps across healthcare, e‑commerce, telco, logistics
-          </p>
-          <p className="mt-1">Jakarta & Bandung, Indonesia</p>
-        </div>
-
-        <div className="mt-3 flex justify-center">
-          <div
-            role="group"
-            aria-label="Profile actions"
-            className="action-group inline-flex items-center overflow-hidden"
-          >
-            <button
-              onClick={toggleFlip}
-              disabled={isAnimating}
-              className={`action-cta transition-all duration-300 ${
-                isAnimating
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:scale-105"
-              }`}
-              aria-label={
-                isFlipped
-                  ? "Switch back to show About Me"
-                  : "Switch to show Projects"
-              }
-            >
-              {isFlipped ? "← About Me" : "Explore Projects →"}
-            </button>
-
-            <span aria-hidden="true" className="action-divider"></span>
-
-            <a
-              href="mailto:aditia.farhan@yourdomain.com"
-              className="action-icon"
-              aria-label="Email Muhammad Aditia Farhan"
-              title="Email"
-            >
-              <svg className="w-5 h-5" aria-hidden="true" focusable="false">
-                <use href="/icons.svg#icon-mail"></use>
-              </svg>
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/muhammad-aditia-farhan"
-              className="action-icon"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit LinkedIn profile"
-              title="LinkedIn"
-            >
-              <svg className="w-5 h-5" aria-hidden="true" focusable="false">
-                <use href="/icons.svg#icon-linkedin"></use>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
     );
   }
 
@@ -447,98 +369,18 @@ export default function HomeDeck() {
             }}
           >
             {/* Front Side - Profile */}
-            <div className="card-flip-front absolute inset-0 hero relative rounded-lg bg-card border border-token p-5 flex flex-col items-center justify-center gap-4 card-floating text-center">
-              <div>
-                <div
-                  className="w-full h-1.5 rounded-full bg-[linear-gradient(90deg,var(--brand-a),var(--brand-b),var(--brand-c))]"
-                  aria-hidden="true"
-                ></div>
-                <div
-                  className="mx-auto mt-2 inline-flex items-center justify-center w-12 h-12 rounded-full border border-token bg-card/80 font-bold select-none"
-                  aria-label="Avatar initials"
-                >
-                  MAF
-                </div>
-
-                <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">
-                  Muhammad Aditia Farhan
-                </h1>
-
-                <div className="mt-2 text-xs sm:text-sm text-muted text-center">
-                  <p>
-                    Software Engineer · 5+ yrs · Politeknik Negeri Bandung
-                    (2020)
-                  </p>
-                  <p className="mt-1">
-                    Scalable web apps across healthcare, e‑commerce, telco,
-                    logistics
-                  </p>
-                  <p className="mt-1">Jakarta & Bandung, Indonesia</p>
-                </div>
-
-                <div className="mt-3 flex justify-center">
-                  <div
-                    role="group"
-                    aria-label="Primary actions"
-                    className="action-group inline-flex items-center overflow-hidden"
-                  >
-                    <button
-                      onClick={toggleFlip}
-                      disabled={isAnimating}
-                      className={`action-cta transition-all duration-300 ${
-                        isAnimating
-                          ? "opacity-50 cursor-not-allowed"
-                          : "hover:scale-105"
-                      }`}
-                      aria-label={
-                        isFlipped
-                          ? "Switch back to show About Me"
-                          : "Switch to show Projects"
-                      }
-                    >
-                      {isFlipped ? "← About Me" : "Explore Projects →"}
-                    </button>
-
-                    <span aria-hidden="true" className="action-divider"></span>
-
-                    <a
-                      href="mailto:aditia.farhan@yourdomain.com"
-                      className="action-icon"
-                      aria-label="Email Muhammad Aditia Farhan"
-                      title="Email"
-                    >
-                      <svg
-                        className="w-5 h-5"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <use href="/icons.svg#icon-mail"></use>
-                      </svg>
-                    </a>
-
-                    <a
-                      href="https://www.linkedin.com/in/muhammad-aditia-farhan"
-                      className="action-icon"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Visit LinkedIn profile"
-                      title="LinkedIn"
-                    >
-                      <svg
-                        className="w-5 h-5"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <use href="/icons.svg#icon-linkedin"></use>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
+            <div className="card-flip-front absolute inset-0 hero relative rounded-lg bg-card border border-token p-5 flex flex-col items-center justify-center gap-4 card-floating text-center shimmer-card jewel-profile">
+              <ProfileCard
+                showActionButton={true}
+                size="large"
+                onToggleFlip={toggleFlip}
+                isFlipped={isFlipped}
+                isAnimating={isAnimating}
+              />
             </div>
 
             {/* Back Side - Projects */}
-            <div className="card-flip-back absolute inset-0 rounded-lg bg-card border border-token p-4 overflow-hidden">
+            <div className="card-flip-back absolute inset-0 rounded-lg bg-card border border-token p-4 overflow-hidden shimmer-card">
               {/* Minimalist geometric accents */}
               <div className="about-constellation" aria-hidden="true">
                 <div className="geometric-line geometric-line--lg"></div>
@@ -931,9 +773,15 @@ export default function HomeDeck() {
               </div>
             </div>
 
-            {/* Back Side - Full Profile (same as left default) */}
-            <div className="card-flip-back absolute inset-0 rounded-lg bg-card border border-token p-5 overflow-hidden">
-              <FullProfileCard />
+            {/* Back Side - Reusable Profile Card */}
+            <div className="card-flip-back absolute inset-0 rounded-lg bg-card border border-token p-5 overflow-hidden shimmer-card jewel-profile">
+              <ProfileCard
+                showActionButton={true}
+                size="large"
+                onToggleFlip={toggleFlip}
+                isFlipped={isFlipped}
+                isAnimating={isAnimating}
+              />
             </div>
           </div>
         </div>

@@ -662,6 +662,142 @@ html {
   transform: rotateY(0deg);
 }
 
+/* Classy Premium Shimmer Effect for Profile Cards */
+@keyframes premiumShimmer {
+  0% {
+    background-position: -120% 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    background-position: 120% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes diamondGlow {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+.shimmer-card.jewel-profile {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-card.jewel-profile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.04) 45%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.04) 55%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 50%
+    );
+  background-size: 120% 100%, 200px 200px, 150px 150px;
+  animation: premiumShimmer 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.shimmer-card.jewel-profile::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.015) 50%,
+    transparent 70%
+  );
+  background-size: 100px 100px;
+  animation: premiumShimmer 12s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Classy diamond sparkles */
+.shimmer-card.jewel-profile .jewel-sparkle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+  animation: diamondGlow 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.shimmer-card.jewel-profile .jewel-sparkle:nth-child(1) {
+  top: 20%;
+  right: 30%;
+  animation-delay: 0s;
+}
+
+.shimmer-card.jewel-profile .jewel-sparkle:nth-child(2) {
+  bottom: 25%;
+  left: 35%;
+  animation-delay: 2s;
+}
+
+.shimmer-card.jewel-profile .jewel-sparkle:nth-child(3) {
+  top: 50%;
+  right: 25%;
+  animation-delay: 4s;
+}
+
+/* Additional positioning for About Me card sparkles */
+.about-constellation .jewel-sparkle:nth-child(7) {
+  top: 30%;
+  left: 40%;
+  animation-delay: 1s;
+}
+
+.about-constellation .jewel-sparkle:nth-child(8) {
+  bottom: 40%;
+  right: 35%;
+  animation-delay: 3s;
+}
+
+.about-constellation .jewel-sparkle:nth-child(9) {
+  top: 60%;
+  left: 25%;
+  animation-delay: 5s;
+}
+
 /* Force colors for accessibility */
 @media (forced-colors: active) {
   :where(a, button, input, select, textarea, [role="button"]):focus-visible {
@@ -684,5 +820,15 @@ html {
   }
   ::-webkit-scrollbar-thumb:hover {
     background: Highlight;
+  }
+}
+
+/* Reduced motion for shimmer */
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-card.jewel-profile::before,
+  .shimmer-card.jewel-profile::after,
+  .shimmer-card.jewel-profile .jewel-sparkle,
+  .about-constellation .jewel-sparkle {
+    animation: none;
   }
 }
