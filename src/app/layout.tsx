@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import ThemeProvider from "@/components/ThemeProvider";
-import UtilityBar from "@/components/UtilityBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,8 +44,6 @@ export default function RootLayout({
           <a href="#main" className="skip-link">
             Skip to content
           </a>
-          {/* Compact floating actions */}
-          <UtilityBar />
 
           {/* Full-viewport canvas, no vertical scrolling */}
           <main id="main" className="h-[100dvh] overflow-hidden">

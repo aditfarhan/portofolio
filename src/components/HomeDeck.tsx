@@ -3,108 +3,183 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { portfolio } from "@/data/portfolio";
+import type { Project } from "@/data/portfolio";
 
 /**
- * HomeDeck - simplified: remove tab/flip logic and render a single, unique About section
- * - Accessible structure
- * - Clean, modern layout
- * - Unique orbit/constellation accents (pure CSS)
+ * HomeDeck - Two-card flip animation between Profile and Projects
+ * - Default: Left = Profile, Right = About Me
+ * - Flipped: Left = Projects, Right = Profile
+ * - Smooth card flip animation like exchanging positions
  */
 export default function HomeDeck() {
-  const ABOUT_TABS = ["Background", "Interests", "Tech"] as const;
-  type AboutTab = (typeof ABOUT_TABS)[number];
-  const aboutIds = {
-    Background: { tabId: "about-tab-bg", panelId: "about-panel-bg" },
-    Interests: { tabId: "about-tab-int", panelId: "about-panel-int" },
-    Tech: { tabId: "about-tab-tech", panelId: "about-panel-tech" },
-  } as const;
-  const [aboutTab, setAboutTab] = useState<AboutTab>("Background");
-  function onAboutKeyDown(e: any) {
-    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-    const idx = ABOUT_TABS.indexOf(aboutTab);
-    const delta = e.key === "ArrowLeft" ? -1 : 1;
-    const next = (idx + delta + ABOUT_TABS.length) % ABOUT_TABS.length;
-    setAboutTab(ABOUT_TABS[next]);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Project Card Component
+  function ProjectCard({
+    project,
+    isCompact = false,
+  }: {
+    project: Project;
+    isCompact?: boolean;
+  }) {
+    return (
+      <article
+        className={`group bg-card border border-token rounded-lg ${
+          isCompact ? "p-3" : "p-4"
+        } flex flex-col ${isCompact ? "gap-1" : "gap-2"} card-floating`}
+      >
+        <header>
+          <h3
+            className={`${
+              isCompact ? "text-sm" : "text-base"
+            } font-semibold text-[var(--primary)]`}
+          >
+            {project.title}
+          </h3>
+          {project.tagline ? (
+            <p
+              className={`${
+                isCompact ? "text-xs" : "text-sm"
+              } text-muted clamp-2`}
+            >
+              {project.tagline}
+            </p>
+          ) : null}
+        </header>
+
+        <p
+          className={`${isCompact ? "text-xs" : "text-sm"} text-muted clamp-3`}
+        >
+          {project.description}
+        </p>
+
+        {project.highlights?.length ? (
+          <ul className="reveal list-disc pl-4 text-xs text-muted space-y-1 mt-1">
+            {project.highlights.map((h, i) => (
+              <li key={i}>{h}</li>
+            ))}
+          </ul>
+        ) : null}
+
+        {project.tags?.length ? (
+          <div className="flex flex-wrap gap-1 mt-1">
+            {project.tags.map((t) => (
+              <span
+                key={t}
+                className="text-xs py-0.5 px-1.5 rounded-md bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        ) : null}
+
+        {project.links?.length ? (
+          <div className="mt-2 flex flex-wrap gap-1">
+            {project.links.map((l, i) => (
+              <a
+                key={i}
+                href={l.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs py-1 px-2 rounded-md border border-[color-mix(in_srgb,var(--accent)_40%,transparent)] bg-[color-mix(in_srgb,var(--accent)_8%,transparent)] text-[var(--accent)] hover:bg-[color-mix(in_srgb,var(--accent)_15%,transparent)] transition-colors"
+                aria-label={(l.label ?? l.type) + " (opens in new tab)"}
+                title={(l.label ?? l.type) + " (opens in new tab)"}
+              >
+                {l.label ?? l.type}
+                <span className="sr-only">(opens in new tab)</span>
+              </a>
+            ))}
+          </div>
+        ) : null}
+      </article>
+    );
   }
 
-  // Tech groups (condensed into 3 clusters to fit width clearly)
-  const TECH_GROUPS = ["Build", "Ship", "Lead"] as const;
-  type TechGroup = (typeof TECH_GROUPS)[number];
+  // Full Profile Card Component for right side (same as left default)
+  function FullProfileCard() {
+    return (
+      <div className="h-full flex flex-col items-center justify-center gap-3 text-center">
+        <div
+          className="w-full h-1.5 rounded-full bg-[linear-gradient(90deg,var(--brand-a),var(--brand-b),var(--brand-c))]"
+          aria-hidden="true"
+        ></div>
+        <div
+          className="mx-auto mt-2 inline-flex items-center justify-center w-12 h-12 rounded-full border border-token bg-card/80 font-bold select-none"
+          aria-label="Avatar initials"
+        >
+          MAF
+        </div>
 
-  type TechSection = { title: string; icon: string; items: string[] };
+        <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight">
+          Muhammad Aditia Farhan
+        </h1>
 
-  const techIds: Record<TechGroup, { tabId: string; panelId: string }> = {
-    Build: { tabId: "tech-tab-build", panelId: "tech-panel-build" },
-    Ship: { tabId: "tech-tab-ship", panelId: "tech-panel-ship" },
-    Lead: { tabId: "tech-tab-lead", panelId: "tech-panel-lead" },
-  };
+        <div className="text-xs sm:text-sm text-muted text-center">
+          <p>Software Engineer · 5+ yrs · Politeknik Negeri Bandung (2020)</p>
+          <p className="mt-1">
+            Scalable web apps across healthcare, e‑commerce, telco, logistics
+          </p>
+          <p className="mt-1">Jakarta & Bandung, Indonesia</p>
+        </div>
 
-  const TECH_SECTIONS: Record<TechGroup, TechSection[]> = {
-    Build: [
-      {
-        title: "Frontend",
-        icon: "⚡",
-        items: [
-          "React.js",
-          "Next.js",
-          "Vue.js",
-          "TypeScript",
-          "JavaScript",
-          "HTML",
-          "CSS/SCSS",
-        ],
-      },
-      {
-        title: "Backend & APIs",
-        icon: "🔧",
-        items: ["Node.js", "PHP/Laravel", "REST", "GraphQL"],
-      },
-    ],
-    Ship: [
-      {
-        title: "DevOps & Cloud",
-        icon: "☁",
-        items: [
-          "Docker",
-          "TurboRepo",
-          "CI/CD (Jenkins)",
-          "CI/CD (Kaniko)",
-          "GCP",
-        ],
-      },
-      {
-        title: "Databases",
-        icon: "🗄",
-        items: ["MySQL", "PostgreSQL"],
-      },
-    ],
-    Lead: [
-      {
-        title: "Leadership",
-        icon: "👨‍💻",
-        items: [
-          "System architecture",
-          "Code reviews",
-          "Mentorship",
-          "Agile practices",
-        ],
-      },
-      {
-        title: "Design & UI/UX",
-        icon: "🎨",
-        items: ["Figma", "Adobe XD"],
-      },
-      {
-        title: "Collaboration",
-        icon: "🤝",
-        items: ["Agile", "Cross‑functional teamwork"],
-      },
-    ],
-  };
+        <div className="mt-3 flex justify-center">
+          <div
+            role="group"
+            aria-label="Profile actions"
+            className="action-group inline-flex items-center overflow-hidden"
+          >
+            <button
+              onClick={toggleFlip}
+              disabled={isAnimating}
+              className={`action-cta transition-all duration-300 ${
+                isAnimating
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:scale-105"
+              }`}
+              aria-label={
+                isFlipped
+                  ? "Switch back to show About Me"
+                  : "Switch to show Projects"
+              }
+            >
+              {isFlipped ? "← About Me" : "Explore Projects →"}
+            </button>
 
-  const [techGroup, setTechGroup] = useState<TechGroup>("Build");
+            <span aria-hidden="true" className="action-divider"></span>
 
-  // Background: immersive experience story (single view, no repetition)
+            <a
+              href="mailto:aditia.farhan@yourdomain.com"
+              className="action-icon"
+              aria-label="Email Muhammad Aditia Farhan"
+              title="Email"
+            >
+              <svg className="w-5 h-5" aria-hidden="true" focusable="false">
+                <use href="/icons.svg#icon-mail"></use>
+              </svg>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/muhammad-aditia-farhan"
+              className="action-icon"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit LinkedIn profile"
+              title="LinkedIn"
+            >
+              <svg className="w-5 h-5" aria-hidden="true" focusable="false">
+                <use href="/icons.svg#icon-linkedin"></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Experience data for detailed background
   type Role = { title: string; period: string };
   type CompanyExp = {
     company: string;
@@ -115,7 +190,6 @@ export default function HomeDeck() {
   };
 
   function getLogoUrl(company: string): string {
-    // Prefer Clearbit; map names to primary domains (tweakable)
     const name = company.toLowerCase();
     if (
       name.includes("pertamina") ||
@@ -135,7 +209,6 @@ export default function HomeDeck() {
   }
 
   function getLogoFallback(company: string): string {
-    // Fallback to high-res favicon if Clearbit not available
     const name = company.toLowerCase();
     let domain = "google.com";
     if (
@@ -154,7 +227,6 @@ export default function HomeDeck() {
     return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
   }
 
-  // Create industry context from company name
   function getIndustryContext(company: string): string {
     const name = company.toLowerCase();
     if (
@@ -245,6 +317,83 @@ export default function HomeDeck() {
     setExpIndex((i) => (i - 1 + EXPERIENCE.length) % EXPERIENCE.length);
   }
 
+  // Tech groups for detailed tech section
+  const TECH_GROUPS = ["Build", "Ship", "Lead"] as const;
+  type TechGroup = (typeof TECH_GROUPS)[number];
+
+  type TechSection = { title: string; icon: string; items: string[] };
+
+  const techIds: Record<TechGroup, { tabId: string; panelId: string }> = {
+    Build: { tabId: "tech-tab-build", panelId: "tech-panel-build" },
+    Ship: { tabId: "tech-tab-ship", panelId: "tech-panel-ship" },
+    Lead: { tabId: "tech-tab-lead", panelId: "tech-panel-lead" },
+  };
+
+  const TECH_SECTIONS: Record<TechGroup, TechSection[]> = {
+    Build: [
+      {
+        title: "Frontend",
+        icon: "⚡",
+        items: [
+          "React.js",
+          "Next.js",
+          "Vue.js",
+          "TypeScript",
+          "JavaScript",
+          "HTML",
+          "CSS/SCSS",
+        ],
+      },
+      {
+        title: "Backend & APIs",
+        icon: "🔧",
+        items: ["Node.js", "PHP/Laravel", "REST", "GraphQL"],
+      },
+    ],
+    Ship: [
+      {
+        title: "DevOps & Cloud",
+        icon: "☁",
+        items: [
+          "Docker",
+          "TurboRepo",
+          "CI/CD (Jenkins)",
+          "CI/CD (Kaniko)",
+          "GCP",
+        ],
+      },
+      {
+        title: "Databases",
+        icon: "🗄",
+        items: ["MySQL", "PostgreSQL"],
+      },
+    ],
+    Lead: [
+      {
+        title: "Leadership",
+        icon: "👨‍💻",
+        items: [
+          "System architecture",
+          "Code reviews",
+          "Mentorship",
+          "Agile practices",
+        ],
+      },
+      {
+        title: "Design & UI/UX",
+        icon: "🎨",
+        items: ["Figma", "Adobe XD"],
+      },
+      {
+        title: "Collaboration",
+        icon: "🤝",
+        items: ["Agile", "Cross‑functional teamwork"],
+      },
+    ],
+  };
+
+  const [techGroup, setTechGroup] = useState<TechGroup>("Build");
+
   function onTechKeyDown(e: any) {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
     const idx = TECH_GROUPS.indexOf(techGroup);
@@ -253,446 +402,538 @@ export default function HomeDeck() {
     setTechGroup(TECH_GROUPS[next]);
   }
 
+  // Toggle flip function
+  const toggleFlip = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setIsFlipped(!isFlipped);
+    setTimeout(() => setIsAnimating(false), 600);
+  };
+
+  const ABOUT_TABS = ["Background", "Interests", "Tech"] as const;
+  type AboutTab = (typeof ABOUT_TABS)[number];
+  const aboutIds = {
+    Background: { tabId: "about-tab-bg", panelId: "about-panel-bg" },
+    Interests: { tabId: "about-tab-int", panelId: "about-panel-int" },
+    Tech: { tabId: "about-tab-tech", panelId: "about-panel-tech" },
+  } as const;
+  const [aboutTab, setAboutTab] = useState<AboutTab>("Background");
+  function onAboutKeyDown(e: any) {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    const idx = ABOUT_TABS.indexOf(aboutTab);
+    const delta = e.key === "ArrowLeft" ? -1 : 1;
+    const next = (idx + delta + ABOUT_TABS.length) % ABOUT_TABS.length;
+    setAboutTab(ABOUT_TABS[next]);
+  }
+
   return (
     <section
       className="mx-auto max-w-5xl px-4 py-3 h-[100dvh] max-h-[100dvh] overflow-hidden"
       aria-label="Home deck"
     >
       <div className="grid gap-4 sm:grid-cols-2 h-full items-center justify-items-center">
-        {/* Left: Hero */}
-        <div className="hero relative rounded-lg bg-card border border-token p-5 h-[420px] sm:h-[460px] w-full flex flex-col items-center justify-center gap-4 card-floating text-center">
-          <div>
-            <div
-              className="w-full h-1.5 rounded-full bg-[linear-gradient(90deg,var(--brand-a),var(--brand-b),var(--brand-c))]"
-              aria-hidden="true"
-            ></div>
-            <div
-              className="mx-auto mt-2 inline-flex items-center justify-center w-12 h-12 rounded-full border border-token bg-card/80 font-bold select-none"
-              aria-label="Avatar initials"
-            >
-              MAF
+        {/* Left Card - Flips between Profile and Projects */}
+        <div
+          className={`card-flip-container relative h-[420px] sm:h-[460px] w-full ${
+            isAnimating ? "flipping" : ""
+          }`}
+        >
+          <div
+            className={`card-flip-inner relative w-full h-full transition-transform duration-600 ${
+              isFlipped ? "rotate-y-180" : ""
+            }`}
+            style={{
+              transformStyle: "preserve-3d",
+            }}
+          >
+            {/* Front Side - Profile */}
+            <div className="card-flip-front absolute inset-0 hero relative rounded-lg bg-card border border-token p-5 flex flex-col items-center justify-center gap-4 card-floating text-center">
+              <div>
+                <div
+                  className="w-full h-1.5 rounded-full bg-[linear-gradient(90deg,var(--brand-a),var(--brand-b),var(--brand-c))]"
+                  aria-hidden="true"
+                ></div>
+                <div
+                  className="mx-auto mt-2 inline-flex items-center justify-center w-12 h-12 rounded-full border border-token bg-card/80 font-bold select-none"
+                  aria-label="Avatar initials"
+                >
+                  MAF
+                </div>
+
+                <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">
+                  Muhammad Aditia Farhan
+                </h1>
+
+                <div className="mt-2 text-xs sm:text-sm text-muted text-center">
+                  <p>
+                    Software Engineer · 5+ yrs · Politeknik Negeri Bandung
+                    (2020)
+                  </p>
+                  <p className="mt-1">
+                    Scalable web apps across healthcare, e‑commerce, telco,
+                    logistics
+                  </p>
+                  <p className="mt-1">Jakarta & Bandung, Indonesia</p>
+                </div>
+
+                <div className="mt-3 flex justify-center">
+                  <div
+                    role="group"
+                    aria-label="Primary actions"
+                    className="action-group inline-flex items-center overflow-hidden"
+                  >
+                    <button
+                      onClick={toggleFlip}
+                      disabled={isAnimating}
+                      className={`action-cta transition-all duration-300 ${
+                        isAnimating
+                          ? "opacity-50 cursor-not-allowed"
+                          : "hover:scale-105"
+                      }`}
+                      aria-label={
+                        isFlipped
+                          ? "Switch back to show About Me"
+                          : "Switch to show Projects"
+                      }
+                    >
+                      {isFlipped ? "← About Me" : "Explore Projects →"}
+                    </button>
+
+                    <span aria-hidden="true" className="action-divider"></span>
+
+                    <a
+                      href="mailto:aditia.farhan@yourdomain.com"
+                      className="action-icon"
+                      aria-label="Email Muhammad Aditia Farhan"
+                      title="Email"
+                    >
+                      <svg
+                        className="w-5 h-5"
+                        aria-hidden="true"
+                        focusable="false"
+                      >
+                        <use href="/icons.svg#icon-mail"></use>
+                      </svg>
+                    </a>
+
+                    <a
+                      href="https://www.linkedin.com/in/muhammad-aditia-farhan"
+                      className="action-icon"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Visit LinkedIn profile"
+                      title="LinkedIn"
+                    >
+                      <svg
+                        className="w-5 h-5"
+                        aria-hidden="true"
+                        focusable="false"
+                      >
+                        <use href="/icons.svg#icon-linkedin"></use>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">
-              Muhammad Aditia Farhan
-            </h1>
-            {/* tagline removed for minimalist ID card */}
+            {/* Back Side - Projects */}
+            <div className="card-flip-back absolute inset-0 rounded-lg bg-card border border-token p-4 overflow-hidden">
+              {/* Minimalist geometric accents */}
+              <div className="about-constellation" aria-hidden="true">
+                <div className="geometric-line geometric-line--lg"></div>
+                <div className="geometric-line geometric-line--md"></div>
+                <div className="geometric-line geometric-line--sm"></div>
+                <span className="orb orb-a"></span>
+                <span className="orb orb-b"></span>
+                <span className="orb orb-c"></span>
+              </div>
 
-            <div className="mt-2 text-xs sm:text-sm text-muted text-center">
-              <p>
-                Software Engineer · 5+ yrs · Politeknik Negeri Bandung (2020)
-              </p>
-              <p className="mt-1">
-                Scalable web apps across healthcare, e‑commerce, telco,
-                logistics
-              </p>
-              <p className="mt-1">Jakarta & Bandung, Indonesia</p>
-            </div>
+              <div className="h-full flex flex-col gap-3 justify-center">
+                <h2 className="text-center text-base sm:text-lg font-bold tracking-tight brand-gradient">
+                  Projects
+                </h2>
 
-            <div className="mt-3 flex justify-center">
-              <div
-                role="group"
-                aria-label="Primary actions"
-                className="action-group inline-flex items-center overflow-hidden"
-              >
-                <Link
-                  href="/portfolio"
-                  className="action-cta"
-                  aria-label="Explore projects in portfolio"
-                >
-                  Explore Projects →
-                </Link>
+                <div className="space-y-2 max-h-[280px] overflow-y-auto pr-1">
+                  {portfolio.projects.slice(0, 4).map((project) => (
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                      isCompact={true}
+                    />
+                  ))}
+                </div>
 
-                <span aria-hidden="true" className="action-divider"></span>
-
-                <a
-                  href="mailto:aditia.farhan@yourdomain.com"
-                  className="action-icon"
-                  aria-label="Email Muhammad Aditia Farhan"
-                  title="Email"
-                >
-                  <svg className="w-5 h-5" aria-hidden="true" focusable="false">
-                    <use href="/icons.svg#icon-mail"></use>
-                  </svg>
-                </a>
-
-                <a
-                  href="https://www.linkedin.com/in/muhammad-aditia-farhan"
-                  className="action-icon"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Visit LinkedIn profile"
-                  title="LinkedIn"
-                >
-                  <svg className="w-5 h-5" aria-hidden="true" focusable="false">
-                    <use href="/icons.svg#icon-linkedin"></use>
-                  </svg>
-                </a>
+                <div className="mt-2 flex items-center justify-center text-[8px] text-muted">
+                  <span>Selected projects showcase</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right: About (brand-new unique design) */}
+        {/* Right Card - Flips between About Me and Compact Profile */}
         <div
-          className="relative rounded-lg bg-card border border-token p-0 h-[420px] sm:h-[460px] w-full card-floating overflow-hidden"
-          aria-labelledby="about-title"
-          role="region"
+          className={`card-flip-container relative h-[420px] sm:h-[460px] w-full ${
+            isAnimating ? "flipping" : ""
+          }`}
         >
-          {/* Minimalist geometric accents (purely presentational) */}
-          <div className="about-constellation" aria-hidden="true">
-            <div className="geometric-line geometric-line--lg"></div>
-            <div className="geometric-line geometric-line--md"></div>
-            <div className="geometric-line geometric-line--sm"></div>
-            <span className="orb orb-a"></span>
-            <span className="orb orb-b"></span>
-            <span className="orb orb-c"></span>
-          </div>
-
-          {/* Sticky header */}
-
-          {/* Content */}
-          <div className="h-full px-4 py-4 flex">
-            <div className="mx-auto w-full max-w-[60ch] text-sm sm:text-base flex flex-col gap-3 justify-center">
-              <h2
-                id="about-title"
-                className="text-center text-base sm:text-lg font-bold tracking-tight brand-gradient"
-              >
-                About Me
-              </h2>
-              <div
-                role="tablist"
-                aria-label="About sections"
-                onKeyDown={onAboutKeyDown}
-                className="mx-auto mt-1 inline-flex rounded-lg border border-token overflow-hidden bg-card/60"
-              >
-                {ABOUT_TABS.map((t) => (
-                  <button
-                    key={t}
-                    role="tab"
-                    id={aboutIds[t].tabId}
-                    aria-controls={aboutIds[t].panelId}
-                    aria-selected={aboutTab === t}
-                    tabIndex={aboutTab === t ? 0 : -1}
-                    onClick={() => setAboutTab(t)}
-                    className={`px-3 py-1.5 text-[13px] sm:text-sm ${
-                      aboutTab === t
-                        ? "bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-semibold"
-                        : "opacity-80 hover:opacity-100"
-                    }`}
-                  >
-                    {t}
-                  </button>
-                ))}
+          <div
+            className={`card-flip-inner relative w-full h-full transition-transform duration-600 ${
+              isFlipped ? "rotate-y-180" : ""
+            }`}
+            style={{
+              transformStyle: "preserve-3d",
+            }}
+          >
+            {/* Front Side - About Me */}
+            <div className="card-flip-front absolute inset-0 rounded-lg bg-card border border-token p-0 overflow-hidden">
+              {/* Minimalist geometric accents */}
+              <div className="about-constellation" aria-hidden="true">
+                <div className="geometric-line geometric-line--lg"></div>
+                <div className="geometric-line geometric-line--md"></div>
+                <div className="geometric-line geometric-line--sm"></div>
+                <span className="orb orb-a"></span>
+                <span className="orb orb-b"></span>
+                <span className="orb orb-c"></span>
               </div>
 
-              {aboutTab === "Background" && (
-                <section
-                  role="tabpanel"
-                  id={aboutIds.Background.panelId}
-                  aria-labelledby={aboutIds.Background.tabId}
-                  className="rounded-xl border border-token bg-card/60 p-3"
-                >
-                  <h3 className="sr-only">Background</h3>
-
-                  {/* Compact single view experience - optimized for fixed height */}
+              <div className="h-full px-4 py-4 flex">
+                <div className="mx-auto w-full max-w-[60ch] text-sm sm:text-base flex flex-col gap-3 justify-center">
+                  <h2 className="text-center text-base sm:text-lg font-bold tracking-tight brand-gradient">
+                    About Me
+                  </h2>
                   <div
                     role="tablist"
-                    aria-label="Professional journey"
-                    onKeyDown={onExpKeyDown}
-                    className="space-y-2 max-h-[280px] overflow-y-auto pr-1"
+                    aria-label="About sections"
+                    onKeyDown={onAboutKeyDown}
+                    className="mx-auto mt-1 inline-flex rounded-lg border border-token overflow-hidden bg-card/60"
                   >
-                    {EXPERIENCE.map((exp, i) => {
-                      const isActive = i === expIndex;
-                      return (
-                        <div key={exp.company}>
-                          {/* Compact experience card */}
-                          <button
-                            onClick={() => goToIndex(i)}
-                            className={`w-full text-left rounded-md border transition-all duration-200 group ${
-                              isActive
-                                ? "border-token bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] ring-1 ring-[color-mix(in_srgb,var(--accent)_35%,transparent)] shadow-sm"
-                                : "border-[color-mix(in_srgb,var(--border)_80%,transparent)] hover:border-[color-mix(in_srgb,var(--border)_60%,var(--accent)_40%)] bg-card/30 hover:bg-card/50"
-                            }`}
-                          >
-                            <div className="p-2">
-                              <div className="flex items-center gap-2 mb-1">
-                                <img
-                                  src={getLogoUrl(exp.company)}
-                                  alt={`${exp.company} logo`}
-                                  width={24}
-                                  height={24}
-                                  loading="lazy"
-                                  referrerPolicy="no-referrer"
-                                  className={`pointer-events-none rounded ${
-                                    isActive ? "shadow-sm" : "opacity-80"
-                                  }`}
-                                  onError={(e) => {
-                                    const img =
-                                      e.currentTarget as HTMLImageElement;
-                                    img.src = getLogoFallback(exp.company);
-                                  }}
-                                />
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-2">
-                                    <p className="font-semibold text-[11px] truncate">
-                                      {exp.company}
-                                    </p>
-                                    <span
-                                      className={`text-[7px] px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap ${
-                                        isActive
-                                          ? "bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] border border-[color-mix(in_srgb,var(--accent)_40%,transparent)]"
-                                          : "bg-[color-mix(in_srgb,var(--muted)_50%,transparent)] text-muted border border-[color-mix(in_srgb,var(--muted)_70%,transparent)]"
-                                      }`}
-                                    >
-                                      {exp.roles[exp.roles.length - 1].title}
-                                    </span>
-                                  </div>
-                                  <div className="flex items-center gap-2 mt-0.5">
-                                    <p className="text-[9px] text-muted truncate flex-1">
-                                      {exp.location} •{" "}
-                                      {getIndustryContext(exp.company)}
-                                    </p>
-                                    <span className="text-[7px] text-muted whitespace-nowrap">
-                                      {
-                                        exp.roles[
-                                          exp.roles.length - 1
-                                        ].period.split(" – ")[1]
-                                      }
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="text-right">
-                                  <div
-                                    className={`w-1.5 h-1.5 rounded-full ${
-                                      isActive
-                                        ? "bg-[var(--accent)] shadow-sm"
-                                        : "bg-[color-mix(in_srgb,var(--muted)_60%,transparent)]"
-                                    }`}
-                                    aria-hidden="true"
-                                  />
-                                </div>
-                              </div>
-
-                              <div className="space-y-0.5">
-                                <p
-                                  className={`text-[10px] font-medium leading-tight ${
-                                    isActive ? "text-foreground" : "text-muted"
-                                  }`}
-                                >
-                                  {exp.highlight}
-                                </p>
-                                <p className="text-[9px] text-muted leading-tight">
-                                  {exp.achievement}
-                                </p>
-                              </div>
-
-                              {/* Career progression indicator for multiple roles */}
-                              {exp.roles.length > 1 && (
-                                <div className="mt-1 flex items-center gap-2">
-                                  <div className="flex -space-x-0.5">
-                                    {exp.roles.map((role, idx) => (
-                                      <div
-                                        key={role.title + role.period}
-                                        className={`w-1.5 h-1.5 rounded-full border ${
-                                          idx === exp.roles.length - 1
-                                            ? isActive
-                                              ? "bg-[var(--accent)] border-[color-mix(in_srgb,var(--accent)_60%,transparent)]"
-                                              : "bg-[color-mix(in_srgb,var(--accent)_50%,transparent)] border-[color-mix(in_srgb,var(--accent)_70%,transparent)]"
-                                            : "bg-[color-mix(in_srgb,var(--muted)_40%,transparent)] border-[color-mix(in_srgb,var(--muted)_60%,transparent)]"
-                                        }`}
-                                        title={`${role.title} (${role.period})`}
-                                      />
-                                    ))}
-                                  </div>
-                                  <span className="text-[7px] text-muted">
-                                    {exp.roles.length} role
-                                    {exp.roles.length > 1 ? "s" : ""}
-                                  </span>
-                                </div>
-                              )}
-                            </div>
-                          </button>
-                        </div>
-                      );
-                    })}
+                    {ABOUT_TABS.map((t) => (
+                      <button
+                        key={t}
+                        role="tab"
+                        id={aboutIds[t].tabId}
+                        aria-controls={aboutIds[t].panelId}
+                        aria-selected={aboutTab === t}
+                        tabIndex={aboutTab === t ? 0 : -1}
+                        onClick={() => setAboutTab(t)}
+                        className={`px-3 py-1.5 text-[13px] sm:text-sm ${
+                          aboutTab === t
+                            ? "bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-semibold"
+                            : "opacity-80 hover:opacity-100"
+                        }`}
+                      >
+                        {t}
+                      </button>
+                    ))}
                   </div>
 
-                  {/* Compact navigation indicator */}
-                  <div className="mt-2 flex items-center justify-between text-[8px] text-muted">
-                    <span>Use arrow keys or click to navigate</span>
-                    <span aria-hidden="true">
-                      {expIndex + 1}/{EXPERIENCE.length}
-                    </span>
-                  </div>
-                </section>
-              )}
+                  {aboutTab === "Background" && (
+                    <section
+                      role="tabpanel"
+                      id={aboutIds.Background.panelId}
+                      aria-labelledby={aboutIds.Background.tabId}
+                      className="rounded-xl border border-token bg-card/60 p-3"
+                    >
+                      <h3 className="sr-only">Background</h3>
 
-              {aboutTab === "Interests" && (
-                <section
-                  role="tabpanel"
-                  id={aboutIds.Interests.panelId}
-                  aria-labelledby={aboutIds.Interests.tabId}
-                  className="rounded-xl border border-token bg-card/60 px-3 py-3"
-                >
-                  <h3 className="sr-only">Interests</h3>
-                  <ul
-                    className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[13px] sm:text-sm"
-                    role="list"
-                  >
-                    <li className="interest-row">
-                      <span aria-hidden="true" className="interest-dot" />
-                      Scalable, user-centric web apps
-                    </li>
-                    <li className="interest-row">
-                      <span aria-hidden="true" className="interest-dot" />
-                      Digital transformation in healthcare
-                    </li>
-                    <li className="interest-row">
-                      <span aria-hidden="true" className="interest-dot" />
-                      Cloud, DevOps, automation
-                    </li>
-                    <li className="interest-row">
-                      <span aria-hidden="true" className="interest-dot" />
-                      Intuitive UI/UX
-                    </li>
-                    <li className="interest-row">
-                      <span aria-hidden="true" className="interest-dot" />
-                      Engineering leadership, mentoring
-                    </li>
-                    <li className="interest-row">
-                      <span aria-hidden="true" className="interest-dot" />
-                      Technical direction, systems architecture
-                    </li>
-                    <li className="interest-row">
-                      <span aria-hidden="true" className="interest-dot" />
-                      Data, analytics, optimization
-                    </li>
-                    <li className="interest-row">
-                      <span aria-hidden="true" className="interest-dot" />
-                      AI tools, productivity
-                    </li>
-                    <li className="interest-row col-span-2">
-                      <span aria-hidden="true" className="interest-dot" />
-                      Knowledge sharing, collaboration, continuous learning
-                    </li>
-                  </ul>
-                </section>
-              )}
-
-              {aboutTab === "Tech" && (
-                <section
-                  role="tabpanel"
-                  id={aboutIds.Tech.panelId}
-                  aria-labelledby={aboutIds.Tech.tabId}
-                  className="rounded-xl border border-token bg-card/60 p-3"
-                >
-                  <h3 className="sr-only">Tech</h3>
-
-                  {/* Comprehensive tech overview - no repetition */}
-                  <div
-                    role="tablist"
-                    aria-label="Technology stack"
-                    onKeyDown={onTechKeyDown}
-                    className="max-h-[280px] overflow-y-auto pr-1"
-                  >
-                    {TECH_SECTIONS.Build.map((sec) => {
-                      const isCore = sec.title === "Frontend";
-                      return (
-                        <div key={sec.title} className="mb-3">
-                          {/* Tech category header */}
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="text-[14px]" aria-hidden="true">
-                              {sec.icon}
-                            </span>
-                            <h4 className="font-semibold text-[11px] text-foreground">
-                              {sec.title}
-                            </h4>
-                            {isCore && (
-                              <span className="text-[7px] px-1.5 py-0.5 rounded-full bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] border border-[color-mix(in_srgb,var(--accent)_40%,transparent)]">
-                                Core
-                              </span>
-                            )}
-                          </div>
-
-                          {/* Tech stack items */}
-                          <div className="flex flex-wrap gap-1">
-                            {sec.items.map((item) => (
-                              <span
-                                key={item}
-                                className={`text-[9px] py-1 px-2 rounded-md border transition-all ${
-                                  isCore
-                                    ? "bg-[color-mix(in_srgb,var(--accent)_8%,transparent)] text-[var(--accent)] border-[color-mix(in_srgb,var(--accent)_40%,transparent)] font-medium"
-                                    : "bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
+                      <div
+                        role="tablist"
+                        aria-label="Professional journey"
+                        onKeyDown={onExpKeyDown}
+                        className="space-y-2 max-h-[280px] overflow-y-auto pr-1"
+                      >
+                        {EXPERIENCE.map((exp, i) => {
+                          const isActive = i === expIndex;
+                          return (
+                            <div key={exp.company}>
+                              <button
+                                onClick={() => goToIndex(i)}
+                                className={`w-full text-left rounded-md border transition-all duration-200 group ${
+                                  isActive
+                                    ? "border-token bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] ring-1 ring-[color-mix(in_srgb,var(--accent)_35%,transparent)] shadow-sm"
+                                    : "border-[color-mix(in_srgb,var(--border)_80%,transparent)] hover:border-[color-mix(in_srgb,var(--border)_60%,var(--accent)_40%)] bg-card/30 hover:bg-card/50"
                                 }`}
                               >
-                                {item}
+                                <div className="p-2">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <img
+                                      src={getLogoUrl(exp.company)}
+                                      alt={`${exp.company} logo`}
+                                      width={24}
+                                      height={24}
+                                      loading="lazy"
+                                      referrerPolicy="no-referrer"
+                                      className={`pointer-events-none rounded ${
+                                        isActive ? "shadow-sm" : "opacity-80"
+                                      }`}
+                                      onError={(e) => {
+                                        const img =
+                                          e.currentTarget as HTMLImageElement;
+                                        img.src = getLogoFallback(exp.company);
+                                      }}
+                                    />
+                                    <div className="flex-1 min-w-0">
+                                      <div className="flex items-center gap-2">
+                                        <p className="font-semibold text-[11px] truncate">
+                                          {exp.company}
+                                        </p>
+                                        <span
+                                          className={`text-[7px] px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap ${
+                                            isActive
+                                              ? "bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] border border-[color-mix(in_srgb,var(--accent)_40%,transparent)]"
+                                              : "bg-[color-mix(in_srgb,var(--muted)_50%,transparent)] text-muted border border-[color-mix(in_srgb,var(--muted)_70%,transparent)]"
+                                          }`}
+                                        >
+                                          {
+                                            exp.roles[exp.roles.length - 1]
+                                              .title
+                                          }
+                                        </span>
+                                      </div>
+                                      <div className="flex items-center gap-2 mt-0.5">
+                                        <p className="text-[9px] text-muted truncate flex-1">
+                                          {exp.location} •{" "}
+                                          {getIndustryContext(exp.company)}
+                                        </p>
+                                        <span className="text-[7px] text-muted whitespace-nowrap">
+                                          {
+                                            exp.roles[
+                                              exp.roles.length - 1
+                                            ].period.split(" – ")[1]
+                                          }
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <div className="text-right">
+                                      <div
+                                        className={`w-1.5 h-1.5 rounded-full ${
+                                          isActive
+                                            ? "bg-[var(--accent)] shadow-sm"
+                                            : "bg-[color-mix(in_srgb,var(--muted)_60%,transparent)]"
+                                        }`}
+                                        aria-hidden="true"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div className="space-y-0.5">
+                                    <p
+                                      className={`text-[10px] font-medium leading-tight ${
+                                        isActive
+                                          ? "text-foreground"
+                                          : "text-muted"
+                                      }`}
+                                    >
+                                      {exp.highlight}
+                                    </p>
+                                    <p className="text-[9px] text-muted leading-tight">
+                                      {exp.achievement}
+                                    </p>
+                                  </div>
+
+                                  {exp.roles.length > 1 && (
+                                    <div className="mt-1 flex items-center gap-2">
+                                      <div className="flex -space-x-0.5">
+                                        {exp.roles.map((role, idx) => (
+                                          <div
+                                            key={role.title + role.period}
+                                            className={`w-1.5 h-1.5 rounded-full border ${
+                                              idx === exp.roles.length - 1
+                                                ? isActive
+                                                  ? "bg-[var(--accent)] border-[color-mix(in_srgb,var(--accent)_60%,transparent)]"
+                                                  : "bg-[color-mix(in_srgb,var(--accent)_50%,transparent)] border-[color-mix(in_srgb,var(--accent)_70%,transparent)]"
+                                                : "bg-[color-mix(in_srgb,var(--muted)_40%,transparent)] border-[color-mix(in_srgb,var(--muted)_60%,transparent)]"
+                                            }`}
+                                            title={`${role.title} (${role.period})`}
+                                          />
+                                        ))}
+                                      </div>
+                                      <span className="text-[7px] text-muted">
+                                        {exp.roles.length} role
+                                        {exp.roles.length > 1 ? "s" : ""}
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      <div className="mt-2 flex items-center justify-between text-[8px] text-muted">
+                        <span>Use arrow keys or click to navigate</span>
+                        <span aria-hidden="true">
+                          {expIndex + 1}/{EXPERIENCE.length}
+                        </span>
+                      </div>
+                    </section>
+                  )}
+
+                  {aboutTab === "Interests" && (
+                    <section
+                      role="tabpanel"
+                      id={aboutIds.Interests.panelId}
+                      aria-labelledby={aboutIds.Interests.tabId}
+                      className="rounded-xl border border-token bg-card/60 px-4 py-4"
+                    >
+                      <h3 className="sr-only">Interests</h3>
+                      <div className="space-y-3">
+                        <div className="border-l-2 border-[var(--accent)] pl-4">
+                          <h4 className="text-xs font-semibold text-[var(--accent)] uppercase tracking-wider mb-2">
+                            Core Focus
+                          </h4>
+                          <p className="text-sm text-muted leading-relaxed">
+                            Building scalable web applications that solve real
+                            problems and deliver exceptional user experiences
+                            across healthcare, e-commerce, and enterprise
+                            platforms.
+                          </p>
+                        </div>
+
+                        <div className="border-l-2 border-[color-mix(in_srgb,var(--accent)_60%,transparent)] pl-4">
+                          <h4 className="text-xs font-semibold text-[var(--accent)] uppercase tracking-wider mb-2">
+                            Technical Passion
+                          </h4>
+                          <p className="text-sm text-muted leading-relaxed">
+                            Architecture design, performance optimization, and
+                            modern development practices. Continuous learning
+                            and knowledge sharing within the engineering
+                            community.
+                          </p>
+                        </div>
+
+                        <div className="border-l-2 border-[color-mix(in_srgb,var(--accent)_40%,transparent)] pl-4">
+                          <h4 className="text-xs font-semibold text-[var(--accent)] uppercase tracking-wider mb-2">
+                            Leadership
+                          </h4>
+                          <p className="text-sm text-muted leading-relaxed">
+                            Mentoring fellow engineers, fostering collaborative
+                            teams, and driving technical excellence through
+                            clear communication and strategic thinking.
+                          </p>
+                        </div>
+                      </div>
+                    </section>
+                  )}
+
+                  {aboutTab === "Tech" && (
+                    <section
+                      role="tabpanel"
+                      id={aboutIds.Tech.panelId}
+                      aria-labelledby={aboutIds.Tech.tabId}
+                      className="rounded-xl border border-token bg-card/60 p-3"
+                    >
+                      <h3 className="sr-only">Tech</h3>
+
+                      <div
+                        role="tablist"
+                        aria-label="Technology stack"
+                        onKeyDown={onTechKeyDown}
+                        className="max-h-[280px] overflow-y-auto pr-1"
+                      >
+                        {TECH_SECTIONS.Build.map((sec) => {
+                          const isCore = sec.title === "Frontend";
+                          return (
+                            <div key={sec.title} className="mb-3">
+                              <div className="flex items-center gap-2 mb-2">
+                                <span
+                                  className="text-[14px]"
+                                  aria-hidden="true"
+                                >
+                                  {sec.icon}
+                                </span>
+                                <h4 className="font-semibold text-[11px] text-foreground">
+                                  {sec.title}
+                                </h4>
+                                {isCore && (
+                                  <span className="text-[7px] px-1.5 py-0.5 rounded-full bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] border border-[color-mix(in_srgb,var(--accent)_40%,transparent)]">
+                                    Core
+                                  </span>
+                                )}
+                              </div>
+
+                              <div className="flex flex-wrap gap-1">
+                                {sec.items.map((item) => (
+                                  <span
+                                    key={item}
+                                    className={`text-[9px] py-1 px-2 rounded-md border transition-all ${
+                                      isCore
+                                        ? "bg-[color-mix(in_srgb,var(--accent)_8%,transparent)] text-[var(--accent)] border-[color-mix(in_srgb,var(--accent)_40%,transparent)] font-medium"
+                                        : "bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
+                                    }`}
+                                  >
+                                    {item}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        })}
+
+                        {TECH_SECTIONS.Ship.map((sec) => (
+                          <div key={sec.title} className="mb-3">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-[14px]" aria-hidden="true">
+                                {sec.icon}
                               </span>
-                            ))}
+                              <h4 className="font-semibold text-[11px] text-foreground">
+                                {sec.title}
+                              </h4>
+                            </div>
+
+                            <div className="flex flex-wrap gap-1">
+                              {sec.items.map((item) => (
+                                <span
+                                  key={item}
+                                  className="text-[9px] py-1 px-2 rounded-md border bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
+                                >
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        ))}
 
-                    {TECH_SECTIONS.Ship.map((sec) => (
-                      <div key={sec.title} className="mb-3">
-                        {/* Tech category header */}
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-[14px]" aria-hidden="true">
-                            {sec.icon}
-                          </span>
-                          <h4 className="font-semibold text-[11px] text-foreground">
-                            {sec.title}
-                          </h4>
-                        </div>
+                        {TECH_SECTIONS.Lead.map((sec) => (
+                          <div key={sec.title} className="mb-3">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-[14px]" aria-hidden="true">
+                                {sec.icon}
+                              </span>
+                              <h4 className="font-semibold text-[11px] text-foreground">
+                                {sec.title}
+                              </h4>
+                            </div>
 
-                        {/* Tech stack items */}
-                        <div className="flex flex-wrap gap-1">
-                          {sec.items.map((item) => (
-                            <span
-                              key={item}
-                              className="text-[9px] py-1 px-2 rounded-md border bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
-                            >
-                              {item}
-                            </span>
-                          ))}
-                        </div>
+                            <div className="flex flex-wrap gap-1">
+                              {sec.items.map((item) => (
+                                <span
+                                  key={item}
+                                  className="text-[9px] py-1 px-2 rounded-md border bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
+                                >
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
 
-                    {TECH_SECTIONS.Lead.map((sec) => (
-                      <div key={sec.title} className="mb-3">
-                        {/* Tech category header */}
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-[14px]" aria-hidden="true">
-                            {sec.icon}
-                          </span>
-                          <h4 className="font-semibold text-[11px] text-foreground">
-                            {sec.title}
-                          </h4>
-                        </div>
-
-                        {/* Tech stack items */}
-                        <div className="flex flex-wrap gap-1">
-                          {sec.items.map((item) => (
-                            <span
-                              key={item}
-                              className="text-[9px] py-1 px-2 rounded-md border bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
-                            >
-                              {item}
-                            </span>
-                          ))}
-                        </div>
+                      <div className="mt-2 flex items-center justify-center text-[8px] text-muted">
+                        <span>Technology stack overview</span>
                       </div>
-                    ))}
-                  </div>
+                    </section>
+                  )}
+                </div>
+              </div>
+            </div>
 
-                  {/* Quick navigation hint */}
-                  <div className="mt-2 flex items-center justify-center text-[8px] text-muted">
-                    <span>Technology stack overview</span>
-                  </div>
-                </section>
-              )}
+            {/* Back Side - Full Profile (same as left default) */}
+            <div className="card-flip-back absolute inset-0 rounded-lg bg-card border border-token p-5 overflow-hidden">
+              <FullProfileCard />
             </div>
           </div>
         </div>
