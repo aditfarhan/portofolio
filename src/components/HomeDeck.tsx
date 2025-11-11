@@ -339,11 +339,11 @@ export default function HomeDeck() {
           aria-labelledby="about-title"
           role="region"
         >
-          {/* Decorative constellation + orbit accents (purely presentational) */}
+          {/* Minimalist geometric accents (purely presentational) */}
           <div className="about-constellation" aria-hidden="true">
-            <div className="orbit-ring orbit-ring--lg"></div>
-            <div className="orbit-ring orbit-ring--md"></div>
-            <div className="orbit-ring orbit-ring--sm"></div>
+            <div className="geometric-line geometric-line--lg"></div>
+            <div className="geometric-line geometric-line--md"></div>
+            <div className="geometric-line geometric-line--sm"></div>
             <span className="orb orb-a"></span>
             <span className="orb orb-b"></span>
             <span className="orb orb-c"></span>

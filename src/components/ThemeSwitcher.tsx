@@ -8,8 +8,8 @@ export default function ThemeSwitcher() {
 
   // Ensure the unified theme is always applied
   useEffect(() => {
-    if (theme !== "coffee-soccer") {
-      setTheme("coffee-soccer");
+    if (theme !== "masculine") {
+      setTheme("masculine");
     }
   }, [theme, setTheme]);
 
@@ -17,10 +17,10 @@ export default function ThemeSwitcher() {
   return (
     <span
       className="chip"
-      aria-label="Theme: Coffee + Soccer"
-      title="Theme: Coffee + Soccer"
+      aria-label="Theme: Masculine Professional"
+      title="Theme: Masculine Professional"
     >
-      ☕ + ⚽ Coffee + Soccer
+      █▬▬ Masculine
     </span>
   );
 }

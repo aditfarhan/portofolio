@@ -7,9 +7,9 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <NextThemeProvider
       attribute="data-theme"
-      defaultTheme="coffee-soccer"
+      defaultTheme="masculine"
       enableSystem={false}
-      themes={["coffee-soccer"]}
+      themes={["masculine"]}
     >
       {children}
     </NextThemeProvider>
