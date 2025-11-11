@@ -585,66 +585,111 @@ export default function HomeDeck() {
                   role="tabpanel"
                   id={aboutIds.Tech.panelId}
                   aria-labelledby={aboutIds.Tech.tabId}
-                  className="rounded-xl border border-token bg-card/60 px-3 py-3"
+                  className="rounded-xl border border-token bg-card/60 p-3"
                 >
                   <h3 className="sr-only">Tech</h3>
 
-                  {/* Sub-tabs to ensure all data is readable within fixed height */}
+                  {/* Comprehensive tech overview - no repetition */}
                   <div
                     role="tablist"
-                    aria-label="Tech groups"
+                    aria-label="Technology stack"
                     onKeyDown={onTechKeyDown}
-                    className="mx-auto mb-2 inline-flex rounded-lg border border-token overflow-hidden bg-card/60"
+                    className="max-h-[280px] overflow-y-auto pr-1"
                   >
-                    {TECH_GROUPS.map((g) => (
-                      <button
-                        key={g}
-                        role="tab"
-                        id={techIds[g].tabId}
-                        aria-controls={techIds[g].panelId}
-                        aria-selected={techGroup === g}
-                        tabIndex={techGroup === g ? 0 : -1}
-                        onClick={() => setTechGroup(g)}
-                        className={`px-2.5 py-1.5 text-[12px] sm:text-[13px] ${
-                          techGroup === g
-                            ? "bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-semibold"
-                            : "opacity-85 hover:opacity-100"
-                        }`}
-                      >
-                        {g}
-                      </button>
-                    ))}
-                  </div>
+                    {TECH_SECTIONS.Build.map((sec) => {
+                      const isCore = sec.title === "Frontend";
+                      return (
+                        <div key={sec.title} className="mb-3">
+                          {/* Tech category header */}
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-[14px]" aria-hidden="true">
+                              {sec.icon}
+                            </span>
+                            <h4 className="font-semibold text-[11px] text-foreground">
+                              {sec.title}
+                            </h4>
+                            {isCore && (
+                              <span className="text-[7px] px-1.5 py-0.5 rounded-full bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] border border-[color-mix(in_srgb,var(--accent)_40%,transparent)]">
+                                Core
+                              </span>
+                            )}
+                          </div>
 
-                  {/* Active group */}
-                  <div
-                    role="tabpanel"
-                    id={techIds[techGroup].panelId}
-                    aria-labelledby={techIds[techGroup].tabId}
-                  >
-                    <div className="grid grid-cols-2 gap-2 text-[12px] sm:text-[13px]">
-                      {TECH_SECTIONS[techGroup].map((sec) => (
-                        <div
-                          key={sec.title}
-                          className="rounded-lg border border-token bg-card/60 p-2"
-                        >
-                          <h4 className="font-semibold flex items-center gap-2">
-                            <span aria-hidden="true">{sec.icon}</span>{" "}
-                            {sec.title}
-                          </h4>
-                          <div
-                            className="mt-1 flex flex-wrap gap-1"
-                            aria-label={`${sec.title} items`}
-                          >
+                          {/* Tech stack items */}
+                          <div className="flex flex-wrap gap-1">
                             {sec.items.map((item) => (
-                              <span key={item} className="about-pill">
+                              <span
+                                key={item}
+                                className={`text-[9px] py-1 px-2 rounded-md border transition-all ${
+                                  isCore
+                                    ? "bg-[color-mix(in_srgb,var(--accent)_8%,transparent)] text-[var(--accent)] border-[color-mix(in_srgb,var(--accent)_40%,transparent)] font-medium"
+                                    : "bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
+                                }`}
+                              >
                                 {item}
                               </span>
                             ))}
                           </div>
                         </div>
-                      ))}
-                    </div>
+                      );
+                    })}
+
+                    {TECH_SECTIONS.Ship.map((sec) => (
+                      <div key={sec.title} className="mb-3">
+                        {/* Tech category header */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[14px]" aria-hidden="true">
+                            {sec.icon}
+                          </span>
+                          <h4 className="font-semibold text-[11px] text-foreground">
+                            {sec.title}
+                          </h4>
+                        </div>
+
+                        {/* Tech stack items */}
+                        <div className="flex flex-wrap gap-1">
+                          {sec.items.map((item) => (
+                            <span
+                              key={item}
+                              className="text-[9px] py-1 px-2 rounded-md border bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+
+                    {TECH_SECTIONS.Lead.map((sec) => (
+                      <div key={sec.title} className="mb-3">
+                        {/* Tech category header */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[14px]" aria-hidden="true">
+                            {sec.icon}
+                          </span>
+                          <h4 className="font-semibold text-[11px] text-foreground">
+                            {sec.title}
+                          </h4>
+                        </div>
+
+                        {/* Tech stack items */}
+                        <div className="flex flex-wrap gap-1">
+                          {sec.items.map((item) => (
+                            <span
+                              key={item}
+                              className="text-[9px] py-1 px-2 rounded-md border bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Quick navigation hint */}
+                  <div className="mt-2 flex items-center justify-center text-[8px] text-muted">
+                    <span>Technology stack overview</span>
                   </div>
                 </section>
               )}
