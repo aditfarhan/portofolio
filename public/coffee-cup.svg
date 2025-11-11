@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="140" height="120" viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <title>Coffee Cup</title>
+  <defs>
+    <linearGradient id="steam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Saucer -->
+  <ellipse cx="62" cy="96" rx="44" ry="10" fill="#d7ccc8" opacity="0.6"/>
+  <ellipse cx="62" cy="98" rx="32" ry="6" fill="#c7b8ae" opacity="0.55"/>
+
+  <!-- Cup body -->
+  <path d="M20 44 h84 a2 2 0 0 1 2 2 v28 a22 18 0 0 1 -22 18 H42 A22 18 0 0 1 20 74 V46 a2 2 0 0 1 2 -2 z" fill="#fff8f1" stroke="#a1887f" stroke-width="3"/>
+  <!-- Coffee surface -->
+  <ellipse cx="62" cy="46" rx="38" ry="8" fill="#4e342e" opacity="0.95" stroke="#3e2723" stroke-width="1.5"/>
+
+  <!-- Cup rim highlight -->
+  <ellipse cx="62" cy="44.5" rx="38" ry="7.5" fill="none" stroke="#c7b8ae" stroke-width="2" opacity="0.5"/>
+
+  <!-- Handle -->
+  <path d="M106 51c10 0 18 7 18 16s-8 16-18 16c-5 0-9-2-12-5 5 2 10 2 13-1 5-4 6-10 3-15-2-3-6-5-10-5 2-3 4-6 6-6z"
+        fill="#fff8f1" stroke="#a1887f" stroke-width="3"/>
+
+  <!-- Simple steam lines -->
+  <path d="M44 18c-4 6 -2 10 1 14" stroke="url(#steam)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M60 14c-5 8 -3 12 0 16" stroke="url(#steam)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M76 18c-4 6 -2 10 1 14" stroke="url(#steam)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Coffee art swirl -->
+  <path d="M50 48c6 3 18 3 24 0" stroke="#a1887f" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M48 50c8 6 26 6 34 0" stroke="#a1887f" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+</svg>
