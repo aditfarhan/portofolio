@@ -104,9 +104,15 @@ export default function HomeDeck() {
 
   const [techGroup, setTechGroup] = useState<TechGroup>("Build");
 
-  // Background: interactive experience timeline (compact + accessible)
+  // Background: immersive experience story (single view, no repetition)
   type Role = { title: string; period: string };
-  type CompanyExp = { company: string; location: string; roles: Role[] };
+  type CompanyExp = {
+    company: string;
+    location: string;
+    roles: Role[];
+    highlight: string;
+    achievement: string;
+  };
 
   function getLogoUrl(company: string): string {
     // Prefer Clearbit; map names to primary domains (tweakable)
@@ -148,16 +154,29 @@ export default function HomeDeck() {
     return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
   }
 
-  // Create a short initials badge from a company name (non-logo, avoids repetition)
-  function getInitials(name: string): string {
-    return name
-      .trim()
-      .split(/\s+/)
-      .map((w) => (w && w[0]) || "")
-      .filter(Boolean)
-      .slice(0, 2)
-      .join("")
-      .toUpperCase();
+  // Create industry context from company name
+  function getIndustryContext(company: string): string {
+    const name = company.toLowerCase();
+    if (
+      name.includes("pertamina") ||
+      name.includes("ihc") ||
+      name.includes("pertamedika")
+    ) {
+      return "Healthcare Technology";
+    }
+    if (name.includes("orderonline")) {
+      return "E-commerce & Digital Solutions";
+    }
+    if (name.includes("orami") || name.includes("sirclo")) {
+      return "E-commerce Platform";
+    }
+    if (name.includes("huawei") || name.includes("nexwave")) {
+      return "Telecommunications";
+    }
+    if (name.includes("bejana") || name.includes("globalindo")) {
+      return "Data & Analytics";
+    }
+    return "Technology";
   }
 
   const EXPERIENCE: CompanyExp[] = [
@@ -168,21 +187,29 @@ export default function HomeDeck() {
         { title: "Frontend Engineer", period: "Dec 2023 – Mar 2024" },
         { title: "Software Engineer", period: "Apr 2024 – Present" },
       ],
+      highlight: "Healthcare digital transformation",
+      achievement: "Building modern healthcare platforms serving millions",
     },
     {
       company: "OrderOnline.id",
       location: "Bandung, Indonesia",
       roles: [{ title: "Frontend Engineer", period: "Jan 2023 – Nov 2023" }],
+      highlight: "E-commerce innovation",
+      achievement: "Delivered seamless shopping experiences at scale",
     },
     {
       company: "Orami by SIRCLO",
       location: "Tangerang, Indonesia",
       roles: [{ title: "Frontend Engineer", period: "Oct 2021 – Dec 2022" }],
+      highlight: "Enterprise e-commerce",
+      achievement: "Optimized performance for high-traffic retail platforms",
     },
     {
       company: "PT Nexwave - Huawei",
       location: "Jakarta, Indonesia",
       roles: [{ title: "Frontend Engineer", period: "Oct 2020 – Oct 2021" }],
+      highlight: "Telecommunications tech",
+      achievement: "Contributed to next-gen telecom solutions",
     },
     {
       company: "PT Bejana Investidata Globalindo",
@@ -190,6 +217,8 @@ export default function HomeDeck() {
       roles: [
         { title: "Frontend Engineer Intern", period: "Jul 2019 – Nov 2019" },
       ],
+      highlight: "Data-driven applications",
+      achievement: "Gained foundational experience in data visualization",
     },
   ];
 
@@ -205,6 +234,15 @@ export default function HomeDeck() {
   }
   function gotoNextExp() {
     setExpIndex((i) => (i + 1) % EXPERIENCE.length);
+  }
+  function goToIndex(index: number) {
+    setExpIndex(index);
+  }
+  function goToNext() {
+    setExpIndex((i) => (i + 1) % EXPERIENCE.length);
+  }
+  function goToPrev() {
+    setExpIndex((i) => (i - 1 + EXPERIENCE.length) % EXPERIENCE.length);
   }
 
   function onTechKeyDown(e: any) {
@@ -353,159 +391,139 @@ export default function HomeDeck() {
                   role="tabpanel"
                   id={aboutIds.Background.panelId}
                   aria-labelledby={aboutIds.Background.tabId}
-                  className="rounded-xl border border-token bg-card/60 px-3 py-3"
+                  className="rounded-xl border border-token bg-card/60 p-3"
                 >
                   <h3 className="sr-only">Background</h3>
 
-                  {/* Interactive experience rail */}
-                  <div className="mt-1 flex flex-col items-center justify-center gap-2">
-                    <div className="flex items-center justify-center gap-2">
-                      <button
-                        type="button"
-                        onClick={gotoPrevExp}
-                        className="btn-outline h-8 px-2 text-xs"
-                        aria-label="Previous experience"
-                      >
-                        ‹
-                      </button>
-
-                      <div
-                        role="tablist"
-                        aria-label="Experience timeline"
-                        onKeyDown={onExpKeyDown}
-                        className="flex flex-nowrap justify-center gap-2"
-                      >
-                        {EXPERIENCE.map((exp, i) => {
-                          const selected = i === expIndex;
-                          return (
-                            <button
-                              key={exp.company}
-                              id={`exp-tab-${i}`}
-                              role="tab"
-                              aria-selected={selected}
-                              aria-controls={`exp-panel-${i}`}
-                              tabIndex={selected ? 0 : -1}
-                              onClick={() => setExpIndex(i)}
-                              className={`logo-chip ${
-                                selected ? "logo-chip--selected" : ""
-                              }`}
-                              title={`${exp.company} — ${exp.location}`}
-                              style={{ width: 56, height: 56 }}
-                            >
-                              <img
-                                src={getLogoUrl(exp.company)}
-                                alt={`${exp.company} logo`}
-                                width={40}
-                                height={40}
-                                loading="lazy"
-                                referrerPolicy="no-referrer"
-                                className="pointer-events-none"
-                                style={{
-                                  filter: selected
-                                    ? "none"
-                                    : "grayscale(0.2) saturate(0.9)",
-                                  opacity: selected ? 1 : 0.85,
-                                }}
-                                onError={(e) => {
-                                  const img =
-                                    e.currentTarget as HTMLImageElement;
-                                  img.src = getLogoFallback(exp.company);
-                                }}
-                              />
-                              <span className="sr-only">
-                                {exp.company} — {exp.location}
-                              </span>
-                            </button>
-                          );
-                        })}
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={gotoNextExp}
-                        className="btn-outline h-8 px-2 text-xs"
-                        aria-label="Next experience"
-                      >
-                        ›
-                      </button>
-                    </div>
-
-                    {/* Progress bar to show position in timeline */}
-                    <div className="w-full max-w-[420px]">
-                      <div className="h-1 rounded-full bg-[color-mix(in_srgb,var(--muted)_40%,transparent)] overflow-hidden">
-                        <div
-                          className="h-full rounded-full bg-[linear-gradient(90deg,var(--brand-a),var(--brand-b),var(--brand-c))]"
-                          style={{
-                            width: `${Math.round(
-                              ((expIndex + 1) / EXPERIENCE.length) * 100
-                            )}%`,
-                          }}
-                          role="progressbar"
-                          aria-valuemin={1}
-                          aria-valuemax={EXPERIENCE.length}
-                          aria-valuenow={expIndex + 1}
-                          aria-label="Experience position"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Active experience detail */}
+                  {/* Compact single view experience - optimized for fixed height */}
                   <div
-                    role="tabpanel"
-                    id={`exp-panel-${expIndex}`}
-                    aria-labelledby={`exp-tab-${expIndex}`}
-                    className="mt-2 rounded-lg border border-token bg-card/60 p-3"
+                    role="tablist"
+                    aria-label="Professional journey"
+                    onKeyDown={onExpKeyDown}
+                    className="space-y-2 max-h-[280px] overflow-y-auto pr-1"
                   >
-                    {(() => {
-                      const exp = EXPERIENCE[expIndex];
-                      const latest = exp.roles[exp.roles.length - 1];
-                      const initials = getInitials(exp.company);
+                    {EXPERIENCE.map((exp, i) => {
+                      const isActive = i === expIndex;
                       return (
-                        <div className="flex flex-col gap-2">
-                          <div className="flex items-center gap-3 text-[12px] sm:text-[13px]">
-                            <div
-                              aria-hidden="true"
-                              className="flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold ring-1"
-                              style={{
-                                backgroundImage:
-                                  "linear-gradient(135deg, color-mix(in srgb, var(--brand-a) 85%, black 5%), color-mix(in srgb, var(--brand-b) 75%, white 10%), var(--brand-c))",
-                              }}
-                            >
-                              {initials}
-                            </div>
-                            <div>
-                              <p className="font-semibold">
-                                {exp.company}{" "}
-                                <span className="text-muted">
-                                  — {exp.location}
-                                </span>
-                              </p>
-                              <p className="mt-0.5">
-                                {latest.title}{" "}
-                                <span className="text-muted">
-                                  ({latest.period})
-                                </span>
-                              </p>
-                            </div>
-                          </div>
-
-                          <div
-                            className="mt-1 flex flex-wrap gap-1"
-                            aria-label="Role history"
+                        <div key={exp.company}>
+                          {/* Compact experience card */}
+                          <button
+                            onClick={() => goToIndex(i)}
+                            className={`w-full text-left rounded-md border transition-all duration-200 group ${
+                              isActive
+                                ? "border-token bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] ring-1 ring-[color-mix(in_srgb,var(--accent)_35%,transparent)] shadow-sm"
+                                : "border-[color-mix(in_srgb,var(--border)_80%,transparent)] hover:border-[color-mix(in_srgb,var(--border)_60%,var(--accent)_40%)] bg-card/30 hover:bg-card/50"
+                            }`}
                           >
-                            {exp.roles.map((r) => (
-                              <span
-                                key={r.title + r.period}
-                                className="about-pill"
-                              >
-                                {r.title} · {r.period}
-                              </span>
-                            ))}
-                          </div>
+                            <div className="p-2">
+                              <div className="flex items-center gap-2 mb-1">
+                                <img
+                                  src={getLogoUrl(exp.company)}
+                                  alt={`${exp.company} logo`}
+                                  width={24}
+                                  height={24}
+                                  loading="lazy"
+                                  referrerPolicy="no-referrer"
+                                  className={`pointer-events-none rounded ${
+                                    isActive ? "shadow-sm" : "opacity-80"
+                                  }`}
+                                  onError={(e) => {
+                                    const img =
+                                      e.currentTarget as HTMLImageElement;
+                                    img.src = getLogoFallback(exp.company);
+                                  }}
+                                />
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2">
+                                    <p className="font-semibold text-[11px] truncate">
+                                      {exp.company}
+                                    </p>
+                                    <span
+                                      className={`text-[7px] px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap ${
+                                        isActive
+                                          ? "bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] border border-[color-mix(in_srgb,var(--accent)_40%,transparent)]"
+                                          : "bg-[color-mix(in_srgb,var(--muted)_50%,transparent)] text-muted border border-[color-mix(in_srgb,var(--muted)_70%,transparent)]"
+                                      }`}
+                                    >
+                                      {exp.roles[exp.roles.length - 1].title}
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center gap-2 mt-0.5">
+                                    <p className="text-[9px] text-muted truncate flex-1">
+                                      {exp.location} •{" "}
+                                      {getIndustryContext(exp.company)}
+                                    </p>
+                                    <span className="text-[7px] text-muted whitespace-nowrap">
+                                      {
+                                        exp.roles[
+                                          exp.roles.length - 1
+                                        ].period.split(" – ")[1]
+                                      }
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="text-right">
+                                  <div
+                                    className={`w-1.5 h-1.5 rounded-full ${
+                                      isActive
+                                        ? "bg-[var(--accent)] shadow-sm"
+                                        : "bg-[color-mix(in_srgb,var(--muted)_60%,transparent)]"
+                                    }`}
+                                    aria-hidden="true"
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="space-y-0.5">
+                                <p
+                                  className={`text-[10px] font-medium leading-tight ${
+                                    isActive ? "text-foreground" : "text-muted"
+                                  }`}
+                                >
+                                  {exp.highlight}
+                                </p>
+                                <p className="text-[9px] text-muted leading-tight">
+                                  {exp.achievement}
+                                </p>
+                              </div>
+
+                              {/* Career progression indicator for multiple roles */}
+                              {exp.roles.length > 1 && (
+                                <div className="mt-1 flex items-center gap-2">
+                                  <div className="flex -space-x-0.5">
+                                    {exp.roles.map((role, idx) => (
+                                      <div
+                                        key={role.title + role.period}
+                                        className={`w-1.5 h-1.5 rounded-full border ${
+                                          idx === exp.roles.length - 1
+                                            ? isActive
+                                              ? "bg-[var(--accent)] border-[color-mix(in_srgb,var(--accent)_60%,transparent)]"
+                                              : "bg-[color-mix(in_srgb,var(--accent)_50%,transparent)] border-[color-mix(in_srgb,var(--accent)_70%,transparent)]"
+                                            : "bg-[color-mix(in_srgb,var(--muted)_40%,transparent)] border-[color-mix(in_srgb,var(--muted)_60%,transparent)]"
+                                        }`}
+                                        title={`${role.title} (${role.period})`}
+                                      />
+                                    ))}
+                                  </div>
+                                  <span className="text-[7px] text-muted">
+                                    {exp.roles.length} role
+                                    {exp.roles.length > 1 ? "s" : ""}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          </button>
                         </div>
                       );
-                    })()}
+                    })}
+                  </div>
+
+                  {/* Compact navigation indicator */}
+                  <div className="mt-2 flex items-center justify-between text-[8px] text-muted">
+                    <span>Use arrow keys or click to navigate</span>
+                    <span aria-hidden="true">
+                      {expIndex + 1}/{EXPERIENCE.length}
+                    </span>
                   </div>
                 </section>
               )}
