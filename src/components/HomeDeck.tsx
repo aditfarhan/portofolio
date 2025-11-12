@@ -571,16 +571,16 @@ export default function HomeDeck() {
                   <span className="orb orb-c"></span>
                 </div>
 
-                <div className="h-full px-4 py-4 flex">
-                  <div className="mx-auto w-full max-w-[60ch] text-sm sm:text-base flex flex-col gap-3 justify-center">
-                    <h2 className="text-center text-base sm:text-lg font-bold tracking-tight brand-gradient">
+                <div className="h-full px-4 py-4 flex flex-col">
+                  <div className="mx-auto w-full max-w-[60ch] text-sm sm:text-base flex flex-col">
+                    <h2 className="text-center text-base sm:text-lg font-bold tracking-tight brand-gradient flex-shrink-0">
                       About Me
                     </h2>
                     <div
                       role="tablist"
                       aria-label="About sections"
                       onKeyDown={onAboutKeyDown}
-                      className="mx-auto mt-1 inline-flex rounded-lg border border-token overflow-hidden bg-card/60"
+                      className="mx-auto mt-1 inline-flex rounded-lg border border-token overflow-hidden bg-card/60 flex-shrink-0"
                     >
                       {ABOUT_TABS.map((t) => (
                         <button
@@ -591,7 +591,7 @@ export default function HomeDeck() {
                           aria-selected={aboutTab === t}
                           tabIndex={aboutTab === t ? 0 : -1}
                           onClick={() => setAboutTab(t)}
-                          className={`px-3 py-1.5 text-[13px] sm:text-sm ${
+                          className={`px-3 py-1.5 text-[13px] sm:text-sm transition-all ${
                             aboutTab === t
                               ? "bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-semibold"
                               : "opacity-80 hover:opacity-100"
@@ -607,7 +607,7 @@ export default function HomeDeck() {
                         role="tabpanel"
                         id={aboutIds.Background.panelId}
                         aria-labelledby={aboutIds.Background.tabId}
-                        className="rounded-xl border border-token bg-card/60 p-3"
+                        className="rounded-xl border border-token bg-card/60 p-3 min-h-[280px] flex flex-col mt-3"
                       >
                         <h3 className="sr-only">Background</h3>
 
@@ -615,7 +615,7 @@ export default function HomeDeck() {
                           role="tablist"
                           aria-label="Professional journey"
                           onKeyDown={onExpKeyDown}
-                          className="space-y-2 max-h-[280px] overflow-y-auto pr-1"
+                          className="flex-1 space-y-2 max-h-[280px] overflow-y-auto pr-1"
                         >
                           {EXPERIENCE.map((exp, i) => {
                             const isActive = i === expIndex;
@@ -738,7 +738,7 @@ export default function HomeDeck() {
                           })}
                         </div>
 
-                        <div className="mt-2 flex items-center justify-between text-[8px] text-muted">
+                        <div className="mt-2 flex items-center justify-between text-[8px] text-muted flex-shrink-0">
                           <span>Use arrow keys or click to navigate</span>
                           <span aria-hidden="true">
                             {expIndex + 1}/{EXPERIENCE.length}
@@ -752,10 +752,10 @@ export default function HomeDeck() {
                         role="tabpanel"
                         id={aboutIds.Interests.panelId}
                         aria-labelledby={aboutIds.Interests.tabId}
-                        className="rounded-xl border border-token bg-card/60 px-4 py-4"
+                        className="rounded-xl border border-token bg-card/60 p-3 min-h-[280px] flex flex-col mt-3"
                       >
                         <h3 className="sr-only">Interests</h3>
-                        <div className="space-y-3">
+                        <div className="flex-1 space-y-3 flex flex-col justify-center">
                           <div className="border-l-2 border-[var(--accent)] pl-4">
                             <h4 className="text-xs font-semibold text-[var(--accent)] uppercase tracking-wider mb-2">
                               Core Focus
@@ -792,6 +792,9 @@ export default function HomeDeck() {
                             </p>
                           </div>
                         </div>
+                        <div className="mt-2 flex items-center justify-center text-[8px] text-muted flex-shrink-0">
+                          <span>Personal & professional interests</span>
+                        </div>
                       </section>
                     )}
 
@@ -800,7 +803,7 @@ export default function HomeDeck() {
                         role="tabpanel"
                         id={aboutIds.Tech.panelId}
                         aria-labelledby={aboutIds.Tech.tabId}
-                        className="rounded-xl border border-token bg-card/60 p-3"
+                        className="rounded-xl border border-token bg-card/60 p-3 min-h-[280px] flex flex-col mt-3"
                       >
                         <h3 className="sr-only">Tech</h3>
 
@@ -808,7 +811,7 @@ export default function HomeDeck() {
                           role="tablist"
                           aria-label="Technology stack"
                           onKeyDown={onTechKeyDown}
-                          className="max-h-[280px] overflow-y-auto pr-1"
+                          className="flex-1 max-h-[280px] overflow-y-auto pr-1"
                         >
                           {TECH_SECTIONS.Build.map((sec) => {
                             const isCore = sec.title === "Frontend";
@@ -904,7 +907,7 @@ export default function HomeDeck() {
                           ))}
                         </div>
 
-                        <div className="mt-2 flex items-center justify-center text-[8px] text-muted">
+                        <div className="mt-2 flex items-center justify-center text-[8px] text-muted flex-shrink-0">
                           <span>Technology stack overview</span>
                         </div>
                       </section>
