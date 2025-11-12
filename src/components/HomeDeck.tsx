@@ -350,117 +350,135 @@ export default function HomeDeck() {
 
   return (
     <>
-      {/* Background Stars Field */}
+      {/* Realistic Night Sky Background */}
+      <div className="night-sky" aria-hidden="true"></div>
+
+      {/* Enhanced Star Field - Positioned for Realistic Night Sky */}
       <div className="star-field" aria-hidden="true">
-        {/* Small twinkling stars */}
-        <div className="star small" style={{ top: "10%", left: "15%" }}></div>
-        <div className="star small" style={{ top: "25%", left: "80%" }}></div>
-        <div className="star small" style={{ top: "40%", left: "30%" }}></div>
-        <div className="star small" style={{ top: "60%", left: "70%" }}></div>
-        <div className="star small" style={{ top: "80%", left: "20%" }}></div>
-        <div className="star small" style={{ top: "15%", left: "60%" }}></div>
-        <div className="star small" style={{ top: "35%", left: "85%" }}></div>
-        <div className="star small" style={{ top: "75%", left: "45%" }}></div>
-        <div className="star small" style={{ top: "55%", left: "10%" }}></div>
-        <div className="star small" style={{ top: "90%", left: "65%" }}></div>
+        {/* Constellation-like star positioning for realism */}
+        {/* Upper sky stars (away from moon) */}
+        <div className="star small" style={{ top: "5%", left: "25%" }}></div>
+        <div className="star small" style={{ top: "12%", left: "75%" }}></div>
+        <div className="star small" style={{ top: "8%", left: "45%" }}></div>
+        <div className="star small" style={{ top: "15%", left: "85%" }}></div>
+        <div className="star small" style={{ top: "18%", left: "10%" }}></div>
 
-        {/* Medium twinkling stars */}
-        <div className="star medium" style={{ top: "20%", left: "40%" }}></div>
-        <div className="star medium" style={{ top: "45%", left: "75%" }}></div>
-        <div className="star medium" style={{ top: "70%", left: "25%" }}></div>
-        <div className="star medium" style={{ top: "30%", left: "55%" }}></div>
-        <div className="star medium" style={{ top: "85%", left: "80%" }}></div>
-        <div className="star medium" style={{ top: "12%", left: "20%" }}></div>
-        <div className="star medium" style={{ top: "65%", left: "50%" }}></div>
+        {/* Mid-level stars */}
+        <div className="star medium" style={{ top: "35%", left: "20%" }}></div>
+        <div className="star medium" style={{ top: "40%", left: "80%" }}></div>
+        <div className="star medium" style={{ top: "45%", left: "35%" }}></div>
+        <div className="star medium" style={{ top: "30%", left: "60%" }}></div>
+        <div className="star medium" style={{ top: "50%", left: "5%" }}></div>
 
-        {/* Large twinkling stars */}
-        <div className="star large" style={{ top: "15%", left: "25%" }}></div>
-        <div className="star large" style={{ top: "50%", left: "85%" }}></div>
-        <div className="star large" style={{ top: "80%", left: "40%" }}></div>
-        <div className="star large" style={{ top: "35%", left: "15%" }}></div>
+        {/* Large prominent stars */}
+        <div className="star large" style={{ top: "25%", left: "65%" }}></div>
+        <div className="star large" style={{ top: "55%", left: "25%" }}></div>
+        <div className="star large" style={{ top: "42%", left: "90%" }}></div>
+        <div className="star large" style={{ top: "60%", left: "70%" }}></div>
+
+        {/* Stars near horizon for depth */}
+        <div className="star small" style={{ top: "75%", left: "15%" }}></div>
+        <div className="star small" style={{ top: "82%", left: "35%" }}></div>
+        <div className="star medium" style={{ top: "78%", left: "85%" }}></div>
+        <div className="star small" style={{ top: "85%", left: "55%" }}></div>
       </div>
 
-      {/* Background Meteors with Realistic Physics */}
+      {/* Realistic Meteors - Trajectories Aligned with Night Sky */}
       <div className="meteor-container" aria-hidden="true">
+        {/* Meteor moving from upper left toward moon area */}
         <div
           className="meteor ball-shaped meteor-realistic-1"
           style={{
             animationName: "meteorRealisticPhysics, meteorHeatColor",
-            animationDuration: "16s, 3s",
+            animationDuration: "18s, 3.5s",
             animationDelay: "0s, 0s",
           }}
         ></div>
+
+        {/* Meteor from upper right, moving diagonally */}
         <div
           className="meteor ball-shaped meteor-realistic-2"
           style={{
             animationName: "meteorMicrometeor, meteorHeatColor",
-            animationDuration: "20s, 4s",
-            animationDelay: "8s, 2s",
+            animationDuration: "22s, 4s",
+            animationDelay: "10s, 3s",
           }}
         ></div>
+
+        {/* Large fireball from near horizon */}
         <div
           className="meteor ball-shaped meteor-realistic-3"
           style={{
             animationName: "meteorRealisticFireball, meteorHeatColor",
-            animationDuration: "25s, 3.5s",
-            animationDelay: "15s, 1.5s",
+            animationDuration: "28s, 4s",
+            animationDelay: "20s, 5s",
           }}
         ></div>
+
+        {/* Swift meteor from upper center */}
         <div
           className="meteor ball-shaped meteor-realistic-4"
           style={{
             animationName: "meteorRealisticPhysics, meteorHeatColor",
-            animationDuration: "18s, 2.5s",
-            animationDelay: "4s, 1s",
+            animationDuration: "15s, 3s",
+            animationDelay: "5s, 2s",
           }}
         ></div>
+
+        {/* Micrometeor from lower right */}
         <div
           className="meteor ball-shaped meteor-realistic-5"
           style={{
             animationName: "meteorMicrometeor, meteorHeatColor",
-            animationDuration: "22s, 3s",
-            animationDelay: "12s, 0.5s",
+            animationDuration: "25s, 3.5s",
+            animationDelay: "15s, 4s",
           }}
         ></div>
+
+        {/* Bright meteor from left side */}
         <div
           className="meteor ball-shaped meteor-realistic-6"
           style={{
             animationName: "meteorRealisticFireball, meteorHeatColor",
-            animationDuration: "28s, 4s",
-            animationDelay: "18s, 2.5s",
+            animationDuration: "20s, 3s",
+            animationDelay: "25s, 6s",
           }}
         ></div>
       </div>
 
-      {/* Meteor Shower Bursts */}
+      {/* Meteor Shower Bursts - Positioned Away from Moon */}
       <div className="meteor-shower-burst" aria-hidden="true">
         <div
           className="meteor-burst"
           style={{
             animationName: "meteorShowerBurst",
             animationDuration: "12s",
-            animationDelay: "6s",
+            animationDelay: "8s",
           }}
         ></div>
         <div
           className="meteor-burst"
           style={{
             animationName: "meteorShowerBurst",
-            animationDuration: "15s",
-            animationDelay: "20s",
+            animationDuration: "16s",
+            animationDelay: "25s",
           }}
         ></div>
         <div
           className="meteor-burst"
           style={{
             animationName: "meteorShowerBurst",
-            animationDuration: "10s",
-            animationDelay: "35s",
+            animationDuration: "14s",
+            animationDelay: "40s",
           }}
         ></div>
       </div>
 
-      <div className="moon ultra-bright" aria-hidden="true"></div>
+      {/* Realistic Moon with Atmospheric Effects */}
+      <div className="moon realistic" aria-hidden="true">
+        <div className="crater-large"></div>
+        <div className="crater-small"></div>
+      </div>
 
       <section
         className="mx-auto max-w-5xl px-4 py-3 h-[100dvh] max-h-[100dvh] overflow-hidden"
