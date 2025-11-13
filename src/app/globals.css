@@ -838,6 +838,43 @@ html {
 .rotate-y-0 {
   transform: rotateY(0deg);
 }
+/* Mobile Scrolling Fix for 3D Contexts - Targeted approach */
+.mobile-scroll-fix {
+  /* Enable smooth scrolling on mobile while preserving 3D */
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  /* Create new stacking context */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Ensure proper rendering context */
+  will-change: scroll-position;
+  /* Prevent interference from 3D transforms */
+  perspective: 0;
+  -webkit-perspective: 0;
+}
+
+/* Enhanced mobile scroll fixes for tab panels */
+@media (max-width: 768px) {
+  .mobile-scroll-fix {
+    /* Additional mobile-specific fixes */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    /* Force hardware acceleration for smooth scrolling */
+    will-change: scroll-position;
+    /* Create proper containing block */
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Ensure tab content scrolls properly */
+  [role="tabpanel"] .mobile-scroll-fix {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Prevent parent 3D transforms from affecting scroll */
+    transform-style: flat;
+    -webkit-transform-style: flat;
+  }
+}
 
 /* Classy Premium Shimmer Effect for Profile Cards */
 @keyframes premiumShimmer {
@@ -2631,4 +2668,26 @@ html {
   animation: meteorCoreGlow 1.5s ease-in-out infinite;
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.9), 0 0 8px rgba(255, 240, 120, 0.7),
     0 0 12px rgba(255, 200, 80, 0.5);
+}
+
+/* Enhanced mobile scrolling fix for tab content inside 3D contexts */
+/* Only apply on mobile devices to avoid breaking desktop interactions */
+@media (max-width: 768px) {
+  .mobile-scroll-fix {
+    /* Force proper touch scrolling behavior on mobile */
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+    /* Apply hardware acceleration only on mobile */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+
+  /* Fix About Me tab content container on mobile */
+  .about-content-portal {
+    /* Remove overflow hidden to allow scrolling */
+    overflow: visible;
+    /* Enable proper touch behavior */
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
 }
