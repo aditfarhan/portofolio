@@ -1,0 +1,404 @@
+/* ========== UTILITY CLASSES ========== */
+
+/* Layout Utilities */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.mobile-scroll-fix {
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: scroll-position;
+  perspective: 0;
+  -webkit-perspective: 0;
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.reveal {
+  opacity: 0.95;
+  transform: translateY(5px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.group:hover .reveal,
+.group:focus-within .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.border-token {
+  border-color: var(--border);
+}
+
+.bg-card {
+  background-color: var(--card);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+}
+
+.bg-card:hover {
+  border-color: var(--foreground);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+}
+
+.text-muted {
+  color: var(--muted-fg);
+}
+
+.clamp-2,
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.clamp-2 {
+  -webkit-line-clamp: 2;
+}
+
+.clamp-3 {
+  -webkit-line-clamp: 3;
+}
+
+/* Button Styles */
+.btn {
+  @apply inline-flex items-center justify-center;
+  background-color: var(--primary);
+  color: var(--background);
+  min-height: 44px;
+  min-width: 44px;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.025em;
+  border-radius: 2px;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  transition: all 150ms ease;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.btn:hover {
+  background-color: #e5e5e5;
+  color: var(--background);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center;
+  border-color: var(--border);
+  color: var(--foreground);
+  background: transparent;
+  min-height: 44px;
+  min-width: 44px;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 2px;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  transition: all 150ms ease;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.btn-outline:hover {
+  background-color: var(--border);
+  border-color: var(--foreground);
+  color: var(--background);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.btn-gradient {
+  background-image: linear-gradient(135deg, var(--brand-a), var(--brand-b));
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  color: var(--background);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.btn-gradient:hover {
+  background-image: linear-gradient(135deg, var(--brand-b), var(--brand-c));
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.15);
+}
+
+.btn-gradient:active {
+  transform: translateY(0);
+}
+
+/* Chip and Tag Styles */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  color: var(--muted-fg);
+  background-color: transparent;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  transition: all 150ms ease;
+}
+
+.chip:hover {
+  border-color: var(--foreground);
+  color: var(--foreground);
+  background-color: var(--border);
+}
+
+.about-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  color: var(--muted-fg);
+  background-color: transparent;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  transition: all 150ms ease;
+}
+
+.about-pill:hover {
+  border-color: var(--foreground);
+  color: var(--foreground);
+}
+
+/* Interest and Focus Styles */
+.interest-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 2px;
+  color: var(--muted-fg);
+  transition: color 140ms ease, background-color 140ms ease;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.025em;
+}
+
+.interest-row:hover {
+  color: var(--foreground);
+  background-color: var(--border);
+}
+
+.interest-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 4px var(--accent);
+  flex-shrink: 0;
+}
+
+/* Text Styles */
+.section-title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 8px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 1px;
+}
+
+.brand-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--brand-a),
+    var(--brand-b),
+    var(--brand-c)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.02) 70%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.01) 50%,
+      transparent 100%
+    ),
+    linear-gradient(
+      0deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.01) 50%,
+      transparent 100%
+    );
+  background-size: 60px 60px;
+  opacity: 0.3;
+}
+
+/* Decorative Elements */
+.divider {
+  height: 1px;
+  background: var(--border);
+  width: 100%;
+  border-radius: 0;
+}
+
+.laces {
+  --laces-w: clamp(64px, 12vw, 140px);
+  --laces-h: 3px;
+  position: relative;
+  width: var(--laces-w);
+  height: var(--laces-h);
+  margin: 0.5rem auto 0;
+  background: var(--brand-a);
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -40px;
+  background: var(--primary);
+  color: var(--background);
+  padding: 8px 12px;
+  border-radius: 2px;
+  z-index: 1000;
+  transition: top 150ms ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 8px;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+/* Screen Reader Content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 0;
+  border: 1px solid var(--muted);
+  transition: background 150ms ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--muted);
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--muted);
+}

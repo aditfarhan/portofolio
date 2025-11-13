@@ -1,0 +1,394 @@
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable meteor animations for users who prefer reduced motion */
+  .meteor-container,
+  .meteor-shower-burst,
+  .star-field {
+    display: none;
+  }
+
+  /* Keep moon but reduce animation */
+  .moon.ultra-bright {
+    animation: none;
+  }
+
+  /* Disable all complex animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .shimmer-card.jewel-profile::before,
+  .shimmer-card.jewel-profile::after,
+  .shimmer-card.jewel-profile .jewel-sparkle,
+  .about-constellation .jewel-sparkle {
+    animation: none;
+  }
+
+  .bg-card:hover,
+  .btn:hover,
+  .btn-outline:hover {
+    transform: none;
+  }
+}
+
+/* Enhanced Responsive Design for All Screen Sizes */
+@media (max-width: 480px) {
+  /* Extra small devices - very mobile optimized */
+  .star-field .star.small {
+    display: none;
+  }
+
+  .star-field .star.medium {
+    width: 1px;
+    height: 1px;
+  }
+
+  .meteor {
+    width: 2px;
+    height: 2px;
+  }
+
+  .meteor::before {
+    width: 0.3px;
+    height: 10px;
+  }
+
+  .meteor::after {
+    width: 0.8px;
+    height: 8px;
+  }
+
+  .meteor-shower-burst {
+    display: none; /* Disable meteor bursts on very small screens */
+  }
+
+  .moon.ultra-bright {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  /* Small tablets */
+  .star-field .star.small {
+    width: 0.5px;
+    height: 0.5px;
+  }
+
+  .meteor {
+    width: 4px;
+    height: 4px;
+  }
+
+  .meteor::before {
+    height: 20px;
+  }
+
+  .meteor::after {
+    height: 12px;
+  }
+
+  .meteor-shower-burst {
+    opacity: 0.6; /* Reduce intensity */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablets and small laptops */
+  .star-field .star.small {
+    display: block;
+    opacity: 0.4;
+  }
+
+  .meteor {
+    width: 5px;
+    height: 5px;
+  }
+
+  .meteor::before {
+    height: 30px;
+  }
+
+  .meteor::after {
+    height: 18px;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* Desktop and larger screens - full effects */
+  .star-field .star.small {
+    display: block;
+    opacity: 0.3;
+  }
+
+  .star-field .star.medium {
+    opacity: 0.6;
+  }
+
+  .star-field .star.large {
+    opacity: 0.9;
+  }
+
+  .meteor {
+    width: 6px;
+    height: 6px;
+  }
+
+  .meteor::before {
+    height: 40px;
+  }
+
+  .meteor::after {
+    height: 25px;
+  }
+}
+
+/* High-end displays */
+@media (min-width: 1440px) {
+  .star-field .star.large {
+    width: 4px;
+    height: 4px;
+  }
+
+  .star-field .star.medium {
+    width: 3px;
+    height: 3px;
+  }
+
+  .meteor {
+    width: 8px;
+    height: 8px;
+  }
+
+  .meteor::before {
+    height: 50px;
+  }
+
+  .meteor::after {
+    height: 30px;
+  }
+
+  .moon.ultra-bright {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Landscape orientation optimizations */
+@media (orientation: landscape) and (max-height: 500px) {
+  .star-field .star.small {
+    display: none;
+  }
+
+  .meteor::before {
+    height: 15px; /* Shorter trails in landscape */
+  }
+
+  .meteor::after {
+    height: 10px;
+  }
+
+  .moon.ultra-bright {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Portrait orientation optimizations */
+@media (orientation: portrait) {
+  .meteor-shower-burst .meteor-burst {
+    animation-duration: 1.2em; /* Slower in portrait for better visibility */
+  }
+}
+
+/* Optimize for Mobile Performance */
+@media (max-width: 768px) {
+  .star-field .star.small {
+    display: none; /* Hide small stars on mobile for performance */
+  }
+
+  .meteor {
+    width: 3px;
+    height: 3px; /* Smaller meteors on mobile */
+  }
+
+  .meteor::before {
+    width: 0.5px;
+    height: 15px; /* Shorter trails on mobile */
+  }
+
+  .meteor::after {
+    width: 1px;
+    height: 10px;
+  }
+
+  .mobile-scroll-fix {
+    /* Create proper containing block for mobile */
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* 3D Context Fixes */
+@media (min-width: 769px) {
+  /* CRITICAL: Break out of 3D context completely for scrollable content */
+  .about-content-portal .mobile-scroll-fix {
+    /* Force explicit 2D context */
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+    perspective: none !important;
+    -webkit-perspective: none !important;
+
+    /* Ensure scrollable behavior */
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    scroll-behavior: auto !important;
+
+    /* Force stacking context isolation */
+    position: relative !important;
+    z-index: 1 !important;
+
+    /* Mouse event optimization */
+    pointer-events: auto !important;
+    -ms-overflow-style: auto !important;
+
+    /* Hardware acceleration for smooth scrolling */
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    will-change: scroll-position !important;
+  }
+
+  /* Fix the portal container itself */
+  .about-content-portal {
+    /* Remove any overflow restrictions */
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 1 !important;
+
+    /* Ensure proper containing block */
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+    perspective: none !important;
+    -webkit-perspective: none !important;
+  }
+
+  /* Ensure tab panels work properly on desktop */
+  [role="tabpanel"] {
+    /* Force proper containment */
+    position: relative !important;
+    z-index: 1 !important;
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+    perspective: none !important;
+    -webkit-perspective: none !important;
+  }
+
+  /* Special handling for experience timeline */
+  .about-content-portal [role="tabpanel"] [role="tablist"] {
+    /* Override any 3D interference */
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+    perspective: none !important;
+    -webkit-perspective: none !important;
+    /* Ensure scrolling works */
+    overflow-y: auto !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Mouse wheel specific fixes */
+  .about-content-portal * {
+    /* Ensure mouse events propagate properly */
+    pointer-events: inherit !important;
+  }
+}
+
+/* Enhanced mobile scrolling - preserve existing functionality */
+@media (max-width: 768px) {
+  .mobile-scroll-fix {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+    /* Apply hardware acceleration only on mobile */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: scroll-position;
+  }
+
+  /* Fix About Me tab content container on mobile */
+  .about-content-portal {
+    overflow: visible;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+}
+
+/* GPU Acceleration for Better Performance */
+.meteor,
+.meteor-burst,
+.star,
+.moon {
+  transform: translateZ(0);
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* High DPI Display Optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .star.medium {
+    width: 1px;
+    height: 1px;
+  }
+
+  .star.large {
+    width: 2px;
+    height: 2px;
+  }
+}
+
+/* Browser-specific optimizations */
+@supports (-webkit-appearance: none) {
+  .meteor::before {
+    -webkit-transform: translateY(-50%) rotate(45deg);
+  }
+
+  .meteor::after {
+    -webkit-transform: translateY(-50%) rotate(45deg);
+  }
+}
+
+/* Firefox specific optimizations */
+@-moz-document url-prefix() {
+  .meteor,
+  .meteor-burst,
+  .star,
+  .moon {
+    -moz-transform: translateZ(0);
+  }
+}
+
+/* Fallback for browsers without CSS Grid/Flexbox support */
+@supports not (display: grid) {
+  .star-field {
+    display: block;
+  }
+
+  .star {
+    position: absolute;
+  }
+}
+
+/* Print media optimization */
+@media print {
+  .meteor-container,
+  .meteor-shower-burst,
+  .star-field,
+  .moon {
+    display: none !important;
+  }
+}

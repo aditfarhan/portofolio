@@ -1,0 +1,913 @@
+/* ========== COMPONENT STYLES ========== */
+
+/* Background Components */
+.night-sky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -5;
+  background: radial-gradient(
+    ellipse at center bottom,
+    rgba(20, 25, 40, 0.3) 0%,
+    rgba(10, 15, 25, 0.6) 40%,
+    rgba(5, 8, 15, 0.8) 70%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+.night-sky::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 20% 80%,
+    rgba(30, 40, 60, 0.2) 0%,
+    transparent 50%
+  );
+}
+
+.night-sky::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 80% 70%,
+    rgba(40, 50, 80, 0.1) 0%,
+    transparent 60%
+  );
+}
+
+.star-field {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -3;
+}
+
+.star {
+  position: absolute;
+  background: radial-gradient(
+    circle,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  border-radius: 50%;
+  animation: starTwinkle 3s ease-in-out infinite;
+}
+
+.star.small {
+  width: 1px;
+  height: 1px;
+  opacity: 0.3;
+  animation-duration: 4s;
+}
+
+.star.medium {
+  width: 2px;
+  height: 2px;
+  opacity: 0.6;
+  animation-duration: 5s;
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+.star.large {
+  width: 3px;
+  height: 3px;
+  opacity: 0.9;
+  animation-duration: 6s;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.meteor-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.meteor {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: linear-gradient(45deg, #ffffff, rgba(255, 255, 255, 0.8));
+  border-radius: 50%;
+  animation: meteorGlow 3s ease-in-out infinite;
+}
+
+.meteor::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 1px;
+  height: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), transparent);
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: right center;
+}
+
+.meteor-1 {
+  animation: meteorFall1 15s linear infinite;
+  animation-delay: 0s;
+}
+
+.meteor-2 {
+  animation: meteorFall2 18s linear infinite;
+  animation-delay: 5s;
+}
+
+.meteor-3 {
+  animation: meteorFall3 20s linear infinite;
+  animation-delay: 8s;
+}
+
+.meteor-4 {
+  animation: meteorFall1 12s linear infinite;
+  animation-delay: 12s;
+}
+
+.meteor-5 {
+  animation: meteorFall2 16s linear infinite;
+  animation-delay: 3s;
+}
+
+.meteor-6 {
+  animation: meteorFall3 22s linear infinite;
+  animation-delay: 7s;
+}
+
+.meteor-shower-burst {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.meteor-burst {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: radial-gradient(circle, #ffffff 0%, #ffff99 50%, #ffcc00 100%);
+  border-radius: 50%;
+  animation: meteorShowerBurst 8s ease-out infinite;
+  box-shadow: 0 0 10px rgba(255, 255, 100, 0.8),
+    0 0 20px rgba(255, 200, 50, 0.6), 0 0 30px rgba(255, 150, 0, 0.4);
+}
+
+.meteor-burst::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 0.5px;
+  height: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 100, 1),
+    rgba(255, 200, 50, 0.8),
+    rgba(255, 150, 0, 0.4),
+    transparent
+  );
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: right center;
+  border-radius: 1px;
+  animation: meteorShowerExplosion 6s ease-out infinite;
+}
+
+.moon {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at 30% 30%, #f0f0f0, #d0d0d0, #a0a0a0);
+  border-radius: 50%;
+  animation: moonGlow 6s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.moon::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 8px;
+  height: 8px;
+  background: rgba(160, 160, 160, 0.5);
+  border-radius: 50%;
+  filter: blur(0.5px);
+}
+
+.moon::after {
+  content: "";
+  position: absolute;
+  top: 40%;
+  right: 25%;
+  width: 6px;
+  height: 6px;
+  background: rgba(140, 140, 140, 0.4);
+  border-radius: 50%;
+  filter: blur(0.5px);
+}
+
+.moon.realistic {
+  position: fixed;
+  top: 8vh;
+  right: 12vw;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(
+      circle at 40% 35%,
+      #fdfdfd 0%,
+      #f0f0f0 25%,
+      #e8e8e8 45%,
+      #d0d0d0 70%,
+      #b0b0b0 90%,
+      #909090 100%
+    ),
+    radial-gradient(
+      circle at 25% 30%,
+      rgba(140, 140, 140, 0.3) 0%,
+      rgba(160, 160, 160, 0.2) 20%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 70% 60%,
+      rgba(120, 120, 120, 0.25) 0%,
+      rgba(140, 140, 140, 0.15) 15%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(150, 150, 150, 0.2) 0%,
+      rgba(160, 160, 160, 0.1) 25%,
+      transparent 45%
+    );
+  border-radius: 50%;
+  animation: realisticMoonAtmosphere 25s ease-in-out infinite,
+    lunarPhase 40s ease-in-out infinite;
+  z-index: -4;
+  pointer-events: none;
+  box-shadow: inset -8px -8px 15px rgba(150, 150, 150, 0.3),
+    inset 5px 5px 10px rgba(255, 255, 255, 0.6),
+    0 0 30px rgba(255, 255, 255, 0.15), 0 0 60px rgba(255, 255, 255, 0.08),
+    0 0 100px rgba(200, 200, 255, 0.04);
+}
+
+.moon.realistic::before {
+  content: "";
+  position: absolute;
+  top: 25%;
+  left: 35%;
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(
+    circle,
+    rgba(120, 120, 120, 0.4) 0%,
+    rgba(100, 100, 100, 0.6) 30%,
+    rgba(140, 140, 140, 0.3) 60%,
+    transparent 80%
+  );
+  border-radius: 50%;
+  filter: blur(0.5px);
+  box-shadow: 2px 2px 6px rgba(100, 100, 100, 0.4),
+    inset -1px -1px 3px rgba(80, 80, 80, 0.3);
+}
+
+.moon.realistic::after {
+  content: "";
+  position: absolute;
+  top: 60%;
+  right: 25%;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(
+    circle,
+    rgba(130, 130, 130, 0.3) 0%,
+    rgba(110, 110, 110, 0.5) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(0.3px);
+  box-shadow: 1px 1px 4px rgba(90, 90, 90, 0.3),
+    inset -0.5px -0.5px 2px rgba(70, 70, 70, 0.2);
+}
+
+.moon.ultra-bright {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(
+      circle at 35% 30%,
+      #ffffff 0%,
+      #f0f0f0 20%,
+      #e8e8e8 40%,
+      #d0d0d0 70%,
+      #b0b0b0 100%
+    ),
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 50%
+    );
+  border-radius: 50%;
+  animation: brightMoonGlow 15s ease-in-out infinite,
+    brightMoonFloat 20s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.3),
+    0 0 80px rgba(255, 255, 255, 0.2), 0 0 120px rgba(255, 255, 255, 0.1),
+    inset -6px -6px 12px rgba(200, 200, 200, 0.3),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.9);
+  filter: brightness(1.3) contrast(1.2);
+}
+
+/* Enhanced Meteor Styles */
+.meteor.enhanced {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: radial-gradient(
+    circle,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  border-radius: 50%;
+}
+
+.meteor.enhanced::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 0.5px;
+  height: 25px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: right center;
+  border-radius: 1px;
+}
+
+.meteor.enhanced::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 1px;
+  height: 15px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: right center;
+  filter: blur(0.3px);
+}
+
+.meteor.spectacular {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(circle, #ffffff 0%, #ffffcc 40%, #ffffff 100%);
+  border-radius: 50%;
+  animation: spectacularMeteorTrail 3s ease-in-out infinite;
+}
+
+.meteor.spectacular::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 1px;
+  height: 35px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.9) 20%,
+    rgba(255, 255, 255, 0.7) 40%,
+    rgba(255, 255, 255, 0.4) 60%,
+    rgba(255, 255, 255, 0.2) 80%,
+    transparent 100%
+  );
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: right center;
+  border-radius: 1px;
+  animation: spectacularMeteorTrail 2.5s ease-in-out infinite;
+}
+
+.meteor.spectacular::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 1px;
+  height: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.6) 30%,
+    rgba(255, 255, 255, 0.3) 60%,
+    transparent 100%
+  );
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: right center;
+  filter: blur(0.2px);
+  animation: spectacularMeteorTrail 3.5s ease-in-out infinite;
+}
+
+.meteor.ball-shaped {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(
+    circle,
+    #ffffff 0%,
+    #fff5dd 15%,
+    #ffeeaa 30%,
+    #ffcc66 45%,
+    #ff9900 60%,
+    #cc6600 75%,
+    #8a4b00 90%,
+    #5a2a00 100%
+  );
+  border-radius: 50%;
+  animation: meteorBallGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(255, 200, 100, 0.8),
+    0 0 20px rgba(255, 150, 50, 0.6), 0 0 30px rgba(255, 100, 0, 0.4),
+    0 0 40px rgba(200, 50, 0, 0.2);
+}
+
+.meteor.ball-shaped::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 0.8px;
+  height: 100px;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 240, 150, 1) 0%,
+    rgba(255, 200, 100, 0.9) 5%,
+    rgba(255, 180, 60, 0.8) 10%,
+    rgba(255, 140, 40, 0.7) 15%,
+    rgba(255, 100, 20, 0.6) 20%,
+    rgba(255, 80, 10, 0.5) 25%,
+    rgba(200, 40, 0, 0.4) 30%,
+    rgba(150, 20, 0, 0.3) 35%,
+    rgba(100, 10, 0, 0.2) 40%,
+    rgba(50, 0, 0, 0.1) 50%,
+    transparent 100%
+  );
+  transform: translateY(-35%) rotate(45deg);
+  transform-origin: right center;
+  border-radius: 0.4px;
+  animation: meteorTailFlow 3s ease-in-out infinite;
+  box-shadow: 0 0 3px rgba(255, 220, 100, 0.6),
+    0 2px 6px rgba(255, 150, 50, 0.4), 0 4px 12px rgba(255, 100, 20, 0.3),
+    0 6px 18px rgba(200, 50, 0, 0.2);
+}
+
+.meteor.ball-shaped::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 1.2px;
+  height: 80px;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 250, 200, 0.9) 0%,
+    rgba(255, 220, 120, 0.8) 8%,
+    rgba(255, 180, 80, 0.7) 15%,
+    rgba(255, 140, 60, 0.6) 22%,
+    rgba(255, 100, 40, 0.5) 30%,
+    rgba(200, 50, 20, 0.4) 40%,
+    rgba(150, 30, 10, 0.3) 50%,
+    transparent 100%
+  );
+  transform: translateY(-25%) rotate(45deg);
+  transform-origin: right center;
+  border-radius: 0.6px;
+  animation: meteorTailFlow 2.8s ease-in-out infinite;
+  filter: blur(0.2px);
+  box-shadow: 0 0 2px rgba(255, 240, 150, 0.5),
+    0 1px 3px rgba(255, 200, 100, 0.4), 0 2px 6px rgba(255, 160, 60, 0.3);
+}
+
+/* Card Components */
+.card-flip-container {
+  perspective: 1200px;
+}
+
+.card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card-flip-front,
+.card-flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card-flip-back {
+  transform: rotateY(180deg);
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.rotate-y-0 {
+  transform: rotateY(0deg);
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.card-floating {
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+  transition: box-shadow 150ms ease;
+}
+
+.card-floating:hover {
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
+/* Action Components */
+.action-group {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background-color: var(--card);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.action-cta {
+  height: 48px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: var(--background);
+  text-decoration: none;
+  border-right: 1px solid var(--border);
+  background-image: linear-gradient(135deg, var(--brand-a), var(--brand-b));
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: filter 150ms ease, transform 150ms ease;
+}
+
+.action-cta:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.action-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border);
+}
+
+.action-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--muted-fg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: color 140ms ease, background-color 140ms ease,
+    transform 140ms ease;
+  border-left: 1px solid var(--border);
+}
+
+.action-icon:hover,
+.action-icon:focus-visible {
+  color: var(--foreground);
+  background-color: var(--border);
+  transform: translateY(-1px);
+}
+
+/* Logo Components */
+.logo-chip {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--card);
+  transition: all 140ms ease;
+  overflow: hidden;
+}
+
+.logo-chip img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0.8) contrast(1.1);
+  pointer-events: none;
+}
+
+.logo-chip:hover {
+  border-color: var(--foreground);
+  background-color: var(--border);
+  transform: translateY(-1px);
+}
+
+.logo-chip--selected {
+  border-color: var(--foreground);
+  background-color: var(--border);
+  box-shadow: 0 0 0 2px var(--accent) inset;
+}
+
+/* Shimmer Effects */
+.shimmer-card.jewel-profile {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-card.jewel-profile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.04) 45%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.04) 55%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 50%
+    );
+  background-size: 120% 100%, 200px 200px, 150px 150px;
+  animation: premiumShimmer 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.shimmer-card.jewel-profile::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.015) 50%,
+    transparent 70%
+  );
+  background-size: 100px 100px;
+  animation: premiumShimmer 12s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.jewel-sparkle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+  animation: diamondGlow 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.jewel-sparkle:nth-child(1) {
+  top: 20%;
+  right: 30%;
+  animation-delay: 0s;
+}
+
+.jewel-sparkle:nth-child(2) {
+  bottom: 25%;
+  left: 35%;
+  animation-delay: 2s;
+}
+
+.jewel-sparkle:nth-child(3) {
+  top: 50%;
+  right: 25%;
+  animation-delay: 4s;
+}
+
+.jewel-sparkle:nth-child(7) {
+  top: 30%;
+  left: 40%;
+  animation-delay: 1s;
+}
+
+.jewel-sparkle:nth-child(8) {
+  bottom: 40%;
+  right: 35%;
+  animation-delay: 3s;
+}
+
+.jewel-sparkle:nth-child(9) {
+  top: 60%;
+  left: 25%;
+  animation-delay: 5s;
+}
+
+/* Additional Components */
+.about-constellation {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  isolation: isolate;
+}
+
+.geometric-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--border);
+  border-radius: 1px;
+}
+
+.geometric-line--lg {
+  width: 80%;
+  height: 1px;
+  opacity: 0.3;
+}
+
+.geometric-line--md {
+  width: 60%;
+  height: 1px;
+  opacity: 0.4;
+}
+
+.geometric-line--sm {
+  width: 40%;
+  height: 1px;
+  opacity: 0.5;
+}
+
+.orb {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 4px var(--accent);
+}
+
+.orb-a {
+  top: 20%;
+  left: 60%;
+}
+
+.orb-b {
+  top: 60%;
+  left: 25%;
+}
+
+.orb-c {
+  top: 40%;
+  left: 80%;
+}
+
+/* Meteor Enhancement Classes */
+.meteor-outer-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 180, 60, 0.3) 0%,
+    rgba(255, 150, 40, 0.2) 40%,
+    rgba(255, 100, 20, 0.1) 60%,
+    transparent 80%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: meteorBallGlow 2s ease-in-out infinite;
+  animation-delay: -0.5s;
+}
+
+.meteor-inner-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(
+    circle,
+    #ffffff 0%,
+    #ffffff 30%,
+    #ffeeaa 50%,
+    #ffcc44 70%,
+    #ff8800 100%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: meteorCoreGlow 1.5s ease-in-out infinite;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.9), 0 0 8px rgba(255, 240, 120, 0.7),
+    0 0 12px rgba(255, 200, 80, 0.5);
+}
+
+.crater-large {
+  position: absolute;
+  top: 45%;
+  left: 60%;
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(
+    circle,
+    rgba(115, 115, 115, 0.5) 0%,
+    rgba(95, 95, 95, 0.7) 35%,
+    rgba(135, 135, 135, 0.4) 65%,
+    transparent 85%
+  );
+  border-radius: 50%;
+  filter: blur(0.4px);
+}
+
+.crater-small {
+  position: absolute;
+  top: 35%;
+  right: 45%;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(
+    circle,
+    rgba(125, 125, 125, 0.4) 0%,
+    rgba(105, 105, 105, 0.6) 30%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(0.2px);
+}

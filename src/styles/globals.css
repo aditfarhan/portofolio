@@ -1,0 +1,37 @@
+/* ========== MAIN STYLESHEET ========== */
+/* Import all style modules for organized architecture */
+
+/* Import Tailwind first */
+@import "tailwindcss";
+
+/* Import modular stylesheets */
+@import "./themes.css";
+@import "./animations.css";
+@import "./additional-animations.css";
+@import "./components.css";
+@import "./utilities.css";
+@import "./responsive.css";
+
+/* ========== BASE STYLES ========== */
+
+/* Base */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    Segoe UI, Roboto, Helvetica, Arial;
+  text-rendering: optimizeLegibility;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Ensure Tailwind imports font variables */
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
