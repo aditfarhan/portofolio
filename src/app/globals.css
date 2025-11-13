@@ -838,9 +838,9 @@ html {
 .rotate-y-0 {
   transform: rotateY(0deg);
 }
-/* Mobile Scrolling Fix for 3D Contexts - Targeted approach */
+/* Scroll Fix for 3D Contexts - Works on all screen sizes */
 .mobile-scroll-fix {
-  /* Enable smooth scrolling on mobile while preserving 3D */
+  /* Enable smooth scrolling on all devices */
   -webkit-overflow-scrolling: touch;
   overflow-scrolling: touch;
   /* Create new stacking context */
@@ -848,31 +848,26 @@ html {
   -webkit-transform: translateZ(0);
   /* Ensure proper rendering context */
   will-change: scroll-position;
-  /* Prevent interference from 3D transforms */
+  /* Prevent interference from 3D transforms - KEY FIX FOR DESKTOP */
   perspective: 0;
   -webkit-perspective: 0;
 }
 
-/* Enhanced mobile scroll fixes for tab panels */
+/* Ensure tab content scrolls properly */
+[role="tabpanel"] .mobile-scroll-fix {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Prevent parent 3D transforms from affecting scroll */
+  transform-style: flat;
+  -webkit-transform-style: flat;
+}
+
+/* Additional mobile-specific fixes */
 @media (max-width: 768px) {
   .mobile-scroll-fix {
-    /* Additional mobile-specific fixes */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    /* Force hardware acceleration for smooth scrolling */
-    will-change: scroll-position;
-    /* Create proper containing block */
+    /* Create proper containing block for mobile */
     position: relative;
     z-index: 1;
-  }
-
-  /* Ensure tab content scrolls properly */
-  [role="tabpanel"] .mobile-scroll-fix {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    /* Prevent parent 3D transforms from affecting scroll */
-    transform-style: flat;
-    -webkit-transform-style: flat;
   }
 }
 
@@ -2670,23 +2665,93 @@ html {
     0 0 12px rgba(255, 200, 80, 0.5);
 }
 
-/* Enhanced mobile scrolling fix for tab content inside 3D contexts */
-/* Only apply on mobile devices to avoid breaking desktop interactions */
+/* Comprehensive Desktop Mouse Wheel Scroll Fix for About Me Tab */
+@media (min-width: 769px) {
+  /* CRITICAL: Break out of 3D context completely for scrollable content */
+  .about-content-portal .mobile-scroll-fix {
+    /* Force explicit 2D context */
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+    perspective: none !important;
+    -webkit-perspective: none !important;
+
+    /* Ensure scrollable behavior */
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    scroll-behavior: auto !important;
+
+    /* Force stacking context isolation */
+    position: relative !important;
+    z-index: 1 !important;
+
+    /* Mouse event optimization */
+    pointer-events: auto !important;
+    -ms-overflow-style: auto !important;
+
+    /* Hardware acceleration for smooth scrolling */
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    will-change: scroll-position !important;
+  }
+
+  /* Fix the portal container itself */
+  .about-content-portal {
+    /* Remove any overflow restrictions */
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 1 !important;
+
+    /* Ensure proper containing block */
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+    perspective: none !important;
+    -webkit-perspective: none !important;
+  }
+
+  /* Ensure tab panels work properly on desktop */
+  [role="tabpanel"] {
+    /* Force proper containment */
+    position: relative !important;
+    z-index: 1 !important;
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+    perspective: none !important;
+    -webkit-perspective: none !important;
+  }
+
+  /* Special handling for experience timeline */
+  .about-content-portal [role="tabpanel"] [role="tablist"] {
+    /* Override any 3D interference */
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+    perspective: none !important;
+    -webkit-perspective: none !important;
+    /* Ensure scrolling works */
+    overflow-y: auto !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Mouse wheel specific fixes */
+  .about-content-portal * {
+    /* Ensure mouse events propagate properly */
+    pointer-events: inherit !important;
+  }
+}
+
+/* Enhanced mobile scrolling - preserve existing functionality */
 @media (max-width: 768px) {
   .mobile-scroll-fix {
-    /* Force proper touch scrolling behavior on mobile */
     -webkit-overflow-scrolling: touch;
     overflow-scrolling: touch;
     /* Apply hardware acceleration only on mobile */
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    will-change: scroll-position;
   }
 
   /* Fix About Me tab content container on mobile */
   .about-content-portal {
-    /* Remove overflow hidden to allow scrolling */
     overflow: visible;
-    /* Enable proper touch behavior */
     -webkit-overflow-scrolling: touch;
     overflow-scrolling: touch;
   }
