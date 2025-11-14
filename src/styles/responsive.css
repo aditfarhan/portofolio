@@ -306,6 +306,61 @@
     /* Ensure mouse events propagate properly */
     pointer-events: inherit !important;
   }
+
+  /* CRITICAL FIX: Prevent front side from blocking back side interactions */
+  .card-flip-front {
+    /* When card is flipped, front side should not capture pointer events */
+    pointer-events: auto;
+  }
+
+  .rotate-y-180 .card-flip-front {
+    /* Disable pointer events on hidden front side when flipped */
+    pointer-events: none !important;
+  }
+
+  .card-flip-back {
+    /* Back side should capture pointer events when visible */
+    pointer-events: auto;
+  }
+
+  .rotate-y-180 .card-flip-back {
+    /* Enable pointer events on visible back side when flipped */
+    pointer-events: auto !important;
+  }
+
+  /* Ensure action buttons are always interactive when visible */
+  .card-flip-back .action-group,
+  .card-flip-back .action-cta,
+  .card-flip-back .action-icon {
+    pointer-events: auto !important;
+  }
+
+  /* Fix z-index stacking to ensure back side content is above front side when flipped */
+  .card-flip-inner {
+    position: relative;
+  }
+
+  .card-flip-front {
+    z-index: 2;
+  }
+
+  .rotate-y-180 .card-flip-front {
+    z-index: 1 !important;
+  }
+
+  .card-flip-back {
+    z-index: 1;
+  }
+
+  .rotate-y-180 .card-flip-back {
+    z-index: 2 !important;
+  }
+
+  /* Ensure ProfileCard content on back side has proper z-index */
+  .card-flip-back .action-group {
+    position: relative;
+    z-index: 10 !important;
+  }
 }
 
 /* Enhanced mobile scrolling - preserve existing functionality */
