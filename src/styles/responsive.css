@@ -380,6 +380,64 @@
     -webkit-overflow-scrolling: touch;
     overflow-scrolling: touch;
   }
+
+  /* CRITICAL FIX: Apply same pointer-events and z-index fixes for mobile */
+  .card-flip-front {
+    pointer-events: auto;
+  }
+
+  .rotate-y-180 .card-flip-front {
+    pointer-events: none !important;
+  }
+
+  .card-flip-back {
+    pointer-events: auto;
+  }
+
+  .rotate-y-180 .card-flip-back {
+    pointer-events: auto !important;
+  }
+
+  /* Ensure action buttons are always interactive when visible on mobile */
+  .card-flip-back .action-group,
+  .card-flip-back .action-cta,
+  .card-flip-back .action-icon {
+    pointer-events: auto !important;
+  }
+
+  /* Fix z-index stacking for mobile */
+  .card-flip-inner {
+    position: relative;
+  }
+
+  .card-flip-front {
+    z-index: 2;
+  }
+
+  .rotate-y-180 .card-flip-front {
+    z-index: 1 !important;
+  }
+
+  .card-flip-back {
+    z-index: 1;
+  }
+
+  .rotate-y-180 .card-flip-back {
+    z-index: 2 !important;
+  }
+
+  /* Ensure ProfileCard content on back side has proper z-index on mobile */
+  .card-flip-back .action-group {
+    position: relative;
+    z-index: 10 !important;
+  }
+
+  /* Additional mobile-specific fix: ensure touch events work properly */
+  .card-flip-back .action-cta,
+  .card-flip-back .action-icon {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    touch-action: manipulation;
+  }
 }
 
 /* GPU Acceleration for Better Performance */
