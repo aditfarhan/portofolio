@@ -9,8 +9,8 @@ export type LinkType =
   | "storybook"
   | "article"
   | "design"
-  | "video";
-
+  | "video"
+  | "case-study";
 export interface Link {
   type: LinkType;
   url: string;
