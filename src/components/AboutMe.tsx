@@ -141,9 +141,16 @@ const AboutMe = memo(function AboutMe({
   function onExpKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
     e.preventDefault();
-    const delta = e.key === "ArrowLeft" ? -1 : 1;
-    const next = (expIndex + delta + EXPERIENCE.length) % EXPERIENCE.length;
-    onExpIndexChange(next);
+
+    if (e.key === "ArrowLeft") {
+      // Go to previous index (wraps around to end if at start)
+      const prev = expIndex === 0 ? EXPERIENCE.length - 1 : expIndex - 1;
+      onExpIndexChange(prev);
+    } else if (e.key === "ArrowRight") {
+      // Go to next index (wraps around to start if at end)
+      const next = (expIndex + 1) % EXPERIENCE.length;
+      onExpIndexChange(next);
+    }
   }
 
   function onTechKeyDown(e: any) {

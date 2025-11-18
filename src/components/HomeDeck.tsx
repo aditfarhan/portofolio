@@ -3,6 +3,7 @@
 import React, { memo, useMemo } from "react";
 import { portfolio } from "@/data/portfolio";
 import type { Project } from "@/data/portfolio";
+import { EXPERIENCE } from "@/lib/constants";
 import ProfileCard from "./ProfileCard";
 import AboutMe from "./AboutMe";
 import ProjectCard from "./ProjectCard";
@@ -13,8 +14,18 @@ import { useTechGroupNavigation } from "@/hooks/useTechGroupNavigation";
 
 const HomeDeck = memo(function HomeDeck() {
   const { isFlipped, isAnimating, toggleFlip } = useFlipAnimation();
-  const { expIndex, goToNextExp } = useExperienceNavigation();
+  const { expIndex, goToNextExp, goToPrevExp, goToExp } =
+    useExperienceNavigation();
   const { techGroup, goToTechGroup } = useTechGroupNavigation();
+
+  // Create a wrapper function that handles arrow key navigation correctly
+  const handleExpIndexChange = useMemo(() => {
+    return (index: number) => {
+      if (index >= 0 && index < EXPERIENCE.length) {
+        goToExp(index);
+      }
+    };
+  }, [goToExp]);
 
   // Memoized portfolio projects slice
   const projects = useMemo(() => portfolio.projects.slice(0, 4), []);
@@ -106,7 +117,7 @@ const HomeDeck = memo(function HomeDeck() {
               <div className="card-flip-front absolute inset-0 rounded-lg bg-card border border-token p-0 overflow-hidden">
                 <AboutMe
                   expIndex={expIndex}
-                  onExpIndexChange={goToNextExp}
+                  onExpIndexChange={handleExpIndexChange}
                   techGroup={techGroup}
                   onTechGroupChange={goToTechGroup}
                 />
