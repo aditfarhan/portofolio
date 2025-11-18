@@ -41,65 +41,173 @@ export interface PortfolioData {
 export const portfolio: PortfolioData = {
   projects: [
     {
-      id: "proj-01",
-      title: "Design System Foundations",
-      tagline: "Composable UI library with tokens and theming",
+      id: "proj-00",
+      title: "National HIS & EMR Platform",
+      tagline:
+        "Clinical workflows, hospital operations, and scalable architecture",
       description:
-        "A component library built with React, TypeScript, and Tailwind CSS, featuring semantic tokens, dark mode, and accessibility-first patterns.",
-      tags: ["React", "TypeScript", "Tailwind", "A11y", "Design System"],
-      period: { start: "2024-01", end: "2024-06" },
+        "A large-scale Hospital Information System (HIS) and Electronic Medical Record (EMR) platform serving corporate and regional hospitals across Indonesia. Designed to support complex clinical workflows, high-volume transactions, and hybrid deployments across cloud and on-prem environments.",
+      tags: [
+        "React.js",
+        "Next.js",
+        "Laravel",
+        "TypeScript",
+        "Docker",
+        "Kubernetes",
+        "REST API",
+        "Feature Flags",
+        "Storybook",
+      ],
+      period: { start: "2023-12", end: "Present" },
       links: [
-        { type: "github", url: "https://github.com/", label: "Source" },
         {
-          type: "storybook",
-          url: "https://example.com/storybook",
-          label: "Storybook",
+          type: "case-study",
+          url: "https://example.com/his",
+          label: "System Overview",
         },
       ],
       highlights: [
-        "Token-driven theming with CSS variables",
-        "Composable primitives with strong typing",
-        "Automated visual regression tests",
+        "Designed and implemented core inpatient clinical flows used daily by medical teams",
+        "Led frontend architecture for scalable EMR modules across 12+ hospital environments",
+        "Enhanced platform reliability through CI/CD optimization, hybrid deployments, and performance tuning",
       ],
     },
+
+    {
+      id: "proj-01",
+      title: "OEXpress Logistics Platform",
+      tagline: "Delivery, revenue tracking, and shipment monitoring",
+      description:
+        "A modern logistics platform enabling SMEs and enterprises to manage deliveries, track performance, and operate with clarity. Built with an emphasis on reliability, consistency, and a smooth end-to-end experience.",
+      tags: ["Vue.js", "Tailwind", "SCSS", "Vuex", "REST API"],
+      period: { start: "2023-01", end: "2023-11" },
+      links: [
+        {
+          type: "case-study",
+          url: "https://example.com/oexpress",
+          label: "Project Overview",
+        },
+      ],
+      highlights: [
+        "Delivered essential logistics workflows powering daily business operations",
+        "Introduced engineering improvements including feature flags and API standards",
+        "Strengthened reliability through on-call ownership and proactive maintenance",
+      ],
+    },
+
     {
       id: "proj-02",
-      title: "Real-time Dashboard",
-      tagline: "Streaming metrics and alerting",
+      title: "IbuSibuk Ecosystem",
+      tagline: "Reseller, brand, and influencer platforms",
       description:
-        "A responsive dashboard for real-time metrics with server-sent events, skeleton loading states, and optimistic UI updates.",
-      tags: ["Next.js", "React 19", "Server Components", "Streaming UI"],
-      period: { start: "2024-03", end: "2024-09" },
+        "A refined multi-platform e-commerce ecosystem built for resellers, brands, and influencers at Orami by SIRCLO. Focused on delivering elegant user experiences, scalable frontend foundations, and long-term maintainability across high-traffic applications.",
+      tags: ["Next.js", "TypeScript", "Tailwind", "SCSS", "Redux", "REST API"],
+      period: { start: "2021-10", end: "2022-12" },
       links: [
-        { type: "demo", url: "https://example.com/demo", label: "Live Demo" },
-        { type: "docs", url: "https://example.com/docs", label: "Docs" },
-      ],
-      highlights: [
-        "Server Components for fast static routes",
-        "Edge-friendly data access patterns",
-        "Accessible charts and keyboard navigation",
-      ],
-    },
-    {
-      id: "proj-03",
-      title: "E-commerce Micro-frontend",
-      tagline: "Cart, checkout, payments",
-      description:
-        "Modular e-commerce features with route-level code-splitting, caching strategies, and payment integration.",
-      tags: ["Next.js", "TypeScript", "Payments", "SSR", "Caching"],
-      period: { start: "2023-07", end: "2023-12" },
-      links: [
-        { type: "github", url: "https://github.com/", label: "Source" },
         {
-          type: "article",
-          url: "https://example.com/blog",
-          label: "Case Study",
+          type: "case-study",
+          url: "https://example.com/ibusibuk",
+          label: "Project Overview",
         },
       ],
       highlights: [
-        "Optimized CLS and LCP with image & font strategies",
-        "Robust form UX and validation",
-        "Secure checkout flows with PCI-compliant provider",
+        "Crafted polished, reusable UI patterns supporting multiple product teams",
+        "Enhanced platform stability through thoughtful optimization and refactoring",
+        "Established consistent engineering and design standards across the ecosystem",
+      ],
+    },
+
+    {
+      id: "proj-03",
+      title: "PMT–CMT Telecom Dashboard",
+      tagline: "Operational analytics for telco leadership",
+      description:
+        "A real-time operational dashboard for Huawei, offering leadership clear visibility into telecom network performance through elegant data visualization and responsive UI components.",
+      tags: ["React.js", "Redux", "Material UI", "FusionCharts", "REST API"],
+      period: { start: "2020-10", end: "2021-10" },
+      links: [
+        {
+          type: "case-study",
+          url: "https://example.com/telco-dashboard",
+          label: "Project Overview",
+        },
+      ],
+      highlights: [
+        "Developed insightful dashboards with intuitive, data-rich visualizations",
+        "Designed seamless interaction patterns for dense analytical views",
+        "Maintained stable, reliable performance across production environments",
+      ],
+    },
+
+    {
+      id: "proj-04",
+      title: "Prime Internet (PINTER)",
+      tagline: "Customer dashboard for internet service management",
+      description:
+        "A customer-focused dashboard for tracking internet usage, managing packages, and monitoring account activity—designed with clarity, simplicity, and ease of use at its core.",
+      tags: ["React.js", "Bootstrap", "Chart.js", "REST API", "Redux"],
+      period: { start: "2019-07", end: "2019-11" },
+      links: [
+        {
+          type: "case-study",
+          url: "https://example.com/pinter",
+          label: "Project Overview",
+        },
+      ],
+      highlights: [
+        "Developed intuitive analytics and usage-monitoring visualizations",
+        "Improved user flows to create a smooth and guided experience",
+        "Delivered features in tight collaboration with backend teams",
+      ],
+    },
+
+    {
+      id: "proj-05",
+      title: "Sales Prediction Platform",
+      tagline: "Demand forecasting for 372 Kopi",
+      description:
+        "A forecasting platform turning transactional data into meaningful insights, helping a growing coffee business anticipate demand with elegant visual analysis.",
+      tags: ["Django", "Chart.js", "MySQL", "Bootstrap"],
+      period: { start: "2020-03", end: "2020-09" },
+      links: [
+        {
+          type: "case-study",
+          url: "https://example.com/sales-forecast",
+          label: "Project Overview",
+        },
+      ],
+      highlights: [
+        "Created clear, expressive dashboards to reveal sales patterns",
+        "Implemented forecasting logic paired with intuitive visual outputs",
+        "Designed a minimal, business-friendly interface for daily decision making",
+      ],
+    },
+
+    {
+      id: "proj-06",
+      title: "OurInvitation.id",
+      tagline: "Digital invitation and event microsites",
+      description:
+        "A beautifully crafted digital-invitation platform offering customizable event microsites with elegant themes, modern UI, and a seamless guest experience.",
+      tags: [
+        "React.js",
+        "Tailwind",
+        "Material UI",
+        "Styled Components",
+        "REST API",
+      ],
+      period: { start: "2021-06", end: "2021-12" },
+      links: [
+        {
+          type: "case-study",
+          url: "https://example.com/ourinvitation",
+          label: "Live Preview",
+        },
+      ],
+      highlights: [
+        "Designed dynamic templates featuring refined, modern aesthetics",
+        "Developed themeable components blending style and performance",
+        "Optimized RSVP and guest-flow interactions for a delightful experience",
       ],
     },
   ],

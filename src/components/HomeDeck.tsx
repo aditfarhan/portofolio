@@ -28,7 +28,7 @@ const HomeDeck = memo(function HomeDeck() {
   }, [goToExp]);
 
   // Memoized portfolio projects slice
-  const projects = useMemo(() => portfolio.projects.slice(0, 4), []);
+  const projects = useMemo(() => portfolio.projects, []);
 
   return (
     <>
