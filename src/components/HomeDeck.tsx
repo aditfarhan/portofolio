@@ -27,8 +27,16 @@ const HomeDeck = memo(function HomeDeck() {
     };
   }, [goToExp]);
 
-  // Memoized portfolio projects slice
-  const projects = useMemo(() => portfolio.projects, []);
+  // Memoized portfolio projects slice, sorted by start date descending
+  const projects = useMemo(
+    () =>
+      [...portfolio.projects].sort((a, b) => {
+        const aDate = a.period?.start ? new Date(a.period.start).getTime() : 0;
+        const bDate = b.period?.start ? new Date(b.period.start).getTime() : 0;
+        return bDate - aDate;
+      }),
+    []
+  );
 
   return (
     <>
@@ -81,13 +89,15 @@ const HomeDeck = memo(function HomeDeck() {
                     Projects
                   </h2>
 
-                  <div className="space-y-2 max-h-[280px] overflow-y-auto pr-1">
-                    {projects.map((project) => (
-                      <ProjectCard
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[400px] overflow-y-auto pr-1 items-start">
+                    {projects.map((project, index) => (
+                      <div
                         key={project.id}
-                        project={project}
-                        isCompact={true}
-                      />
+                        className="animate-fade-in-up"
+                        style={{ animationDelay: `${index * 100}ms` }}
+                      >
+                        <ProjectCard project={project} isCompact={true} />
+                      </div>
                     ))}
                   </div>
 
