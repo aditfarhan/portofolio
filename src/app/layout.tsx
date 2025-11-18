@@ -15,18 +15,36 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Farhan | Portfolio",
-  description: "Coffee & Soccer themed portfolio powered by Next.js",
+  title: "Muhammad Aditia Farhan | Software Engineer Portfolio",
+  description:
+    "Explore the portfolio of Muhammad Aditia Farhan, a skilled software engineer specializing in scalable web applications, healthcare technology, and modern development practices.",
+  keywords: [
+    "software engineer",
+    "portfolio",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "web development",
+  ],
+  authors: [{ name: "Muhammad Aditia Farhan" }],
+  creator: "Muhammad Aditia Farhan",
   metadataBase: new URL("http://localhost:3000"),
   openGraph: {
-    title: "Farhan | Portfolio",
-    description: "Coffee & Soccer themed portfolio powered by Next.js",
+    title: "Muhammad Aditia Farhan | Software Engineer Portfolio",
+    description:
+      "Discover innovative projects in healthcare technology, logistics platforms, and modern web development.",
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Farhan | Portfolio",
-    description: "Coffee & Soccer themed portfolio powered by Next.js",
+    title: "Muhammad Aditia Farhan | Software Engineer Portfolio",
+    description:
+      "Portfolio showcasing expertise in scalable web applications and software engineering.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

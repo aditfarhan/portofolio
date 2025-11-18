@@ -12,13 +12,15 @@ import { useFlipAnimation } from "@/hooks/useFlipAnimation";
 import { useExperienceNavigation } from "@/hooks/useExperienceNavigation";
 import { useTechGroupNavigation } from "@/hooks/useTechGroupNavigation";
 
+/**
+ * HomeDeck - Main application component with flip animation between profile/projects and about sections
+ */
 const HomeDeck = memo(function HomeDeck() {
   const { isFlipped, isAnimating, toggleFlip } = useFlipAnimation();
-  const { expIndex, goToNextExp, goToPrevExp, goToExp } =
-    useExperienceNavigation();
+  const { expIndex, goToExp } = useExperienceNavigation();
   const { techGroup, goToTechGroup } = useTechGroupNavigation();
 
-  // Create a wrapper function that handles arrow key navigation correctly
+  // Memoized experience index change handler
   const handleExpIndexChange = useMemo(() => {
     return (index: number) => {
       if (index >= 0 && index < EXPERIENCE.length) {
@@ -27,16 +29,14 @@ const HomeDeck = memo(function HomeDeck() {
     };
   }, [goToExp]);
 
-  // Memoized portfolio projects slice, sorted by start date descending
-  const projects = useMemo(
-    () =>
-      [...portfolio.projects].sort((a, b) => {
-        const aDate = a.period?.start ? new Date(a.period.start).getTime() : 0;
-        const bDate = b.period?.start ? new Date(b.period.start).getTime() : 0;
-        return bDate - aDate;
-      }),
-    []
-  );
+  // Memoized sorted projects by start date descending
+  const sortedProjects = useMemo(() => {
+    return [...portfolio.projects].sort((a, b) => {
+      const aDate = a.period?.start ? new Date(a.period.start).getTime() : 0;
+      const bDate = b.period?.start ? new Date(b.period.start).getTime() : 0;
+      return bDate - aDate;
+    });
+  }, []);
 
   return (
     <>
@@ -90,7 +90,7 @@ const HomeDeck = memo(function HomeDeck() {
                   </h2>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-1 items-start">
-                    {projects.map((project, index) => (
+                    {sortedProjects.map((project, index) => (
                       <div
                         key={project.id}
                         className="animate-fade-in-up"

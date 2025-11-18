@@ -2,7 +2,9 @@ import React, { memo } from "react";
 import type { Project } from "@/data/portfolio";
 
 interface ProjectCardProps {
+  /** The project data to display */
   project: Project;
+  /** Whether to render in compact mode for smaller layouts */
   isCompact?: boolean;
 }
 
@@ -31,6 +33,10 @@ const getIconId = (type: string) => {
   }
 };
 
+/**
+ * ProjectCard - Displays project information in a card format
+ * Supports both compact and full layouts with hover effects
+ */
 const ProjectCard = memo(function ProjectCard({
   project,
   isCompact = false,
