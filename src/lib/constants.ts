@@ -87,43 +87,43 @@ export const METEOR_CONFIGS = [
   {
     style: {
       animationName: "meteorRealisticPhysics, meteorHeatColor",
-      animationDuration: "18s, 3.5s",
+      animationDuration: "25s, 4s",
       animationDelay: "0s, 0s",
     },
   },
   {
     style: {
       animationName: "meteorMicrometeor, meteorHeatColor",
-      animationDuration: "22s, 4s",
-      animationDelay: "10s, 3s",
+      animationDuration: "30s, 4.5s",
+      animationDelay: "12s, 3.5s",
     },
   },
   {
     style: {
       animationName: "meteorRealisticFireball, meteorHeatColor",
-      animationDuration: "28s, 4s",
-      animationDelay: "20s, 5s",
-    },
-  },
-  {
-    style: {
-      animationName: "meteorRealisticPhysics, meteorHeatColor",
-      animationDuration: "15s, 3s",
-      animationDelay: "5s, 2s",
-    },
-  },
-  {
-    style: {
-      animationName: "meteorMicrometeor, meteorHeatColor",
-      animationDuration: "25s, 3.5s",
-      animationDelay: "15s, 4s",
-    },
-  },
-  {
-    style: {
-      animationName: "meteorRealisticFireball, meteorHeatColor",
-      animationDuration: "20s, 3s",
+      animationDuration: "35s, 5s",
       animationDelay: "25s, 6s",
+    },
+  },
+  {
+    style: {
+      animationName: "meteorRealisticPhysicsAlt, meteorHeatColor",
+      animationDuration: "28s, 4.2s",
+      animationDelay: "8s, 2.5s",
+    },
+  },
+  {
+    style: {
+      animationName: "meteorMicrometeorAlt, meteorHeatColor",
+      animationDuration: "32s, 4.8s",
+      animationDelay: "18s, 5s",
+    },
+  },
+  {
+    style: {
+      animationName: "meteorRealisticPhysicsAlt2, meteorHeatColor",
+      animationDuration: "26s, 3.8s",
+      animationDelay: "30s, 7s",
     },
   },
 ] as const;
@@ -133,22 +133,22 @@ export const METEOR_BURST_CONFIGS = [
   {
     style: {
       animationName: "meteorShowerBurst",
-      animationDuration: "12s",
-      animationDelay: "8s",
+      animationDuration: "18s",
+      animationDelay: "10s",
     },
   },
   {
     style: {
       animationName: "meteorShowerBurst",
-      animationDuration: "16s",
-      animationDelay: "25s",
+      animationDuration: "22s",
+      animationDelay: "28s",
     },
   },
   {
     style: {
       animationName: "meteorShowerBurst",
-      animationDuration: "14s",
-      animationDelay: "40s",
+      animationDuration: "20s",
+      animationDelay: "45s",
     },
   },
 ] as const;
