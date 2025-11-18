@@ -106,6 +106,26 @@ const ProfileCard = memo(function ProfileCard({
             </a>
 
             <a
+              href="/ATS CV 2025 3.0 - Muhammad Aditia Farhan.pdf"
+              download="Muhammad_Aditia_Farhan_CV_2025.pdf"
+              className="action-icon cv-download-btn"
+              aria-label="Download CV"
+              title="Download CV"
+              onClick={(e) => {
+                // Add download animation
+                const button = e.currentTarget;
+                button.classList.add("cv-download-animating");
+                setTimeout(() => {
+                  button.classList.remove("cv-download-animating");
+                }, 2000);
+              }}
+            >
+              <svg className="w-5 h-5" aria-hidden="true" focusable="false">
+                <use href="/icons.svg#icon-download"></use>
+              </svg>
+            </a>
+
+            <a
               href="https://www.linkedin.com/in/muhammad-aditia-farhan"
               className="action-icon"
               target="_blank"
