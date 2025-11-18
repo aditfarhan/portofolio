@@ -180,6 +180,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
+        {/* Performance optimizations */}
+        <meta name="theme-color" content="#0a0a0a" />
+        <meta name="color-scheme" content="dark light" />
+        <link rel="preload" href="/icons.svg" as="image" type="image/svg+xml" />
         {structuredData.map((data, index) => (
           <script
             key={index}

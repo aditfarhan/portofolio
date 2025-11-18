@@ -95,7 +95,7 @@ const ProfileCard = memo(function ProfileCard({
             <span aria-hidden="true" className="action-divider"></span>
 
             <a
-              href="mailto:aditia.farhan@yourdomain.com"
+              href="mailto:aditiafarhan25@gmail.com"
               className="action-icon"
               aria-label="Email Muhammad Aditia Farhan"
               title="Email"
