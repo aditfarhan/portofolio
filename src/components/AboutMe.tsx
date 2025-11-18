@@ -40,62 +40,76 @@ export default function AboutMe({
   > = {
     Build: [
       {
-        title: "Frontend",
+        title: "Frontend Engineering",
         icon: "⚡",
         items: [
-          "React.js",
-          "Next.js",
+          "React.js • Next.js",
           "Vue.js",
-          "TypeScript",
-          "JavaScript",
-          "HTML",
-          "CSS/SCSS",
+          "TypeScript • JavaScript (ES6+)",
+          "Tailwind • CSS/SCSS",
+          "Design Systems (Storybook)",
+          "Responsive & Scalable UI Architecture",
         ],
       },
       {
         title: "Backend & APIs",
         icon: "🔧",
-        items: ["Node.js", "PHP/Laravel", "REST", "GraphQL"],
+        items: [
+          "Laravel (PHP)",
+          "Node.js",
+          "RESTful APIs",
+          "GraphQL",
+          "API Contract Standardization",
+        ],
       },
     ],
+
     Ship: [
       {
         title: "DevOps & Cloud",
         icon: "☁",
         items: [
-          "Docker",
-          "TurboRepo",
-          "CI/CD (Jenkins)",
-          "CI/CD (Kaniko)",
-          "GCP",
+          "Docker • Kubernetes",
+          "TurboRepo (Monorepo)",
+          "CI/CD (Jenkins, Kaniko)",
+          "GCP • Hybrid Cloud / On-Prem",
+          "Phase Console (Deployment Management)",
+          "Secrets Management (Vault)",
         ],
       },
       {
-        title: "Databases",
+        title: "Databases & Storage",
         icon: "🗄",
-        items: ["MySQL", "PostgreSQL"],
+        items: ["PostgreSQL", "MySQL", "MinIO (Object Storage)"],
       },
     ],
+
     Lead: [
       {
-        title: "Leadership",
+        title: "Technical Leadership",
         icon: "👨‍💻",
         items: [
-          "System architecture",
-          "Code reviews",
-          "Mentorship",
-          "Agile practices",
+          "System Architecture Design",
+          "Cross-team Technical Alignment",
+          "Code Reviews & Engineering Quality",
+          "Performance Optimization",
+          "Feature Flag Strategy (Unleash)",
         ],
       },
       {
-        title: "Design & UI/UX",
-        icon: "🎨",
-        items: ["Figma", "Adobe XD"],
+        title: "Collaboration & Delivery",
+        icon: "🤝",
+        items: [
+          "Sprint Planning & Backlog Prioritization",
+          "Stakeholder Communication",
+          "Cross-functional Collaboration",
+          "Risk Mitigation & Delivery Management",
+        ],
       },
       {
-        title: "Collaboration",
-        icon: "🤝",
-        items: ["Agile", "Cross‑functional teamwork"],
+        title: "Design & Product",
+        icon: "🎨",
+        items: ["Figma", "Adobe XD", "User-centric UI/UX Thinking"],
       },
     ],
   };
@@ -338,9 +352,10 @@ export default function AboutMe({
                         Core Focus
                       </h4>
                       <p className="text-sm text-muted leading-relaxed">
-                        Building scalable web applications that solve real
-                        problems and deliver exceptional user experiences across
-                        healthcare, e-commerce, and enterprise platforms.
+                        Crafting scalable, high-performance digital platforms
+                        that elevate user experience and drive real
+                        impact—across healthcare, logistics, and modern
+                        e-commerce ecosystems.
                       </p>
                     </div>
 
@@ -349,9 +364,11 @@ export default function AboutMe({
                         Technical Passion
                       </h4>
                       <p className="text-sm text-muted leading-relaxed">
-                        Architecture design, performance optimization, and
-                        modern development practices. Continuous learning and
-                        knowledge sharing within the engineering community.
+                        Designing thoughtful architectures, optimizing
+                        performance, and championing modern engineering
+                        practices. Continuously learning, refining, and sharing
+                        knowledge to advance both product quality and team
+                        capability.
                       </p>
                     </div>
 
@@ -360,9 +377,11 @@ export default function AboutMe({
                         Leadership
                       </h4>
                       <p className="text-sm text-muted leading-relaxed">
-                        Mentoring fellow engineers, fostering collaborative
-                        teams, and driving technical excellence through clear
-                        communication and strategic thinking.
+                        Empowering engineers through mentorship, clear technical
+                        guidance, and collaborative problem-solving. Building
+                        alignment across product, stakeholders, and engineering
+                        teams to deliver solutions with clarity, precision, and
+                        purpose.
                       </p>
                     </div>
                   </div>
