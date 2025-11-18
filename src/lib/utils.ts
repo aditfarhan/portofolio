@@ -76,7 +76,7 @@ export function getIndustryContext(company: string): string {
   }
 
   if (name.includes("orderonline")) {
-    return "E-commerce & Digital Solutions";
+    return "Logistics & Warehousing";
   }
 
   if (name.includes("orami") || name.includes("sirclo")) {

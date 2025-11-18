@@ -108,6 +108,7 @@ export default function AboutMe({
 
   function onAboutKeyDown(e: any) {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
     const idx = ABOUT_TABS.indexOf(aboutTab);
     const delta = e.key === "ArrowLeft" ? -1 : 1;
     const next = (idx + delta + ABOUT_TABS.length) % ABOUT_TABS.length;
@@ -116,6 +117,7 @@ export default function AboutMe({
 
   function onExpKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
     const delta = e.key === "ArrowLeft" ? -1 : 1;
     const next = (expIndex + delta + EXPERIENCE.length) % EXPERIENCE.length;
     onExpIndexChange(next);
@@ -123,6 +125,7 @@ export default function AboutMe({
 
   function onTechKeyDown(e: any) {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
     const idx = TECH_GROUPS.indexOf(techGroup);
     const delta = e.key === "ArrowLeft" ? -1 : 1;
     const next = (idx + delta + TECH_GROUPS.length) % TECH_GROUPS.length;
@@ -246,11 +249,7 @@ export default function AboutMe({
                                       {getIndustryContext(exp.company)}
                                     </p>
                                     <span className="text-[7px] text-muted whitespace-nowrap">
-                                      {
-                                        exp.roles[
-                                          exp.roles.length - 1
-                                        ].period.split(" – ")[1]
-                                      }
+                                      {exp.roles[exp.roles.length - 1].period}
                                     </span>
                                   </div>
                                 </div>

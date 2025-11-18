@@ -11,29 +11,34 @@ export const EXPERIENCE = [
       { title: "Frontend Engineer", period: "Dec 2023 – Mar 2024" },
       { title: "Software Engineer", period: "Apr 2024 – Present" },
     ],
-    highlight: "Healthcare digital transformation",
-    achievement: "Building modern healthcare platforms serving millions",
+    highlight:
+      "Leading digital transformation across Indonesia’s hospital network",
+    achievement:
+      "Delivered scalable EMR/HIS platforms for 12+ hospitals, architected hybrid deployments, optimized CI/CD pipelines, and drove major technical initiatives like feature flags, design systems, secure storage, and secrets management.",
   },
   {
     company: "OrderOnline.id",
     location: "Bandung, Indonesia",
     roles: [{ title: "Frontend Engineer", period: "Jan 2023 – Nov 2023" }],
-    highlight: "E-commerce innovation",
-    achievement: "Delivered seamless shopping experiences at scale",
+    highlight: "Accelerating logistics and warehousing automation for SMEs",
+    achievement:
+      "Built logistics tracking apps (OEXpress, Ologi), introduced feature flags, Storybook, standardized API contracts, improved reliability through on-call, and elevated engineering quality through reviews and documentation.",
   },
   {
     company: "Orami by SIRCLO",
     location: "Tangerang, Indonesia",
     roles: [{ title: "Frontend Engineer", period: "Oct 2021 – Dec 2022" }],
-    highlight: "Enterprise e-commerce",
-    achievement: "Optimized performance for high-traffic retail platforms",
+    highlight: "Enhancing large-scale retail and reseller ecosystems",
+    achievement:
+      "Developed core modules for reseller, brand, and influencer apps, created scalable component foundations, improved performance, and strengthened frontend quality via tests, refactoring, and cross-team collaboration.",
   },
   {
     company: "PT Nexwave - Huawei",
     location: "Jakarta, Indonesia",
     roles: [{ title: "Frontend Engineer", period: "Oct 2020 – Oct 2021" }],
-    highlight: "Telecommunications tech",
-    achievement: "Contributed to next-gen telecom solutions",
+    highlight: "Empowering telco decision-making with real-time analytics",
+    achievement:
+      "Built a telecommunications analytics dashboard used by leadership, delivering reliable features, resolving issues, and supporting high-availability operations.",
   },
   {
     company: "PT Bejana Investidata Globalindo",
@@ -41,8 +46,9 @@ export const EXPERIENCE = [
     roles: [
       { title: "Frontend Engineer Intern", period: "Jul 2019 – Nov 2019" },
     ],
-    highlight: "Data-driven applications",
-    achievement: "Gained foundational experience in data visualization",
+    highlight: "Early foundation in dashboard and user-centric app development",
+    achievement:
+      "Created an internet usage dashboard with tracking and account features, contributing to new development, bug fixes, and UX improvements.",
   },
 ] as const;
 
