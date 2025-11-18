@@ -46,7 +46,7 @@ const HomeDeck = memo(function HomeDeck() {
         className="mx-auto max-w-5xl px-4 py-3 h-[100dvh] max-h-[100dvh] overflow-hidden"
         aria-label="Home deck"
       >
-        <div className="grid gap-4 sm:grid-cols-2 h-full items-center justify-items-center">
+        <div className="grid gap-5 sm:grid-cols-2 h-full items-center justify-items-center">
           {/* Left Card - Flips between Profile and Projects */}
           <div
             className={`card-flip-container relative h-[420px] sm:h-[460px] w-full ${
@@ -73,7 +73,7 @@ const HomeDeck = memo(function HomeDeck() {
               </div>
 
               {/* Back Side - Projects */}
-              <div className="card-flip-back absolute inset-0 rounded-lg bg-card border border-token p-4 overflow-hidden shimmer-card">
+              <div className="card-flip-back absolute inset-0 rounded-lg bg-card border border-token p-5 overflow-hidden shimmer-card">
                 {/* Minimalist geometric accents */}
                 <div className="about-constellation" aria-hidden="true">
                   <div className="geometric-line geometric-line--lg"></div>
@@ -84,12 +84,12 @@ const HomeDeck = memo(function HomeDeck() {
                   <span className="orb orb-c"></span>
                 </div>
 
-                <div className="h-full flex flex-col gap-3 justify-center">
+                <div className="h-full flex flex-col gap-4 justify-center">
                   <h2 className="text-center text-base sm:text-lg font-bold tracking-tight brand-gradient">
                     Projects
                   </h2>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[400px] overflow-y-auto pr-1 items-start">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-1 items-start">
                     {projects.map((project, index) => (
                       <div
                         key={project.id}

@@ -38,9 +38,9 @@ const ProjectCard = memo(function ProjectCard({
   return (
     <article
       className={`group bg-card border border-token rounded-lg ${
-        isCompact ? "p-2" : "p-4"
+        isCompact ? "p-3" : "p-5"
       } flex flex-col ${
-        isCompact ? "gap-0.5" : "gap-2"
+        isCompact ? "gap-1" : "gap-3"
       } card-floating shimmer-card hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--accent)]/20 transition-all duration-300`}
     >
       <header>
@@ -52,7 +52,7 @@ const ProjectCard = memo(function ProjectCard({
           {project.title}
         </h3>
         {project.tagline ? (
-          <div className="flex items-start gap-1 mt-1 group/tagline">
+          <div className="flex items-start gap-1 mt-2 group/tagline">
             <svg
               className="w-3 h-3 mt-0.5 text-[var(--accent)] opacity-60 flex-shrink-0 group-hover/tagline:opacity-80 group-hover/tagline:scale-110 transition-all duration-300"
               viewBox="0 0 24 24"
@@ -84,14 +84,14 @@ const ProjectCard = memo(function ProjectCard({
         <p
           className={`${
             isCompact ? "text-sm" : "text-base"
-          } text-muted pl-4 leading-relaxed group-hover/desc:text-[color-mix(in_srgb,var(--foreground)_95%,var(--muted-fg))] transition-colors duration-300`}
+          } text-muted pl-5 leading-relaxed group-hover/desc:text-[color-mix(in_srgb,var(--foreground)_95%,var(--muted-fg))] transition-colors duration-300`}
         >
           {project.description}
         </p>
       </div>
 
       {project.highlights?.length ? (
-        <div className="space-y-1 mt-2">
+        <div className="space-y-2 mt-3">
           {project.highlights.map((h, i) => (
             <div
               key={i}
@@ -113,7 +113,7 @@ const ProjectCard = memo(function ProjectCard({
       ) : null}
 
       {project.tags?.length ? (
-        <div className="flex flex-wrap gap-1 mt-1">
+        <div className="flex flex-wrap gap-1 mt-2">
           {project.tags.map((t) => (
             <span
               key={t}
@@ -126,7 +126,7 @@ const ProjectCard = memo(function ProjectCard({
       ) : null}
 
       {project.links?.length ? (
-        <div className="mt-2 flex flex-wrap gap-1">
+        <div className="mt-3 flex flex-wrap gap-1">
           {project.links.map((l, i) => {
             const iconId = getIconId(l.type);
             return (
