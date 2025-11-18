@@ -8,7 +8,7 @@
  * - techGroup: Current tech group
  * - onTechGroupChange: Callback to change tech group
  */
-import { useState } from "react";
+import React, { memo, useState, useCallback, useMemo } from "react";
 import {
   EXPERIENCE,
   ABOUT_TABS,
@@ -17,6 +17,7 @@ import {
   type TechGroup,
 } from "@/lib/constants";
 import { getLogoUrl, getLogoFallback, getIndustryContext } from "@/lib/utils";
+import { useAboutTabNavigation } from "@/hooks/useAboutTabNavigation";
 
 interface AboutMeProps {
   expIndex: number;
@@ -25,109 +26,117 @@ interface AboutMeProps {
   onTechGroupChange: (group: TechGroup) => void;
 }
 
-export default function AboutMe({
+const AboutMe = memo(function AboutMe({
   expIndex,
   onExpIndexChange,
   techGroup,
   onTechGroupChange,
 }: AboutMeProps) {
-  const [aboutTab, setAboutTab] = useState<AboutTab>("Background");
+  const { aboutTab, goToNextTab, goToPrevTab, goToTab } =
+    useAboutTabNavigation();
 
-  // Tech sections data
-  const TECH_SECTIONS: Record<
-    TechGroup,
-    Array<{ title: string; icon: string; items: string[] }>
-  > = {
-    Build: [
-      {
-        title: "Frontend Engineering",
-        icon: "⚡",
-        items: [
-          "React.js • Next.js",
-          "Vue.js",
-          "TypeScript • JavaScript (ES6+)",
-          "Tailwind • CSS/SCSS",
-          "Design Systems (Storybook)",
-          "Responsive & Scalable UI Architecture",
-        ],
-      },
-      {
-        title: "Backend & APIs",
-        icon: "🔧",
-        items: [
-          "Laravel (PHP)",
-          "Node.js",
-          "RESTful APIs",
-          "GraphQL",
-          "API Contract Standardization",
-        ],
-      },
-    ],
+  // Memoized tech sections data
+  const TECH_SECTIONS = useMemo(
+    () => ({
+      Build: [
+        {
+          title: "Frontend Engineering",
+          icon: "⚡",
+          items: [
+            "React.js • Next.js",
+            "Vue.js",
+            "TypeScript • JavaScript (ES6+)",
+            "Tailwind • CSS/SCSS",
+            "Design Systems (Storybook)",
+            "Responsive & Scalable UI Architecture",
+          ],
+        },
+        {
+          title: "Backend & APIs",
+          icon: "🔧",
+          items: [
+            "Laravel (PHP)",
+            "Node.js",
+            "RESTful APIs",
+            "GraphQL",
+            "API Contract Standardization",
+          ],
+        },
+      ],
 
-    Ship: [
-      {
-        title: "DevOps & Cloud",
-        icon: "☁",
-        items: [
-          "Docker • Kubernetes",
-          "TurboRepo (Monorepo)",
-          "CI/CD (Jenkins, Kaniko)",
-          "GCP • Hybrid Cloud / On-Prem",
-          "Phase Console (Deployment Management)",
-          "Secrets Management (Vault)",
-        ],
-      },
-      {
-        title: "Databases & Storage",
-        icon: "🗄",
-        items: ["PostgreSQL", "MySQL", "MinIO (Object Storage)"],
-      },
-    ],
+      Ship: [
+        {
+          title: "DevOps & Cloud",
+          icon: "☁",
+          items: [
+            "Docker • Kubernetes",
+            "TurboRepo (Monorepo)",
+            "CI/CD (Jenkins, Kaniko)",
+            "GCP • Hybrid Cloud / On-Prem",
+            "Phase Console (Deployment Management)",
+            "Secrets Management (Vault)",
+          ],
+        },
+        {
+          title: "Databases & Storage",
+          icon: "🗄",
+          items: ["PostgreSQL", "MySQL", "MinIO (Object Storage)"],
+        },
+      ],
 
-    Lead: [
-      {
-        title: "Technical Leadership",
-        icon: "👨‍💻",
-        items: [
-          "System Architecture Design",
-          "Cross-team Technical Alignment",
-          "Code Reviews & Engineering Quality",
-          "Performance Optimization",
-          "Feature Flag Strategy (Unleash)",
-        ],
-      },
-      {
-        title: "Collaboration & Delivery",
-        icon: "🤝",
-        items: [
-          "Sprint Planning & Backlog Prioritization",
-          "Stakeholder Communication",
-          "Cross-functional Collaboration",
-          "Risk Mitigation & Delivery Management",
-        ],
-      },
-      {
-        title: "Design & Product",
-        icon: "🎨",
-        items: ["Figma", "Adobe XD", "User-centric UI/UX Thinking"],
-      },
-    ],
-  };
+      Lead: [
+        {
+          title: "Technical Leadership",
+          icon: "👨‍💻",
+          items: [
+            "System Architecture Design",
+            "Cross-team Technical Alignment",
+            "Code Reviews & Engineering Quality",
+            "Performance Optimization",
+            "Feature Flag Strategy (Unleash)",
+          ],
+        },
+        {
+          title: "Collaboration & Delivery",
+          icon: "🤝",
+          items: [
+            "Sprint Planning & Backlog Prioritization",
+            "Stakeholder Communication",
+            "Cross-functional Collaboration",
+            "Risk Mitigation & Delivery Management",
+          ],
+        },
+        {
+          title: "Design & Product",
+          icon: "🎨",
+          items: ["Figma", "Adobe XD", "User-centric UI/UX Thinking"],
+        },
+      ],
+    }),
+    []
+  );
 
-  const aboutIds = {
-    Background: { tabId: "about-tab-bg", panelId: "about-panel-bg" },
-    Interests: { tabId: "about-tab-int", panelId: "about-panel-int" },
-    Tech: { tabId: "about-tab-tech", panelId: "about-panel-tech" },
-  } as const;
+  const aboutIds = useMemo(
+    () => ({
+      Background: { tabId: "about-tab-bg", panelId: "about-panel-bg" },
+      Interests: { tabId: "about-tab-int", panelId: "about-panel-int" },
+      Tech: { tabId: "about-tab-tech", panelId: "about-panel-tech" },
+    }),
+    []
+  );
 
-  function onAboutKeyDown(e: any) {
-    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-    e.preventDefault();
-    const idx = ABOUT_TABS.indexOf(aboutTab);
-    const delta = e.key === "ArrowLeft" ? -1 : 1;
-    const next = (idx + delta + ABOUT_TABS.length) % ABOUT_TABS.length;
-    setAboutTab(ABOUT_TABS[next]);
-  }
+  const onAboutKeyDown = useCallback(
+    (e: any) => {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      e.preventDefault();
+      if (e.key === "ArrowLeft") {
+        goToPrevTab();
+      } else {
+        goToNextTab();
+      }
+    },
+    [goToNextTab, goToPrevTab]
+  );
 
   function onExpKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
@@ -178,7 +187,7 @@ export default function AboutMe({
                 aria-controls={aboutIds[t].panelId}
                 aria-selected={aboutTab === t}
                 tabIndex={aboutTab === t ? 0 : -1}
-                onClick={() => setAboutTab(t)}
+                onClick={() => goToTab(t)}
                 className={`px-3 py-1.5 text-[13px] sm:text-sm transition-all ${
                   aboutTab === t
                     ? "bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-semibold"
@@ -506,4 +515,6 @@ export default function AboutMe({
       </div>
     </>
   );
-}
+});
+
+export default AboutMe;

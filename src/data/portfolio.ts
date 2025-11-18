@@ -34,58 +34,11 @@ export interface Project {
   highlights?: string[];
 }
 
-export interface Experience {
-  company: string;
-  role: string;
-  period: Period;
-  location?: string;
-  details?: string[];
-  links?: Link[];
-  skills?: string[];
-}
-
-export interface Profile {
-  name: string;
-  title: string;
-  location?: string;
-  email?: string;
-  social?: {
-    github?: string;
-    linkedin?: string;
-    twitter?: string;
-    website?: string;
-  };
-}
-
 export interface PortfolioData {
-  profile: Profile;
-  skills: string[];
   projects: Project[];
-  experience?: Experience[];
 }
 
-// Example dataset — replace with real content as desired.
 export const portfolio: PortfolioData = {
-  profile: {
-    name: "Farhan",
-    title: "Frontend Engineer",
-    location: "Indonesia",
-    email: "me@example.com",
-    social: {
-      github: "https://github.com/",
-      linkedin: "https://www.linkedin.com/",
-      website: "https://example.com",
-    },
-  },
-  skills: [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Tailwind CSS",
-    "Design Systems",
-    "Accessibility",
-    "Performance",
-  ],
   projects: [
     {
       id: "proj-01",
@@ -148,20 +101,6 @@ export const portfolio: PortfolioData = {
         "Robust form UX and validation",
         "Secure checkout flows with PCI-compliant provider",
       ],
-    },
-  ],
-  experience: [
-    {
-      company: "Acme Corp",
-      role: "Frontend Engineer",
-      period: { start: "2022-01", end: "Present" },
-      location: "Remote",
-      details: [
-        "Delivered accessible UI for enterprise dashboards",
-        "Led migration to TypeScript and component ownership",
-        "Improved performance budgets and CI quality gates",
-      ],
-      skills: ["React", "Next.js", "TypeScript", "Testing"],
     },
   ],
 };

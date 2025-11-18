@@ -1,11 +1,4 @@
-"use client";
-
-/**
- * ProjectCard - Individual project display component
- * Props:
- * - project: Project data from portfolio
- * - isCompact: Whether to show in compact mode
- */
+import React, { memo } from "react";
 import type { Project } from "@/data/portfolio";
 
 interface ProjectCardProps {
@@ -13,7 +6,7 @@ interface ProjectCardProps {
   isCompact?: boolean;
 }
 
-export default function ProjectCard({
+const ProjectCard = memo(function ProjectCard({
   project,
   isCompact = false,
 }: ProjectCardProps) {
@@ -89,4 +82,6 @@ export default function ProjectCard({
       ) : null}
     </article>
   );
-}
+});
+
+export default ProjectCard;

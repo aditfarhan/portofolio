@@ -1,34 +1,26 @@
-"use client";
+import React, { memo, useCallback } from "react";
 
-/**
- * ProfileCard - Reusable profile card component with elegant shimmer effect
- *
- * Props:
- * - showActionButton: Show/hide the action button group
- * - size: Card size - "large" for main profile, "small" for compact version
- * - onToggleFlip: Optional callback for flip action
- * - isFlipped: Current flip state for button label
- * - isAnimating: Animation state from parent
- */
-export default function ProfileCard({
-  showActionButton = true,
-  size = "large",
-  onToggleFlip,
-  isFlipped = false,
-  isAnimating = false,
-}: {
+interface ProfileCardProps {
   showActionButton?: boolean;
   size?: "large" | "small";
   onToggleFlip?: () => void;
   isFlipped?: boolean;
   isAnimating?: boolean;
-}) {
+}
+
+const ProfileCard = memo(function ProfileCard({
+  showActionButton = true,
+  size = "large",
+  onToggleFlip,
+  isFlipped = false,
+  isAnimating = false,
+}: ProfileCardProps) {
   const isLarge = size === "large";
 
-  const handleToggleFlip = () => {
+  const handleToggleFlip = useCallback(() => {
     if (isAnimating || !onToggleFlip) return;
     onToggleFlip();
-  };
+  }, [isAnimating, onToggleFlip]);
 
   return (
     <div
@@ -130,4 +122,6 @@ export default function ProfileCard({
       )}
     </div>
   );
-}
+});
+
+export default ProfileCard;

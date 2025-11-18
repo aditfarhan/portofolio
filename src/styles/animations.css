@@ -1,60 +1,6 @@
 /* ========== BACKGROUND EFFECTS ANIMATIONS ========== */
 
-/* Meteor Animations - Ultra-Realistic Physics */
-@keyframes meteorBurn1 {
-  0% {
-    transform: translateX(-100px) translateY(-100px) rotate(-45deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(calc(100vw + 100px)) translateY(calc(100vh + 100px))
-      rotate(-45deg);
-    opacity: 0;
-  }
-}
-
-@keyframes meteorBurn2 {
-  0% {
-    transform: translateX(-150px) translateY(-150px) rotate(-30deg);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.8;
-  }
-  80% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateX(calc(100vw + 150px)) translateY(calc(100vh + 150px))
-      rotate(-30deg);
-    opacity: 0;
-  }
-}
-
-@keyframes meteorBurn3 {
-  0% {
-    transform: translateX(-200px) translateY(-80px) rotate(-60deg);
-    opacity: 0;
-  }
-  15% {
-    opacity: 0.6;
-  }
-  85% {
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateX(calc(100vw + 200px)) translateY(calc(100vh + 80px))
-      rotate(-60deg);
-    opacity: 0;
-  }
-}
-
+/* Meteor Animations - Used in constants.ts */
 @keyframes meteorGlow {
   0%,
   100% {
@@ -66,54 +12,48 @@
   }
 }
 
-@keyframes meteorRealistic1 {
+@keyframes meteorRealisticPhysics {
   0% {
-    transform: translateX(-120px) translateY(-200px) rotate(-18deg) scale(0.2);
+    transform: translateX(-25vw) translateY(-35vh) rotate(-15deg) scale(0.25);
     opacity: 0;
-    filter: blur(3px) brightness(0.3);
-  }
-  2% {
-    opacity: 0.1;
-    filter: blur(2.5px) brightness(0.5);
+    filter: blur(3px) brightness(0.6);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
   }
   5% {
-    opacity: 0.3;
-    filter: blur(1.8px) brightness(0.8);
+    opacity: 0.1;
+    filter: blur(2.8px) brightness(0.7);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
   }
   8% {
-    opacity: 0.6;
-    filter: blur(1.2px) brightness(1.2);
+    transform: translateX(-12vw) translateY(-15vh) rotate(-16deg) scale(0.4);
+    opacity: 0.35;
+    filter: blur(2.2px) brightness(0.9);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
   }
-  12% {
-    opacity: 1;
-    filter: blur(0.5px) brightness(2) saturate(1.8);
-    transform: translateX(-40px) translateY(-60px) rotate(-20deg) scale(0.6);
-  }
-  20% {
-    opacity: 1;
-    filter: blur(0.2px) brightness(3) saturate(2.2);
-    transform: translateX(20px) translateY(80px) rotate(-22deg) scale(1);
+  18% {
+    transform: translateX(2vw) translateY(4vh) rotate(-17deg) scale(0.75);
+    opacity: 0.85;
+    filter: blur(1.4px) brightness(1.25);
   }
   40% {
-    opacity: 0.9;
-    filter: blur(0.4px) brightness(2.5) saturate(1.8);
-    transform: translateX(200px) translateY(350px) rotate(-25deg) scale(1.3);
+    transform: translateX(25vw) translateY(35vh) rotate(-18deg) scale(1);
+    opacity: 1;
+    filter: blur(1px) brightness(1.4);
   }
-  70% {
-    opacity: 0.5;
-    filter: blur(1px) brightness(1.2) saturate(1.2);
-    transform: translateX(600px) translateY(800px) rotate(-28deg) scale(1.1);
+  65% {
+    transform: translateX(65vw) translateY(80vh) rotate(-19deg) scale(0.9);
+    opacity: 0.55;
+    filter: blur(1.6px) brightness(1.1);
   }
-  90% {
-    opacity: 0.1;
-    filter: blur(2px) brightness(0.5) saturate(0.8);
-    transform: translateX(1200px) translateY(1400px) rotate(-30deg) scale(0.8);
+  85% {
+    transform: translateX(90vw) translateY(110vh) rotate(-20deg) scale(0.7);
+    opacity: 0.2;
+    filter: blur(2.4px) brightness(0.6);
   }
   100% {
-    transform: translateX(calc(100vw + 120px)) translateY(calc(100vh + 200px))
-      rotate(-32deg) scale(0.5);
+    transform: translateX(110vw) translateY(130vh) rotate(-21deg) scale(0.55);
     opacity: 0;
-    filter: blur(4px) brightness(0.1);
+    filter: blur(3.2px) brightness(0.3);
   }
 }
 
@@ -153,6 +93,84 @@
       skewX(0deg);
     opacity: 0;
     filter: blur(2.5px);
+  }
+}
+
+@keyframes meteorMicrometeor {
+  0% {
+    transform: translateX(-20vw) translateY(-30vh) rotate(-14deg) scale(0.12);
+    opacity: 0;
+    filter: blur(1.8px) brightness(0.5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.25);
+  }
+  10% {
+    opacity: 0.25;
+    filter: blur(1.5px) brightness(0.7);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+  }
+  15% {
+    transform: translateX(-8vw) translateY(-12vh) rotate(-15deg) scale(0.22);
+    opacity: 0.4;
+    filter: blur(1.2px) brightness(0.9);
+  }
+  35% {
+    transform: translateX(4vw) translateY(6vh) rotate(-16deg) scale(0.35);
+    opacity: 0.85;
+    filter: blur(0.8px) brightness(1.2);
+  }
+  65% {
+    transform: translateX(30vw) translateY(50vh) rotate(-17deg) scale(0.3);
+    opacity: 0.4;
+    filter: blur(1.3px) brightness(0.9);
+  }
+  100% {
+    transform: translateX(85vw) translateY(115vh) rotate(-18deg) scale(0.22);
+    opacity: 0;
+    filter: blur(2px) brightness(0.4);
+  }
+}
+
+@keyframes meteorHeatColor {
+  0%,
+  100% {
+    background: radial-gradient(
+      circle,
+      rgba(80, 90, 110, 0.55) 0%,
+      rgba(120, 110, 100, 0.4) 35%,
+      rgba(90, 70, 60, 0.25) 60%,
+      transparent 80%
+    );
+  }
+  18% {
+    background: radial-gradient(
+      circle,
+      rgba(190, 190, 190, 0.9) 0%,
+      rgba(230, 210, 180, 0.8) 22%,
+      rgba(210, 170, 130, 0.65) 45%,
+      rgba(170, 120, 80, 0.45) 65%,
+      transparent 88%
+    );
+  }
+  38% {
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(250, 238, 210, 0.95) 16%,
+      rgba(245, 210, 150, 0.85) 36%,
+      rgba(235, 175, 110, 0.7) 60%,
+      rgba(210, 130, 80, 0.5) 78%,
+      transparent 92%
+    );
+  }
+  65% {
+    background: radial-gradient(
+      circle,
+      rgba(240, 215, 160, 0.85) 0%,
+      rgba(230, 185, 130, 0.75) 30%,
+      rgba(210, 145, 90, 0.55) 55%,
+      rgba(160, 100, 70, 0.35) 75%,
+      transparent 90%
+    );
   }
 }
 
@@ -241,95 +259,6 @@
   }
 }
 
-@keyframes meteorShowerExplosion {
-  0% {
-    opacity: 0;
-    transform: scale(0) rotate(0deg);
-  }
-  10% {
-    opacity: 1;
-    transform: scale(0.5) rotate(45deg);
-  }
-  30% {
-    opacity: 0.9;
-    transform: scale(1) rotate(135deg);
-  }
-  60% {
-    opacity: 0.6;
-    transform: scale(0.8) rotate(225deg);
-  }
-  80% {
-    opacity: 0.3;
-    transform: scale(0.4) rotate(315deg);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0) rotate(360deg);
-  }
-}
-
-/* Meteor Physics Animations */
-@keyframes meteorFall1 {
-  0% {
-    transform: translateX(-100px) translateY(-100px) rotate(-45deg);
-  }
-  100% {
-    transform: translateX(calc(100vw + 100px)) translateY(calc(100vh + 100px))
-      rotate(-45deg);
-  }
-}
-
-@keyframes meteorFall2 {
-  0% {
-    transform: translateX(-150px) translateY(-150px) rotate(-30deg);
-  }
-  100% {
-    transform: translateX(calc(100vw + 150px)) translateY(calc(100vh + 150px))
-      rotate(-30deg);
-  }
-}
-
-@keyframes meteorFall3 {
-  0% {
-    transform: translateX(-200px) translateY(-80px) rotate(-60deg);
-  }
-  100% {
-    transform: translateX(calc(100vw + 200px)) translateY(calc(100vh + 80px))
-      rotate(-60deg);
-  }
-}
-
-/* Spectacular Meteor Effects */
-@keyframes spectacularMeteorTrail {
-  0%,
-  100% {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.9) 20%,
-      rgba(255, 255, 255, 0.7) 50%,
-      rgba(255, 255, 255, 0.4) 80%,
-      transparent 100%
-    );
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
-      0 0 20px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 255, 255, 0.2);
-  }
-  50% {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 1) 15%,
-      rgba(255, 255, 255, 0.9) 35%,
-      rgba(255, 255, 255, 0.6) 65%,
-      rgba(255, 255, 255, 0.3) 85%,
-      transparent 100%
-    );
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
-      0 0 30px rgba(255, 255, 255, 0.5), 0 0 50px rgba(255, 255, 255, 0.3),
-      0 0 70px rgba(255, 255, 255, 0.1);
-  }
-}
-
 /* Ball-shaped Meteor Effects */
 @keyframes meteorBallGlow {
   0%,
@@ -352,47 +281,5 @@
     transform: scale(1.08);
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.9),
       0 0 14px rgba(242, 238, 226, 0.48), 0 0 22px rgba(226, 218, 198, 0.28);
-  }
-}
-
-@keyframes meteorTailFlow {
-  0%,
-  100% {
-    transform: translateY(-35%) rotate(45deg) scaleX(1) scaleY(1);
-    opacity: 0.75;
-  }
-  15% {
-    transform: translateY(-28%) rotate(44deg) scaleX(1.05) scaleY(1.1);
-    opacity: 0.85;
-  }
-  30% {
-    transform: translateY(-22%) rotate(46deg) scaleX(1.15) scaleY(1.2);
-    opacity: 0.95;
-  }
-  50% {
-    transform: translateY(-18%) rotate(45deg) scaleX(1.25) scaleY(1.3);
-    opacity: 1;
-  }
-  70% {
-    transform: translateY(-22%) rotate(44deg) scaleX(1.15) scaleY(1.2);
-    opacity: 0.9;
-  }
-  85% {
-    transform: translateY(-28%) rotate(46deg) scaleX(1.05) scaleY(1.1);
-    opacity: 0.8;
-  }
-}
-
-@keyframes meteorCoreGlow {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    box-shadow: 0 0 2px rgba(255, 255, 255, 0.95),
-      0 0 4px rgba(240, 240, 240, 0.7), 0 0 7px rgba(228, 224, 214, 0.45);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.18);
-    box-shadow: 0 0 3px rgba(255, 255, 255, 1),
-      0 0 7px rgba(248, 246, 238, 0.85), 0 0 11px rgba(234, 228, 216, 0.55);
   }
 }

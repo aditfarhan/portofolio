@@ -122,34 +122,8 @@
   transform-origin: right center;
 }
 
-.meteor-1 {
-  animation: meteorFall1 15s linear infinite;
-  animation-delay: 0s;
-}
-
-.meteor-2 {
-  animation: meteorFall2 18s linear infinite;
-  animation-delay: 5s;
-}
-
-.meteor-3 {
-  animation: meteorFall3 20s linear infinite;
-  animation-delay: 8s;
-}
-
-.meteor-4 {
-  animation: meteorFall1 12s linear infinite;
-  animation-delay: 12s;
-}
-
-.meteor-5 {
-  animation: meteorFall2 16s linear infinite;
-  animation-delay: 3s;
-}
-
-.meteor-6 {
-  animation: meteorFall3 22s linear infinite;
-  animation-delay: 7s;
+.meteor-realistic-1 {
+  animation: meteorRealisticPhysics 25s linear infinite;
 }
 
 .meteor-shower-burst {
@@ -356,107 +330,7 @@
   filter: brightness(1.3) contrast(1.2);
 }
 
-/* Enhanced Meteor Styles */
-.meteor.enhanced {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  background: radial-gradient(
-    circle,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0.8) 100%
-  );
-  border-radius: 50%;
-}
-
-.meteor.enhanced::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  width: 0.5px;
-  height: 25px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.9),
-    rgba(255, 255, 255, 0.6),
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transform: translateY(-50%) rotate(45deg);
-  transform-origin: right center;
-  border-radius: 1px;
-}
-
-.meteor.enhanced::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  width: 1px;
-  height: 15px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.7),
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  transform: translateY(-50%) rotate(45deg);
-  transform-origin: right center;
-  filter: blur(0.3px);
-}
-
-.meteor.spectacular {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: radial-gradient(circle, #ffffff 0%, #ffffcc 40%, #ffffff 100%);
-  border-radius: 50%;
-  animation: spectacularMeteorTrail 3s ease-in-out infinite;
-}
-
-.meteor.spectacular::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  width: 1px;
-  height: 35px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.9) 20%,
-    rgba(255, 255, 255, 0.7) 40%,
-    rgba(255, 255, 255, 0.4) 60%,
-    rgba(255, 255, 255, 0.2) 80%,
-    transparent 100%
-  );
-  transform: translateY(-50%) rotate(45deg);
-  transform-origin: right center;
-  border-radius: 1px;
-  animation: spectacularMeteorTrail 2.5s ease-in-out infinite;
-}
-
-.meteor.spectacular::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  width: 1px;
-  height: 20px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(255, 255, 255, 0.6) 30%,
-    rgba(255, 255, 255, 0.3) 60%,
-    transparent 100%
-  );
-  transform: translateY(-50%) rotate(45deg);
-  transform-origin: right center;
-  filter: blur(0.2px);
-  animation: spectacularMeteorTrail 3.5s ease-in-out infinite;
-}
-
+/* Ball-shaped Meteor Styles */
 .meteor.ball-shaped {
   position: absolute;
   width: 5px;
@@ -475,6 +349,8 @@
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.75),
     0 0 14px rgba(240, 236, 224, 0.45), 0 0 26px rgba(216, 208, 190, 0.28);
 }
+
+/* Removed duplicate .meteor.ball-shaped rule */
 .meteor.ball-shaped::before {
   content: "";
   position: absolute;

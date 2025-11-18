@@ -1,44 +1,23 @@
 "use client";
 
-/**
- * HomeDeck - Refactored and simplified main component
- * Now delegates to smaller, focused sub-components
- */
-import { useState } from "react";
+import React, { memo, useMemo } from "react";
 import { portfolio } from "@/data/portfolio";
 import type { Project } from "@/data/portfolio";
 import ProfileCard from "./ProfileCard";
 import AboutMe from "./AboutMe";
 import ProjectCard from "./ProjectCard";
 import BackgroundEffects from "./BackgroundEffects";
-import { TECH_GROUPS, type TechGroup } from "@/lib/constants";
+import { useFlipAnimation } from "@/hooks/useFlipAnimation";
+import { useExperienceNavigation } from "@/hooks/useExperienceNavigation";
+import { useTechGroupNavigation } from "@/hooks/useTechGroupNavigation";
 
-export default function HomeDeck() {
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [expIndex, setExpIndex] = useState(0);
-  const [techGroup, setTechGroup] = useState<TechGroup>("Build");
+const HomeDeck = memo(function HomeDeck() {
+  const { isFlipped, isAnimating, toggleFlip } = useFlipAnimation();
+  const { expIndex, goToNextExp } = useExperienceNavigation();
+  const { techGroup, goToTechGroup } = useTechGroupNavigation();
 
-  // Toggle flip function
-  const toggleFlip = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setIsFlipped(!isFlipped);
-    setTimeout(() => setIsAnimating(false), 600);
-  };
-
-  // Experience navigation handlers
-  const goToPrevExp = () => {
-    setExpIndex((i) => (i - 1 + 5) % 5);
-  };
-  const goToNextExp = () => {
-    setExpIndex((i) => (i + 1) % 5);
-  };
-
-  // Tech group navigation handler
-  const onTechGroupChange = (group: TechGroup) => {
-    setTechGroup(group);
-  };
+  // Memoized portfolio projects slice
+  const projects = useMemo(() => portfolio.projects.slice(0, 4), []);
 
   return (
     <>
@@ -92,7 +71,7 @@ export default function HomeDeck() {
                   </h2>
 
                   <div className="space-y-2 max-h-[280px] overflow-y-auto pr-1">
-                    {portfolio.projects.slice(0, 4).map((project) => (
+                    {projects.map((project) => (
                       <ProjectCard
                         key={project.id}
                         project={project}
@@ -127,9 +106,9 @@ export default function HomeDeck() {
               <div className="card-flip-front absolute inset-0 rounded-lg bg-card border border-token p-0 overflow-hidden">
                 <AboutMe
                   expIndex={expIndex}
-                  onExpIndexChange={setExpIndex}
+                  onExpIndexChange={goToNextExp}
                   techGroup={techGroup}
-                  onTechGroupChange={onTechGroupChange}
+                  onTechGroupChange={goToTechGroup}
                 />
               </div>
 
@@ -149,4 +128,6 @@ export default function HomeDeck() {
       </section>
     </>
   );
-}
+});
+
+export default HomeDeck;
