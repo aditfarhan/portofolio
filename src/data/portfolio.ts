@@ -44,9 +44,9 @@ export const portfolio: PortfolioData = {
       id: "proj-00",
       title: "National HIS & EMR Platform",
       tagline:
-        "Clinical workflows, hospital operations, and scalable architecture",
+        "Powering healthcare workflows with scalable, life-saving technology",
       description:
-        "A large-scale Hospital Information System (HIS) and Electronic Medical Record (EMR) platform serving corporate and regional hospitals across Indonesia. Designed to support complex clinical workflows, high-volume transactions, and hybrid deployments across cloud and on-prem environments.",
+        "Dive into the heart of Indonesia's healthcare revolution—a comprehensive HIS and EMR platform that transforms patient care across corporate and regional hospitals. This powerhouse handles complex clinical workflows, processes millions of transactions daily, and seamlessly bridges cloud and on-premise worlds, ensuring doctors and nurses focus on what matters most: saving lives.",
       tags: [
         "React.js",
         "Next.js",
@@ -67,18 +67,19 @@ export const portfolio: PortfolioData = {
         },
       ],
       highlights: [
-        "Designed and implemented core inpatient clinical flows used daily by medical teams",
-        "Led frontend architecture for scalable EMR modules across 12+ hospital environments",
-        "Enhanced platform reliability through CI/CD optimization, hybrid deployments, and performance tuning",
+        "Crafted intuitive inpatient flows that medical teams rely on every single day",
+        "Architected frontend solutions scaling effortlessly across 12+ diverse hospital ecosystems",
+        "Boosted system resilience with cutting-edge CI/CD, hybrid deployments, and lightning-fast performance optimizations",
       ],
     },
 
     {
       id: "proj-01",
       title: "OEXpress Logistics Platform",
-      tagline: "Delivery, revenue tracking, and shipment monitoring",
+      tagline:
+        "Streamlining deliveries with real-time insights and rock-solid reliability",
       description:
-        "A modern logistics platform enabling SMEs and enterprises to manage deliveries, track performance, and operate with clarity. Built with an emphasis on reliability, consistency, and a smooth end-to-end experience.",
+        "Step into the fast-paced world of logistics where every package matters. OEXpress empowers SMEs and enterprises with a sleek platform to master deliveries, monitor performance in real-time, and navigate operations with crystal-clear visibility. Engineered for unwavering reliability and a frictionless user journey from pickup to doorstep.",
       tags: ["Vue.js", "Tailwind", "SCSS", "Vuex", "REST API"],
       period: { start: "2023-01", end: "2023-11" },
       links: [
@@ -89,18 +90,19 @@ export const portfolio: PortfolioData = {
         },
       ],
       highlights: [
-        "Delivered essential logistics workflows powering daily business operations",
-        "Introduced engineering improvements including feature flags and API standards",
-        "Strengthened reliability through on-call ownership and proactive maintenance",
+        "Built mission-critical logistics workflows that keep businesses moving every day",
+        "Pioneered engineering upgrades with smart feature flags and robust API frameworks",
+        "Fortified system uptime through dedicated on-call support and forward-thinking maintenance",
       ],
     },
 
     {
       id: "proj-02",
       title: "IbuSibuk Ecosystem",
-      tagline: "Reseller, brand, and influencer platforms",
+      tagline:
+        "Empowering e-commerce dreams for resellers, brands, and influencers",
       description:
-        "A refined multi-platform e-commerce ecosystem built for resellers, brands, and influencers at Orami by SIRCLO. Focused on delivering elegant user experiences, scalable frontend foundations, and long-term maintainability across high-traffic applications.",
+        "Welcome to the vibrant universe of IbuSibuk—an exquisite multi-platform e-commerce ecosystem at Orami by SIRCLO that brings resellers, brands, and influencers together in perfect harmony. Designed with elegance at its core, it delivers breathtaking user experiences, rock-solid frontend scalability, and enduring maintainability that handles massive traffic with grace.",
       tags: ["Next.js", "TypeScript", "Tailwind", "SCSS", "Redux", "REST API"],
       period: { start: "2021-10", end: "2022-12" },
       links: [
@@ -111,18 +113,18 @@ export const portfolio: PortfolioData = {
         },
       ],
       highlights: [
-        "Crafted polished, reusable UI patterns supporting multiple product teams",
-        "Enhanced platform stability through thoughtful optimization and refactoring",
-        "Established consistent engineering and design standards across the ecosystem",
+        "Designed elegant, reusable UI components that empowered multiple teams to shine",
+        "Elevated platform stability with strategic optimizations and smart refactoring",
+        "Set the gold standard for engineering and design consistency across the entire ecosystem",
       ],
     },
 
     {
       id: "proj-03",
       title: "PMT–CMT Telecom Dashboard",
-      tagline: "Operational analytics for telco leadership",
+      tagline: "Illuminating telecom operations with real-time intelligence",
       description:
-        "A real-time operational dashboard for Huawei, offering leadership clear visibility into telecom network performance through elegant data visualization and responsive UI components.",
+        "Enter the command center of telecom excellence—a dynamic dashboard for Huawei's leadership that unveils network performance in stunning real-time. Through sophisticated data visualizations and fluid UI interactions, it transforms complex metrics into crystal-clear insights, empowering decisions that keep the digital world connected.",
       tags: ["React.js", "Redux", "Material UI", "FusionCharts", "REST API"],
       period: { start: "2020-10", end: "2021-10" },
       links: [
@@ -133,18 +135,19 @@ export const portfolio: PortfolioData = {
         },
       ],
       highlights: [
-        "Developed insightful dashboards with intuitive, data-rich visualizations",
-        "Designed seamless interaction patterns for dense analytical views",
-        "Maintained stable, reliable performance across production environments",
+        "Engineered compelling dashboards brimming with intuitive, data-driven visualizations",
+        "Crafted fluid interaction flows that make complex analytics feel effortless",
+        "Ensured rock-solid performance and reliability in demanding production settings",
       ],
     },
 
     {
       id: "proj-04",
       title: "Prime Internet (PINTER)",
-      tagline: "Customer dashboard for internet service management",
+      tagline:
+        "Putting internet control in customers' hands with elegant simplicity",
       description:
-        "A customer-focused dashboard for tracking internet usage, managing packages, and monitoring account activity—designed with clarity, simplicity, and ease of use at its core.",
+        "Experience the future of internet management with PINTER—a customer-centric dashboard that puts control at your fingertips. Track usage in real-time, tweak packages effortlessly, and monitor account activity with breathtaking clarity. Built with simplicity as the guiding star, it makes complex internet management feel like second nature.",
       tags: ["React.js", "Bootstrap", "Chart.js", "REST API", "Redux"],
       period: { start: "2019-07", end: "2019-11" },
       links: [
@@ -155,18 +158,18 @@ export const portfolio: PortfolioData = {
         },
       ],
       highlights: [
-        "Developed intuitive analytics and usage-monitoring visualizations",
-        "Improved user flows to create a smooth and guided experience",
-        "Delivered features in tight collaboration with backend teams",
+        "Created captivating analytics and usage visualizations that speak volumes",
+        "Streamlined user journeys for an experience that's as smooth as silk",
+        "Collaborated seamlessly with backend wizards to deliver feature magic",
       ],
     },
 
     {
       id: "proj-05",
       title: "Sales Prediction Platform",
-      tagline: "Demand forecasting for 372 Kopi",
+      tagline: "Brewing smarter decisions with data-driven coffee forecasting",
       description:
-        "A forecasting platform turning transactional data into meaningful insights, helping a growing coffee business anticipate demand with elegant visual analysis.",
+        "Sip into the art of prediction with this innovative platform for 372 Kopi that transforms raw transactional data into golden insights. Watch as a thriving coffee business gains the power to foresee demand, optimize inventory, and serve customers with perfect timing—all through stunning visual analysis that makes complex data dance.",
       tags: ["Django", "Chart.js", "MySQL", "Bootstrap"],
       period: { start: "2020-03", end: "2020-09" },
       links: [
@@ -177,18 +180,19 @@ export const portfolio: PortfolioData = {
         },
       ],
       highlights: [
-        "Created clear, expressive dashboards to reveal sales patterns",
-        "Implemented forecasting logic paired with intuitive visual outputs",
-        "Designed a minimal, business-friendly interface for daily decision making",
+        "Built expressive dashboards that unveil hidden sales patterns with elegance",
+        "Wove forecasting algorithms with visuals that tell stories at a glance",
+        "Crafted a clean, intuitive interface perfect for daily business brilliance",
       ],
     },
 
     {
       id: "proj-06",
       title: "OurInvitation.id",
-      tagline: "Digital invitation and event microsites",
+      tagline:
+        "Crafting unforgettable digital invitations with timeless elegance",
       description:
-        "A beautifully crafted digital-invitation platform offering customizable event microsites with elegant themes, modern UI, and a seamless guest experience.",
+        "Step into a world where celebrations come alive digitally—OurInvitation.id, a masterpiece of customizable event microsites that blend stunning themes, cutting-edge UI, and flawless guest experiences. Whether it's a wedding, birthday, or milestone, this platform turns ordinary invites into extraordinary memories with effortless customization and breathtaking design.",
       tags: [
         "React.js",
         "Tailwind",
@@ -205,9 +209,9 @@ export const portfolio: PortfolioData = {
         },
       ],
       highlights: [
-        "Designed dynamic templates featuring refined, modern aesthetics",
-        "Developed themeable components blending style and performance",
-        "Optimized RSVP and guest-flow interactions for a delightful experience",
+        "Engineered dynamic templates that radiate modern sophistication and charm",
+        "Built flexible, themeable components where beauty meets blazing performance",
+        "Perfected RSVP flows and guest interactions for pure, joyful engagement",
       ],
     },
   ],

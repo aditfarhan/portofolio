@@ -367,9 +367,10 @@ const AboutMe = memo(function AboutMe({
                           </h4>
                         </div>
                         <p className="text-xs text-muted leading-relaxed flex-1">
-                          Building scalable digital platforms that transform
-                          healthcare, logistics, and e-commerce with
-                          cutting-edge technology.
+                          Passionate about crafting scalable digital platforms
+                          that revolutionize healthcare, logistics, and
+                          e-commerce through cutting-edge technology and
+                          innovative solutions.
                         </p>
                         <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[var(--accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                       </div>
@@ -384,9 +385,9 @@ const AboutMe = memo(function AboutMe({
                           </h4>
                         </div>
                         <p className="text-xs text-muted leading-relaxed flex-1">
-                          Architecting robust systems, optimizing performance,
-                          and embracing modern engineering practices to push
-                          boundaries.
+                          Love architecting robust systems, fine-tuning
+                          performance, and exploring modern engineering
+                          practices that push the boundaries of what's possible.
                         </p>
                         <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[var(--accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                       </div>
@@ -404,9 +405,9 @@ const AboutMe = memo(function AboutMe({
                           </h4>
                         </div>
                         <p className="text-xs text-muted leading-relaxed flex-1 max-w-full break-words">
-                          Mentoring teams, fostering collaboration, and driving
-                          alignment to deliver exceptional results with
-                          precision.
+                          Excited to mentor teams, nurture collaboration, and
+                          champion alignment for delivering exceptional results
+                          with pinpoint precision.
                         </p>
                         <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[var(--accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                       </div>

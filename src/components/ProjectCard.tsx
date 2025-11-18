@@ -41,7 +41,7 @@ const ProjectCard = memo(function ProjectCard({
         isCompact ? "p-2" : "p-4"
       } flex flex-col ${
         isCompact ? "gap-0.5" : "gap-2"
-      } card-floating shimmer-card hover:scale-[1.02] hover:shadow-lg transition-all duration-300`}
+      } card-floating shimmer-card hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--accent)]/20 transition-all duration-300`}
     >
       <header>
         <h3
@@ -83,8 +83,8 @@ const ProjectCard = memo(function ProjectCard({
         </svg>
         <p
           className={`${
-            isCompact ? "text-xs" : "text-sm"
-          } text-muted pl-4 leading-relaxed group-hover/desc:text-[color-mix(in_srgb,var(--foreground)_90%,var(--muted-fg))] transition-colors duration-300`}
+            isCompact ? "text-sm" : "text-base"
+          } text-muted pl-4 leading-relaxed group-hover/desc:text-[color-mix(in_srgb,var(--foreground)_95%,var(--muted-fg))] transition-colors duration-300`}
         >
           {project.description}
         </p>
@@ -95,7 +95,7 @@ const ProjectCard = memo(function ProjectCard({
           {project.highlights.map((h, i) => (
             <div
               key={i}
-              className="flex items-start gap-2 p-2 rounded-md bg-[color-mix(in_srgb,var(--muted)_10%,transparent)] border border-[color-mix(in_srgb,var(--muted)_20%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--accent)_5%,transparent)] transition-all duration-300 hover:scale-[1.01] hover:shadow-sm animate-fade-in-up"
+              className="flex items-start gap-2 p-3 rounded-md bg-[color-mix(in_srgb,var(--muted)_10%,transparent)] border border-[color-mix(in_srgb,var(--muted)_20%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--accent)_5%,transparent)] transition-all duration-300 hover:scale-[1.01] hover:shadow-sm animate-fade-in-up"
               style={{ animationDelay: `${(i + 1) * 100}ms` }}
             >
               <svg
@@ -106,7 +106,7 @@ const ProjectCard = memo(function ProjectCard({
               >
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
               </svg>
-              <span className="text-xs text-muted leading-relaxed">{h}</span>
+              <span className="text-sm text-muted leading-relaxed">{h}</span>
             </div>
           ))}
         </div>

@@ -61,7 +61,7 @@ const ProfileCard = memo(function ProfileCard({
           isLarge ? "text-xs sm:text-sm" : "text-xs"
         }`}
       >
-        <p>Software Engineer · 5+ yrs · Bandung State Polytechnic (2020)</p>
+        <p>Software Engineer · 5+ yrs · Bandung State Polytechnic '20</p>
         <p className="mt-1">
           High-impact scalable tech for essential industries
         </p>
