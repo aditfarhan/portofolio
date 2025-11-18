@@ -44,7 +44,7 @@ const HomeDeck = memo(function HomeDeck() {
 
       <section
         className="mx-auto max-w-5xl px-4 py-3 h-[100dvh] max-h-[100dvh] overflow-hidden"
-        aria-label="Home deck"
+        aria-label="Portfolio showcase"
       >
         <div className="grid gap-5 sm:grid-cols-2 h-full items-center justify-items-center">
           {/* Left Card - Flips between Profile and Projects */}
