@@ -1,16 +1,18 @@
 "use client";
 
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, lazy, Suspense } from "react";
 import { portfolio } from "@/data/portfolio";
 import type { Project } from "@/data/portfolio";
 import { EXPERIENCE } from "@/lib/constants";
 import ProfileCard from "./ProfileCard";
-import AboutMe from "./AboutMe";
 import ProjectCard from "./ProjectCard";
 import BackgroundEffects from "./BackgroundEffects";
 import { useFlipAnimation } from "@/hooks/useFlipAnimation";
 import { useExperienceNavigation } from "@/hooks/useExperienceNavigation";
 import { useTechGroupNavigation } from "@/hooks/useTechGroupNavigation";
+
+// Lazy load heavy components
+const AboutMe = lazy(() => import("./AboutMe"));
 
 /**
  * HomeDeck - Main application component with flip animation between profile/projects and about sections
@@ -125,12 +127,20 @@ const HomeDeck = memo(function HomeDeck() {
             >
               {/* Front Side - About Me */}
               <div className="card-flip-front absolute inset-0 rounded-lg bg-card border border-token p-0 overflow-hidden">
-                <AboutMe
-                  expIndex={expIndex}
-                  onExpIndexChange={handleExpIndexChange}
-                  techGroup={techGroup}
-                  onTechGroupChange={goToTechGroup}
-                />
+                <Suspense
+                  fallback={
+                    <div className="flex items-center justify-center h-full">
+                      <div className="text-muted">Loading...</div>
+                    </div>
+                  }
+                >
+                  <AboutMe
+                    expIndex={expIndex}
+                    onExpIndexChange={handleExpIndexChange}
+                    techGroup={techGroup}
+                    onTechGroupChange={goToTechGroup}
+                  />
+                </Suspense>
               </div>
 
               {/* Back Side - Reusable Profile Card */}

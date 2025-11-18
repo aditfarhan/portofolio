@@ -102,12 +102,12 @@
 /* Skip Link */
 .skip-link {
   position: absolute;
-  left: 8px;
-  top: -40px;
+  left: 0.5rem;
+  top: -2.5rem;
   background: var(--primary);
   color: var(--background);
-  padding: 8px 12px;
-  border-radius: 2px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.125rem;
   z-index: 1000;
   transition: top 150ms ease;
   font-weight: 600;
@@ -135,13 +135,13 @@
 
 :focus-visible {
   outline: 2px solid var(--ring);
-  outline-offset: 3px;
+  outline-offset: 0.1875rem;
 }
 
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -152,7 +152,7 @@
 ::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: 0;
-  border: 1px solid var(--muted);
+  border: 0.0625rem solid var(--muted);
   transition: background 150ms ease;
 }
 

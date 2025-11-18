@@ -183,7 +183,13 @@ export default function RootLayout({
         {/* Performance optimizations */}
         <meta name="theme-color" content="#0a0a0a" />
         <meta name="color-scheme" content="dark light" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=5"
+        />
         <link rel="preload" href="/icons.svg" as="image" type="image/svg+xml" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         {structuredData.map((data, index) => (
           <script
             key={index}

@@ -12,6 +12,21 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizeCss: true,
+    // Reduce bundle size
+    optimizePackageImports: ["@/components", "@/lib", "@/hooks"],
+  },
+  // Mobile performance optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+  // Reduce JavaScript bundle
+  modularizeImports: {
+    "@mui/material": {
+      transform: "@mui/material/{{member}}",
+    },
+    "lucide-react": {
+      transform: "lucide-react/dist/esm/icons/{{member}}",
+    },
   },
 };
 
