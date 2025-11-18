@@ -355,50 +355,61 @@ const AboutMe = memo(function AboutMe({
                   className="rounded-xl border border-token bg-card/60 p-3 h-full flex flex-col"
                 >
                   <h3 className="sr-only">Interests</h3>
-                  <div
-                    className="flex-1 space-y-3 flex flex-col mobile-scroll-fix"
-                    style={{
-                      maxHeight: "280px",
-                      WebkitOverflowScrolling: "touch",
-                      overflowY: "auto",
-                    }}
-                  >
-                    <div className="border-l-2 border-[var(--accent)] pl-4">
-                      <h4 className="text-xs font-semibold text-[var(--accent)] uppercase tracking-wider mb-2">
-                        Core Focus
-                      </h4>
-                      <p className="text-sm text-muted leading-relaxed">
-                        Crafting scalable, high-performance digital platforms
-                        that elevate user experience and drive real
-                        impact—across healthcare, logistics, and modern
-                        e-commerce ecosystems.
-                      </p>
-                    </div>
+                  <div className="flex-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 h-full">
+                      <div className="group relative rounded-lg border border-token bg-card/40 p-4 min-h-[160px] flex flex-col transition-all duration-300 hover:bg-card/60 hover:border-[var(--accent)] hover:shadow-lg hover:shadow-[var(--accent)]/10">
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="text-xl" aria-hidden="true">
+                            🚀
+                          </span>
+                          <h4 className="text-sm font-semibold text-[var(--accent)] uppercase tracking-wider">
+                            Core Focus
+                          </h4>
+                        </div>
+                        <p className="text-xs text-muted leading-relaxed flex-1">
+                          Building scalable digital platforms that transform
+                          healthcare, logistics, and e-commerce with
+                          cutting-edge technology.
+                        </p>
+                        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[var(--accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                      </div>
 
-                    <div className="border-l-2 border-[color-mix(in_srgb,var(--accent)_60%,transparent)] pl-4">
-                      <h4 className="text-xs font-semibold text-[var(--accent)] uppercase tracking-wider mb-2">
-                        Technical Passion
-                      </h4>
-                      <p className="text-sm text-muted leading-relaxed">
-                        Designing thoughtful architectures, optimizing
-                        performance, and championing modern engineering
-                        practices. Continuously learning, refining, and sharing
-                        knowledge to advance both product quality and team
-                        capability.
-                      </p>
-                    </div>
+                      <div className="group relative rounded-lg border border-token bg-card/40 p-4 min-h-[160px] flex flex-col transition-all duration-300 hover:bg-card/60 hover:border-[var(--accent)] hover:shadow-lg hover:shadow-[var(--accent)]/10">
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="text-xl" aria-hidden="true">
+                            💡
+                          </span>
+                          <h4 className="text-sm font-semibold text-[var(--accent)] uppercase tracking-wider">
+                            Tech Passion
+                          </h4>
+                        </div>
+                        <p className="text-xs text-muted leading-relaxed flex-1">
+                          Architecting robust systems, optimizing performance,
+                          and embracing modern engineering practices to push
+                          boundaries.
+                        </p>
+                        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[var(--accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                      </div>
 
-                    <div className="border-l-2 border-[color-mix(in_srgb,var(--accent)_40%,transparent)] pl-4">
-                      <h4 className="text-xs font-semibold text-[var(--accent)] uppercase tracking-wider mb-2">
-                        Leadership
-                      </h4>
-                      <p className="text-sm text-muted leading-relaxed">
-                        Empowering engineers through mentorship, clear technical
-                        guidance, and collaborative problem-solving. Building
-                        alignment across product, stakeholders, and engineering
-                        teams to deliver solutions with clarity, precision, and
-                        purpose.
-                      </p>
+                      <div className="group relative rounded-lg border border-token bg-card/40 p-4 min-h-[160px] flex flex-col transition-all duration-300 hover:bg-card/60 hover:border-[var(--accent)] hover:shadow-lg hover:shadow-[var(--accent)]/10 sm:col-span-2 lg:col-span-1">
+                        <div className="flex items-center gap-3 mb-3 max-w-full">
+                          <span
+                            className="text-xl flex-shrink-0"
+                            aria-hidden="true"
+                          >
+                            🤝
+                          </span>
+                          <h4 className="text-sm font-semibold text-[var(--accent)] uppercase tracking-wider break-words">
+                            Team Lead
+                          </h4>
+                        </div>
+                        <p className="text-xs text-muted leading-relaxed flex-1 max-w-full break-words">
+                          Mentoring teams, fostering collaboration, and driving
+                          alignment to deliver exceptional results with
+                          precision.
+                        </p>
+                        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[var(--accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                      </div>
                     </div>
                   </div>
                   <div className="mt-2 flex items-center justify-center text-[8px] text-muted flex-shrink-0">
