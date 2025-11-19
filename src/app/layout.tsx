@@ -128,7 +128,7 @@ export const metadata: Metadata = {
   creator: "Muhammad Aditia Farhan",
   metadataBase: new URL("https://aditfarhan-portofolio.vercel.app"),
   alternates: {
-    canonical: "/",
+    canonical: new URL("https://aditfarhan-portofolio.vercel.app"),
   },
   openGraph: {
     title:
@@ -179,6 +179,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <title>Muhammad Aditia Farhan - Software Engineer Portfolio</title>
         <link rel="manifest" href="/manifest.json" />
         {/* Performance optimizations */}
         <meta name="theme-color" content="#0a0a0a" />
@@ -186,6 +187,10 @@ export default function RootLayout({
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
+        />
+        <meta
+          name="google-site-verification"
+          content="ZysRmiDkYuRgfl21-iOq7EsNByZb4kS1hxtoCJJjLX4"
         />
         <link rel="preload" href="/icons.svg" as="image" type="image/svg+xml" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
