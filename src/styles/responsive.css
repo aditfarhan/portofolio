@@ -73,99 +73,127 @@
     height: 50px;
   }
 
-  /* ProfileCard mobile optimizations */
+  /* ProfileCard mobile optimizations - responsive sizing */
   .card-flip-front .hero h1 {
-    font-size: 1.5rem; /* Reduce from text-3xl (1.875rem) */
+    font-size: clamp(1rem, 4vw, 1.25rem); /* Responsive font size */
     line-height: 1.2;
   }
 
   .card-flip-front .hero .text-muted p {
-    font-size: 0.6875rem; /* Reduce from text-xs (0.75rem) */
+    font-size: clamp(0.5rem, 3vw, 0.625rem); /* Responsive font size */
     line-height: 1.3;
   }
 
   .card-flip-front .hero {
-    padding: 1rem; /* Reduce from p-5 (1.25rem) */
-    gap: 0.75rem; /* Reduce gap */
+    padding: clamp(0.5rem, 3vw, 0.75rem); /* Responsive padding */
+    gap: clamp(0.25rem, 2vw, 0.5rem); /* Responsive gap */
   }
 
   .card-flip-front .hero .action-group {
-    margin-top: 0.75rem; /* Reduce top margin */
+    margin-top: clamp(0.25rem, 2vw, 0.5rem); /* Responsive margin */
   }
 
   .card-flip-front .hero .action-cta {
-    font-size: 0.6875rem; /* Smaller button text */
-    padding: 0 0.875rem; /* Reduce horizontal padding */
-    height: 2.5rem; /* Reduce height */
+    font-size: clamp(0.5rem, 3vw, 0.625rem); /* Responsive font size */
+    padding: 0 clamp(0.5rem, 3vw, 0.75rem); /* Responsive padding */
+    height: clamp(1.75rem, 6vw, 2.25rem); /* Responsive height */
   }
 
   .card-flip-front .hero .action-icon {
-    width: 2.5rem; /* Reduce icon button size */
-    height: 2.5rem;
+    width: clamp(1.75rem, 6vw, 2.25rem); /* Responsive size */
+    height: clamp(1.75rem, 6vw, 2.25rem);
   }
 
   .card-flip-front .hero .action-divider {
-    height: 26px; /* Match reduced button height */
+    height: clamp(1.25rem, 5vw, 1.375rem); /* Responsive height */
   }
 
-  /* Reduce card height on very small screens */
+  /* Set card height to 35% of screen height on mobile */
   .card-flip-container {
-    height: 380px !important; /* Reduce from 420px */
+    height: 45vh !important; /* Responsive to screen height */
   }
 
-  /* Reduce gap between cards on mobile */
+  /* Reduce gap between cards on mobile - responsive */
   .grid.gap-5 {
-    gap: 1rem !important; /* Reduce from 1.25rem */
+    gap: clamp(
+      0.25rem,
+      1.5vw,
+      0.5rem
+    ) !important; /* Smaller responsive gap to maximize card height */
   }
 
-  /* AboutMe mobile optimizations */
+  /* AboutMe mobile optimizations - responsive sizing */
   .card-flip-front .flex.flex-col > div:first-child {
-    padding: 0.75rem !important; /* Reduce from px-4 py-4 */
+    padding: clamp(0.25rem, 2vw, 0.5rem) !important; /* Responsive padding */
   }
 
   .card-flip-front .flex.flex-col h2 {
-    font-size: 0.875rem !important; /* Reduce from text-base */
+    font-size: clamp(
+      0.625rem,
+      3.5vw,
+      0.75rem
+    ) !important; /* Responsive font size */
   }
 
   .card-flip-front .flex.flex-col [role="tablist"] [role="tab"] {
-    font-size: 0.75rem !important; /* Reduce from text-[13px] */
-    padding: 0.375rem 0.75rem !important; /* Reduce padding */
+    font-size: clamp(
+      0.5625rem,
+      3vw,
+      0.6875rem
+    ) !important; /* Responsive font size */
+    padding: clamp(0.125rem, 1vw, 0.25rem) clamp(0.25rem, 2vw, 0.5rem) !important; /* Responsive padding */
   }
 
   .card-flip-front .flex.flex-col [role="tabpanel"] {
-    padding: 0.75rem !important; /* Reduce from p-3 */
+    padding: clamp(0.25rem, 2vw, 0.5rem) !important; /* Responsive padding */
   }
 
   .card-flip-front .flex.flex-col [role="tabpanel"] p {
-    font-size: 0.6875rem !important; /* Reduce small text */
+    font-size: clamp(
+      0.5rem,
+      2.5vw,
+      0.625rem
+    ) !important; /* Responsive font size */
   }
 
   .card-flip-front .flex.flex-col [role="tabpanel"] span {
-    font-size: 0.6875rem !important; /* Reduce tech stack text */
+    font-size: clamp(
+      0.5rem,
+      2.5vw,
+      0.625rem
+    ) !important; /* Responsive font size */
   }
 
   .card-flip-front .grid.grid-cols-1 .group.relative {
-    padding: 0.75rem !important; /* Reduce from p-4 */
-    min-height: 120px !important; /* Reduce from 160px */
+    padding: clamp(0.25rem, 2vw, 0.5rem) !important; /* Responsive padding */
+    min-height: clamp(4rem, 15vh, 6.25rem) !important; /* Responsive height */
   }
 
   .card-flip-front .grid.grid-cols-1 .group.relative h4 {
-    font-size: 0.75rem !important; /* Reduce from text-sm */
+    font-size: clamp(
+      0.5625rem,
+      3vw,
+      0.6875rem
+    ) !important; /* Responsive font size */
   }
 
   .card-flip-front .grid.grid-cols-1 .group.relative p {
-    font-size: 0.6875rem !important; /* Reduce from text-xs */
+    font-size: clamp(
+      0.5rem,
+      2.5vw,
+      0.625rem
+    ) !important; /* Responsive font size */
   }
 
-  /* Reduce scrollable content height in AboutMe on mobile */
+  /* Reduce scrollable content height in AboutMe on mobile - responsive */
   .card-flip-front .mobile-scroll-fix {
-    max-height: 200px !important; /* Reduce from 280px */
+    max-height: clamp(6rem, 25vh, 12.5rem) !important; /* Responsive height */
   }
 
-  /* Make Interests section scrollable on mobile */
+  /* Make Interests section scrollable on mobile - responsive */
   .card-flip-front .grid.grid-cols-1 {
     overflow-y: auto !important;
-    max-height: 200px !important;
+    max-height: clamp(6rem, 25vh, 12.5rem) !important; /* Responsive height */
     -webkit-overflow-scrolling: touch;
   }
 }
