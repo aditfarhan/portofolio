@@ -333,18 +333,69 @@
 
 /* Optimize for Mobile Performance */
 @media (max-width: 768px) {
-  /* Disable most background effects on mobile for performance */
+  /* Enable subtle star field on mobile for atmosphere */
   .star-field {
-    display: none !important;
+    display: block !important;
+    opacity: 0.4 !important; /* Subtle opacity for atmosphere without distraction */
   }
 
-  .meteor-container,
+  .meteor-container {
+    display: block !important; /* Enable meteor container for visible animation */
+    opacity: 0.8 !important; /* Higher opacity for better visibility */
+  }
+
   .meteor-shower-burst {
-    display: none !important;
+    display: none !important; /* Keep bursts disabled for performance */
   }
 
-  .moon.ultra-bright {
-    display: none !important;
+  .moon.realistic {
+    display: block !important; /* Enable moon for visible animation */
+    opacity: 0.9 !important; /* Higher opacity for better visibility */
+    width: 60px !important; /* Slightly larger size for mobile */
+    height: 60px !important;
+    top: 50vh !important; /* Position in the vertical center of the screen */
+    left: 50% !important; /* Center horizontally */
+    transform: translate(
+      -50%,
+      -50%
+    ) !important; /* Center the moon both horizontally and vertically */
+    z-index: -1 !important; /* Low z-index to ensure it appears behind the cards */
+    position: fixed !important; /* Ensure fixed positioning */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 40px rgba(255, 255, 255, 0.3), 0 0 60px rgba(200, 200, 255, 0.2) !important; /* Enhanced glow effect */
+  }
+
+  /* Make meteors more prominent on mobile */
+  .meteor {
+    width: 3px !important;
+    height: 3px !important;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.6)
+    ) !important;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.9),
+      0 0 8px rgba(255, 255, 255, 0.6) !important;
+  }
+
+  .meteor::before {
+    height: 20px !important;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.4),
+      transparent
+    ) !important;
+  }
+
+  .meteor::after {
+    height: 15px !important;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.2),
+      transparent
+    ) !important;
   }
 
   /* Simplify animations on mobile */
