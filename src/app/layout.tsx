@@ -100,16 +100,24 @@ const structuredData = [
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap", // Optimize font loading
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap", // Optimize font loading
+  preload: true,
 });
 
 export const metadata: Metadata = {
-  title:
-    "Muhammad Aditia Farhan - Software Engineer Portfolio | React, Next.js, Healthcare Tech",
+  metadataBase: new URL("https://aditfarhan-portofolio.vercel.app"),
+  title: {
+    default:
+      "Muhammad Aditia Farhan - Software Engineer Portfolio | React, Next.js, Healthcare Tech",
+    template: "%s | Muhammad Aditia Farhan", // Template for child pages
+  },
   description:
     "Professional software engineer portfolio of Muhammad Aditia Farhan. Expert in React, Next.js, TypeScript, and healthcare technology. 5+ years experience building scalable web applications for enterprise clients.",
   keywords: [
@@ -126,9 +134,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Muhammad Aditia Farhan" }],
   creator: "Muhammad Aditia Farhan",
-  metadataBase: new URL("https://aditfarhan-portofolio.vercel.app"),
   alternates: {
-    canonical: new URL("https://aditfarhan-portofolio.vercel.app"),
+    canonical: "/",
   },
   openGraph: {
     title:
@@ -137,10 +144,11 @@ export const metadata: Metadata = {
       "View Muhammad Aditia Farhan's professional portfolio. 5+ years experience building scalable web applications with React, Next.js, and TypeScript. Specializing in healthcare technology and enterprise solutions.",
     type: "website",
     locale: "en_US",
+    url: "/",
     siteName: "Muhammad Aditia Farhan Portfolio",
     images: [
       {
-        url: "https://aditfarhan-portofolio.vercel.app/og-image.jpg",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Muhammad Aditia Farhan - Software Engineer Portfolio",
@@ -152,8 +160,8 @@ export const metadata: Metadata = {
     title: "Muhammad Aditia Farhan - Software Engineer Portfolio",
     description:
       "Professional software engineer with 5+ years experience in React, Next.js, TypeScript, and healthcare technology. View my portfolio of scalable web applications.",
-    creator: "@aditfarhan",
-    images: ["https://aditfarhan-portofolio.vercel.app/og-image.jpg"],
+    creator: "@adtfrhan",
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -167,7 +175,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "your-google-site-verification-code",
+    google: "ZysRmiDkYuRgfl21-iOq7EsNByZb4kS1hxtoCJJjLX4",
   },
 };
 

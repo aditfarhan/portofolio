@@ -73,6 +73,8 @@ export const UI_CONFIG = {
  * SEO and metadata configurations
  */
 export const SEO_CONFIG = {
+    /** Site URL */
+    siteUrl: "https://aditfarhan-portofolio.vercel.app",
     /** Default page title */
     defaultTitle: "Muhammad Aditia Farhan - Software Engineer Portfolio",
     /** Title template for sub-pages */

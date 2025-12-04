@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import HomeDeck from "@/components/HomeDeck";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
     description:
       "View Muhammad Aditia Farhan's professional portfolio. Expert in React, Next.js, TypeScript with 5+ years building scalable applications for healthcare and logistics.",
     type: "website",
-    url: "https://aditfarhan-portofolio.vercel.app",
+    url: "/",
     siteName: "Muhammad Aditia Farhan Portfolio",
   },
   twitter: {
@@ -38,7 +40,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <HomeDeck />
+      <Suspense fallback={<LoadingSkeleton />}>
+        <HomeDeck />
+      </Suspense>
       {/* Hidden SEO content for search engines */}
       <div className="sr-only">
         <h1>
