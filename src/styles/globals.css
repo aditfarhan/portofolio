@@ -30,6 +30,20 @@ body {
   letter-spacing: -0.01em;
 }
 
+/* ========== ACCESSIBILITY ========== */
+
+/* Enhanced focus indicators for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Remove default outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* Ensure Tailwind imports font variables */
 @theme inline {
   --font-sans: var(--font-geist-sans);
