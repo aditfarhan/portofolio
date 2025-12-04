@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "../styles/globals.css";
+import "@/styles/globals.css";
 
-import ThemeProvider from "@/components/ThemeProvider";
+import { ThemeProvider } from "@/components";
+import { WebVitals } from "@/app/web-vitals";
 
-// Structured data for SEO
+// Structured data for SEO - Enhanced with additional schema types
 const structuredData = [
+  // Person schema - for Knowledge Graph and rich results
   {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -36,7 +38,37 @@ const structuredData = [
       "Web Development",
       "Software Engineering",
     ],
+    email: "aditiafarhan25@gmail.com",
+    worksFor: {
+      "@type": "Organization",
+      name: "PT. Pertamina Bina Medika IHC",
+    },
   },
+  // WebSite schema - for site search box in Google
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Muhammad Aditia Farhan Portfolio",
+    url: "https://aditfarhan-portofolio.vercel.app",
+    description: "Professional portfolio showcasing software engineering projects and experience",
+    author: {
+      "@type": "Person",
+      name: "Muhammad Aditia Farhan",
+    },
+    inLanguage: "en-US",
+  },
+  // ProfilePage schema - indicates this is a profile page
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    mainEntity: {
+      "@type": "Person",
+      name: "Muhammad Aditia Farhan",
+      alternateName: "MAF",
+      description: "Software Engineer with 5+ years of experience",
+    },
+  },
+  // BreadcrumbList schema - for search result breadcrumbs
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -49,6 +81,35 @@ const structuredData = [
       },
     ],
   },
+  // ItemList schema - for projects showcase
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Software Engineering Projects",
+    description: "Portfolio of professional projects and contributions",
+    numberOfItems: 6,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "National HIS & EMR Platform",
+        description: "Healthcare information system serving hospitals across Indonesia",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Warehouse Management System",
+        description: "Enterprise logistics platform for order management",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "SIRCLO Commerce Platform",
+        description: "E-commerce ecosystem for multi-tenant operations",
+      },
+    ],
+  },
+  // FAQPage schema - for FAQ rich results
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -216,6 +277,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <WebVitals />
         <ThemeProvider>
           <a href="#main" className="skip-link">
             Skip to content

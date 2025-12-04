@@ -9,6 +9,7 @@
  * - onTechGroupChange: Callback to change tech group
  */
 import { memo, useCallback, useMemo } from "react";
+import Image from "next/image";
 import { EXPERIENCE, ABOUT_TABS, TECH_GROUPS } from "@/lib/constants";
 import type { TechGroup } from "@/types";
 import { getLogoUrl, getLogoFallback, getIndustryContext } from "@/lib/utils";
@@ -227,6 +228,9 @@ const AboutMe = memo(function AboutMe({
                       return (
                         <div key={exp.company}>
                           <button
+                            role="tab"
+                            aria-selected={isActive}
+                            tabIndex={isActive ? 0 : -1}
                             onClick={() => onExpIndexChange(i)}
                             className={`w-full text-left rounded-md border transition-all duration-200 group ${isActive
                               ? "border-token bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] ring-1 ring-[color-mix(in_srgb,var(--accent)_35%,transparent)] shadow-sm"
@@ -235,13 +239,14 @@ const AboutMe = memo(function AboutMe({
                           >
                             <div className="p-2">
                               <div className="flex items-center gap-2 mb-1">
-                                <img
+                                <Image
                                   src={getLogoUrl(exp.company)}
                                   alt={`${exp.company} logo`}
                                   width={24}
                                   height={24}
                                   loading="lazy"
-                                  referrerPolicy="no-referrer"
+                                  quality={85}
+                                  unoptimized
                                   className={`pointer-events-none rounded ${isActive ? "shadow-sm" : "opacity-80"
                                     }`}
                                   onError={(e) => {
@@ -258,7 +263,7 @@ const AboutMe = memo(function AboutMe({
                                     <span
                                       className={`text-[7px] px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap ${isActive
                                         ? "bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] border border-[color-mix(in_srgb,var(--accent)_40%,transparent)]"
-                                        : "bg-[color-mix(in_srgb,var(--muted)_50%,transparent)] text-muted border border-[color-mix(in_srgb,var(--muted)_70%,transparent)]"
+                                        : "bg-[color-mix(in_srgb,var(--muted)_70%,transparent)] text-[color-mix(in_srgb,var(--foreground)_80%,transparent)] border border-[color-mix(in_srgb,var(--muted)_70%,transparent)]"
                                         }`}
                                     >
                                       {exp.roles[exp.roles.length - 1].title}

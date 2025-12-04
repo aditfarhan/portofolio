@@ -3,15 +3,11 @@
 import { memo, useMemo, lazy, Suspense } from "react";
 import { portfolio } from "@/data/portfolio";
 import { EXPERIENCE } from "@/lib/constants";
-import ProfileCard from "./ProfileCard";
-import ProjectCard from "./ProjectCard";
-import BackgroundEffects from "./BackgroundEffects";
-import { useFlipAnimation } from "@/hooks/useFlipAnimation";
-import { useExperienceNavigation } from "@/hooks/useExperienceNavigation";
-import { useTechGroupNavigation } from "@/hooks/useTechGroupNavigation";
+import { ProfileCard, ProjectCard, BackgroundEffects } from "@/components";
+import { useFlipAnimation, useExperienceNavigation, useTechGroupNavigation } from "@/hooks";
 
 // Lazy load heavy components
-const AboutMe = lazy(() => import("./AboutMe"));
+const AboutMe = lazy(() => import("@/components/AboutMe"));
 
 /**
  * HomeDeck - Main application component with flip animation between profile/projects and about sections

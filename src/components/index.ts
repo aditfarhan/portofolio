@@ -20,7 +20,9 @@
 export { default as AboutMe } from "./AboutMe";
 export { default as BackgroundEffects } from "./BackgroundEffects";
 export { default as HomeDeck } from "./HomeDeck";
+export { default as LoadingSkeleton } from "./LoadingSkeleton";
 export { default as ProfileCard } from "./ProfileCard";
 export { default as ProjectCard } from "./ProjectCard";
 export { default as ThemeProvider } from "./ThemeProvider";
-export { default as ErrorBoundary } from "./ErrorBoundary";
+
+

@@ -1,25 +1,19 @@
 /**
  * Validation Utilities
  * 
- * This module provides validation functions for data integrity
- * and input validation throughout the application.
+ * This module provides validation functions for data integrity.
+ * Only essential validators used in the application are included.
  * 
  * @module lib/validators
  */
 
-import type { Project, Link, Period, Experience } from "@/types";
+import type { Project, Link, Period } from "@/types";
 
 /**
  * Validates if a string is a valid URL
  * 
  * @param url - The URL string to validate
  * @returns True if valid URL, false otherwise
- * 
- * @example
- * ```ts
- * isValidUrl("https://example.com") // true
- * isValidUrl("not a url") // false
- * ```
  */
 export function isValidUrl(url: string): boolean {
     try {
@@ -31,33 +25,10 @@ export function isValidUrl(url: string): boolean {
 }
 
 /**
- * Validates if a string is a valid email address
- * 
- * @param email - The email string to validate
- * @returns True if valid email, false otherwise
- * 
- * @example
- * ```ts
- * isValidEmail("user@example.com") // true
- * isValidEmail("invalid-email") // false
- * ```
- */
-export function isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-/**
  * Validates if a period object has valid dates
  * 
  * @param period - The period object to validate
  * @returns True if valid period, false otherwise
- * 
- * @example
- * ```ts
- * isValidPeriod({ start: "2023-01", end: "2024-01" }) // true
- * isValidPeriod({ start: "", end: "2024-01" }) // false
- * ```
  */
 export function isValidPeriod(period: Period | undefined): boolean {
     if (!period) return true; // Optional field
@@ -78,12 +49,6 @@ export function isValidPeriod(period: Period | undefined): boolean {
  * 
  * @param link - The link object to validate
  * @returns True if valid link, false otherwise
- * 
- * @example
- * ```ts
- * isValidLink({ type: "github", url: "https://github.com/user/repo" }) // true
- * isValidLink({ type: "github" }) // false - missing url
- * ```
  */
 export function isValidLink(link: Link): boolean {
     if (!link.type || !link.url) {
@@ -114,16 +79,6 @@ export function isValidLink(link: Link): boolean {
  * 
  * @param project - The project object to validate
  * @returns True if valid project, false otherwise
- * 
- * @example
- * ```ts
- * isValidProject({
- *   id: "proj-1",
- *   title: "My Project",
- *   description: "A great project",
- *   tags: ["React", "TypeScript"]
- * }) // true
- * ```
  */
 export function isValidProject(project: Project): boolean {
     // Required fields
@@ -160,81 +115,4 @@ export function isValidProject(project: Project): boolean {
     }
 
     return true;
-}
-
-/**
- * Validates if an experience object has all required properties
- * 
- * @param experience - The experience object to validate
- * @returns True if valid experience, false otherwise
- */
-export function isValidExperience(experience: Experience): boolean {
-    if (!experience.company || !experience.location) {
-        return false;
-    }
-
-    if (!Array.isArray(experience.roles) || experience.roles.length === 0) {
-        return false;
-    }
-
-    for (const role of experience.roles) {
-        if (!role.title || !role.period) {
-            return false;
-        }
-    }
-
-    if (!experience.highlight || !experience.achievement) {
-        return false;
-    }
-
-    return true;
-}
-
-/**
- * Validates if a number is within a specified range
- * 
- * @param value - The number to validate
- * @param min - Minimum value (inclusive)
- * @param max - Maximum value (inclusive)
- * @returns True if within range, false otherwise
- * 
- * @example
- * ```ts
- * isInRange(5, 0, 10) // true
- * isInRange(15, 0, 10) // false
- * ```
- */
-export function isInRange(value: number, min: number, max: number): boolean {
-    return value >= min && value <= max;
-}
-
-/**
- * Sanitizes a string by removing potentially dangerous characters
- * 
- * @param input - The string to sanitize
- * @returns Sanitized string
- * 
- * @example
- * ```ts
- * sanitizeString("<script>alert('xss')</script>") // "scriptalert('xss')/script"
- * ```
- */
-export function sanitizeString(input: string): string {
-    return input.replace(/[<>]/g, "");
-}
-
-/**
- * Validates if an array is not empty
- * 
- * @param array - The array to check
- * @returns True if array has at least one element
- * 
- * @example
- * ```ts
- * isNonEmptyArray([1, 2, 3]) // true
- * isNonEmptyArray([]) // false
- * ```
- */
-export function isNonEmptyArray<T>(array: T[]): array is [T, ...T[]] {
-    return Array.isArray(array) && array.length > 0;
 }
