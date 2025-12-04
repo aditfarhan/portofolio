@@ -251,9 +251,6 @@ export default function RootLayout({
       <head>
         <title>Muhammad Aditia Farhan - Software Engineer Portfolio</title>
         <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         {/* Performance optimizations */}
         <meta name="theme-color" content="#0a0a0a" />
         <meta name="color-scheme" content="dark light" />
