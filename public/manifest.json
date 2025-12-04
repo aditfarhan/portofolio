@@ -1,20 +1,24 @@
 {
-  "name": "Muhammad Aditia Farhan - Software Engineer Portfolio",
-  "short_name": "Farhan Portfolio",
-  "description": "Professional software engineer portfolio showcasing React, Next.js, TypeScript projects in healthcare and logistics",
-  "start_url": "https://aditfarhan-portofolio.vercel.app",
+  "name": "Muhammad Aditia Farhan Portfolio",
+  "short_name": "MAF Portfolio",
+  "description": "Professional portfolio of Muhammad Aditia Farhan - Software Engineer specializing in React, Next.js, and TypeScript",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
-  "theme_color": "#ffffff",
-  "categories": ["portfolio", "developer", "technology"],
-  "lang": "en",
-  "dir": "ltr",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "any",
-      "type": "image/x-icon",
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }

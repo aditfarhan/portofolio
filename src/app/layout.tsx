@@ -265,6 +265,8 @@ export default function RootLayout({
         <link rel="preload" href="/icons.svg" as="image" type="image/svg+xml" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="preconnect" href="https://logo.clearbit.com" />
+        <link rel="preconnect" href="https://vercel.com" />
         {structuredData.map((data, index) => (
           <script
             key={index}
