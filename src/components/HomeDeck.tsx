@@ -1,8 +1,7 @@
 "use client";
 
-import React, { memo, useMemo, lazy, Suspense } from "react";
+import { memo, useMemo, lazy, Suspense } from "react";
 import { portfolio } from "@/data/portfolio";
-import type { Project } from "@/data/portfolio";
 import { EXPERIENCE } from "@/lib/constants";
 import ProfileCard from "./ProfileCard";
 import ProjectCard from "./ProjectCard";
@@ -51,14 +50,12 @@ const HomeDeck = memo(function HomeDeck() {
         <div className="grid gap-5 sm:grid-cols-2 h-full items-center justify-items-center">
           {/* Left Card - Flips between Profile and Projects */}
           <div
-            className={`card-flip-container relative h-[420px] sm:h-[460px] w-full ${
-              isAnimating ? "flipping" : ""
-            }`}
+            className={`card-flip-container relative h-[420px] sm:h-[460px] w-full ${isAnimating ? "flipping" : ""
+              }`}
           >
             <div
-              className={`card-flip-inner relative w-full h-full transition-transform duration-600 ${
-                isFlipped ? "rotate-y-180" : ""
-              }`}
+              className={`card-flip-inner relative w-full h-full transition-transform duration-600 ${isFlipped ? "rotate-y-180" : ""
+                }`}
               style={{
                 transformStyle: "preserve-3d",
               }}
@@ -113,14 +110,12 @@ const HomeDeck = memo(function HomeDeck() {
 
           {/* Right Card - Flips between About Me and Compact Profile */}
           <div
-            className={`card-flip-container relative h-[420px] sm:h-[460px] w-full ${
-              isAnimating ? "flipping" : ""
-            }`}
+            className={`card-flip-container relative h-[420px] sm:h-[460px] w-full ${isAnimating ? "flipping" : ""
+              }`}
           >
             <div
-              className={`card-flip-inner relative w-full h-full transition-transform duration-600 ${
-                isFlipped ? "rotate-y-180" : ""
-              }`}
+              className={`card-flip-inner relative w-full h-full transition-transform duration-600 ${isFlipped ? "rotate-y-180" : ""
+                }`}
               style={{
                 transformStyle: "preserve-3d",
               }}

@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from "react";
+import { memo, useCallback } from "react";
 
 interface ProfileCardProps {
   showActionButton?: boolean;
@@ -24,9 +24,8 @@ const ProfileCard = memo(function ProfileCard({
 
   return (
     <div
-      className={`h-full flex flex-col items-center justify-center text-center ${
-        isLarge ? "gap-4" : "gap-3"
-      }`}
+      className={`h-full flex flex-col items-center justify-center text-center ${isLarge ? "gap-4" : "gap-3"
+        }`}
     >
       {/* Classy sparkle elements */}
       <div className="jewel-sparkle"></div>
@@ -40,26 +39,23 @@ const ProfileCard = memo(function ProfileCard({
       ></div>
 
       <div
-        className={`mx-auto mt-2 inline-flex items-center justify-center rounded-full border border-token bg-card/80 font-bold select-none ${
-          isLarge ? "w-12 h-12" : "w-10 h-10"
-        }`}
+        className={`mx-auto mt-2 inline-flex items-center justify-center rounded-full border border-token bg-card/80 font-bold select-none ${isLarge ? "w-12 h-12" : "w-10 h-10"
+          }`}
         aria-label="Avatar initials"
       >
         MAF
       </div>
 
       <h1
-        className={`font-extrabold tracking-tight ${
-          isLarge ? "text-3xl sm:text-4xl" : "text-xl sm:text-2xl"
-        }`}
+        className={`font-extrabold tracking-tight ${isLarge ? "text-3xl sm:text-4xl" : "text-xl sm:text-2xl"
+          }`}
       >
         Muhammad Aditia Farhan
       </h1>
 
       <div
-        className={`text-muted text-center ${
-          isLarge ? "text-xs sm:text-sm" : "text-xs"
-        }`}
+        className={`text-muted text-center ${isLarge ? "text-xs sm:text-sm" : "text-xs"
+          }`}
       >
         <p>Software Engineer · 5+ yrs · Bandung State Polytechnic '20</p>
         <p className="mt-1">
@@ -78,11 +74,10 @@ const ProfileCard = memo(function ProfileCard({
             <button
               onClick={handleToggleFlip}
               disabled={isAnimating}
-              className={`action-cta transition-all duration-300 ${
-                isAnimating
+              className={`action-cta transition-all duration-300 ${isAnimating
                   ? "opacity-50 cursor-not-allowed"
                   : "hover:scale-105"
-              }`}
+                }`}
               aria-label={
                 isFlipped
                   ? "Switch back to show About Me"

@@ -8,14 +8,9 @@
  * - techGroup: Current tech group
  * - onTechGroupChange: Callback to change tech group
  */
-import React, { memo, useState, useCallback, useMemo } from "react";
-import {
-  EXPERIENCE,
-  ABOUT_TABS,
-  TECH_GROUPS,
-  type AboutTab,
-  type TechGroup,
-} from "@/lib/constants";
+import { memo, useCallback, useMemo } from "react";
+import { EXPERIENCE, ABOUT_TABS, TECH_GROUPS } from "@/lib/constants";
+import type { TechGroup } from "@/types";
 import { getLogoUrl, getLogoFallback, getIndustryContext } from "@/lib/utils";
 import { useAboutTabNavigation } from "@/hooks/useAboutTabNavigation";
 
@@ -195,11 +190,10 @@ const AboutMe = memo(function AboutMe({
                 aria-selected={aboutTab === t}
                 tabIndex={aboutTab === t ? 0 : -1}
                 onClick={() => goToTab(t)}
-                className={`px-3 py-1.5 text-[13px] sm:text-sm transition-all ${
-                  aboutTab === t
-                    ? "bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-semibold"
-                    : "opacity-80 hover:opacity-100"
-                }`}
+                className={`px-3 py-1.5 text-[13px] sm:text-sm transition-all ${aboutTab === t
+                  ? "bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-semibold"
+                  : "opacity-80 hover:opacity-100"
+                  }`}
               >
                 {t}
               </button>
@@ -234,11 +228,10 @@ const AboutMe = memo(function AboutMe({
                         <div key={exp.company}>
                           <button
                             onClick={() => onExpIndexChange(i)}
-                            className={`w-full text-left rounded-md border transition-all duration-200 group ${
-                              isActive
-                                ? "border-token bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] ring-1 ring-[color-mix(in_srgb,var(--accent)_35%,transparent)] shadow-sm"
-                                : "border-[color-mix(in_srgb,var(--border)_80%,transparent)] hover:border-[color-mix(in_srgb,var(--border)_60%,var(--accent)_40%)] bg-card/30 hover:bg-card/50"
-                            }`}
+                            className={`w-full text-left rounded-md border transition-all duration-200 group ${isActive
+                              ? "border-token bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] ring-1 ring-[color-mix(in_srgb,var(--accent)_35%,transparent)] shadow-sm"
+                              : "border-[color-mix(in_srgb,var(--border)_80%,transparent)] hover:border-[color-mix(in_srgb,var(--border)_60%,var(--accent)_40%)] bg-card/30 hover:bg-card/50"
+                              }`}
                           >
                             <div className="p-2">
                               <div className="flex items-center gap-2 mb-1">
@@ -249,9 +242,8 @@ const AboutMe = memo(function AboutMe({
                                   height={24}
                                   loading="lazy"
                                   referrerPolicy="no-referrer"
-                                  className={`pointer-events-none rounded ${
-                                    isActive ? "shadow-sm" : "opacity-80"
-                                  }`}
+                                  className={`pointer-events-none rounded ${isActive ? "shadow-sm" : "opacity-80"
+                                    }`}
                                   onError={(e) => {
                                     const img =
                                       e.currentTarget as HTMLImageElement;
@@ -264,11 +256,10 @@ const AboutMe = memo(function AboutMe({
                                       {exp.company}
                                     </p>
                                     <span
-                                      className={`text-[7px] px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap ${
-                                        isActive
-                                          ? "bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] border border-[color-mix(in_srgb,var(--accent)_40%,transparent)]"
-                                          : "bg-[color-mix(in_srgb,var(--muted)_50%,transparent)] text-muted border border-[color-mix(in_srgb,var(--muted)_70%,transparent)]"
-                                      }`}
+                                      className={`text-[7px] px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap ${isActive
+                                        ? "bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] border border-[color-mix(in_srgb,var(--accent)_40%,transparent)]"
+                                        : "bg-[color-mix(in_srgb,var(--muted)_50%,transparent)] text-muted border border-[color-mix(in_srgb,var(--muted)_70%,transparent)]"
+                                        }`}
                                     >
                                       {exp.roles[exp.roles.length - 1].title}
                                     </span>
@@ -285,11 +276,10 @@ const AboutMe = memo(function AboutMe({
                                 </div>
                                 <div className="text-right">
                                   <div
-                                    className={`w-1.5 h-1.5 rounded-full ${
-                                      isActive
-                                        ? "bg-[var(--accent)] shadow-sm"
-                                        : "bg-[color-mix(in_srgb,var(--muted)_60%,transparent)]"
-                                    }`}
+                                    className={`w-1.5 h-1.5 rounded-full ${isActive
+                                      ? "bg-[var(--accent)] shadow-sm"
+                                      : "bg-[color-mix(in_srgb,var(--muted)_60%,transparent)]"
+                                      }`}
                                     aria-hidden="true"
                                   />
                                 </div>
@@ -297,9 +287,8 @@ const AboutMe = memo(function AboutMe({
 
                               <div className="space-y-0.5">
                                 <p
-                                  className={`text-[10px] font-medium leading-tight ${
-                                    isActive ? "text-foreground" : "text-muted"
-                                  }`}
+                                  className={`text-[10px] font-medium leading-tight ${isActive ? "text-foreground" : "text-muted"
+                                    }`}
                                 >
                                   {exp.highlight}
                                 </p>
@@ -314,13 +303,12 @@ const AboutMe = memo(function AboutMe({
                                     {exp.roles.map((role, idx) => (
                                       <div
                                         key={role.title + role.period}
-                                        className={`w-1.5 h-1.5 rounded-full border ${
-                                          idx === exp.roles.length - 1
-                                            ? isActive
-                                              ? "bg-[var(--accent)] border-[color-mix(in_srgb,var(--accent)_60%,transparent)]"
-                                              : "bg-[color-mix(in_srgb,var(--accent)_50%,transparent)] border-[color-mix(in_srgb,var(--accent)_70%,transparent)]"
-                                            : "bg-[color-mix(in_srgb,var(--muted)_40%,transparent)] border-[color-mix(in_srgb,var(--muted)_60%,transparent)]"
-                                        }`}
+                                        className={`w-1.5 h-1.5 rounded-full border ${idx === exp.roles.length - 1
+                                          ? isActive
+                                            ? "bg-[var(--accent)] border-[color-mix(in_srgb,var(--accent)_60%,transparent)]"
+                                            : "bg-[color-mix(in_srgb,var(--accent)_50%,transparent)] border-[color-mix(in_srgb,var(--accent)_70%,transparent)]"
+                                          : "bg-[color-mix(in_srgb,var(--muted)_40%,transparent)] border-[color-mix(in_srgb,var(--muted)_60%,transparent)]"
+                                          }`}
                                         title={`${role.title} (${role.period})`}
                                       />
                                     ))}
@@ -460,11 +448,10 @@ const AboutMe = memo(function AboutMe({
                             {sec.items.map((item) => (
                               <span
                                 key={item}
-                                className={`text-[9px] py-1 px-2 rounded-md border transition-all ${
-                                  isCore
-                                    ? "bg-[color-mix(in_srgb,var(--accent)_8%,transparent)] text-[var(--accent)] border-[color-mix(in_srgb,var(--accent)_40%,transparent)] font-medium"
-                                    : "bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
-                                }`}
+                                className={`text-[9px] py-1 px-2 rounded-md border transition-all ${isCore
+                                  ? "bg-[color-mix(in_srgb,var(--accent)_8%,transparent)] text-[var(--accent)] border-[color-mix(in_srgb,var(--accent)_40%,transparent)] font-medium"
+                                  : "bg-[color-mix(in_srgb,var(--muted)_30%,transparent)] text-muted border-[color-mix(in_srgb,var(--muted)_50%,transparent)]"
+                                  }`}
                               >
                                 {item}
                               </span>

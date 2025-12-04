@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { ABOUT_TABS, type AboutTab } from "@/lib/constants";
+import { ABOUT_TABS } from "@/lib/constants";
+import type { AboutTab } from "@/types";
 
 interface UseAboutTabNavigationReturn {
   aboutTab: AboutTab;

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { TECH_GROUPS, type TechGroup } from "@/lib/constants";
+import { TECH_GROUPS } from "@/lib/constants";
+import type { TechGroup } from "@/types";
 
 interface UseTechGroupNavigationReturn {
   techGroup: TechGroup;

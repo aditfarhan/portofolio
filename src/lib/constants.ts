@@ -1,9 +1,27 @@
 /**
- * Centralized constants for the application
+ * Application Constants
+ * 
+ * Centralized constants for the entire application.
+ * Includes experience data, UI configurations, and animation settings.
+ * 
+ * @module lib/constants
  */
 
-// Company Experience Constants
-export const EXPERIENCE = [
+import type {
+  Experience,
+  AboutTab,
+  TechGroup,
+  StarFieldPositions,
+  AnimationConfig,
+} from "@/types";
+
+/**
+ * Company work experience data
+ * 
+ * Chronological list of professional experience, sorted by most recent first.
+ * Each entry includes company information, roles, and achievements.
+ */
+export const EXPERIENCE: readonly Experience[] = [
   {
     company: "PT. Pertamina Bina Medika IHC",
     location: "Jakarta, Indonesia",
@@ -12,7 +30,7 @@ export const EXPERIENCE = [
       { title: "Software Engineer", period: "Apr 2024 – Present" },
     ],
     highlight:
-      "Leading digital transformation across Indonesia’s hospital network",
+      "Leading digital transformation across Indonesia's hospital network",
     achievement:
       "Delivered scalable EMR/HIS platforms for 12+ hospitals, architected hybrid deployments, optimized CI/CD pipelines, and drove major technical initiatives like feature flags, design systems, secure storage, and secrets management.",
   },
@@ -52,16 +70,42 @@ export const EXPERIENCE = [
   },
 ] as const;
 
-// About Tabs
-export const ABOUT_TABS = ["Background", "Interests", "Tech"] as const;
-export type AboutTab = (typeof ABOUT_TABS)[number];
+/**
+ * Available tab names for the About section
+ * 
+ * These tabs organize different aspects of the about information:
+ * - Background: Professional experience and education
+ * - Interests: Personal interests and hobbies
+ * - Tech: Technical skills and expertise
+ */
+export const ABOUT_TABS: readonly AboutTab[] = [
+  "Background",
+  "Interests",
+  "Tech",
+] as const;
 
-// Tech Groups
-export const TECH_GROUPS = ["Build", "Ship", "Lead"] as const;
-export type TechGroup = (typeof TECH_GROUPS)[number];
+/**
+ * Technology group categories
+ * 
+ * Organizes technical skills into three categories:
+ * - Build: Core development technologies and frameworks
+ * - Ship: Deployment, DevOps, and infrastructure tools
+ * - Lead: Leadership, design, and project management skills
+ */
+export const TECH_GROUPS: readonly TechGroup[] = [
+  "Build",
+  "Ship",
+  "Lead",
+] as const;
 
-// Star Field Positions
-export const STAR_POSITIONS = {
+/**
+ * Star field positions for background effects
+ * 
+ * Defines the positioning of decorative stars in the background.
+ * Stars are organized by size for visual depth and variety.
+ * Positions are specified as percentages of viewport dimensions.
+ */
+export const STAR_POSITIONS: StarFieldPositions = {
   small: [
     { top: "5%", left: "25%" },
     { top: "12%", left: "75%" },
@@ -88,8 +132,14 @@ export const STAR_POSITIONS = {
   ],
 } as const;
 
-// Meteor Animation Configurations
-export const METEOR_CONFIGS = [
+/**
+ * Meteor animation configurations
+ * 
+ * Defines animation parameters for individual meteors in the background.
+ * Each config includes animation names, durations, and delays for variety.
+ * Creates a realistic meteor shower effect when combined.
+ */
+export const METEOR_CONFIGS: readonly AnimationConfig[] = [
   {
     style: {
       animationName: "meteorRealisticPhysics, meteorHeatColor",
@@ -134,8 +184,14 @@ export const METEOR_CONFIGS = [
   },
 ] as const;
 
-// Meteor Burst Configurations
-export const METEOR_BURST_CONFIGS = [
+/**
+ * Meteor burst animation configurations
+ * 
+ * Defines animation parameters for meteor shower bursts.
+ * Bursts create periodic clusters of meteors for visual interest.
+ * Positioned strategically to avoid overlapping with primary UI elements.
+ */
+export const METEOR_BURST_CONFIGS: readonly AnimationConfig[] = [
   {
     style: {
       animationName: "meteorShowerBurst",
@@ -158,3 +214,46 @@ export const METEOR_BURST_CONFIGS = [
     },
   },
 ] as const;
+
+/**
+ * Get total number of experiences
+ * 
+ * @returns Total count of work experiences
+ */
+export function getExperienceCount(): number {
+  return EXPERIENCE.length;
+}
+
+/**
+ * Get experience by index
+ * 
+ * @param index - Zero-based index of the experience
+ * @returns Experience object or undefined if index is invalid
+ */
+export function getExperienceByIndex(index: number): Experience | undefined {
+  if (index < 0 || index >= EXPERIENCE.length) {
+    return undefined;
+  }
+  return EXPERIENCE[index];
+}
+
+/**
+ * Check if an about tab is valid
+ * 
+ * @param tab - Tab name to validate
+ * @returns True if tab is valid
+ */
+export function isValidAboutTab(tab: string): tab is AboutTab {
+  return ABOUT_TABS.includes(tab as AboutTab);
+}
+
+/**
+ * Check if a tech group is valid
+ * 
+ * @param group - Group name to validate
+ * @returns True if group is valid
+ */
+export function isValidTechGroup(group: string): group is TechGroup {
+  return TECH_GROUPS.includes(group as TechGroup);
+}
+

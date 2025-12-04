@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import type { Project } from "@/data/portfolio";
+import { memo } from "react";
+import type { Project } from "@/types";
 
 interface ProjectCardProps {
   /** The project data to display */
@@ -43,17 +43,14 @@ const ProjectCard = memo(function ProjectCard({
 }: ProjectCardProps) {
   return (
     <article
-      className={`group bg-card border border-token rounded-lg ${
-        isCompact ? "p-3" : "p-5"
-      } flex flex-col ${
-        isCompact ? "gap-1" : "gap-3"
-      } card-floating shimmer-card hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--accent)]/20 transition-all duration-300`}
+      className={`group bg-card border border-token rounded-lg ${isCompact ? "p-3" : "p-5"
+        } flex flex-col ${isCompact ? "gap-1" : "gap-3"
+        } card-floating shimmer-card hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--accent)]/20 transition-all duration-300`}
     >
       <header>
         <h3
-          className={`${
-            isCompact ? "text-sm" : "text-base"
-          } font-semibold text-[var(--primary)] group-hover:text-[var(--accent)] transition-colors`}
+          className={`${isCompact ? "text-sm" : "text-base"
+            } font-semibold text-[var(--primary)] group-hover:text-[var(--accent)] transition-colors`}
         >
           {project.title}
         </h3>
@@ -68,9 +65,8 @@ const ProjectCard = memo(function ProjectCard({
               <path d="M14 17h3l2-4V7h-6v6h3M6 17h3l2-4V7H5v6h3l-2 4z" />
             </svg>
             <p
-              className={`${
-                isCompact ? "text-xs" : "text-sm"
-              } italic text-[var(--accent)] opacity-80 group-hover/tagline:opacity-100 transition-opacity duration-300`}
+              className={`${isCompact ? "text-xs" : "text-sm"
+                } italic text-[var(--accent)] opacity-80 group-hover/tagline:opacity-100 transition-opacity duration-300`}
             >
               {project.tagline}
             </p>
@@ -88,9 +84,8 @@ const ProjectCard = memo(function ProjectCard({
           <path d="M14 17h3l2-4V7h-6v6h3M6 17h3l2-4V7H5v6h3l-2 4z" />
         </svg>
         <p
-          className={`${
-            isCompact ? "text-sm" : "text-base"
-          } text-muted pl-5 leading-relaxed group-hover/desc:text-[color-mix(in_srgb,var(--foreground)_95%,var(--muted-fg))] transition-colors duration-300`}
+          className={`${isCompact ? "text-sm" : "text-base"
+            } text-muted pl-5 leading-relaxed group-hover/desc:text-[color-mix(in_srgb,var(--foreground)_95%,var(--muted-fg))] transition-colors duration-300`}
         >
           {project.description}
         </p>
