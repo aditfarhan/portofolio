@@ -1,4 +1,5 @@
 import { memo, useCallback } from "react";
+import "@/styles/profile-card.css";
 
 interface ProfileCardProps {
   showActionButton?: boolean;
@@ -23,118 +24,129 @@ const ProfileCard = memo(function ProfileCard({
   }, [isAnimating, onToggleFlip]);
 
   return (
-    <div
-      className={`h-full flex flex-col items-center justify-center text-center ${isLarge ? "gap-4" : "gap-3"
-        }`}
-    >
-      {/* Classy sparkle elements */}
-      <div className="jewel-sparkle"></div>
-      <div className="jewel-sparkle"></div>
-      <div className="jewel-sparkle"></div>
-      <div className="jewel-sparkle"></div>
+    <div className="profile-card relative h-full flex items-center justify-center">
+      {/* Decorative sparkles */}
+      <div className="jewel-sparkle opacity-20" />
+      <div className="jewel-sparkle opacity-10" />
 
       <div
-        className="w-full h-1.5 rounded-full bg-[linear-gradient(90deg,var(--brand-a),var(--brand-b),var(--brand-c))]"
-        aria-hidden="true"
-      ></div>
-
-      <div
-        className={`mx-auto mt-2 inline-flex items-center justify-center rounded-full border border-token bg-card/80 font-bold select-none ${isLarge ? "w-12 h-12" : "w-10 h-10"
-          }`}
-        aria-label="Avatar initials"
+        className={`
+          flex flex-col items-center text-center
+          ${isLarge ? "gap-3 py-4 px-4" : "gap-2 py-3 px-3"}
+        `}
       >
-        MAF
-      </div>
-
-      <h1
-        className={`font-extrabold tracking-tight ${isLarge ? "text-3xl sm:text-4xl" : "text-xl sm:text-2xl"
-          }`}
-      >
-        Muhammad Aditia Farhan
-      </h1>
-
-      <div
-        className={`text-muted text-center ${isLarge ? "text-xs sm:text-sm" : "text-xs"
-          }`}
-      >
-        <p>Software Engineer · 5+ yrs · Bandung State Polytechnic '20</p>
-        <p className="mt-1">
-          High-impact scalable tech for essential industries
-        </p>
-        <p className="mt-1">Jakarta & Bandung, Indonesia</p>
-      </div>
-
-      {showActionButton && (
-        <div className="mt-3 flex justify-center">
-          <div
-            role="group"
-            aria-label="Profile actions"
-            className="action-group inline-flex items-center overflow-hidden"
-          >
-            <button
-              onClick={handleToggleFlip}
-              disabled={isAnimating}
-              className={`action-cta transition-all duration-300 ${isAnimating
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:scale-105"
-                }`}
-              aria-label={
-                isFlipped
-                  ? "Switch back to show About Me"
-                  : "Switch to show Projects"
-              }
-            >
-              {isFlipped ? "← About Me" : "Explore Projects →"}
-            </button>
-
-            <span aria-hidden="true" className="action-divider"></span>
-
-            <a
-              href="mailto:aditiafarhan25@gmail.com"
-              className="action-icon"
-              aria-label="Email Muhammad Aditia Farhan"
-              title="Email"
-            >
-              <svg className="w-5 h-5" aria-hidden="true" focusable="false">
-                <use href="/icons.svg#icon-mail"></use>
-              </svg>
-            </a>
-
-            <a
-              href="/ATS CV 2025 3.0 - Muhammad Aditia Farhan.pdf"
-              download="Muhammad_Aditia_Farhan_CV_2025.pdf"
-              className="action-icon cv-download-btn"
-              aria-label="Download CV"
-              title="Download CV"
-              onClick={(e) => {
-                // Add download animation
-                const button = e.currentTarget;
-                button.classList.add("cv-download-animating");
-                setTimeout(() => {
-                  button.classList.remove("cv-download-animating");
-                }, 2000);
-              }}
-            >
-              <svg className="w-5 h-5" aria-hidden="true" focusable="false">
-                <use href="/icons.svg#icon-download"></use>
-              </svg>
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/muhammad-aditia-farhan"
-              className="action-icon"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit LinkedIn profile"
-              title="LinkedIn"
-            >
-              <svg className="w-5 h-5" aria-hidden="true" focusable="false">
-                <use href="/icons.svg#icon-linkedin"></use>
-              </svg>
-            </a>
-          </div>
+        {/* MAF mark */}
+        <div
+          tabIndex={0}
+          className={`
+            maf-logo inline-flex items-center justify-center rounded-full
+            border border-white/20 bg-card/60 text-white font-semibold
+            ${isLarge ? "w-11 h-11 text-sm" : "w-9 h-9 text-xs"}
+          `}
+          aria-label="Personal mark"
+        >
+          MAF
         </div>
-      )}
+
+        {/* Identity */}
+        <div className="space-y-0.5">
+          <h1
+            className={`font-extrabold tracking-tight ${isLarge ? "text-3xl" : "text-xl"
+              }`}
+            style={{ letterSpacing: "-0.015em" }}
+          >
+            Muhammad Aditia Farhan
+          </h1>
+
+          <h2
+            className={`text-white/80 ${isLarge ? "text-base leading-snug" : "text-sm leading-snug"
+              }`}
+          >
+            Senior Full-stack Software Engineer
+          </h2>
+        </div>
+
+        {/* Value proposition */}
+        <p
+          className={`max-w-md text-white/65 ${isLarge ? "text-sm leading-relaxed" : "text-xs leading-relaxed"
+            }`}
+        >
+          Building enterprise web systems for healthcare, logistics, and
+          e-commerce with strong focus on reliability and long-term
+          maintainability.
+        </p>
+
+        {/* Quiet credibility signal */}
+        <p className="text-xs text-white/40">
+          Production systems • Compliance-aware • Infra-conscious
+        </p>
+
+        {/* Capability chips */}
+        <div className="flex flex-wrap justify-center gap-2 text-xs">
+          <span className="capability-chip px-3 py-1 rounded-full bg-white/10 text-white/80 font-medium">
+            Full-stack Software Engineer
+          </span>
+          <span className="capability-chip px-3 py-1 rounded-full bg-white/10 text-white/80 font-medium">
+            5+ Years Production Systems
+          </span>
+        </div>
+
+        {/* Location */}
+        <p className="text-white/45 text-xs">
+          Jakarta & Bandung • Open to remote & hybrid roles
+        </p>
+
+        {/* Actions */}
+        {showActionButton && (
+          <div className="mt-2 flex justify-center">
+            <div className="action-group inline-flex items-center overflow-hidden">
+              <button
+                onClick={handleToggleFlip}
+                disabled={isAnimating}
+                className={`action-cta ${isAnimating ? "opacity-50" : "hover:opacity-90"
+                  }`}
+              >
+                {isFlipped ? "← About Me" : "Explore Projects"}
+              </button>
+
+              <span aria-hidden="true" className="action-divider" />
+
+              <a
+                href="mailto:aditiafarhan25@gmail.com"
+                className="action-icon"
+                aria-label="Email"
+              >
+                <svg className="w-5 h-5">
+                  <use href="/icons.svg#icon-mail" />
+                </svg>
+              </a>
+
+              <a
+                href="/ATS CV 2025 3.0 - Muhammad Aditia Farhan.pdf"
+                download
+                className="action-icon"
+                aria-label="Download CV"
+              >
+                <svg className="w-5 h-5">
+                  <use href="/icons.svg#icon-download" />
+                </svg>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/muhammad-aditia-farhan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="action-icon"
+                aria-label="LinkedIn"
+              >
+                <svg className="w-5 h-5">
+                  <use href="/icons.svg#icon-linkedin" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 });

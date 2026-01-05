@@ -1,0 +1,123 @@
+/* =========================
+   Card Hover & Focus
+========================= */
+
+.profile-card {
+    contain: layout paint;
+    will-change: transform, box-shadow;
+    transition:
+        transform 260ms cubic-bezier(.22, .61, .36, 1),
+        box-shadow 260ms cubic-bezier(.22, .61, .36, 1);
+}
+
+.profile-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 22px 56px rgba(0, 0, 0, 0.45),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* =========================
+   MAF Signature Animation
+========================= */
+
+@keyframes mafReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.92);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.12);
+    }
+}
+
+@keyframes mafIdle {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.10);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.14);
+    }
+}
+
+.maf-logo {
+    animation:
+        mafReveal 480ms cubic-bezier(.22, .61, .36, 1) both,
+        mafIdle 4.8s ease-in-out infinite 650ms;
+    transition: transform 200ms ease, filter 200ms ease;
+}
+
+.maf-logo:hover,
+.maf-logo:focus-visible {
+    transform: scale(1.05);
+    filter: brightness(1.08);
+}
+
+/* =========================
+   Capability Chips
+========================= */
+
+.capability-chip {
+    transition:
+        transform 160ms ease,
+        background-color 160ms ease;
+}
+
+.capability-chip:hover {
+    transform: translateY(-1px);
+    background-color: rgba(255, 255, 255, 0.16);
+}
+
+/* =========================
+   CTA Directional Cue
+========================= */
+
+.action-cta {
+    position: relative;
+}
+
+.action-cta::after {
+    content: "→";
+    position: absolute;
+    right: -1.1em;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.action-cta:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* =========================
+   Focus Accessibility
+========================= */
+
+.action-cta:focus-visible,
+.action-icon:focus-visible,
+.maf-logo:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+}
+
+/* =========================
+   Reduced Motion
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .profile-card,
+    .profile-card * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
