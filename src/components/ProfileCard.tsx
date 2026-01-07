@@ -23,8 +23,22 @@ const ProfileCard = memo(function ProfileCard({
     onToggleFlip();
   }, [isAnimating, onToggleFlip]);
 
+  function handleShine(e: React.MouseEvent<HTMLDivElement>) {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    el.style.setProperty("--mx", `${x}%`);
+    el.style.setProperty("--my", `${y}%`);
+  }
+
   return (
-    <div className="profile-card relative h-full flex items-center justify-center">
+    <div
+      onMouseMove={handleShine}
+      className="profile-card shine-card group relative h-full flex items-center justify-center"
+    >
       {/* Decorative sparkles */}
       <div className="jewel-sparkle opacity-20" />
       <div className="jewel-sparkle opacity-10" />
@@ -35,12 +49,17 @@ const ProfileCard = memo(function ProfileCard({
           ${isLarge ? "gap-3 py-4 px-4" : "gap-2 py-3 px-3"}
         `}
       >
-        {/* MAF mark */}
+        {/* ======================
+            MAF MARK
+        ====================== */}
         <div
           tabIndex={0}
           className={`
-            maf-logo inline-flex items-center justify-center rounded-full
+            maf-logo shine-card
+            inline-flex items-center justify-center rounded-full
             border border-white/20 bg-card/60 text-white font-semibold
+            transition-transform duration-300
+            hover:scale-[1.06]
             ${isLarge ? "w-11 h-11 text-sm" : "w-9 h-9 text-xs"}
           `}
           aria-label="Personal mark"
@@ -48,101 +67,153 @@ const ProfileCard = memo(function ProfileCard({
           MAF
         </div>
 
-        {/* Identity */}
+        {/* ======================
+            IDENTITY
+        ====================== */}
         <div className="space-y-0.5">
           <h1
-            className={`font-extrabold tracking-tight ${isLarge ? "text-3xl" : "text-xl"
-              }`}
+            className={`
+              font-extrabold tracking-tight
+              transition-all duration-300
+              ${isLarge ? "text-3xl" : "text-xl"}
+              group-hover:-translate-y-[1px]
+            `}
             style={{ letterSpacing: "-0.015em" }}
           >
             Muhammad Aditia Farhan
           </h1>
 
           <h2
-            className={`text-white/80 ${isLarge ? "text-base leading-snug" : "text-sm leading-snug"
-              }`}
+            className={`
+              text-white/80
+              transition-all duration-300 delay-75
+              ${isLarge ? "text-base leading-snug" : "text-sm leading-snug"}
+              group-hover:text-white/90
+            `}
           >
             Senior Full-stack Software Engineer
           </h2>
         </div>
 
-        {/* Value proposition */}
+        {/* ======================
+            VALUE PROPOSITION
+        ====================== */}
         <p
-          className={`max-w-md text-white/65 ${isLarge ? "text-sm leading-relaxed" : "text-xs leading-relaxed"
-            }`}
+          className={`
+            max-w-md text-white/65
+            transition-all duration-300 delay-100
+            ${isLarge ? "text-sm leading-relaxed" : "text-xs leading-relaxed"}
+            group-hover:text-white/75
+          `}
         >
           Building enterprise web systems for healthcare, logistics, and
           e-commerce with strong focus on reliability and long-term
           maintainability.
         </p>
 
-        {/* Quiet credibility signal */}
-        <p className="text-xs text-white/40">
+        {/* Quiet credibility */}
+        <p
+          className="
+            text-xs text-white/40
+            transition-opacity duration-300 delay-150
+            group-hover:text-white/55
+          "
+        >
           Production systems • Compliance-aware • Infra-conscious
         </p>
 
-        {/* Capability chips */}
+        {/* ======================
+            CAPABILITY CHIPS
+        ====================== */}
         <div className="flex flex-wrap justify-center gap-2 text-xs">
-          <span className="capability-chip px-3 py-1 rounded-full bg-white/10 text-white/80 font-medium">
-            Full-stack Software Engineer
-          </span>
-          <span className="capability-chip px-3 py-1 rounded-full bg-white/10 text-white/80 font-medium">
-            5+ Years Production Systems
-          </span>
+          {[
+            "Full-stack Software Engineer",
+            "5+ Years Production Systems",
+          ].map((chip) => (
+            <span
+              key={chip}
+              className="
+                capability-chip
+                px-3 py-1 rounded-full
+                bg-white/10 text-white/80 font-medium
+              "
+            >
+              {chip}
+            </span>
+          ))}
         </div>
 
         {/* Location */}
-        <p className="text-white/45 text-xs">
+        <p
+          className="
+            text-white/45 text-xs
+            transition-opacity duration-300 delay-200
+            group-hover:text-white/60
+          "
+        >
           Jakarta & Bandung • Open to remote & hybrid roles
         </p>
 
-        {/* Actions */}
+        {/* ======================
+            ACTIONS
+        ====================== */}
         {showActionButton && (
           <div className="mt-2 flex justify-center">
             <div className="action-group inline-flex items-center overflow-hidden">
+              {/* PRIMARY CTA */}
               <button
                 onClick={handleToggleFlip}
                 disabled={isAnimating}
-                className={`action-cta ${isAnimating ? "opacity-50" : "hover:opacity-90"
-                  }`}
+                className={`
+                  action-cta underline-react
+                  transition-transform duration-300
+                  ${isAnimating ? "opacity-50" : "hover:opacity-90 hover:translate-x-[1px]"}
+                `}
               >
                 {isFlipped ? "← About Me" : "Explore Projects"}
               </button>
 
               <span aria-hidden="true" className="action-divider" />
 
-              <a
-                href="mailto:aditiafarhan25@gmail.com"
-                className="action-icon"
-                aria-label="Email"
-              >
-                <svg className="w-5 h-5">
-                  <use href="/icons.svg#icon-mail" />
-                </svg>
-              </a>
-
-              <a
-                href="/ATS CV 2025 3.0 - Muhammad Aditia Farhan.pdf"
-                download
-                className="action-icon"
-                aria-label="Download CV"
-              >
-                <svg className="w-5 h-5">
-                  <use href="/icons.svg#icon-download" />
-                </svg>
-              </a>
-
-              <a
-                href="https://www.linkedin.com/in/muhammad-aditia-farhan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="action-icon"
-                aria-label="LinkedIn"
-              >
-                <svg className="w-5 h-5">
-                  <use href="/icons.svg#icon-linkedin" />
-                </svg>
-              </a>
+              {/* UTILITY CTAs */}
+              {[
+                {
+                  href: "mailto:aditiafarhan25@gmail.com",
+                  icon: "icon-mail",
+                  label: "Email",
+                },
+                {
+                  href: "/ATS CV 2025 3.0 - Muhammad Aditia Farhan.pdf",
+                  icon: "icon-download",
+                  label: "Download CV",
+                  download: true,
+                },
+                {
+                  href: "https://www.linkedin.com/in/muhammad-aditia-farhan",
+                  icon: "icon-linkedin",
+                  label: "LinkedIn",
+                  external: true,
+                },
+              ].map(({ href, icon, label, download, external }) => (
+                <a
+                  key={label}
+                  href={href}
+                  download={download}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  className="
+                    action-icon
+                    transition-all duration-200
+                    hover:scale-[1.08]
+                    hover:bg-white/10
+                  "
+                  aria-label={label}
+                >
+                  <svg className="w-5 h-5">
+                    <use href={`/icons.svg#${icon}`} />
+                  </svg>
+                </a>
+              ))}
             </div>
           </div>
         )}

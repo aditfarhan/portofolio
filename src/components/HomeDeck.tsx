@@ -2,9 +2,8 @@
 
 import { memo, useMemo, lazy, Suspense } from "react";
 import { portfolio } from "@/data/portfolio";
-import { EXPERIENCE } from "@/lib/constants";
 import { ProfileCard, ProjectCard, BackgroundEffects } from "@/components";
-import { useFlipAnimation, useExperienceNavigation, useTechGroupNavigation } from "@/hooks";
+import { useFlipAnimation } from "@/hooks";
 
 // Lazy load heavy components
 const AboutMe = lazy(() => import("@/components/AboutMe"));
@@ -14,17 +13,6 @@ const AboutMe = lazy(() => import("@/components/AboutMe"));
  */
 const HomeDeck = memo(function HomeDeck() {
   const { isFlipped, isAnimating, toggleFlip } = useFlipAnimation();
-  const { expIndex, goToExp } = useExperienceNavigation();
-  const { techGroup, goToTechGroup } = useTechGroupNavigation();
-
-  // Memoized experience index change handler
-  const handleExpIndexChange = useMemo(() => {
-    return (index: number) => {
-      if (index >= 0 && index < EXPERIENCE.length) {
-        goToExp(index);
-      }
-    };
-  }, [goToExp]);
 
   // Memoized sorted projects by start date descending
   const sortedProjects = useMemo(() => {
@@ -59,7 +47,6 @@ const HomeDeck = memo(function HomeDeck() {
               {/* Front Side - Profile */}
               <div className="card-flip-front absolute inset-0 hero relative rounded-lg bg-card border border-token p-5 flex flex-col items-center justify-center gap-4 card-floating text-center shimmer-card jewel-profile">
                 <ProfileCard
-                  showActionButton={true}
                   size="large"
                   onToggleFlip={toggleFlip}
                   isFlipped={isFlipped}
@@ -126,10 +113,8 @@ const HomeDeck = memo(function HomeDeck() {
                   }
                 >
                   <AboutMe
-                    expIndex={expIndex}
-                    onExpIndexChange={handleExpIndexChange}
-                    techGroup={techGroup}
-                    onTechGroupChange={goToTechGroup}
+                    onToggleFlip={toggleFlip}
+                    isAnimating={isAnimating}
                   />
                 </Suspense>
               </div>
