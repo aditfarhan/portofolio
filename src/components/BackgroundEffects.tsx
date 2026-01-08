@@ -1,8 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 /**
  * BackgroundEffects - Organized background animations and effects
- * Contains: Star field, meteors, meteor bursts, and moon
+ * Contains: Star field, meteors, meteor bursts, moon, and arrival orb
  */
 import {
   STAR_POSITIONS,
@@ -41,6 +43,13 @@ export default function BackgroundEffects() {
         ))}
       </div>
 
+      {/* Arrival Orb - First-visit ignition cue */}
+      {/* Mounted above background, below cards - synced with meteor timing */}
+      <div className="arrival-orb-wrapper" aria-hidden="true">
+        {/* Lazy import ArrivalOrb to avoid SSR issues with sessionStorage */}
+        <LazyArrivalOrb />
+      </div>
+
       {/* Realistic Meteors - Trajectories Aligned with Night Sky */}
       <div className="meteor-container" aria-hidden="true">
         {METEOR_CONFIGS.map((config, index) => (
@@ -70,4 +79,25 @@ export default function BackgroundEffects() {
       </div>
     </>
   );
+}
+
+/**
+ * Lazy-loaded ArrivalOrb wrapper to handle sessionStorage access
+ * Only runs on client-side to avoid SSR hydration mismatches
+ */
+function LazyArrivalOrb() {
+  const [ArrivalOrb, setArrivalOrb] = useState<React.ComponentType<{}> | null>(null);
+
+  useEffect(() => {
+    // Dynamically import ArrivalOrb to avoid SSR issues
+    import("./ArrivalOrb").then((module) => {
+      setArrivalOrb(() => module.default);
+    });
+  }, []);
+
+  if (!ArrivalOrb) {
+    return null;
+  }
+
+  return <ArrivalOrb />;
 }
