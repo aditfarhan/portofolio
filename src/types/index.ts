@@ -63,7 +63,11 @@ export interface Project {
   period?: Period;
   /** Optional image path relative to public directory */
   image?: string;
-  /** Key highlights or achievements (bullet points) */
+  /** Key engineering decision made (1 sentence) */
+  decision?: string;
+  /** Direct outcome or impact of the decision (1 sentence) */
+  outcome?: string;
+  /** Key highlights or achievements (deprecated in favor of decision/outcome) */
   highlights?: string[];
 }
 

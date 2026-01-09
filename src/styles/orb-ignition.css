@@ -36,7 +36,7 @@
         0 0 12px rgba(200, 220, 255, 0.5),
         0 0 20px rgba(150, 180, 220, 0.3);
     opacity: 0;
-    animation: orbIgnition 1.5s ease-out forwards;
+    animation: orbIgnition 2s ease-out forwards;
 }
 
 /* Ignition animation sequence */
@@ -48,14 +48,14 @@
     }
 
     15% {
-        /* Fade in softly */
+        /* Fade in softly (0-300ms) */
         opacity: 0.4;
         transform: scale(0.5);
         filter: blur(2px);
     }
 
     35% {
-        /* Brief expand / energy pulse */
+        /* Brief expand / energy pulse (300-700ms) */
         opacity: 0.9;
         transform: scale(1.8);
         filter: blur(0.5px);
@@ -78,7 +78,7 @@
     }
 
     100% {
-        /* Dissolve / fade out */
+        /* Dissolve / fade out (700-2000ms) */
         opacity: 0;
         transform: scale(2.5);
         filter: blur(6px);

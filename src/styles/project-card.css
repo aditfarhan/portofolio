@@ -1,0 +1,192 @@
+/* ========== PROJECT ENTRY (ENGINEERING LOG) ========== */
+
+.project-entry {
+    background: color-mix(in srgb, var(--card) 60%, transparent);
+    border-left: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    border-radius: 2px;
+    padding: 1rem;
+    padding-left: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ========== ENTRY SEQUENCING ========== */
+
+.animate-fade-in-entry {
+    animation: entryFadeIn 0.2s ease-out forwards;
+}
+
+@keyframes entryFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Secondary (archival) entries */
+.project-entry.is-secondary {
+    animation: none;
+    opacity: 0.92;
+}
+
+/* ========== HEADER ========== */
+
+.entry-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.entry-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--foreground);
+    letter-spacing: -0.01em;
+}
+
+.entry-context {
+    font-size: 0.75rem;
+    color: var(--accent);
+    opacity: 0.65;
+    font-family: var(--font-geist-mono);
+}
+
+/* ========== BODY ========== */
+
+.entry-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.entry-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.entry-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    opacity: 0.5;
+}
+
+.entry-text {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--muted-fg);
+}
+
+/* Decision is always slightly stronger */
+.entry-text--primary {
+    color: var(--foreground);
+    opacity: 0.85;
+}
+
+/* ========== TECH FOOTNOTE ========== */
+
+.entry-tech {
+    font-size: 0.6875rem;
+    color: var(--accent);
+    opacity: 0.4;
+    font-family: var(--font-geist-mono);
+    border-top: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+    padding-top: 0.5rem;
+}
+
+/* ========== VISUAL RHYTHM ========== */
+
+.project-entry+.project-entry {
+    margin-top: 0.75rem;
+}
+
+.project-entry::before {
+    content: "";
+    position: absolute;
+    left: -0.25rem;
+    top: 0.75rem;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.3;
+}
+
+/* ========== MOTION SAFETY ========== */
+
+.project-entry,
+.project-entry * {
+    transition: none !important;
+    cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-fade-in-entry {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* ========== SCANNABILITY RULE ========== */
+
+@media (min-width: 640px) {
+    .projects-focused .grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}
+
+/* Progressive disclosure */
+.entry-section--collapsible {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+        max-height 240ms ease,
+        opacity 180ms ease;
+}
+
+.project-entry.is-expanded .entry-section--collapsible {
+    max-height: 120px;
+    /* enough for outcome text */
+    opacity: 1;
+}
+
+/* Disclosure control */
+.entry-disclosure {
+    margin-top: 0.25rem;
+    align-self: flex-start;
+    background: none;
+    border: none;
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--accent);
+    opacity: 0.45;
+    cursor: pointer;
+    padding: 0;
+}
+
+.entry-disclosure:hover {
+    opacity: 0.8;
+}
+
+/* Secondary projects never expand */
+.project-entry.is-secondary .entry-disclosure {
+    display: none;
+}
+
+/* Expanded emphasis */
+.project-entry.is-expanded {
+    border-left-color: var(--accent);
+}

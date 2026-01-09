@@ -1,0 +1,193 @@
+/* ========== SINGLE-FOCUS PROJECTS LAYOUT ========== */
+
+/**
+ * Single-Focus Projects Layout
+ * 
+ * Transition from two-card layout to single-focus projects view.
+ * Uses grid-column transitions for smooth layout changes.
+ * 
+ * Layout:
+ * - Initial: Two cards side-by-side (grid-cols-2)
+ * - Flip: Projects expands (col-span-2), About collapses (opacity-0, pointer-events-none)
+ */
+
+/* Main container - Using Flex for smooth width/height transitions */
+.home-deck-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 1.25rem;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    transition: gap 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Individual cards */
+.home-card {
+    position: relative;
+    flex: 1 1 0%;
+    min-width: 0;
+    /* Important for flex collapse */
+    height: 460px;
+    opacity: 1;
+    transform: scale(1);
+    transition:
+        flex 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+        opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+        visibility 0.7s step-start,
+        transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+        margin 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: flex, opacity, transform;
+}
+
+/* ========== PROJECTS FOCUSED STATE ========== */
+
+/* When flipped/focused: Growth & Collapse Logic */
+.home-deck-grid.projects-focused {
+    gap: 0;
+}
+
+.home-deck-grid.projects-focused .home-card--profile {
+    flex: 3 1 0%;
+    /* More aggressive expansion */
+    z-index: 10;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.home-deck-grid.projects-focused .home-card--about {
+    flex: 0 0 0%;
+    opacity: 0;
+    visibility: hidden;
+    /* Recede into background */
+    transform: scale(0.85) translateZ(-100px);
+    pointer-events: none;
+    margin: 0;
+    overflow: hidden;
+    transition:
+        flex 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+        opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+        visibility 0.7s step-end,
+        transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ========== REDUCED MOTION SUPPORT ========== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .home-deck-grid,
+    .home-card,
+    .home-card--about .card-flip-inner {
+        transition: none !important;
+    }
+
+    .home-deck-grid.projects-focused .home-card--about {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+/* ========== MOBILE RESPONSIVENESS ========== */
+
+@media (max-width: 768px) {
+    .home-deck-grid {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .home-card {
+        flex: 0 0 auto;
+        height: auto;
+        min-height: 380px;
+        width: 100%;
+    }
+
+    /* Mobile: Stack vertically initially */
+    .home-card--profile,
+    .home-card--about {
+        flex: 1 1 auto;
+    }
+
+    /* Mobile: Projects focused - Take visible area */
+    .home-deck-grid.projects-focused {
+        gap: 0;
+    }
+
+    .home-deck-grid.projects-focused .home-card--profile {
+        flex: 1 0 100%;
+        min-height: calc(100dvh - 2rem);
+    }
+
+    .home-deck-grid.projects-focused .home-card--about {
+        flex: 0 0 0%;
+        min-height: 0;
+        height: 0;
+        padding: 0;
+        border: none;
+    }
+}
+
+/* ========== ENSURE CONTINUOUS VISUAL FLOW ========== */
+
+/* Pre-process layout for expansion */
+.home-card {
+    contain: layout style paint;
+    will-change: flex, opacity, transform;
+    backface-visibility: hidden;
+}
+
+/* Smooth transitions on mobile */
+@media (max-width: 768px) {
+    .home-card {
+        transition:
+            flex 0.4s ease,
+            opacity 0.4s ease,
+            transform 0.4s ease,
+            visibility 0.4s step-end,
+            margin 0.4s ease,
+            padding 0.4s ease;
+    }
+}
+
+/* Ensure cards maintain visual continuity */
+.home-card--profile,
+.home-card--about {
+    transform-origin: center center;
+}
+
+/* Prevent content from jumping during collapse */
+.home-card--about .card-flip-inner {
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* When About collapses, ensure smooth fade */
+.home-deck-grid.projects-focused .home-card--about .card-flip-inner {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+/* ========== HARDWARE ACCELERATED SCROLL FIX ========== */
+.projects-scroll-fix {
+    transform: translateZ(0);
+    /* Force new compositor layer */
+    -webkit-overflow-scrolling: touch;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 10;
+    isolation: isolate;
+}
+
+/* Ensure child cards within scroll don't flicker */
+.projects-scroll-fix>* {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Desktop specific - larger card heights */
+@media (min-width: 640px) {
+    .home-card {
+        height: 460px;
+    }
+}

@@ -27,169 +27,120 @@ const projects: Project[] = [
   {
     id: "proj-00",
     title: "National HIS & EMR Platform",
-    tagline:
-      "Powering healthcare workflows with scalable, life-saving technology",
+    tagline: "Scalable, mission-critical healthcare technology",
     description:
-      "Dive into the heart of Indonesia's healthcare revolution—a comprehensive HIS and EMR platform that transforms patient care across corporate and regional hospitals. This powerhouse handles complex clinical workflows, processes millions of transactions daily, and seamlessly bridges cloud and on-premise worlds, ensuring doctors and nurses focus on what matters most: saving lives.",
+      "A comprehensive HIS and EMR platform transforming patient care across corporate and regional hospitals. This system handles complex clinical workflows and processes millions of transactions daily to ensure seamless medical operations.",
+    decision: "Architected a multi-tenant frontend framework to standardize clinical workflows across 12+ hospital ecosystems.",
+    outcome: "Processed millions of daily transactions with consistent medical accuracy and streamlined regional hospital operations.",
     tags: [
       "React.js",
       "Next.js",
       "Laravel",
-      "TypeScript",
       "Docker",
       "Kubernetes",
-      "REST API",
       "Feature Flags",
-      "Storybook",
     ],
     period: { start: "2023-12", end: "Present" },
-    links: [
-      {
-        type: "case-study",
-        url: "https://example.com/his",
-        label: "System Overview",
-      },
-    ],
     highlights: [
-      "Crafted intuitive inpatient flows that medical teams rely on every single day",
-      "Architected frontend solutions scaling effortlessly across 12+ diverse hospital ecosystems",
-      "Boosted system resilience with cutting-edge CI/CD, hybrid deployments, and lightning-fast performance optimizations",
+      "Designed mission-critical inpatient workflows utilized by medical teams for daily operations",
+      "Architected frontend solutions scaling across 12+ diverse hospital ecosystems",
+      "Optimized system resilience through automated CI/CD and hybrid deployment strategies",
     ],
   },
   {
     id: "proj-01",
     title: "OEXpress Logistics Platform",
-    tagline:
-      "Streamlining deliveries with real-time insights and rock-solid reliability",
+    tagline: "Streamlining deliveries with real-time insights",
     description:
-      "Step into the fast-paced world of logistics where every package matters. OEXpress empowers SMEs and enterprises with a sleek platform to master deliveries, monitor performance in real-time, and navigate operations with crystal-clear visibility. Engineered for unwavering reliability and a frictionless user journey from pickup to doorstep.",
-    tags: ["Vue.js", "Tailwind", "SCSS", "Vuex", "REST API"],
+      "A logistics management platform enabling SMEs and enterprises to track deliveries and monitor performance. Engineered for high reliability and frictionless logistics operations from pickup to final delivery.",
+    decision: "Implemented feature-flagged technical upgrades and structured API frameworks to modernize legacy logistics workflows.",
+    outcome: "Achieved frictionless tracking from pickup to delivery for SMEs while maintaining high system availability.",
+    tags: ["Vue.js", "Tailwind", "SCSS", "Vuex"],
     period: { start: "2023-01", end: "2023-11" },
-    links: [
-      {
-        type: "case-study",
-        url: "https://example.com/oexpress",
-        label: "Project Overview",
-      },
-    ],
     highlights: [
-      "Built mission-critical logistics workflows that keep businesses moving every day",
-      "Pioneered engineering upgrades with smart feature flags and robust API frameworks",
-      "Fortified system uptime through dedicated on-call support and forward-thinking maintenance",
+      "Developed high-availability logistics workflows supporting daily business operations",
+      "Implemented technical upgrades using feature flags and structured API frameworks",
+      "Maintained system uptime via horizontal scaling and proactive infrastructure maintenance",
     ],
   },
   {
     id: "proj-02",
     title: "IbuSibuk Ecosystem",
-    tagline:
-      "Empowering e-commerce dreams for resellers, brands, and influencers",
+    tagline: "Empowering resellers, brands, and influencers",
     description:
-      "Welcome to the vibrant universe of IbuSibuk—an exquisite multi-platform e-commerce ecosystem at Orami by SIRCLO that brings resellers, brands, and influencers together in perfect harmony. Designed with elegance at its core, it delivers breathtaking user experiences, rock-solid frontend scalability, and enduring maintainability that handles massive traffic with grace.",
-    tags: ["Next.js", "TypeScript", "Tailwind", "SCSS", "Redux", "REST API"],
+      "A multi-platform e-commerce ecosystem at Orami by SIRCLO. Focused on frontend scalability and maintainability to handle massive traffic and high-concurrency interactions.",
+    decision: "Built a standardized UI component library to unify the multi-platform e-commerce ecosystem at SIRCLO.",
+    outcome: "Accelerated cross-team development and improved platform stability during high-concurrency traffic events.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "SCSS", "Redux"],
     period: { start: "2021-10", end: "2022-12" },
-    links: [
-      {
-        type: "case-study",
-        url: "https://example.com/ibusibuk",
-        label: "Project Overview",
-      },
-    ],
     highlights: [
-      "Designed elegant, reusable UI components that empowered multiple teams to shine",
-      "Elevated platform stability with strategic optimizations and smart refactoring",
-      "Set the gold standard for engineering and design consistency across the entire ecosystem",
+      "Built standardized UI component libraries to accelerate cross-team development",
+      "Enhanced platform stability through strategic refactoring and performance monitoring",
+      "Established engineering standards for design consistency across the product ecosystem",
     ],
   },
   {
     id: "proj-03",
     title: "PMT–CMT Telecom Dashboard",
-    tagline: "Illuminating telecom operations with real-time intelligence",
+    tagline: "Network performance intelligence for leadership",
     description:
-      "Enter the command center of telecom excellence—a dynamic dashboard for Huawei's leadership that unveils network performance in stunning real-time. Through sophisticated data visualizations and fluid UI interactions, it transforms complex metrics into crystal-clear insights, empowering decisions that keep the digital world connected.",
-    tags: ["React.js", "Redux", "Material UI", "FusionCharts", "REST API"],
+      "A real-time dashboard for Huawei leadership. Uses data visualization and interactive UI to transform complex telecom metrics into actionable insights for operational decision-making.",
+    decision: "Engineered high-performance data-driven dashboards using FusionCharts for real-time network monitoring.",
+    outcome: "Transformed complex telecom metrics into actionable leadership insights for operational decision-making at Huawei.",
+    tags: ["React.js", "Redux", "Material UI", "FusionCharts"],
     period: { start: "2020-10", end: "2021-10" },
-    links: [
-      {
-        type: "case-study",
-        url: "https://example.com/telco-dashboard",
-        label: "Project Overview",
-      },
-    ],
     highlights: [
-      "Engineered compelling dashboards brimming with intuitive, data-driven visualizations",
-      "Crafted fluid interaction flows that make complex analytics feel effortless",
-      "Ensured rock-solid performance and reliability in demanding production settings",
+      "Engineered data-driven dashboards for real-time network performance monitoring",
+      "Streamlined complex analytics workflows into intuitive interaction models",
+      "Focused on system reliability and data accuracy in high-pressure production environments",
     ],
   },
   {
     id: "proj-04",
     title: "Prime Internet (PINTER)",
-    tagline:
-      "Putting internet control in customers' hands with elegant simplicity",
+    tagline: "Putting account control in customers' hands",
     description:
-      "Experience the future of internet management with PINTER—a customer-centric dashboard that puts control at your fingertips. Track usage in real-time, tweak packages effortlessly, and monitor account activity with breathtaking clarity. Built with simplicity as the guiding star, it makes complex internet management feel like second nature.",
-    tags: ["React.js", "Bootstrap", "Chart.js", "REST API", "Redux"],
+      "A customer portal for real-time usage tracking and account management. Focused on simplifying telecommunications workflows through intuitive UI and real-time data integration.",
+    decision: "Developed an integrated usage analytics portal to centralize customer account management and workflows.",
+    outcome: "Simplified recurring customer lifecycle operations and improved data transparency for end-user account control.",
+    tags: ["React.js", "Bootstrap", "Chart.js", "Redux"],
     period: { start: "2019-07", end: "2019-11" },
-    links: [
-      {
-        type: "case-study",
-        url: "https://example.com/pinter",
-        label: "Project Overview",
-      },
-    ],
     highlights: [
-      "Created captivating analytics and usage visualizations that speak volumes",
-      "Streamlined user journeys for an experience that's as smooth as silk",
-      "Collaborated seamlessly with backend wizards to deliver feature magic",
+      "Developed data visualizations for usage analytics and account management",
+      "Optimized user journeys to simplify recurring customer lifecycle operations",
+      "Coordinated with backend teams to integrate complex telecommunications APIs",
     ],
   },
   {
     id: "proj-05",
     title: "Sales Prediction Platform",
-    tagline: "Brewing smarter decisions with data-driven coffee forecasting",
+    tagline: "Data-driven coffee forecasting for better inventory",
     description:
-      "Sip into the art of prediction with this innovative platform for 372 Kopi that transforms raw transactional data into golden insights. Watch as a thriving coffee business gains the power to foresee demand, optimize inventory, and serve customers with perfect timing—all through stunning visual analysis that makes complex data dance.",
+      "A sales platform for 372 Kopi that transforms transactional data into business insights. Enables demand forecasting and inventory optimization through predictive modeling.",
+    decision: "Integrated predictive modeling with business intelligence dashboards to automate demand forecasting.",
+    outcome: "Enabled data-driven procurement decisions for 372 Kopi, reducing manual inventory overhead.",
     tags: ["Django", "Chart.js", "MySQL", "Bootstrap"],
     period: { start: "2020-03", end: "2020-09" },
-    links: [
-      {
-        type: "case-study",
-        url: "https://example.com/sales-forecast",
-        label: "Project Overview",
-      },
-    ],
     highlights: [
-      "Built expressive dashboards that unveil hidden sales patterns with elegance",
-      "Wove forecasting algorithms with visuals that tell stories at a glance",
-      "Crafted a clean, intuitive interface perfect for daily business brilliance",
+      "Developed business intelligence dashboards to identify seasonal sales patterns",
+      "Integrated forecasting models with data visualizations for stakeholder reporting",
+      "Built a focused management interface for daily inventory and procurement planning",
     ],
   },
   {
     id: "proj-06",
     title: "OurInvitation.id",
-    tagline:
-      "Crafting unforgettable digital invitations with timeless elegance",
+    tagline: "Customizable digital event platforms",
     description:
-      "Step into a world where celebrations come alive digitally—OurInvitation.id, a masterpiece of customizable event microsites that blend stunning themes, cutting-edge UI, and flawless guest experiences. Whether it's a wedding, birthday, or milestone, this platform turns ordinary invites into extraordinary memories with effortless customization and breathtaking design.",
-    tags: [
-      "React.js",
-      "Tailwind",
-      "Material UI",
-      "Styled Components",
-      "REST API",
-    ],
+      "A platform for event microsites featuring dynamic themes and optimized RSVP flows. Focused on high-performance customization and seamless user engagement for diverse event scales.",
+    decision: "Architected a dynamic template engine to support rapid theme deployment and real-time UI customization.",
+    outcome: "Optimized RSVP processing and theme scaling for diverse event sizes, ensuring high performance under peak engagement.",
+    tags: ["React.js", "Tailwind", "Material UI", "Styled Components"],
     period: { start: "2021-06", end: "2021-12" },
-    links: [
-      {
-        type: "case-study",
-        url: "https://example.com/ourinvitation",
-        label: "Live Preview",
-      },
-    ],
     highlights: [
-      "Engineered dynamic templates that radiate modern sophistication and charm",
-      "Built flexible, themeable components where beauty meets blazing performance",
-      "Perfected RSVP flows and guest interactions for pure, joyful engagement",
+      "Engineered a dynamic template engine for rapid theme deployment and scaling",
+      "Developed performant UI components supporting real-time theme customization",
+      "Optimized automated RSVP processing and guest notification systems",
     ],
   },
 ];

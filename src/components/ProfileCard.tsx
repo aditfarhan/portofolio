@@ -106,8 +106,8 @@ const ProfileCard = memo(function ProfileCard({
             group-hover:text-white/75
           `}
         >
-          Building enterprise web systems for healthcare, logistics, and
-          e-commerce with strong focus on reliability and long-term
+          Building enterprise systems for healthcare, logistics, and
+          e-commerce with a focus on reliability and long-term
           maintainability.
         </p>
 
@@ -119,7 +119,7 @@ const ProfileCard = memo(function ProfileCard({
             group-hover:text-white/55
           "
         >
-          Production systems • Compliance-aware • Infra-conscious
+          Production-hardened • Compliance-aware • Infrastructure-centric
         </p>
 
         {/* ======================

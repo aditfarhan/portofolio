@@ -47,7 +47,6 @@ const AboutMe = memo(function AboutMe({
             text-xs uppercase tracking-[0.22em] text-white/35 mb-5
             transition-all duration-500
             ${mounted ? "opacity-100" : "opacity-0"}
-            hover:text-white/55 hover:tracking-[0.18em]
           `}
         >
           About
@@ -58,23 +57,12 @@ const AboutMe = memo(function AboutMe({
         ======================= */}
         <p
           className={`
-            group relative text-lg sm:text-xl font-semibold leading-snug
+            relative text-lg sm:text-xl font-semibold leading-snug
             text-white transition-all duration-500
             ${mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}
-            hover:tracking-tight hover:-translate-y-[1px]
           `}
         >
           Build software with long-term clarity & intent.
-          {/* underline reveal */}
-          <span
-            aria-hidden
-            className="
-              absolute left-0 -bottom-1 h-px w-full
-              bg-white/30 scale-x-0 origin-left
-              transition-transform duration-500
-              group-hover:scale-x-100
-            "
-          />
         </p>
 
         {/* ======================
@@ -85,7 +73,6 @@ const AboutMe = memo(function AboutMe({
             mt-2 text-sm max-w-[46ch]
             text-white/50 transition-all duration-500 delay-100
             ${mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}
-            hover:text-white/65
           `}
         >
           Especially in environments where systems scale <br /> — and mistakes compound.
