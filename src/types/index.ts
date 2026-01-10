@@ -119,10 +119,10 @@ export type TechGroup = "Build" | "Ship" | "Lead";
  * Position coordinates for UI elements
  */
 export interface Position {
-  /** Top position as percentage string */
-  top: string;
-  /** Left position as percentage string */
-  left: string;
+  /** Top position as percentage string (using logical property) */
+  insetBlockStart: string;
+  /** Left position as percentage string (using logical property) */
+  insetInlineStart: string;
 }
 
 /**

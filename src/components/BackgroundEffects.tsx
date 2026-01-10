@@ -12,7 +12,7 @@ import {
   METEOR_BURST_CONFIGS,
 } from "@/lib/constants";
 
-export default function BackgroundEffects() {
+export default function BackgroundEffects({ onArrivalComplete }: { onArrivalComplete?: () => void }) {
   return (
     <>
       {/* Realistic Night Sky Background */}
@@ -24,21 +24,21 @@ export default function BackgroundEffects() {
           <div
             key={`small-${index}`}
             className="star small"
-            style={{ top: position.top, left: position.left }}
+            style={{ insetBlockStart: position.insetBlockStart, insetInlineStart: position.insetInlineStart }}
           />
         ))}
         {STAR_POSITIONS.medium.map((position, index) => (
           <div
             key={`medium-${index}`}
             className="star medium"
-            style={{ top: position.top, left: position.left }}
+            style={{ insetBlockStart: position.insetBlockStart, insetInlineStart: position.insetInlineStart }}
           />
         ))}
         {STAR_POSITIONS.large.map((position, index) => (
           <div
             key={`large-${index}`}
             className="star large"
-            style={{ top: position.top, left: position.left }}
+            style={{ insetBlockStart: position.insetBlockStart, insetInlineStart: position.insetInlineStart }}
           />
         ))}
       </div>
@@ -47,7 +47,7 @@ export default function BackgroundEffects() {
       {/* Mounted above background, below cards - synced with meteor timing */}
       <div className="arrival-orb-wrapper" aria-hidden="true">
         {/* Lazy import ArrivalOrb to avoid SSR issues with sessionStorage */}
-        <LazyArrivalOrb />
+        <LazyArrivalOrb onComplete={onArrivalComplete} />
       </div>
 
       {/* Realistic Meteors - Trajectories Aligned with Night Sky */}
@@ -85,8 +85,8 @@ export default function BackgroundEffects() {
  * Lazy-loaded ArrivalOrb wrapper to handle sessionStorage access
  * Only runs on client-side to avoid SSR hydration mismatches
  */
-function LazyArrivalOrb() {
-  const [ArrivalOrb, setArrivalOrb] = useState<React.ComponentType<{}> | null>(null);
+function LazyArrivalOrb({ onComplete }: { onComplete?: () => void }) {
+  const [ArrivalOrb, setArrivalOrb] = useState<React.ComponentType<{ onAnimationComplete?: () => void }> | null>(null);
 
   useEffect(() => {
     // Dynamically import ArrivalOrb to avoid SSR issues
@@ -99,5 +99,5 @@ function LazyArrivalOrb() {
     return null;
   }
 
-  return <ArrivalOrb />;
+  return <ArrivalOrb onAnimationComplete={onComplete} />;
 }

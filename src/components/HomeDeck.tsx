@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo, lazy, Suspense } from "react";
+import { memo, useMemo, Suspense, useState } from "react";
 import { portfolio } from "@/data/portfolio";
 import { ProfileCard, BackgroundEffects, AboutMe } from "@/components";
 import { useFlipAnimation } from "@/hooks";
@@ -17,11 +17,13 @@ const HomeDeck = memo(function HomeDeck() {
     });
   }, []);
 
+  const [isArrivalComplete, setIsArrivalComplete] = useState(false);
+
   return (
     <>
-      <BackgroundEffects />
+      <BackgroundEffects onArrivalComplete={() => setIsArrivalComplete(true)} />
 
-      <section className="mx-auto max-w-5xl px-4 py-3 h-[100dvh] overflow-hidden">
+      <section className={`mx-auto max-w-5xl px-4 py-3 h-[100dvh] overflow-hidden transition-opacity duration-700 ${isArrivalComplete ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
         <div className={`home-deck-grid ${isFlipped ? "projects-focused" : ""}`}>
 
           {/* LEFT CARD */}

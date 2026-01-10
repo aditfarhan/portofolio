@@ -15,29 +15,36 @@ import { useEffect, useState } from "react";
  * 
  * Mounted above cards but below UI interactions (pointer-events: none).
  */
-export default function ArrivalOrb() {
+interface ArrivalOrbProps {
+    onAnimationComplete?: () => void;
+}
+
+export default function ArrivalOrb({ onAnimationComplete }: ArrivalOrbProps) {
     const [shouldAnimate, setShouldAnimate] = useState(false);
 
     useEffect(() => {
-        // Check if this is the first visit
-        const hasSeenArrival = sessionStorage.getItem("arrival-orb-seen");
+        // Check reduced motion preference
+        const prefersReducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
 
-        if (!hasSeenArrival) {
-            // Check reduced motion preference
-            const prefersReducedMotion = window.matchMedia(
-                "(prefers-reduced-motion: reduce)"
-            ).matches;
+        let timer: NodeJS.Timeout;
+        if (!prefersReducedMotion) {
+            setShouldAnimate(true);
 
-            if (!prefersReducedMotion) {
-                // Set flag and trigger animation
-                sessionStorage.setItem("arrival-orb-seen", "true");
-                setShouldAnimate(true);
-            } else {
-                // Mark as seen even for reduced motion users
-                sessionStorage.setItem("arrival-orb-seen", "true");
-            }
+            // Trigger completion callback after animation duration (2s)
+            timer = setTimeout(() => {
+                onAnimationComplete?.();
+            }, 2000);
+        } else {
+            // If reduced motion is preferred, trigger completion immediately
+            onAnimationComplete?.();
         }
-    }, []);
+
+        return () => {
+            if (timer) clearTimeout(timer);
+        };
+    }, [onAnimationComplete]);
 
     // Don't render anything if not first visit or animation complete
     if (!shouldAnimate) {
