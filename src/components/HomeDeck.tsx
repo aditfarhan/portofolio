@@ -17,13 +17,22 @@ const HomeDeck = memo(function HomeDeck() {
     });
   }, []);
 
-  const [isArrivalComplete, setIsArrivalComplete] = useState(false);
+  const [showCards, setShowCards] = useState(false);
+
+  // Delay cards appearance to give moon more time to be visible
+  const handleArrivalComplete = () => {
+    // Cards appear 1.5s after moon starts fading in (total: 3.5s from start)
+    setTimeout(() => setShowCards(true), 1500);
+  };
 
   return (
     <>
-      <BackgroundEffects onArrivalComplete={() => setIsArrivalComplete(true)} />
+      <BackgroundEffects
+        onArrivalComplete={handleArrivalComplete}
+        isFlipped={isFlipped}
+      />
 
-      <section className={`mx-auto max-w-5xl px-4 py-3 h-[100dvh] overflow-hidden transition-opacity duration-700 ${isArrivalComplete ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+      <section className={`mx-auto max-w-5xl px-4 py-3 h-[100dvh] overflow-hidden transition-opacity duration-700 ${showCards ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
         <div className={`home-deck-grid ${isFlipped ? "projects-focused" : ""}`}>
 
           {/* LEFT CARD */}

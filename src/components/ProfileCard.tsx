@@ -60,7 +60,7 @@ const ProfileCard = memo(function ProfileCard({
             border border-white/20 bg-card/60 text-white font-semibold
             transition-transform duration-300
             hover:scale-[1.06]
-            ${isLarge ? "w-11 h-11 text-sm" : "w-9 h-9 text-xs"}
+            ${isLarge ? "w-8 h-8 md:w-9 md:h-9 lg:w-11 lg:h-11 text-xs md:text-sm" : "w-7 h-7 md:w-8 md:h-8 text-[10px] md:text-xs"}
           `}
           aria-label="Personal mark"
         >
@@ -75,7 +75,7 @@ const ProfileCard = memo(function ProfileCard({
             className={`
               font-extrabold tracking-tight
               transition-all duration-300
-              ${isLarge ? "text-3xl" : "text-xl"}
+              ${isLarge ? "text-lg md:text-xl lg:text-3xl" : "text-base md:text-lg"}
               group-hover:-translate-y-[1px]
             `}
             style={{ letterSpacing: "-0.015em" }}
@@ -87,7 +87,7 @@ const ProfileCard = memo(function ProfileCard({
             className={`
               text-white/80
               transition-all duration-300 delay-75
-              ${isLarge ? "text-base leading-snug" : "text-sm leading-snug"}
+              ${isLarge ? "text-xs md:text-sm lg:text-base leading-snug" : "text-[11px] md:text-xs leading-snug"}
               group-hover:text-white/90
             `}
           >
@@ -102,7 +102,7 @@ const ProfileCard = memo(function ProfileCard({
           className={`
             max-w-md text-white/65
             transition-all duration-300 delay-100
-            ${isLarge ? "text-sm leading-relaxed" : "text-xs leading-relaxed"}
+            ${isLarge ? "text-[11px] md:text-xs lg:text-sm leading-relaxed" : "text-[10px] md:text-[11px] leading-relaxed"}
             group-hover:text-white/75
           `}
         >
@@ -114,7 +114,7 @@ const ProfileCard = memo(function ProfileCard({
         {/* Quiet credibility */}
         <p
           className="
-            text-xs text-white/40
+            text-[10px] md:text-[11px] lg:text-xs text-white/40
             transition-opacity duration-300 delay-150
             group-hover:text-white/55
           "
@@ -125,7 +125,7 @@ const ProfileCard = memo(function ProfileCard({
         {/* ======================
             CAPABILITY CHIPS
         ====================== */}
-        <div className="flex flex-wrap justify-center gap-2 text-xs">
+        <div className="flex flex-wrap justify-center gap-1.5 md:gap-2 text-[10px] md:text-[11px] lg:text-xs">
           {[
             "Full-stack Software Engineer",
             "5+ Years Production Systems",
@@ -134,7 +134,7 @@ const ProfileCard = memo(function ProfileCard({
               key={chip}
               className="
                 capability-chip
-                px-3 py-1 rounded-full
+                px-2 py-0.5 md:px-3 md:py-1 rounded-full
                 bg-white/10 text-white/80 font-medium
               "
             >
@@ -146,7 +146,7 @@ const ProfileCard = memo(function ProfileCard({
         {/* Location */}
         <p
           className="
-            text-white/45 text-xs
+            text-white/45 text-[10px] md:text-[11px] lg:text-xs
             transition-opacity duration-300 delay-200
             group-hover:text-white/60
           "

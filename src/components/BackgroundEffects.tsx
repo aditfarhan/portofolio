@@ -12,7 +12,7 @@ import {
   METEOR_BURST_CONFIGS,
 } from "@/lib/constants";
 
-export default function BackgroundEffects({ onArrivalComplete }: { onArrivalComplete?: () => void }) {
+export default function BackgroundEffects({ onArrivalComplete, isFlipped }: { onArrivalComplete?: () => void; isFlipped?: boolean }) {
   return (
     <>
       {/* Realistic Night Sky Background */}
@@ -73,7 +73,7 @@ export default function BackgroundEffects({ onArrivalComplete }: { onArrivalComp
       </div>
 
       {/* Realistic Moon with Atmospheric Effects */}
-      <div className="moon realistic" aria-hidden="true">
+      <div className={`moon realistic ${isFlipped ? 'moon-projects-view' : ''}`} aria-hidden="true">
         <div className="crater-large"></div>
         <div className="crater-small"></div>
       </div>

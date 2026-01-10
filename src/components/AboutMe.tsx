@@ -44,7 +44,7 @@ const AboutMe = memo(function AboutMe({
         ======================= */}
         <h2
           className={`
-            text-xs uppercase tracking-[0.22em] text-white/35 mb-5
+            text-[10px] md:text-[11px] lg:text-xs uppercase tracking-[0.22em] text-white/35 mb-3 md:mb-4 lg:mb-5
             transition-all duration-500
             ${mounted ? "opacity-100" : "opacity-0"}
           `}
@@ -57,7 +57,7 @@ const AboutMe = memo(function AboutMe({
         ======================= */}
         <p
           className={`
-            relative text-lg sm:text-xl font-semibold leading-snug
+            relative text-sm md:text-base lg:text-lg xl:text-xl font-semibold leading-snug
             text-white transition-all duration-500
             ${mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}
           `}
@@ -70,7 +70,7 @@ const AboutMe = memo(function AboutMe({
         ======================= */}
         <p
           className={`
-            mt-2 text-sm max-w-[46ch]
+            mt-1.5 md:mt-2 text-xs md:text-sm max-w-[46ch]
             text-white/50 transition-all duration-500 delay-100
             ${mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}
           `}
@@ -83,7 +83,7 @@ const AboutMe = memo(function AboutMe({
           ====================== */}
         <div
           className={`
-              mt-4 h-px
+              mt-2 md:mt-3 lg:mt-4 h-px
               w-[65%]
               bg-gradient-to-r
               from-white/40 via-white/20 to-transparent
@@ -96,7 +96,7 @@ const AboutMe = memo(function AboutMe({
         {/* ======================
                 PRINCIPLES GRID
             ====================== */}
-        <div className="mt-6 grid grid-cols-4 gap-3">
+        <div className="mt-3 md:mt-4 lg:mt-6 grid grid-cols-4 gap-2 md:gap-2.5 lg:gap-3">
 
           {/* ======================
                   ANCHOR — EXPLICIT TRADE-OFFS
@@ -105,9 +105,9 @@ const AboutMe = memo(function AboutMe({
             onMouseMove={handleShine}
             className="
                   group shine-card col-span-4 relative
-                  rounded-2xl border border-white/25
+                  rounded-xl md:rounded-2xl border border-white/25
                   bg-white/[0.07]
-                  px-4 py-4
+                  px-2.5 py-2.5 md:px-3 md:py-3 lg:px-4 lg:py-4
                   transition-all duration-500 ease-out
                   hover:-translate-y-[2px]
                   hover:shadow-[0_36px_100px_rgba(0,0,0,0.6)]
@@ -115,7 +115,7 @@ const AboutMe = memo(function AboutMe({
           >
             <p
               className="
-                    relative font-medium text-white/90
+                    relative font-medium text-white/90 text-xs md:text-sm
                     transition-transform duration-500
                     group-hover:-translate-y-[2px]
                   "
@@ -125,7 +125,7 @@ const AboutMe = memo(function AboutMe({
 
             <p
               className="
-                    relative mt-1 text-[12px] text-white/55
+                    relative mt-0.5 md:mt-1 text-[10px] md:text-[11px] lg:text-[12px] text-white/55
                     transition-all duration-500 delay-75
                     group-hover:text-white/75
                     group-hover:-translate-y-[1px]
@@ -152,9 +152,9 @@ const AboutMe = memo(function AboutMe({
                   ? "col-span-4 sm:col-span-2 sm:col-start-2"
                   : "col-span-2"
                 }
-                    relative rounded-xl border border-white/10
+                    relative rounded-lg md:rounded-xl border border-white/10
                     bg-white/[0.04]
-                    px-3 py-3 text-sm text-white/60
+                    px-2 py-2 md:px-2.5 md:py-2.5 lg:px-3 lg:py-3 text-[11px] md:text-xs lg:text-sm text-white/60
                     transition-all duration-500 ease-out
                     hover:-translate-y-[2px]
                     hover:bg-white/[0.07]

@@ -225,8 +225,12 @@
       rgba(160, 160, 160, 0.1) 25%,
       transparent 45%);
   border-radius: 50%;
-  animation: realisticMoonAtmosphere 25s ease-in-out infinite,
-    lunarPhase 40s ease-in-out infinite;
+  /* Start hidden, fade in after orb completes */
+  opacity: 0;
+  animation:
+    moonFadeIn 0.8s ease-out 2s forwards,
+    realisticMoonAtmosphere 25s ease-in-out 2.8s infinite,
+    lunarPhase 40s ease-in-out 2.8s infinite;
   z-index: -4;
   pointer-events: none;
   box-shadow: inset -8px -8px 15px rgba(150, 150, 150, 0.3),
