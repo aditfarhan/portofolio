@@ -115,8 +115,11 @@
     }
 
     .home-deck-grid.projects-focused .home-card--profile {
-        flex: 1 0 100%;
-        min-height: calc(100dvh - 2rem);
+        flex: 1 0 auto;
+        max-height: 45vh;
+        min-height: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .home-deck-grid.projects-focused .home-card--about {

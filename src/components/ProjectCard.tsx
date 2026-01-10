@@ -31,12 +31,12 @@ export default function ProjectsViewer({
 
       {/* HEADER */}
       <div className="text-center">
-        <h2 className="text-base sm:text-lg font-bold brand-gradient">
+        <h2 className="text-sm sm:text-base md:text-lg font-bold brand-gradient">
           Projects
         </h2>
         <p
           className="
-            mt-1 text-[10px] text-white/40
+            mt-0.5 text-[9px] sm:text-[10px] text-white/40
             transition-opacity duration-200
           "
         >
@@ -54,7 +54,7 @@ export default function ProjectsViewer({
       </div>
 
       {/* NAVIGATION */}
-      <div className="flex items-center justify-between text-xs text-white/45 mt-4">
+      <div className="flex items-center justify-between text-[10px] sm:text-xs text-white/45 mt-2 sm:mt-4">
         <button
           onClick={prev}
           disabled={index === 0}
