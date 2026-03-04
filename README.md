@@ -1,411 +1,108 @@
-# ⚡ Lightning-Fast Portfolio That'll Make You Go "Wow!"
+# Muhammad Aditia Farhan — Portfolio
 
-> **TL;DR**: A blazing-fast, SEO-perfect portfolio built with Next.js 16 & React 19. Achieving **96/100 Lighthouse Performance** and **100/100 SEO** scores. Because your portfolio should load faster than you can say "hire me!" 🚀
+A precision-crafted software engineering portfolio built with **Next.js 16**, **React 19**, and **TypeScript**. Designed to communicate technical clarity and personal brand through deliberate architecture and cognitive UX principles.
 
-<div align="center">
-
-[![Performance](https://img.shields.io/badge/Lighthouse-96%2F100-success?style=for-the-badge&logo=lighthouse)](https://developers.google.com/web/tools/lighthouse)
-[![SEO](https://img.shields.io/badge/SEO-100%2F100-success?style=for-the-badge)](https://developers.google.com/search)
-[![Best Practices](https://img.shields.io/badge/Best%20Practices-100%2F100-success?style=for-the-badge)](https://web.dev/lighthouse-best-practices/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-
-**Live Demo**: [aditfarhan-portofolio.vercel.app](https://aditfarhan-portofolio.vercel.app)
-
-</div>
+**Live:** [aditfarhan-portofolio.vercel.app](https://aditfarhan-portofolio.vercel.app)
 
 ---
 
-## 🎯 What Makes This Special?
-
-This isn't just another portfolio website. It's a **technical showcase** demonstrating what happens when you combine:
-
-- ⚡ **0.9 second load time** - Faster than 95% of websites globally
-- 🎴 **3D flip card interface** - No heavy libraries, just pure CSS magic
-- 🔍 **SEO perfection** - Google will love you (and so will recruiters)
-- ♿ **Accessible to everyone** - WCAG AA compliant because inclusivity matters
-- 🎨 **Gorgeous dark mode** - Easy on the eyes, hard to forget
-- 📱 **Responsive everywhere** - Looks amazing on everything from phones to 4K monitors
-
-**The best part?** Every line of code serves a purpose. Zero bloat. Just **2,500 lines of premium TypeScript**.
-
----
-
-## 🏆 The Numbers Don't Lie
-
-<table>
-<tr>
-<td>
-
-### Lighthouse Scores
-| Metric | Score |
-|--------|:-----:|
-| Performance | **96**/100 |
-| Accessibility | **95**/100 |
-| Best Practices | **100**/100 |
-| SEO | **100**/100 |
-
-</td>
-<td>
-
-### Core Web Vitals
-| Metric | Value | Rating |
-|--------|-------|:------:|
-| FCP | 0.9s | ✅ **Fast** |
-| LCP | 2.6s | ✅ **Good** |
-| CLS | 0 | ✅ **Perfect** |
-| TBT | 120ms | ✅ **Good** |
-
-</td>
-</tr>
-</table>
-
-**Translation:** Your users get an instant, smooth experience. Google rewards you with higher rankings. You get more interviews. Win-win-win! 🎉
-
----
-
-## ✨ The Cool Stuff
-
-### 🎴 Interactive Flip Cards
-Dual-card layout with smooth 3D animations (no JavaScript animation libraries needed!):
-- **Left card**: Profile ⟷ Projects
-- **Right card**: About Me ⟷ Profile
-- **Controls**: Click, keyboard (arrow keys), or swipe on mobile
-- **Accessibility**: Full keyboard navigation with proper ARIA labels
-
-### 🚀 Performance First
-Every millisecond counts:
-- **Server Components** by default (React 18 magic)
-- **Lazy loading** for heavy components
-- **Optimized images** with WebP/AVIF auto-conversion
-- **Font optimization** with display:swap (zero layout shift)
-- **Aggressive caching** (1-year cache for static assets)
-
-### 🔍 SEO Superpowers
-Your portfolio will rank like a boss:
-- ✅ **Dynamic sitemap** generation
-- ✅ **Robots.txt** configuration
-- ✅ **6 Schema.org types** (Person, WebSite, ProfilePage, BreadcrumbList, ItemList, FAQ)
-- ✅ **Open Graph** & Twitter Cards
-- ✅ **Dynamic OG images** (Next.js ImageResponse)
-- ✅ **Structured data** for rich search results
-
-### 🎨 Design Philosophy
-**Dark. Modern. Premium.**
-- Sophisticated dark mode with premium gradients
-- Subtle animations and micro-interactions
-- Glassmorphism and depth effects
-- Zero flashy nonsense, just pure professionalism
-
----
-
-## 🚀 Quick Start
-
-Get up and running in 30 seconds:
-
-```bash
-# 1. Install dependencies
-npm install
-
-# 2. Fire up the dev server
-npm run dev
-
-# 3. Open your browser
-# http://localhost:3000
-
-# That's it! You're done. ✨
-```
-
----
-
-## 🛠️ Built With The Good Stuff
-
-### Core Stack
-- **Next.js 16** - The React framework for production
-- **React 19** - Latest and greatest
-- **TypeScript** - Because `any` is not an option
-- **Tailwind CSS v4** - Utility-first styling done right
-
-### Performance Arsenal
-- **Suspense** - React 18 streaming for instant loading
-- **next/image** - Automatic image optimization
-- **Web Vitals** - Real-time performance monitoring
-- **Bundle Analyzer** - Keep that bundle lean
-
-### Developer Experience
-- **ESLint** - Code quality enforcer
-- **Prettier** - Make it pretty (configured in `.prettierrc`)
-- **TypeScript Strict Mode** - No shortcuts allowed
-- **Path Aliases** - Clean imports with `@/`
-
----
-
-## 📁 Project Structure (The Good Kind)
+## Architecture
 
 ```
 src/
-├── app/              # Next.js App Router
-│   ├── layout.tsx   # Root layout with metadata & monitoring
-│   ├── page.tsx     # Homepage (Suspense + streaming)
-│   ├── sitemap.ts   # Dynamic sitemap (SEO gold)
-│   ├── robots.ts    # Crawler instructions
-│   └── opengraph-image.tsx  # Dynamic OG images 🎨
-│
-├── components/       # UI Components (All used, zero waste)
-│   ├── HomeDeck.tsx       # Main flip card container
-│   ├── AboutMe.tsx        # Multi-tab about section  
-│   ├── ProfileCard.tsx    # Your beautiful face (initials)
-│   ├── ProjectCard.tsx    # Project showcase
-│   └── LoadingSkeleton.tsx  # Perceived performance FTW
-│
-├── hooks/            # Custom React Hooks
-│   ├── useFlipAnimation.ts  # Flip card state machine
-│   └── ...Navigation.ts     # Tab & experience navigation
-│
-├── lib/              # Utilities (Pure functions only)
-│   ├── utils.ts      # Helper functions
-│   ├── validators.ts # Data validation
-│   └── performance.ts  # Web Vitals tracking
-│
-├── data/             # Your Content (Type-safe!)
-│   └── portfolio.ts  # Projects, experience, everything
-│
-├── config/           # Configuration
-│   └── app.config.ts # SEO, features, performance settings
-│
-└── types/            # TypeScript Definitions
-    └── index.ts      # All types in one place
+├── app/                  # Next.js App Router
+│   ├── layout.tsx         # Root layout: fonts, metadata, structured data (JSON-LD)
+│   ├── page.tsx           # Single-page entry: renders HomeDeck
+│   ├── sitemap.ts         # Dynamic sitemap from portfolio data
+│   ├── robots.ts          # Crawl rules
+│   └── opengraph-image.tsx # Edge-rendered OG image
+├── components/
+│   ├── HomeDeck.tsx       # Root orchestrator: card layout + flip state
+│   ├── ProfileCard.tsx    # Identity card (front-face)
+│   ├── AboutMe.tsx        # Principles + skills card (right)
+│   ├── ProjectCard.tsx    # Projects viewer with keyboard + swipe nav
+│   ├── ProjectEntry.tsx   # Individual project log entry
+│   ├── BackgroundEffects/ # Stars, moon, meteors (lazy-loaded)
+│   ├── ErrorBoundary.tsx  # Graceful fallback for ProjectsViewer
+│   └── ThemeProvider.tsx  # Applies data-theme attribute (no external dep)
+├── data/
+│   └── portfolio.ts       # Single source of truth for all project data
+├── hooks/
+│   ├── useFlipAnimation.ts # Card flip state with animation guard
+│   └── index.ts
+├── lib/
+│   ├── utils.ts           # formatDate, getLogoUrl, debounce, throttle
+│   ├── constants.ts       # EXPERIENCE data (used by constants consumers)
+│   ├── env.ts             # Environment validation
+│   └── performance.ts     # Web vitals helpers
+├── styles/
+│   ├── globals.css        # Design tokens, Tailwind base
+│   ├── components.css     # Background effects, about card, shared components
+│   ├── profile-card.css   # Profile card: spotlight, action group, availability badge
+│   ├── project-card.css   # Project entry: company badge, tags, links, nav
+│   ├── single-focus.css   # Card flip layout, landscape breakpoints
+│   └── responsive.css     # Global responsive overrides
+└── types/
+    └── index.ts           # All TypeScript types (only used types kept)
 ```
 
-**Philosophy:** Everything has a place. Every file has a purpose. Zero chaos.
+---
+
+## Key Design Decisions
+
+### Cognitive UX
+- **Numbers-first stat row** on Profile Card — "5+ yrs · 12+ hospitals" — pattern-matches how people scan credentials. Numbers are anchors; labels are context.
+- **Reading-flow vertical rail** on Profile Card — a faint `1px` line on the left guides eye movement from MAF mark → name → stats → CTA. Brightens on hover.
+- **"clarity" emphasis** in About Me thesis — single italic word as visual hook without disrupting prose flow.
+- **Decision → Outcome label grammar** in Project entries — "Decision" is brighter (cause); "Outcome" is dimmer (effect). Encodes causality visually.
+- **Lazy stat counters** re-trigger via `IntersectionObserver` each time the About card enters the viewport — the animation always plays on arrival, never stale.
+
+### Performance
+- **`BackgroundEffects` lazy-loaded** via `React.lazy` — deferred until after TTI. Stars/meteors/moon are decoration, not layout-critical.
+- **Back-face cards lazy-mounted** (`{isFlipped && <Component />}`) — `ProjectsViewer` and the back `ProfileCard` don't exist in the DOM until the card flips, eliminating 3 unnecessary `useEffect` runs at startup.
+- **Single unified rAF loop** for all 3 count-up stat counters in About Me — not 3 separate `requestAnimationFrame` chains.
+- **rAF throttle** on `handleShine` mousemove — style recalculations capped to once per frame, not 120Hz raw.
+- **`ResizeObserver`** gates the project scroll-fade gradient — only visible when content actually overflows (no false "more below" on short projects).
+
+### Accessibility
+- `aria-live` in ProjectCard uses a DOM write (`ref.current.textContent = …`) for guaranteed screen reader announcement on fast keyboard navigation.
+- Progress dots use `role="radiogroup"` + `role="radio"` + `aria-checked` — correct ARIA pattern for a step selector.
+- Arrow key navigation in projects calls `contentRef.current?.focus()` after navigation, moving keyboard focus to the content region.
+
+### Security
+Full security header suite in `next.config.ts`:
+- **Content-Security-Policy** (script-src, style-src, img-src, connect-src, frame-ancestors)
+- X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
 
 ---
 
-## 🎯 What You Get Out of the Box
-
-### ✅ Technical Excellence
-- **Zero** unused code
-- **100%** TypeScript coverage
-- **Sub-second** load times
-- **Perfect** Lighthouse scores
-- **Production-ready** from day one
-
-### ✅ Developer Experience
-- Clean, readable code
-- Comprehensive documentation
-- Consistent code style
-- Easy to extend
-- Simple to maintain
-
-### ✅ User Experience
-- Instant page loads
-- Smooth animations
-- Beautiful dark mode
-- Mobile-optimized
-- Accessible to all
-
----
-
-## 📝 Content Management Made Easy
-
-All your content lives in typed TypeScript files (no CMS needed!):
-
-```typescript
-// src/data/portfolio.ts - Edit your projects here
-export const portfolio = {
-  projects: [
-    {
-      id: 'awesome-project',
-      title: 'My Awesome Project',
-      description: 'Changed the world with this one',
-      tags: ['React', 'TypeScript', 'Magic'],
-      // ... more fields
-    }
-  ]
-};
-
-// src/lib/constants.ts - Edit your experience here
-export const EXPERIENCE = [
-  {
-    company: 'Amazing Corp',
-    roles: [{ title: 'Senior Wizard', period: '2020-Present' }],
-    // ... more details
-  }
-];
-
-// src/config/app.config.ts - Configure everything
-export const SEO_CONFIG = {
-  title: 'Your Name - What You Do',
-  description: 'Your compelling pitch',
-  // ... more settings
-};
-```
-
-**No database. No API calls. Just pure TypeScript goodness.** 🎉
-
----
-
-## 🧪 Available Commands
+## Running Locally
 
 ```bash
-# Development
-npm run dev          # Start dev server (hot reload included)
-
-# Production
-npm run build        # Build for production (with optimizations)
-npm start            # Start production server
-
-# Code Quality
-npm run lint         # Check code quality
-
-# Analysis
-npm run analyze      # Analyze bundle size (webpack mode)
+npm install
+npm run dev        # http://localhost:3000
 ```
 
----
-
-## 🎨 The Secret Sauce
-
-### Import Conventions
-We use path aliases for clean, maintainable imports:
-
-```typescript
-// ✅ Good - Clean and clear
-import { HomeDeck, ProfileCard } from '@/components';
-import { useFlipAnimation } from '@/hooks';
-import type { Project } from '@/types';
-
-// ❌ Bad - Messy relative paths
-import HomeDeck from '../components/HomeDeck';
-import { useFlipAnimation } from './hooks/useFlipAnimation';
-```
-
-See [`.docs/IMPORT_RULES.md`](.docs/IMPORT_RULES.md) for the full style guide.
-
-### Performance Tricks
-- **Font loading**: `display: "swap"` eliminates FOIT
-- **Image optimization**: WebP/AVIF with lazy loading
-- **Code splitting**: Route-based and component-based
-- **Bundle budgets**: Build fails if bundles exceed 300KB
-- **Caching**: 1-year cache for static assets with auto-busting
-
----
-
-## 🚢 Deploy in 30 Seconds
-
-### Vercel (Recommended - One Click)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/portfolio)
-
-### Manual Deployment
+**Bundle analysis:**
 ```bash
-# Build it
-npm run build
-
-# Test it locally
-npm start
-
-# Deploy it
-# Upload `.next` folder to your hosting provider
+npm run analyze    # Opens webpack bundle visualizer
 ```
 
-**That's it!** Your portfolio is live. Now go get those offers! 💼
+---
+
+## Tech Stack
+
+| Layer | Choice | Why |
+|-------|--------|-----|
+| Framework | Next.js 16 (App Router) | Turbopack dev, edge metadata, RSC |
+| UI | React 19 + TypeScript | Concurrent rendering, typed everything |
+| Styling | Tailwind CSS v4 + vanilla CSS | Utilities for composition, hand-rolled for complex motion |
+| Analytics | Vercel Analytics + Speed Insights | Core Web Vitals tracking in production |
+| Deployment | Vercel | Zero-config, edge network, OG image generation |
 
 ---
 
-## 🎓 Learn From This Project
+## Portfolio Data
 
-### What You'll Find Here:
-- ✅ **Clean Architecture** - Separation of concerns done right
-- ✅ **TypeScript Mastery** - Strict mode, zero `any` types
-- ✅ **Performance Patterns** - Sub-second load times
-- ✅ **SEO Best Practices** - 100/100 score techniques
-- ✅ **Accessibility** - WCAG AA compliance
-- ✅ **Production-Ready Code** - Battle-tested patterns
-
-### Perfect For:
-- 📚 Learning Next.js 16 + React 19
-- 🎯 Understanding Core Web Vitals
-- 🔍 Mastering SEO with Next.js
-- ♿ Building accessible applications
-- 🏗️ Structuring large React apps
-
----
-
-## 💡 Why This Architecture?
-
-**Question:** Why so many files for a portfolio?
-
-**Answer:** Because **professional code scales**. This structure:
-- Makes adding features trivial
-- Prevents bugs through separation
-- Enables team collaboration
-- Demonstrates engineering maturity
-- Impresses hiring managers
-
----
-
-## 🤝 Want to Use This?
-
-**Go for it!** This is MIT licensed, which means:
-
-- ✅ Use it for your own portfolio
-- ✅ Learn from it
-- ✅ Modify it however you want
-- ✅ No attribution required (but appreciated!)
-
-**Just please:**
-- ⭐ Star this repo if it helped you
-- 🐛 Report bugs if you find them
-- 💡 Suggest improvements
-- 🎉 Share your success stories!
-
----
-
-## 📊 Bundle Size
-
-We keep it lean:
-
-| Type | Size | Status |
-|------|------|--------|
-| JavaScript | ~280KB | ✅ Optimized |
-| CSS | ~14KB | ✅ Minimal |
-| Images | ~50KB | ✅ WebP/AVIF |
-| **Total** | **~350KB** | ✅ Under budget |
-
-**For context:** The average website is ~2MB. We're **85% smaller**. 🚀
-
----
-
-## 🎯 The Bottom Line
-
-This portfolio demonstrates:
-
-- ⚡ **Performance** - Because slow websites lose visitors
-- 🔍 **SEO** - Because being found matters
-- ♿ **Accessibility** - Because everyone deserves access
-- 🎨 **Design** - Because first impressions count
-- 💻 **Code Quality** - Because professionalism shows
-
-**Built by a developer, for developers.** No fluff. Just results.
-
----
-
-## 📬 Let's Connect!
-
-**Muhammad Aditia Farhan**  
-*Senior Software Engineer | 5+ Years Experience*
-
-- 🌐 Portfolio: [aditfarhan-portofolio.vercel.app](https://aditfarhan-portofolio.vercel.app)
-- 💼 LinkedIn: [muhammad-aditia-farhan](https://www.linkedin.com/in/muhammad-aditia-farhan)
-- 📧 Email: aditiafarhan25@gmail.com
-
----
-
-<div align="center">
-
-**Built with ❤️ using Next.js 16, React 19, and TypeScript**
-
-*Demonstrating that performance, accessibility, and great design can coexist*
-
-⭐ **Star this repo if it inspired you!**
-
-</div>
+All project data lives in [`src/data/portfolio.ts`](./src/data/portfolio.ts).  
+Add or edit projects there — the structured data in `layout.tsx`, project count labels, and sitemap all update automatically.

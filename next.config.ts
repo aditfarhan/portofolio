@@ -40,8 +40,8 @@ const nextConfig: NextConfig = {
   // Experimental features
   experimental: {
     optimizeCss: true,
-    // Reduce bundle size by optimizing package imports
-    optimizePackageImports: ["@/components", "@/lib", "@/hooks"],
+    // optimizePackageImports only works for npm packages with exports fields.
+    // Internal @/ aliases do NOT benefit from this — removed.
   },
 
   // Production optimizations
@@ -56,6 +56,20 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         headers: [
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://vercel.live",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' https://fonts.gstatic.com",
+              "img-src 'self' data: blob: https://logo.clearbit.com https://www.google.com",
+              "connect-src 'self' https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+              "frame-ancestors 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+            ].join("; "),
+          },
           {
             key: "X-DNS-Prefetch-Control",
             value: "on",
@@ -109,23 +123,7 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Webpack optimizations
-  webpack: (config, { dev, isServer }) => {
-    // Production optimizations
-    if (!dev && !isServer) {
-      // Performance budgets
-      config.performance = {
-        hints: "warning",
-        maxAssetSize: 300000, // 300kb
-        maxEntrypointSize: 500000, // 500kb
-      };
-    }
-
-    return config;
-  },
-
-  // Turbopack configuration (Next.js 16+)
-  // Empty config silences the warning about webpack config
+  // Turbopack configuration
   turbopack: {},
 };
 

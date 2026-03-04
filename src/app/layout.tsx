@@ -5,6 +5,8 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "@/components";
 import { WebVitals } from "@/app/web-vitals";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { portfolio } from "@/data/portfolio";
 
 // Structured data for SEO - Enhanced with additional schema types
 const structuredData = [
@@ -96,27 +98,13 @@ const structuredData = [
     "@type": "ItemList",
     name: "Software Engineering Projects",
     description: "Portfolio of professional projects and contributions",
-    numberOfItems: 10,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "National HIS & EMR Platform",
-        description: "Healthcare information system serving hospitals across Indonesia",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Warehouse Management System",
-        description: "Enterprise logistics platform for order management",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "SIRCLO Commerce Platform",
-        description: "E-commerce ecosystem for multi-tenant operations",
-      },
-    ],
+    numberOfItems: portfolio.projects.length,
+    itemListElement: portfolio.projects.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: p.title,
+      description: p.description ?? p.tagline ?? "",
+    })),
   },
   // FAQPage schema - for FAQ rich results
   {
@@ -269,7 +257,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="preconnect" href="https://logo.clearbit.com" />
-        <link rel="preconnect" href="https://vercel.com" />
         {structuredData.map((data, index) => (
           <script
             key={index}
@@ -285,6 +272,7 @@ export default function RootLayout({
       >
         <WebVitals />
         <Analytics />
+        <SpeedInsights />
         <ThemeProvider>
           <a href="#main" className="skip-link">
             Skip to content

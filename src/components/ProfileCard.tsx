@@ -20,6 +20,7 @@ const ProfileCard = memo(function ProfileCard({
 }: ProfileCardProps) {
   const isLarge = size === "large";
   const [mounted, setMounted] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
   const shineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,16 +30,26 @@ const ProfileCard = memo(function ProfileCard({
 
   const handleToggleFlip = useCallback(() => {
     if (isAnimating || !onToggleFlip) return;
+    setIsPressed(true);
+    setTimeout(() => setIsPressed(false), 120);
     onToggleFlip();
   }, [isAnimating, onToggleFlip]);
 
+  // Throttled shine — only recalculates on the next rAF frame
+  const shineRafId = useRef<number | null>(null);
   function handleShine(e: React.MouseEvent<HTMLDivElement>) {
-    const el = e.currentTarget;
-    const rect = el.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    el.style.setProperty("--mx", `${x}%`);
-    el.style.setProperty("--my", `${y}%`);
+    if (shineRafId.current !== null) return;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+    shineRafId.current = requestAnimationFrame(() => {
+      const el = shineRef.current;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty("--mx", `${((clientX - rect.left) / rect.width) * 100}%`);
+        el.style.setProperty("--my", `${((clientY - rect.top) / rect.height) * 100}%`);
+      }
+      shineRafId.current = null;
+    });
   }
 
   return (
@@ -53,21 +64,22 @@ const ProfileCard = memo(function ProfileCard({
       <div className="jewel-sparkle opacity-20" />
       <div className="jewel-sparkle opacity-10" />
 
-      {/* ── SUBTLE LEFT READING-FLOW ANCHOR ─────────────────────
-          A vertical connector gives the eye a rail to follow:
-          Mark → Name → Impact → Context → CTA (top-to-bottom)
+      {/* ── READING-FLOW ANCHOR — always faintly visible ──────────
+          Dimly present on mount (opacity-25), brightens on hover.
+          Gives the eye a downward rail: Mark → Name → Hook → CTA
       ─────────────────────────────────────────────────────────── */}
       <div
         className="
-          absolute left-4 top-[18%] bottom-[18%]
+          absolute left-4 top-[18%] bottom-[12%]
           w-px
           bg-gradient-to-b from-transparent via-white/10 to-transparent
-          opacity-0 group-hover:opacity-100
+          opacity-25 group-hover:opacity-100
           transition-opacity duration-700
           pointer-events-none
         "
         aria-hidden="true"
       />
+
 
       <div
         className={`
@@ -79,7 +91,7 @@ const ProfileCard = memo(function ProfileCard({
         <div
           title="Muhammad Aditia Farhan"
           className={`
-            maf-logo shine-card
+            maf-logo maf-logo--breathe shine-card
             inline-flex items-center justify-center rounded-full
             border border-white/20 bg-card/60 text-white font-semibold
             transition-all duration-500 hover:scale-[1.06] cursor-default
@@ -113,43 +125,59 @@ const ProfileCard = memo(function ProfileCard({
             Muhammad Aditia Farhan
           </h1>
 
-          <p className={`
-            text-white/75 transition-colors duration-300
-            ${isLarge
-              ? "text-xs md:text-sm lg:text-base leading-snug"
-              : "text-[11px] md:text-xs leading-snug"
-            }
-            group-hover:text-white/90
-          `}>
-            Software Engineer
-          </p>
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            <p className={`
+              text-white/75 transition-colors duration-300
+              ${isLarge
+                ? "text-xs md:text-sm lg:text-base leading-snug"
+                : "text-[11px] md:text-xs leading-snug"
+              }
+              group-hover:text-white/90
+            `}>
+              Software Engineer
+            </p>
 
-          {/* Priming: company badge below title */}
-          <p className="text-[9px] md:text-[10px] text-white/32 group-hover:text-white/50 transition-colors duration-300 tracking-wider uppercase mt-0.5">
+            {/* Availability badge */}
+            <span className="availability-badge" aria-label="Available for opportunities">
+              <span className="availability-dot" aria-hidden="true" />
+              Available
+            </span>
+          </div>
+
+          {/* Priming: company names — title-case, legible size */}
+          <p className="text-[10px] md:text-[11px] text-white/35 group-hover:text-white/55 transition-colors duration-300 tracking-wide mt-0.5">
             Pertamina IHC&nbsp;·&nbsp;Orami
           </p>
         </div>
 
-        {/* ── LAYER 3: IMPACT — serial position fix ─────────────── */}
+        {/* ── LAYER 3: IMPACT — stat row (numbers first) ────────── */}
         <div
           className={`
-            max-w-md flex flex-col items-center gap-0.5
+            flex flex-col items-center gap-1
             transition-all duration-500 delay-100
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
           `}
         >
-          {/* Primary hook — always visible */}
-          <p className={`
-            text-white/42 group-hover:text-white/65 transition-colors duration-500
-            ${isLarge
-              ? "text-[11px] md:text-xs lg:text-sm leading-relaxed"
-              : "text-[10px] md:text-[11px] leading-relaxed"
-            }
-          `}>
-            Lead engineer, 12+ hospitals. 5+ years at enterprise scale.
-          </p>
+          {/* Stat row — flex-wrap for ultra-small screens */}
+          <div className="flex items-center flex-wrap gap-x-2 gap-y-1 justify-center text-white/50 group-hover:text-white/72 transition-colors duration-400">
+            {[
+              { value: "5+", label: "yrs" },
+              { value: "12+", label: "hospitals" },
+              { value: "3", label: "industries" },
+            ].map(({ value, label }, i) => (
+              <span key={label} className="flex items-center gap-1">
+                {i > 0 && <span className="text-white/15" aria-hidden="true">·</span>}
+                <span className={`font-semibold ${isLarge ? "text-[11px] md:text-xs lg:text-sm" : "text-[10px]"}`}>
+                  {value}
+                </span>
+                <span className={isLarge ? "text-[10px] md:text-[11px]" : "text-[9px]"}>
+                  {label}
+                </span>
+              </span>
+            ))}
+          </div>
 
-          {/* Secondary line — hidden on mobile, dimmed on desktop */}
+          {/* Secondary context — hidden on mobile */}
           <p className={`
             hidden sm:block
             text-white/24 group-hover:text-white/42 transition-colors duration-500
@@ -167,17 +195,17 @@ const ProfileCard = memo(function ProfileCard({
             ${mounted ? "opacity-100" : "opacity-0"}
           `}
         >
-          {/* On mobile: context hidden since it's in the impact above */}
           <p className="
             text-[9px] md:text-[10px]
-            text-white/22 group-hover:text-white/38
+            text-white/38
+            group-hover:text-white/55
             transition-colors duration-300
           ">
             Jakarta, Indonesia&nbsp;·&nbsp;Open to remote &amp; hybrid
           </p>
         </div>
 
-        {/* ── LAYER 5: ACTIONS — always clear ───────────────────── */}
+        {/* ── LAYER 5: ACTIONS ──────────────────────────────────── */}
         {showActionButton && (
           <div
             className={`
@@ -187,29 +215,32 @@ const ProfileCard = memo(function ProfileCard({
             `}
           >
             <div className="action-group inline-flex items-center overflow-hidden">
-              {/* PRIMARY CTA */}
+              {/* PRIMARY CTA — pill background at rest for clear affordance */}
               <button
                 onClick={handleToggleFlip}
                 disabled={isAnimating}
                 aria-pressed={isFlipped}
                 className={`
-                  action-cta underline-react
-                  transition-all duration-300
+                  action-cta action-cta--weighted underline-react
+                  transition-all duration-200
                   ${isAnimating
                     ? "opacity-50 animate-pulse cursor-not-allowed"
-                    : "hover:opacity-90 hover:translate-x-[1px] active:scale-95 active:opacity-80"
+                    : isPressed
+                      ? "scale-[0.96] opacity-75"
+                      : "hover:opacity-90 hover:translate-x-[1px] active:scale-95 active:opacity-80"
                   }
                 `}
               >
-                {isFlipped ? "← About Me" : "Explore Projects"}
+                {isPressed ? "…" : isFlipped ? "← About Me" : "Explore Projects"}
               </button>
 
               <span aria-hidden="true" className="action-divider" />
 
-              {/* UTILITY CTAs with tooltip labels */}
+              {/* UTILITY CTAs — de-emphasised at rest, clearer on group hover */}
               {[
                 { href: "mailto:aditiafarhan25@gmail.com", icon: "icon-mail", label: "Email", tooltip: "Email" },
-                { href: "/ATS CV 2025 3.0 - Muhammad Aditia Farhan.pdf", icon: "icon-download", label: "Download CV", tooltip: "CV", download: true },
+                { href: "/Muhammad-Aditia-Farhan-Resume.pdf", icon: "icon-download", label: "Download Resume", tooltip: "Resume", download: true },
+                { href: "https://github.com/aditfarhan", icon: "icon-github", label: "GitHub", tooltip: "GitHub", external: true },
                 { href: "https://www.linkedin.com/in/muhammad-aditia-farhan", icon: "icon-linkedin", label: "LinkedIn", tooltip: "LinkedIn", external: true },
               ].map(({ href, icon, label, tooltip, download, external }) => (
                 <a
@@ -220,7 +251,7 @@ const ProfileCard = memo(function ProfileCard({
                   rel={external ? "noopener noreferrer" : undefined}
                   data-tooltip={tooltip}
                   className="
-                    action-icon action-icon--tooltip
+                    action-icon action-icon--tooltip action-icon--deemph
                     transition-all duration-200
                     hover:scale-[1.08] hover:bg-white/10
                     active:scale-95 active:opacity-75
@@ -230,7 +261,7 @@ const ProfileCard = memo(function ProfileCard({
                   <svg className="w-5 h-5" aria-hidden="true">
                     <use href={`/icons.svg#${icon}`} />
                   </svg>
-                  {/* Visible label on mobile (no hover on touch) */}
+                  {/* Visible label on mobile only */}
                   <span className="action-icon-label sm:hidden" aria-hidden="true">
                     {tooltip}
                   </span>

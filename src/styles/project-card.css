@@ -69,9 +69,12 @@
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--accent);
-    opacity: 0.5;
+    opacity: 0.65;
     line-height: 1;
     padding-bottom: 0.125rem;
+    /* Left border encodes company context, same visual grammar as sections */
+    padding-left: 0.375rem;
+    border-left: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
 /* ── HEADER ──────────────────────────────────────────── */
@@ -123,12 +126,12 @@
     flex-shrink: 0;
 }
 
-/* Description — italic prose, not monospace */
+/* Description — supporting context (not a quote; italic removed) */
 .entry-context {
     display: block;
     font-size: 0.72rem;
     font-family: var(--font-geist-sans);
-    font-style: italic;
+    font-style: normal;
     color: rgba(255, 255, 255, 0.42);
     line-height: 1.5;
     margin-top: 0.0625rem;
@@ -320,4 +323,93 @@
     .keyboard-hint {
         display: none;
     }
+}
+
+/* ── ENTRY LABEL — DECISION vs OUTCOME ────────────────── */
+/* Cause (Decision) is brighter — Effect (Outcome) is dimmer.
+   Encodes the cause → effect relationship visually. */
+
+.entry-label--decision {
+    color: var(--accent);
+    opacity: 0.75;
+}
+
+.entry-label--outcome {
+    color: var(--muted-fg);
+    opacity: 0.55;
+}
+
+/* ── RESPONSIVE TITLE SIZE ─────────────────────────────── */
+
+.entry-title {
+    font-size: clamp(0.875rem, 1.8vw + 0.4rem, 1.1rem);
+    font-weight: 700;
+    color: var(--foreground);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+}
+
+/* ── PROJECT LINKS ─────────────────────────────────────── */
+
+.entry-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+    padding-top: 0.375rem;
+    border-top: 1px solid color-mix(in srgb, var(--border) 25%, transparent);
+}
+
+.entry-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.575rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    text-decoration: none;
+    transition:
+        color 150ms ease,
+        background 150ms ease,
+        border-color 150ms ease,
+        transform 150ms ease;
+}
+
+.entry-link:hover {
+    color: rgba(255, 255, 255, 0.78);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+}
+
+.entry-link:active {
+    transform: scale(0.96) translateY(0);
+    transition-duration: 60ms;
+}
+
+.entry-link-label {
+    font-family: var(--font-geist-mono);
+}
+
+/* ── NAV PREVIEW TOOLTIP FADE-IN ───────────────────────── */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 150ms ease-out both;
 }
