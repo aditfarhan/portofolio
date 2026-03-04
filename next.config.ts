@@ -23,18 +23,7 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Allow external images from logo services
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "logo.clearbit.com",
-      },
-      {
-        protocol: "https",
-        hostname: "www.google.com",
-        pathname: "/s2/favicons/**",
-      },
-    ],
+    // Self-hosted images only — no external logo API
   },
 
   // Experimental features
@@ -63,7 +52,7 @@ const nextConfig: NextConfig = {
               "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://vercel.live",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob: https://logo.clearbit.com https://www.google.com",
+              "img-src 'self' data: blob:",
               "connect-src 'self' https://vitals.vercel-insights.com https://va.vercel-scripts.com",
               "frame-ancestors 'none'",
               "base-uri 'self'",
@@ -122,9 +111,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-
-  // Turbopack configuration
-  turbopack: {},
 };
 
 export default nextConfig;

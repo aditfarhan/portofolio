@@ -5,3 +5,5 @@
  */
 
 export { useFlipAnimation } from "./useFlipAnimation";
+export { useCountUp } from "./useCountUp";
+

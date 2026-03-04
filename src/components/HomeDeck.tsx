@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo, useEffect, useState, lazy, Suspense } from "react";
+import { memo, useMemo, useState, lazy, Suspense } from "react";
 import { portfolio } from "@/data/portfolio";
 import { ProfileCard, AboutMe } from "@/components";
 import { useFlipAnimation } from "@/hooks";
@@ -25,24 +25,6 @@ const HomeDeck = memo(function HomeDeck() {
 
   const [showCards, setShowCards] = useState(false);
 
-  // ── Arrival: delay card reveal by 1.5s after moon fade-in ──────────
-  // Using useEffect for cleanup so setState never fires on unmounted tree
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout | null = null;
-
-    function handleArrivalComplete() {
-      timeoutId = setTimeout(() => setShowCards(true), 1500);
-    }
-
-    // Store callback ref on window so BackgroundEffects can call it
-    (window as Window & { __onArrivalComplete?: () => void }).__onArrivalComplete =
-      handleArrivalComplete;
-
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-      delete (window as Window & { __onArrivalComplete?: () => void }).__onArrivalComplete;
-    };
-  }, []);
 
   // Card entrance styles — left card primary (0ms), right card secondary (200ms)
   const leftCardStyle = {
@@ -61,8 +43,8 @@ const HomeDeck = memo(function HomeDeck() {
 
   return (
     <>
-      {/* Background — lazy-loaded, non-blocking */}
-      <Suspense fallback={null}>
+      {/* Background — lazy-loaded, non-blocking. Fixed-size fallback avoids CLS on hydration */}
+      <Suspense fallback={<div className="fixed inset-0 pointer-events-none" />}>
         <BackgroundEffects
           onArrivalComplete={() => setShowCards(true)}
           isFlipped={isFlipped}

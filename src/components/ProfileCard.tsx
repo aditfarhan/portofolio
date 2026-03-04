@@ -21,6 +21,7 @@ const ProfileCard = memo(function ProfileCard({
   const isLarge = size === "large";
   const [mounted, setMounted] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
+  const [copiedName, setCopiedName] = useState(false);
   const shineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,12 +29,29 @@ const ProfileCard = memo(function ProfileCard({
     return () => clearTimeout(t);
   }, []);
 
+  // isPressed cleanup — no setState on unmounted component
+  useEffect(() => {
+    if (!isPressed) return;
+    const t = setTimeout(() => setIsPressed(false), 120);
+    return () => clearTimeout(t);
+  }, [isPressed]);
+
   const handleToggleFlip = useCallback(() => {
     if (isAnimating || !onToggleFlip) return;
     setIsPressed(true);
-    setTimeout(() => setIsPressed(false), 120);
     onToggleFlip();
   }, [isAnimating, onToggleFlip]);
+
+  // Copy full name to clipboard — MAF logo interaction
+  const handleCopyName = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText("Muhammad Aditia Farhan");
+      setCopiedName(true);
+      setTimeout(() => setCopiedName(false), 1800);
+    } catch {
+      // clipboard not available (e.g. Firefox without permission)
+    }
+  }, []);
 
   // Throttled shine — only recalculates on the next rAF frame
   const shineRafId = useRef<number | null>(null);
@@ -80,31 +98,48 @@ const ProfileCard = memo(function ProfileCard({
         aria-hidden="true"
       />
 
-
       <div
         className={`
           flex flex-col items-center text-center
           ${isLarge ? "gap-4 py-4 px-4" : "gap-2 py-3 px-3"}
         `}
       >
-        {/* ── LAYER 1: MAF MARK ─────────────────────────────────── */}
-        <div
-          title="Muhammad Aditia Farhan"
+        {/* ── LAYER 1: MAF MARK — click copies full name ─────── */}
+        <button
+          type="button"
+          title={copiedName ? "Copied!" : "Copy name"}
+          onClick={handleCopyName}
+          aria-label={copiedName ? "Copied! Muhammad Aditia Farhan" : "Copy name: Muhammad Aditia Farhan"}
           className={`
             maf-logo maf-logo--breathe shine-card
             inline-flex items-center justify-center rounded-full
             border border-white/20 bg-card/60 text-white font-semibold
-            transition-all duration-500 hover:scale-[1.06] cursor-default
+            transition-all duration-500 hover:scale-[1.06] cursor-pointer
+            focus-visible:outline-2 focus-visible:outline-white/50 focus-visible:outline-offset-2
+            relative
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}
             ${isLarge
               ? "w-8 h-8 md:w-9 md:h-9 lg:w-11 lg:h-11 text-xs md:text-sm"
               : "w-7 h-7 md:w-8 md:h-8 text-[10px] md:text-xs"
             }
           `}
-          aria-label="Muhammad Aditia Farhan — MAF"
         >
           MAF
-        </div>
+          {/* "Copied!" tooltip */}
+          {copiedName && (
+            <span
+              className="
+                absolute -top-7 left-1/2 -translate-x-1/2
+                bg-black/80 text-white/90 text-[9px]
+                px-2 py-0.5 rounded whitespace-nowrap
+                pointer-events-none animate-fade-in
+              "
+              aria-hidden="true"
+            >
+              Copied!
+            </span>
+          )}
+        </button>
 
         {/* ── LAYER 2: IDENTITY ─────────────────────────────────── */}
         <div
@@ -137,16 +172,16 @@ const ProfileCard = memo(function ProfileCard({
               Software Engineer
             </p>
 
-            {/* Availability badge */}
-            <span className="availability-badge" aria-label="Available for opportunities">
+            {/* Availability badge — contextual */}
+            <span className="availability-badge" aria-label="Open to work opportunities">
               <span className="availability-dot" aria-hidden="true" />
-              Available
+              Open to Work
             </span>
           </div>
 
-          {/* Priming: company names — title-case, legible size */}
+          {/* Company names — title-case with current role context */}
           <p className="text-[10px] md:text-[11px] text-white/35 group-hover:text-white/55 transition-colors duration-300 tracking-wide mt-0.5">
-            Pertamina IHC&nbsp;·&nbsp;Orami
+            Pertamina IHC (2024–now)&nbsp;·&nbsp;Orami
           </p>
         </div>
 
@@ -177,32 +212,47 @@ const ProfileCard = memo(function ProfileCard({
             ))}
           </div>
 
-          {/* Secondary context — hidden on mobile */}
+          {/* Achievement teaser — seeds curiosity before CTA */}
           <p className={`
             hidden sm:block
-            text-white/24 group-hover:text-white/42 transition-colors duration-500
+            text-white/38 group-hover:text-white/55 transition-colors duration-500
             ${isLarge ? "text-[10px] md:text-[11px]" : "text-[9px]"}
           `}>
-            Full-stack · Healthcare · Logistics · E-commerce · Telecom
+            Led EMR rollout across 12 hospitals nationwide
           </p>
         </div>
 
-        {/* ── LAYER 4: CONTEXT ──────────────────────────────────── */}
+        {/* ── LAYER 4: CONTEXT — location as mini pills ─────────── */}
         <div
           className={`
-            flex flex-col items-center gap-0.5
+            flex items-center justify-center gap-1.5 flex-wrap
             transition-all duration-500 delay-150
             ${mounted ? "opacity-100" : "opacity-0"}
           `}
         >
-          <p className="
-            text-[9px] md:text-[10px]
-            text-white/38
-            group-hover:text-white/55
+          <span className="
+            text-[9px] text-white/38 group-hover:text-white/55
             transition-colors duration-300
+            bg-white/5 border border-white/8 rounded-full px-1.5 py-0.5
           ">
-            Jakarta, Indonesia&nbsp;·&nbsp;Open to remote &amp; hybrid
-          </p>
+            🌏 Jakarta
+          </span>
+          <span className="
+            text-[9px] text-white/38 group-hover:text-white/55
+            transition-colors duration-300
+            bg-white/5 border border-white/8 rounded-full px-1.5 py-0.5
+          ">
+            🌐 Remote-ready
+          </span>
+          {/* Currently building — ambient live signal */}
+          <span className="
+            hidden sm:inline-flex
+            text-[9px] text-white/30 group-hover:text-white/48
+            transition-colors duration-300
+            bg-white/3 border border-white/6 rounded-full px-1.5 py-0.5
+          ">
+            🏥 Hospital Analytics
+          </span>
         </div>
 
         {/* ── LAYER 5: ACTIONS ──────────────────────────────────── */}
@@ -231,7 +281,7 @@ const ProfileCard = memo(function ProfileCard({
                   }
                 `}
               >
-                {isPressed ? "…" : isFlipped ? "← About Me" : "Explore Projects"}
+                {isPressed ? "…" : isFlipped ? "← Back" : "View My Work"}
               </button>
 
               <span aria-hidden="true" className="action-divider" />
@@ -240,15 +290,18 @@ const ProfileCard = memo(function ProfileCard({
               {[
                 { href: "mailto:aditiafarhan25@gmail.com", icon: "icon-mail", label: "Email", tooltip: "Email" },
                 { href: "/Muhammad-Aditia-Farhan-Resume.pdf", icon: "icon-download", label: "Download Resume", tooltip: "Resume", download: true },
-                { href: "https://github.com/aditfarhan", icon: "icon-github", label: "GitHub", tooltip: "GitHub", external: true },
-                { href: "https://www.linkedin.com/in/muhammad-aditia-farhan", icon: "icon-linkedin", label: "LinkedIn", tooltip: "LinkedIn", external: true },
-              ].map(({ href, icon, label, tooltip, download, external }) => (
+                { href: "https://github.com/aditfarhan", icon: "icon-github", label: "GitHub", tooltip: "GitHub", external: true, me: true },
+                { href: "https://www.linkedin.com/in/muhammad-aditia-farhan", icon: "icon-linkedin", label: "LinkedIn", tooltip: "LinkedIn", external: true, me: true },
+              ].map(({ href, icon, label, tooltip, download, external, me }) => (
                 <a
                   key={label}
                   href={href}
                   download={download}
                   target={external ? "_blank" : undefined}
-                  rel={external ? "noopener noreferrer" : undefined}
+                  rel={[
+                    external ? "noopener noreferrer" : "",
+                    me ? "me" : "",
+                  ].filter(Boolean).join(" ") || undefined}
                   data-tooltip={tooltip}
                   className="
                     action-icon action-icon--tooltip action-icon--deemph

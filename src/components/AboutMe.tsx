@@ -3,6 +3,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import "@/styles/components.css";
 import { portfolio } from "@/data/portfolio";
+import { useCountUp } from "@/hooks";
 
 interface AboutMeProps {
   onToggleFlip?: () => void;
@@ -10,9 +11,9 @@ interface AboutMeProps {
 }
 
 const STATS = [
-  { value: 5, suffix: "+", label: "Years" },
-  { value: 12, suffix: "+", label: "Hospitals" },
-  { value: 3, suffix: "", label: "Industries", detail: "Healthcare · Logistics · E-commerce" },
+  { value: 5, suffix: "+", label: "years" },
+  { value: 12, suffix: "+", label: "hospitals" },
+  { value: 3, suffix: "", label: "industries", detail: "Healthcare · Logistics · E-commerce" },
 ];
 
 const PRINCIPLES = [
@@ -49,31 +50,6 @@ const SKILL_GROUPS = [
   { label: "Infra", skills: ["Docker", "Kubernetes"] },
 ];
 
-function useCountUp(
-  targets: number[],
-  duration = 900,
-  trigger: boolean = false
-) {
-  const [counts, setCounts] = useState<number[]>(targets.map(() => 0));
-
-  useEffect(() => {
-    if (!trigger) return;
-    let start: number | null = null;
-
-    // Single shared rAF loop for all counters
-    const step = (ts: number) => {
-      if (!start) start = ts;
-      const progress = Math.min((ts - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCounts(targets.map((t) => Math.round(eased * t)));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trigger, duration]);
-
-  return counts;
-}
 
 const AboutMe = memo(function AboutMe({
   onToggleFlip,
@@ -174,7 +150,8 @@ const AboutMe = memo(function AboutMe({
         {/* SUPPORTING CONTEXT */}
         <p
           className={`
-            mt-1 text-[0.72rem] sm:text-xs
+            mt-1 pl-2 border-l border-white/15
+            text-[0.72rem] sm:text-xs
             text-white/38 hover:text-white/55
             transition-all duration-500 delay-75
             ${mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}
@@ -182,6 +159,7 @@ const AboutMe = memo(function AboutMe({
         >
           Especially in environments where systems scale — and mistakes compound.
         </p>
+
 
         {/* STATS ROW */}
         <div
@@ -254,6 +232,13 @@ const AboutMe = memo(function AboutMe({
             `}
             style={{ transitionDelay: `${idx * 60}ms` }}
           >
+            {/* Reading-order micro-number */}
+            <span
+              className="absolute top-1.5 right-2 text-[8px] text-white/14 font-mono select-none"
+              aria-hidden="true"
+            >
+              0{idx + 1}
+            </span>
             {/* Always-on subtle mobile glow */}
             <div
               className="
@@ -321,7 +306,19 @@ const AboutMe = memo(function AboutMe({
               </span>
               <div className="flex flex-wrap gap-1">
                 {group.skills.map((skill) => (
-                  <span key={skill} className="about-skill-chip about-skill-chip--interactive">
+                  <span
+                    key={skill}
+                    className={[
+                      "about-skill-chip about-skill-chip--interactive",
+                      // Primary skills elevated — React, Next.js, TypeScript
+                      group.label === "Frontend"
+                        ? "ring-1 ring-white/18 text-white/90"
+                        // Infra is supporting — slightly dimmer label
+                        : group.label === "Infra"
+                          ? "opacity-70"
+                          : "",
+                    ].join(" ")}
+                  >
                     {skill}
                   </span>
                 ))}
@@ -341,10 +338,10 @@ const AboutMe = memo(function AboutMe({
               w-full sm:w-auto
               flex items-center justify-center sm:justify-start gap-2
             "
-            aria-label="View selected work — explore projects"
+            aria-label={`Browse ${projectCount} projects`}
           >
             <span className="relative overflow-visible">
-              See my work
+              Browse {projectCount} projects
               <span
                 className="
                   absolute left-0 -bottom-0.5 h-px w-full
@@ -374,7 +371,7 @@ const AboutMe = memo(function AboutMe({
 
           {/* Dynamic context label */}
           <span className="text-[9px] sm:text-[10px] text-white/28 tracking-wide">
-            Projects&nbsp;·&nbsp;{projectCount} works
+            Healthcare&nbsp;·&nbsp;Logistics&nbsp;·&nbsp;E-commerce
           </span>
         </div>
 

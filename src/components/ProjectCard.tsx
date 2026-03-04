@@ -132,14 +132,15 @@ export default function ProjectsViewer({
         <h2 className="text-sm sm:text-base font-bold brand-gradient leading-none tracking-tight">
           Projects
         </h2>
-        <div
-          className="project-counter"
-          aria-label={`Project ${index + 1} of ${projects.length}`}
-        >
-          <strong>{index + 1}</strong>
-          <span className="project-counter-sep">/</span>
-          <span>{projects.length}</span>
-        </div>
+        {/* Counter moved to nav — header shows title only */}
+        {index === 0 && (
+          <span
+            className="text-[8px] bg-accent/15 border border-accent/25 rounded px-1.5 py-0.5 text-accent/80 font-semibold tracking-wide"
+            aria-label="Featured project"
+          >
+            Featured
+          </span>
+        )}
       </div>
 
       {/* Screen reader live region — updated via DOM write for reliability */}
@@ -192,12 +193,32 @@ export default function ProjectsViewer({
                 "nav-dot-btn",
                 "focus-visible:outline-2 focus-visible:outline-white/60 focus-visible:outline-offset-4",
                 i === index
-                  // Circular active dot with ring — clearly a position indicator
                   ? "w-2 h-2 bg-white/70 ring-1 ring-white/40 ring-offset-0 cursor-default"
                   : "w-1.5 h-1.5 bg-white/18 hover:bg-white/40 cursor-pointer",
               ].join(" ")}
             />
           ))}
+        </div>
+
+        {/* Project counter in nav — replaces header counter, less upfront load */}
+        <div className="flex items-center justify-center gap-2">
+          <span className="text-[9px] text-white/28 tabular-nums">
+            {index + 1}&nbsp;of&nbsp;{projects.length}
+          </span>
+          {/* Return-to-start — appears deep in the list to resurface flagship */}
+          {index >= 3 && (
+            <button
+              onClick={() => goTo(0)}
+              className="
+                text-[9px] text-white/30 hover:text-white/55
+                hover:underline underline-offset-2
+                transition-all duration-150
+              "
+              aria-label="Return to first project"
+            >
+              ↩ Start
+            </button>
+          )}
         </div>
 
         {/* Navigation hint */}
@@ -210,9 +231,9 @@ export default function ProjectsViewer({
         {/* Prev / Return / Next with project name preview on hover */}
         <div className="flex items-center justify-between w-full text-[10px] sm:text-[11px] text-white/42">
 
-          {/* PREV — hidden at first */}
+          {/* PREV — hidden at first; flex-shrink-0 to prevent wrapping */}
           {!isFirst ? (
-            <div className="relative group/nav">
+            <div className="relative group/nav flex-shrink-0">
               {/* Preview tooltip — prev project name */}
               {hoveredNav === "prev" && prevProject && (
                 <div className="
@@ -246,26 +267,39 @@ export default function ProjectsViewer({
             <span className="min-w-[44px]" />
           )}
 
-          {/* RETURN */}
-          <button
-            onClick={onClose}
-            className="
-              opacity-50 hover:opacity-75 hover:text-white/60
-              underline underline-offset-2 decoration-white/20 hover:decoration-white/40
-              active:scale-95 active:opacity-75
-              px-2 sm:px-3 py-1 min-h-[44px]
-              w-full sm:w-auto mx-1 sm:mx-0
-              flex items-center justify-center
-              transition-all duration-200
-              focus-visible:outline-2 focus-visible:outline-white/50 focus-visible:outline-offset-2
-            "
-          >
-            Return to profile
-          </button>
+          {/* RETURN — renamed to "← Back", + Contact when seen ≥2 projects */}
+          <div className="flex flex-col items-center gap-0.5">
+            {index >= 2 && (
+              <a
+                href="mailto:aditiafarhan25@gmail.com"
+                className="
+                  hidden sm:inline-flex
+                  opacity-35 hover:opacity-60 text-white/50 hover:text-white/75
+                  text-[9px] transition-all duration-200
+                "
+              >
+                Contact →
+              </a>
+            )}
+            <button
+              onClick={onClose}
+              className="
+                opacity-50 hover:opacity-75 hover:text-white/60
+                underline underline-offset-2 decoration-white/20 hover:decoration-white/40
+                active:scale-95 active:opacity-75
+                px-2 sm:px-3 py-1 min-h-[44px]
+                flex items-center justify-center truncate max-w-[120px]
+                transition-all duration-200
+                focus-visible:outline-2 focus-visible:outline-white/50 focus-visible:outline-offset-2
+              "
+            >
+              ← Back
+            </button>
+          </div>
 
-          {/* NEXT — hidden at last */}
+          {/* NEXT — hidden at last; flex-shrink-0 to prevent wrapping */}
           {!isLast ? (
-            <div className="relative group/nav">
+            <div className="relative group/nav flex-shrink-0">
               {/* Preview tooltip — next project name */}
               {hoveredNav === "next" && nextProject && (
                 <div className="

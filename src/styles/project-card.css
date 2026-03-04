@@ -151,12 +151,17 @@
     gap: 0.125rem;
 }
 
-/* Decision section — left accent line */
+/* Decision section — left accent + faint bg wash to signal "key thought" */
 .entry-section--decision {
     border-left: 2px solid rgba(255, 255, 255, 0.12);
     padding-left: 0.5rem;
-    transition: border-color 220ms ease;
+    border-radius: 0 3px 3px 0;
+    background: linear-gradient(to right,
+            color-mix(in srgb, var(--accent) 3%, transparent),
+            transparent 80%);
+    transition: border-color 220ms ease, background 220ms ease;
 }
+
 
 .entry-section--decision:hover {
     border-left-color: rgba(255, 255, 255, 0.40);
