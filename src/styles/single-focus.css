@@ -28,8 +28,8 @@
     position: relative;
     flex: 1 1 0%;
     min-width: 0;
-    /* Important for flex collapse */
-    height: 460px;
+    /* Fluid height — scales with viewport, never cramped or wasteful */
+    height: clamp(420px, 60dvh, 600px);
     opacity: 1;
     transform: scale(1);
     transition:
@@ -99,7 +99,8 @@
     .home-card {
         flex: 0 0 auto;
         height: auto;
-        min-height: 380px;
+        /* Fluid: adapts to viewport height instead of fixed 380px */
+        min-height: clamp(260px, 45dvh, 380px);
         width: 100%;
     }
 
@@ -116,7 +117,8 @@
 
     .home-deck-grid.projects-focused .home-card--profile {
         flex: 1 0 auto;
-        max-height: 45vh;
+        /* Fluid: was hardcoded 45vh — now adapts to actual viewport */
+        max-height: clamp(320px, 72dvh, 85dvh);
         min-height: auto;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
@@ -126,6 +128,37 @@
         flex: 0 0 0%;
         min-height: 0;
         height: 0;
+        padding: 0;
+        border: none;
+    }
+}
+
+/* ======= LANDSCAPE MOBILE — side-by-side layout ======= */
+/* When in landscape on a short screen, stacking vertically
+   means nothing fits. Switch to row layout. */
+@media (orientation: landscape) and (max-height: 600px) {
+    .home-deck-grid {
+        flex-direction: row;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+
+    .home-card {
+        /* Fluid height in landscape — fill most of the short viewport */
+        height: clamp(180px, 85dvh, 340px) !important;
+        min-height: 0 !important;
+        flex: 1 1 0%;
+    }
+
+    .home-deck-grid.projects-focused .home-card--profile {
+        flex: 3 1 0%;
+        max-height: none;
+        height: clamp(180px, 85dvh, 340px) !important;
+    }
+
+    .home-deck-grid.projects-focused .home-card--about {
+        flex: 0 0 0%;
+        height: 0 !important;
         padding: 0;
         border: none;
     }
@@ -188,9 +221,16 @@
     transform: translateZ(0);
 }
 
-/* Desktop specific - larger card heights */
+/* Desktop specific — fluid card heights */
 @media (min-width: 640px) {
     .home-card {
-        height: 460px;
+        height: clamp(440px, 62dvh, 620px);
+    }
+}
+
+/* Large desktop — more generous */
+@media (min-width: 1024px) {
+    .home-card {
+        height: clamp(480px, 58dvh, 640px);
     }
 }

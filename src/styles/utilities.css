@@ -2,7 +2,6 @@
 
 .mobile-scroll-fix {
   -webkit-overflow-scrolling: touch;
-  overflow-scrolling: touch;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   will-change: scroll-position;
@@ -39,19 +38,19 @@
 
 .clamp-2 {
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .clamp-3 {
   -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 
 .brand-gradient {
-  background: linear-gradient(
-    90deg,
-    var(--brand-a),
-    var(--brand-b),
-    var(--brand-c)
-  );
+  background: linear-gradient(90deg,
+      var(--brand-a),
+      var(--brand-b),
+      var(--brand-c));
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -69,13 +68,11 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    transparent 40%,
-    rgba(255, 255, 255, 0.02) 70%,
-    rgba(255, 255, 255, 0.05) 100%
-  );
+  background: radial-gradient(ellipse at center,
+      transparent 0%,
+      transparent 40%,
+      rgba(255, 255, 255, 0.02) 70%,
+      rgba(255, 255, 255, 0.05) 100%);
 }
 
 .hero::after {
@@ -83,18 +80,14 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(
-      90deg,
+  background: linear-gradient(90deg,
       transparent 0%,
       rgba(255, 255, 255, 0.01) 50%,
-      transparent 100%
-    ),
-    linear-gradient(
-      0deg,
+      transparent 100%),
+    linear-gradient(0deg,
       transparent 0%,
       rgba(255, 255, 255, 0.01) 50%,
-      transparent 100%
-    );
+      transparent 100%);
   background-size: 60px 60px;
   opacity: 0.3;
 }
@@ -134,8 +127,15 @@
 }
 
 :focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 3px solid var(--ring);
   outline-offset: 0.1875rem;
+}
+
+/* Generic tactile press utility — add to any button/link */
+.btn-press:active {
+  transform: scale(0.95) translateY(1px);
+  opacity: 0.85;
+  transition-duration: 60ms !important;
 }
 
 /* Scrollbar Styles */

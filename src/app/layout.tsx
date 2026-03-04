@@ -35,7 +35,15 @@ const structuredData = [
       "Next.js",
       "TypeScript",
       "Node.js",
+      "Laravel",
+      "PostgreSQL",
+      "Docker",
+      "Kubernetes",
       "Healthcare Technology",
+      "Hospital Information Systems",
+      "Electronic Medical Records",
+      "HL7 FHIR",
+      "CI/CD",
       "Web Development",
       "Software Engineering",
     ],
@@ -88,7 +96,7 @@ const structuredData = [
     "@type": "ItemList",
     name: "Software Engineering Projects",
     description: "Portfolio of professional projects and contributions",
-    numberOfItems: 6,
+    numberOfItems: 10,
     itemListElement: [
       {
         "@type": "ListItem",
@@ -249,7 +257,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>Muhammad Aditia Farhan - Software Engineer Portfolio</title>
         <link rel="manifest" href="/manifest.json" />
         {/* Performance optimizations */}
         <meta name="theme-color" content="#0a0a0a" />
@@ -257,10 +264,6 @@ export default function RootLayout({
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
-        />
-        <meta
-          name="google-site-verification"
-          content="ZysRmiDkYuRgfl21-iOq7EsNByZb4kS1hxtoCJJjLX4"
         />
         <link rel="preload" href="/icons.svg" as="image" type="image/svg+xml" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />

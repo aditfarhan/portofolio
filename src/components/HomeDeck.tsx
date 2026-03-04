@@ -5,6 +5,7 @@ import { portfolio } from "@/data/portfolio";
 import { ProfileCard, BackgroundEffects, AboutMe } from "@/components";
 import { useFlipAnimation } from "@/hooks";
 import ProjectsViewer from "@/components/ProjectCard";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const HomeDeck = memo(function HomeDeck() {
   const { isFlipped, isAnimating, toggleFlip } = useFlipAnimation();
@@ -32,11 +33,19 @@ const HomeDeck = memo(function HomeDeck() {
         isFlipped={isFlipped}
       />
 
-      <section className={`mx-auto max-w-5xl px-4 py-3 h-[100dvh] overflow-hidden transition-opacity duration-700 ${showCards ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+      <section className={`mx-auto max-w-5xl px-4 py-3 h-[100dvh] overflow-hidden`}>
         <div className={`home-deck-grid ${isFlipped ? "projects-focused" : ""}`}>
 
           {/* LEFT CARD */}
-          <div className="home-card home-card--profile">
+          <div
+            className="home-card home-card--profile"
+            style={{
+              transition: "opacity 700ms ease, transform 700ms ease",
+              opacity: showCards ? 1 : 0,
+              transform: showCards ? "translateY(0)" : "translateY(12px)",
+              transitionDelay: showCards ? "0ms" : "0ms",
+            }}
+          >
             <div className={`card-flip-inner ${isFlipped ? "rotate-y-180" : ""}`}>
 
               {/* PROFILE */}
@@ -51,17 +60,28 @@ const HomeDeck = memo(function HomeDeck() {
 
               {/* PROJECTS */}
               <div className="card-flip-back rounded-lg bg-card border border-token p-5">
-                <ProjectsViewer
-                  projects={sortedProjects}
-                  onClose={toggleFlip}
-                />
+                <ErrorBoundary>
+                  <ProjectsViewer
+                    projects={sortedProjects}
+                    onClose={toggleFlip}
+                    isActive={isFlipped}
+                  />
+                </ErrorBoundary>
               </div>
 
             </div>
           </div>
 
           {/* RIGHT CARD */}
-          <div className={`home-card home-card--about ${isFlipped ? "collapsed" : ""}`}>
+          <div
+            className={`home-card home-card--about ${isFlipped ? "collapsed" : ""}`}
+            style={{
+              transition: "opacity 700ms ease, transform 700ms ease",
+              opacity: showCards ? 1 : 0,
+              transform: showCards ? "translateY(0)" : "translateY(12px)",
+              transitionDelay: showCards ? "150ms" : "0ms",
+            }}
+          >
             <div className={`card-flip-inner ${isFlipped ? "rotate-y-180" : ""}`}>
 
               <div className="card-flip-front rounded-lg bg-card border border-token overflow-hidden">

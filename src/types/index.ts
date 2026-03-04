@@ -40,7 +40,7 @@ export interface Period {
   /** Start date in ISO-8601 format or human-readable string (e.g., "2023-01" or "Jan 2023") */
   start: string;
   /** End date in same format as start, or "Present" for ongoing */
-  end?: string;
+  end?: string | null;
 }
 
 /**
@@ -51,10 +51,14 @@ export interface Project {
   id: string;
   /** Project title */
   title: string;
+  /** Company or organization this project was built for */
+  company?: string;
   /** Short, compelling tagline (optional) */
   tagline?: string;
   /** Detailed description of the project */
   description: string;
+  /** 1–2 key impact metrics shown as a compact badge (e.g. "12+ hospitals · 5K daily users") */
+  impact?: string;
   /** Technology tags (e.g., React, TypeScript, etc.) */
   tags: string[];
   /** External links to demos, repos, case studies, etc. */
@@ -67,7 +71,7 @@ export interface Project {
   decision?: string;
   /** Direct outcome or impact of the decision (1 sentence) */
   outcome?: string;
-  /** Key highlights or achievements (deprecated in favor of decision/outcome) */
+  /** Key highlights or achievements */
   highlights?: string[];
 }
 

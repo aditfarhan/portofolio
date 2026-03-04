@@ -16,7 +16,7 @@
     position: relative;
     overflow: hidden;
     contain: layout paint;
-    will-change: transform, box-shadow;
+    /* will-change deferred to :hover — avoids compositor layer waste at rest */
     transition:
         transform 360ms var(--ease-card),
         box-shadow 360ms var(--ease-card);
@@ -42,6 +42,8 @@
 /* Hover — shared language */
 .interactive-card:hover,
 .profile-card:hover {
+    /* Promote layer only while hovering */
+    will-change: transform, box-shadow;
     transform: translateY(var(--card-lift));
     box-shadow:
         0 26px 72px rgba(0, 0, 0, 0.2),
@@ -193,8 +195,26 @@
 .action-icon:focus-visible,
 .maf-logo:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.45);
     border-radius: 6px;
+}
+
+/* Tactile pressed states — critical for premium feel */
+.action-cta:active {
+    transform: scale(0.97) translateY(1px);
+    filter: brightness(0.92);
+    transition-duration: 60ms;
+}
+
+.action-icon:active {
+    transform: scale(0.92);
+    background-color: rgba(255, 255, 255, 0.12);
+    transition-duration: 60ms;
+}
+
+.maf-logo:active {
+    transform: scale(0.94);
+    transition-duration: 60ms;
 }
 
 /* =========================
@@ -235,4 +255,60 @@
 
 .shine-card:hover::before {
     opacity: 1;
+}
+
+/* =========================
+   Icon Tooltip (Desktop only)
+========================= */
+
+/* Desktop tooltip via ::after — hidden on mobile */
+.action-icon--tooltip {
+    position: relative;
+}
+
+.action-icon--tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 7px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.2rem 0.45rem;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.75);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.55rem;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+    transition:
+        opacity 160ms ease,
+        transform 160ms ease;
+    z-index: 50;
+}
+
+.action-icon--tooltip:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Mobile icon label — visible ONLY on touch/mobile (no hover exists) */
+.action-icon-label {
+    display: block;
+    font-size: 0.5rem;
+    color: rgba(255, 255, 255, 0.38);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-top: 1px;
+}
+
+/* =====================
+   Reduced Motion
+===================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .action-icon--tooltip::after {
+        transition: none;
+    }
 }

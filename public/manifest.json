@@ -1,11 +1,11 @@
 {
   "name": "Muhammad Aditia Farhan Portfolio",
   "short_name": "MAF Portfolio",
-  "description": "Professional portfolio of Muhammad Aditia Farhan - Software Engineer specializing in React, Next.js, and TypeScript",
+  "description": "Professional portfolio of Muhammad Aditia Farhan — Software Engineer with 5+ years building enterprise systems for healthcare, logistics, and e-commerce.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
-  "theme_color": "#3b82f6",
+  "theme_color": "#0a0a0a",
   "orientation": "portrait-primary",
   "icons": [
     {

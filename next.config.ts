@@ -49,15 +49,6 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
 
-  // Modularize imports to reduce bundle size
-  modularizeImports: {
-    "@mui/material": {
-      transform: "@mui/material/{{member}}",
-    },
-    "lucide-react": {
-      transform: "lucide-react/dist/esm/icons/{{member}}",
-    },
-  },
 
   // Headers for security and performance
   async headers() {
@@ -98,6 +89,16 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/:path*.{jpg,jpeg,png,gif,webp,svg,ico}",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        // Explicit immutable cache for icons sprite (not matched by glob above)
+        source: "/icons.svg",
         headers: [
           {
             key: "Cache-Control",
