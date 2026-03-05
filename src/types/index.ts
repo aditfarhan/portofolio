@@ -98,3 +98,32 @@ export interface StarFieldPositions {
   medium: Position[];
   large: Position[];
 }
+
+/**
+ * A single stat entry used in both ProfileCard and AboutMe
+ */
+export interface ProfileStat {
+  value: number;
+  suffix: string;
+  label: string;
+  detail?: string;
+}
+
+/**
+ * Testimonial / recommendation from a colleague or manager
+ */
+export interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+  company: string;
+}
+
+/**
+ * A work-methodology bullet for the "How I Work" section
+ */
+export interface HowIWorkItem {
+  title: string;
+  desc: string;
+}
+

@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 /**
  * ArrivalOrb - First-visit arrival cue that provides a subtle ignition effect
- * 
+ *
  * Displays a small glowing orb that ignites once when the user first visits.
  * Respects reduced motion preferences and uses sessionStorage for persistence.
- * 
+ *
  * Animation sequence:
  * 1. Fade in softly (0-300ms)
  * 2. Brief expand/energy pulse (300-700ms)
  * 3. Dissolve/fade out (700-2000ms)
- * 
+ *
  * Mounted above cards but below UI interactions (pointer-events: none).
  */
 interface ArrivalOrbProps {
@@ -21,6 +21,9 @@ interface ArrivalOrbProps {
 
 export default function ArrivalOrb({ onAnimationComplete }: ArrivalOrbProps) {
     const [shouldAnimate, setShouldAnimate] = useState(false);
+    // Stabilise callback in a ref to prevent re-render cycles
+    const onCompleteRef = useRef(onAnimationComplete);
+    onCompleteRef.current = onAnimationComplete;
 
     useEffect(() => {
         // Check reduced motion preference
@@ -34,17 +37,17 @@ export default function ArrivalOrb({ onAnimationComplete }: ArrivalOrbProps) {
 
             // Trigger completion callback after animation duration (2s)
             timer = setTimeout(() => {
-                onAnimationComplete?.();
+                onCompleteRef.current?.();
             }, 2000);
         } else {
             // If reduced motion is preferred, trigger completion immediately
-            onAnimationComplete?.();
+            onCompleteRef.current?.();
         }
 
         return () => {
             if (timer) clearTimeout(timer);
         };
-    }, [onAnimationComplete]);
+    }, []); // Stable — no function dependency
 
     // Don't render anything if not first visit or animation complete
     if (!shouldAnimate) {

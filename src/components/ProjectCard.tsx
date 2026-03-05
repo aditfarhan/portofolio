@@ -10,6 +10,19 @@ interface ProjectsViewerProps {
   isActive?: boolean;
 }
 
+const INDUSTRY_MAP: Record<string, string> = {
+  "PT. Pertamina Bina Medika IHC": "Healthcare",
+  "OrderOnline.id": "Logistics",
+  "Orami by SIRCLO": "E-commerce",
+  "PT Nexwave (Huawei)": "Telecom",
+  "PT Bejana Investidata Globalindo": "Other",
+  "Personal Project": "Other",
+  "Freelance": "Other",
+};
+
+const FILTER_OPTIONS = ["All", "Healthcare", "Logistics", "E-commerce", "Telecom", "Other"] as const;
+type FilterOption = (typeof FILTER_OPTIONS)[number];
+
 export default function ProjectsViewer({
   projects,
   onClose,
@@ -21,6 +34,7 @@ export default function ProjectsViewer({
   const [expandedTags, setExpandedTags] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<"prev" | "next" | null>(null);
   const [isScrollable, setIsScrollable] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<FilterOption>("All");
   const contentRef = useRef<HTMLDivElement>(null);
   const announceRef = useRef<HTMLDivElement>(null);
   const indexRef = useRef(0);
@@ -52,7 +66,7 @@ export default function ProjectsViewer({
 
   const next = useCallback(() => {
     const cur = indexRef.current;
-    if (cur >= projects.length - 1) return;
+    if (cur >= filteredProjects.length - 1) return;
     setDirection("next");
     setIndex(cur + 1);
     setShowKeyHint(false);
@@ -81,7 +95,7 @@ export default function ProjectsViewer({
   // aria-live — real DOM write for guaranteed screen-reader announcement
   useEffect(() => {
     if (announceRef.current) {
-      announceRef.current.textContent = `${projects[index].title}, project ${index + 1} of ${projects.length}`;
+      announceRef.current.textContent = `${filteredProjects[index]?.title ?? ""}, project ${index + 1} of ${filteredProjects.length}`;
     }
   }, [index, projects]);
 
@@ -113,11 +127,15 @@ export default function ProjectsViewer({
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
   }, []);
 
-  const currentProject = projects[index];
+  const filteredProjects = activeFilter === "All"
+    ? projects
+    : projects.filter((p) => INDUSTRY_MAP[p.company ?? ""] === activeFilter);
+
+  const currentProject = filteredProjects[index];
   const isFirst = index === 0;
-  const isLast = index === projects.length - 1;
-  const prevProject = !isFirst ? projects[index - 1] : null;
-  const nextProject = !isLast ? projects[index + 1] : null;
+  const isLast = index === filteredProjects.length - 1;
+  const prevProject = !isFirst ? filteredProjects[index - 1] : null;
+  const nextProject = !isLast ? filteredProjects[index + 1] : null;
   const MAX_TAGS = 5;
 
   return (
@@ -141,6 +159,29 @@ export default function ProjectsViewer({
             Featured
           </span>
         )}
+      </div>
+
+      {/* ── INDUSTRY FILTERS ─────────────────── */}
+      <div className="flex flex-wrap gap-1 mb-2 flex-shrink-0" role="group" aria-label="Filter by industry">
+        {FILTER_OPTIONS.map((opt) => {
+          const count = opt === "All" ? projects.length : projects.filter((p) => INDUSTRY_MAP[p.company ?? ""] === opt).length;
+          if (count === 0 && opt !== "All") return null;
+          return (
+            <button
+              key={opt}
+              onClick={() => { setActiveFilter(opt); setIndex(0); setExpandedTags(false); }}
+              className={[
+                "text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full border transition-all duration-200",
+                activeFilter === opt
+                  ? "border-white/30 bg-white/10 text-white/85 font-semibold"
+                  : "border-white/10 bg-white/[0.03] text-white/45 hover:text-white/65 hover:border-white/20",
+              ].join(" ")}
+              aria-pressed={activeFilter === opt}
+            >
+              {opt}{opt !== "All" ? ` (${count})` : ""}
+            </button>
+          );
+        })}
       </div>
 
       {/* Screen reader live region — updated via DOM write for reliability */}
@@ -182,12 +223,12 @@ export default function ProjectsViewer({
           aria-label="Projects navigation"
           className="flex items-center gap-1.5 flex-wrap justify-center"
         >
-          {projects.map((p, i) => (
+          {filteredProjects.map((p, i) => (
             <button
               key={p.id}
               role="radio"
               aria-checked={i === index}
-              aria-label={`${p.title}, project ${i + 1} of ${projects.length}`}
+              aria-label={`${p.title}, project ${i + 1} of ${filteredProjects.length}`}
               onClick={() => goTo(i)}
               className={[
                 "nav-dot-btn",
@@ -202,8 +243,8 @@ export default function ProjectsViewer({
 
         {/* Project counter in nav — replaces header counter, less upfront load */}
         <div className="flex items-center justify-center gap-2">
-          <span className="text-[9px] text-white/28 tabular-nums">
-            {index + 1}&nbsp;of&nbsp;{projects.length}
+          <span className="text-[9px] text-white/40 tabular-nums">
+            {index + 1}&nbsp;of&nbsp;{filteredProjects.length}
           </span>
           {/* Return-to-start — appears deep in the list to resurface flagship */}
           {index >= 3 && (

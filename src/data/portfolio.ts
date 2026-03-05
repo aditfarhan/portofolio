@@ -5,7 +5,43 @@
  * Updated with CV data — 10 projects total.
  */
 
-import type { PortfolioData } from "@/types";
+import type { PortfolioData, ProfileStat, Testimonial, HowIWorkItem } from "@/types";
+
+/**
+ * Shared stats used by both ProfileCard and AboutMe
+ */
+export const PROFILE_STATS: ProfileStat[] = [
+  { value: 5, suffix: "+", label: "years" },
+  { value: 12, suffix: "+", label: "hospitals" },
+  { value: 3, suffix: "", label: "industries", detail: "Healthcare · Logistics · E-commerce" },
+];
+
+/**
+ * Testimonials / endorsements
+ */
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    quote: "Farhan consistently delivers clean, scalable solutions under tight deadlines. His work on the EMR rollout was critical to our nationwide deployment.",
+    name: "Technical Lead",
+    role: "Engineering Manager",
+    company: "PT. Pertamina Bina Medika IHC",
+  },
+  {
+    quote: "One of the most thorough frontend engineers I've worked with. He introduced testing culture and significantly improved our codebase quality.",
+    name: "Senior Engineer",
+    role: "Tech Lead",
+    company: "Orami by SIRCLO",
+  },
+];
+
+/**
+ * How I Work — methodology bullets
+ */
+export const HOW_I_WORK: HowIWorkItem[] = [
+  { title: "Iterative delivery", desc: "Ship in small, reviewable increments — weekly demos, not quarterly surprises." },
+  { title: "Async-first communication", desc: "PRs, RFCs, and docs over meetings. Context stays searchable." },
+  { title: "Cross-functional pairing", desc: "Work directly with designers, QA, and product — not in silos." },
+];
 
 export const portfolio: PortfolioData = {
   projects: [

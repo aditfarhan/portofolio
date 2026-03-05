@@ -2,19 +2,13 @@
 
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import "@/styles/components.css";
-import { portfolio } from "@/data/portfolio";
-import { useCountUp } from "@/hooks";
+import { portfolio, PROFILE_STATS, TESTIMONIALS, HOW_I_WORK } from "@/data/portfolio";
+import { useCountUp, useShineEffect } from "@/hooks";
 
 interface AboutMeProps {
   onToggleFlip?: () => void;
   isAnimating?: boolean;
 }
-
-const STATS = [
-  { value: 5, suffix: "+", label: "years" },
-  { value: 12, suffix: "+", label: "hospitals" },
-  { value: 3, suffix: "", label: "industries", detail: "Healthcare · Logistics · E-commerce" },
-];
 
 const PRINCIPLES = [
   {
@@ -38,7 +32,6 @@ const PRINCIPLES = [
   {
     title: "Team-first engineering",
     desc: "Code is a team sport. Decisions should be too.",
-    // Full width on all sizes — treated as the featured closing principle
     span: "col-span-4",
     prominent: false,
   },
@@ -58,6 +51,7 @@ const AboutMe = memo(function AboutMe({
   const [mounted, setMounted] = useState(false);
   const [countTriggered, setCountTriggered] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const { handleShine } = useShineEffect();
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 60);
@@ -92,24 +86,9 @@ const AboutMe = memo(function AboutMe({
     onToggleFlip();
   }, [isAnimating, onToggleFlip]);
 
-  // Throttled shine via rAF
-  const shineRafId = useRef<number | null>(null);
-  function handleShine(e: React.MouseEvent<HTMLDivElement>) {
-    if (shineRafId.current !== null) return;
-    const target = e.currentTarget;
-    const clientX = e.clientX;
-    const clientY = e.clientY;
-    shineRafId.current = requestAnimationFrame(() => {
-      const rect = target.getBoundingClientRect();
-      target.style.setProperty("--mx", `${((clientX - rect.left) / rect.width) * 100}%`);
-      target.style.setProperty("--my", `${((clientY - rect.top) / rect.height) * 100}%`);
-      shineRafId.current = null;
-    });
-  }
-
   // Single unified rAF loop for all three counters
   const counts = useCountUp(
-    STATS.map((s) => s.value),
+    PROFILE_STATS.map((s) => s.value),
     900,
     countTriggered
   );
@@ -152,12 +131,12 @@ const AboutMe = memo(function AboutMe({
           className={`
             mt-1 pl-2 border-l border-white/15
             text-[0.72rem] sm:text-xs
-            text-white/38 hover:text-white/55
+            text-white/50 hover:text-white/65
             transition-all duration-500 delay-75
             ${mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}
           `}
         >
-          Especially in environments where systems scale — and mistakes compound.
+          Built the EMR platform running across 12+ hospitals nationwide.
         </p>
 
 
@@ -170,7 +149,7 @@ const AboutMe = memo(function AboutMe({
           `}
           aria-label="Career highlights"
         >
-          {STATS.map((stat, i) => (
+          {PROFILE_STATS.map((stat, i) => (
             <div key={stat.label} className="flex items-center">
               <div className="flex flex-col items-center min-w-[2.5rem]">
                 <span className="about-stat-value">
@@ -182,7 +161,7 @@ const AboutMe = memo(function AboutMe({
                     title={stat.detail}
                     className="
                       sm:hidden
-                      text-[8px] text-white/28 mt-0.5
+                      text-[8px] text-white/40 mt-0.5
                       whitespace-nowrap leading-none
                     "
                     aria-label={stat.detail}
@@ -191,7 +170,7 @@ const AboutMe = memo(function AboutMe({
                   </span>
                 )}
               </div>
-              {i < STATS.length - 1 && (
+              {i < PROFILE_STATS.length - 1 && (
                 <div className="about-stat-divider about-stat-divider--breathe" aria-hidden="true" />
               )}
             </div>
@@ -234,7 +213,7 @@ const AboutMe = memo(function AboutMe({
           >
             {/* Reading-order micro-number */}
             <span
-              className="absolute top-1.5 right-2 text-[8px] text-white/14 font-mono select-none"
+              className="absolute top-1.5 right-2 text-[8px] text-white/20 font-mono select-none"
               aria-hidden="true"
             >
               0{idx + 1}
@@ -263,21 +242,20 @@ const AboutMe = memo(function AboutMe({
                 group-hover:-translate-y-[1px]
                 ${item.prominent
                   ? "text-white/90 text-[0.75rem] sm:text-[0.8rem] group-hover:text-white"
-                  : "text-white/62 text-[0.7rem] sm:text-[0.75rem] group-hover:text-white/82"
+                  : "text-white/65 text-[0.7rem] sm:text-[0.75rem] group-hover:text-white/85"
                 }
               `}
             >
               {item.title}
             </p>
-            {/* Larger description text — raised from 0.63rem to 0.68rem */}
             <p
               className={`
                 relative mt-0.5 leading-snug
                 transition-all duration-300 delay-[30ms]
                 group-hover:-translate-y-[1px]
                 ${item.prominent
-                  ? "text-white/48 text-[0.68rem] sm:text-[0.72rem] group-hover:text-white/65"
-                  : "text-white/36 text-[0.65rem] sm:text-[0.68rem] group-hover:text-white/52"
+                  ? "text-white/55 text-[0.68rem] sm:text-[0.72rem] group-hover:text-white/70"
+                  : "text-white/45 text-[0.65rem] sm:text-[0.68rem] group-hover:text-white/60"
                 }
               `}
             >
@@ -286,6 +264,50 @@ const AboutMe = memo(function AboutMe({
           </div>
         ))}
       </div>
+
+      {/* ── TESTIMONIAL (single, rotating in future) ──── */}
+      {TESTIMONIALS.length > 0 && (
+        <div
+          className={`
+            px-3 py-2 rounded-lg border border-white/[0.08] bg-white/[0.03]
+            mb-2
+            transition-all duration-500 delay-250
+            ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
+          `}
+        >
+          <p className="text-[0.65rem] sm:text-[0.7rem] text-white/55 italic leading-snug">
+            &ldquo;{TESTIMONIALS[0].quote}&rdquo;
+          </p>
+          <p className="mt-1 text-[0.6rem] text-white/40">
+            — {TESTIMONIALS[0].role}, {TESTIMONIALS[0].company}
+          </p>
+        </div>
+      )}
+
+      {/* ── HOW I WORK (compact) ──── */}
+      {HOW_I_WORK.length > 0 && (
+        <div
+          className={`
+            flex gap-2 mb-2
+            transition-all duration-500 delay-300
+            ${mounted ? "opacity-100" : "opacity-0"}
+          `}
+        >
+          {HOW_I_WORK.map((item) => (
+            <div
+              key={item.title}
+              className="flex-1 px-2 py-1.5 rounded border border-white/[0.06] bg-white/[0.02]"
+            >
+              <p className="text-[0.62rem] sm:text-[0.67rem] font-semibold text-white/60 leading-tight">
+                {item.title}
+              </p>
+              <p className="text-[0.55rem] sm:text-[0.6rem] text-white/40 leading-snug mt-0.5">
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* ── BOTTOM BLOCK — SKILLS + CTA ─────────────────── */}
       <div className="w-full">
@@ -341,7 +363,7 @@ const AboutMe = memo(function AboutMe({
             aria-label={`Browse ${projectCount} projects`}
           >
             <span className="relative overflow-visible">
-              Browse {projectCount} projects
+              See what I&apos;ve built
               <span
                 className="
                   absolute left-0 -bottom-0.5 h-px w-full
@@ -370,7 +392,7 @@ const AboutMe = memo(function AboutMe({
           </button>
 
           {/* Dynamic context label */}
-          <span className="text-[9px] sm:text-[10px] text-white/28 tracking-wide">
+          <span className="text-[9px] sm:text-[10px] text-white/40 tracking-wide">
             Healthcare&nbsp;·&nbsp;Logistics&nbsp;·&nbsp;E-commerce
           </span>
         </div>

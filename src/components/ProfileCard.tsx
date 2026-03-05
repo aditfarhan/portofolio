@@ -1,7 +1,9 @@
 "use client";
 
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import "@/styles/profile-card.css";
+import { PROFILE_STATS } from "@/data/portfolio";
+import { useShineEffect } from "@/hooks";
 
 interface ProfileCardProps {
   showActionButton?: boolean;
@@ -22,7 +24,7 @@ const ProfileCard = memo(function ProfileCard({
   const [mounted, setMounted] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const [copiedName, setCopiedName] = useState(false);
-  const shineRef = useRef<HTMLDivElement>(null);
+  const { shineRef, handleShine } = useShineEffect<HTMLDivElement>();
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 80);
@@ -53,22 +55,7 @@ const ProfileCard = memo(function ProfileCard({
     }
   }, []);
 
-  // Throttled shine — only recalculates on the next rAF frame
-  const shineRafId = useRef<number | null>(null);
-  function handleShine(e: React.MouseEvent<HTMLDivElement>) {
-    if (shineRafId.current !== null) return;
-    const clientX = e.clientX;
-    const clientY = e.clientY;
-    shineRafId.current = requestAnimationFrame(() => {
-      const el = shineRef.current;
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        el.style.setProperty("--mx", `${((clientX - rect.left) / rect.width) * 100}%`);
-        el.style.setProperty("--my", `${((clientY - rect.top) / rect.height) * 100}%`);
-      }
-      shineRafId.current = null;
-    });
-  }
+  // Shine effect handled by useShineEffect hook
 
   return (
     <div
@@ -180,7 +167,7 @@ const ProfileCard = memo(function ProfileCard({
           </div>
 
           {/* Company names — title-case with current role context */}
-          <p className="text-[10px] md:text-[11px] text-white/35 group-hover:text-white/55 transition-colors duration-300 tracking-wide mt-0.5">
+          <p className="text-[10px] md:text-[11px] text-white/50 group-hover:text-white/65 transition-colors duration-300 tracking-wide mt-0.5">
             Pertamina IHC (2024–now)&nbsp;·&nbsp;Orami
           </p>
         </div>
@@ -194,19 +181,15 @@ const ProfileCard = memo(function ProfileCard({
           `}
         >
           {/* Stat row — flex-wrap for ultra-small screens */}
-          <div className="flex items-center flex-wrap gap-x-2 gap-y-1 justify-center text-white/50 group-hover:text-white/72 transition-colors duration-400">
-            {[
-              { value: "5+", label: "yrs" },
-              { value: "12+", label: "hospitals" },
-              { value: "3", label: "industries" },
-            ].map(({ value, label }, i) => (
-              <span key={label} className="flex items-center gap-1">
-                {i > 0 && <span className="text-white/15" aria-hidden="true">·</span>}
+          <div className="flex items-center flex-wrap gap-x-2 gap-y-1 justify-center text-white/55 group-hover:text-white/75 transition-colors duration-400">
+            {PROFILE_STATS.map((stat, i) => (
+              <span key={stat.label} className="flex items-center gap-1">
+                {i > 0 && <span className="text-white/20" aria-hidden="true">·</span>}
                 <span className={`font-semibold ${isLarge ? "text-[11px] md:text-xs lg:text-sm" : "text-[10px]"}`}>
-                  {value}
+                  {stat.value}{stat.suffix}
                 </span>
                 <span className={isLarge ? "text-[10px] md:text-[11px]" : "text-[9px]"}>
-                  {label}
+                  {stat.label}
                 </span>
               </span>
             ))}
@@ -215,10 +198,10 @@ const ProfileCard = memo(function ProfileCard({
           {/* Achievement teaser — seeds curiosity before CTA */}
           <p className={`
             hidden sm:block
-            text-white/38 group-hover:text-white/55 transition-colors duration-500
+            text-white/50 group-hover:text-white/65 transition-colors duration-500
             ${isLarge ? "text-[10px] md:text-[11px]" : "text-[9px]"}
           `}>
-            Led EMR rollout across 12 hospitals nationwide
+            Led EMR rollout across 12 hospitals · 5,000+ daily clinical users
           </p>
         </div>
 
@@ -231,14 +214,14 @@ const ProfileCard = memo(function ProfileCard({
           `}
         >
           <span className="
-            text-[9px] text-white/38 group-hover:text-white/55
+            text-[9px] text-white/50 group-hover:text-white/65
             transition-colors duration-300
             bg-white/5 border border-white/8 rounded-full px-1.5 py-0.5
           ">
             🌏 Jakarta
           </span>
           <span className="
-            text-[9px] text-white/38 group-hover:text-white/55
+            text-[9px] text-white/50 group-hover:text-white/65
             transition-colors duration-300
             bg-white/5 border border-white/8 rounded-full px-1.5 py-0.5
           ">
@@ -247,11 +230,11 @@ const ProfileCard = memo(function ProfileCard({
           {/* Currently building — ambient live signal */}
           <span className="
             hidden sm:inline-flex
-            text-[9px] text-white/30 group-hover:text-white/48
+            text-[9px] text-white/45 group-hover:text-white/60
             transition-colors duration-300
             bg-white/3 border border-white/6 rounded-full px-1.5 py-0.5
           ">
-            🏥 Hospital Analytics
+            🏥 Healthcare IT
           </span>
         </div>
 

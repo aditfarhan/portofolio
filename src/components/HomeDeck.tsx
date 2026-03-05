@@ -56,7 +56,7 @@ const HomeDeck = memo(function HomeDeck() {
 
           {/* LEFT CARD — primary, arrives first */}
           <div className="home-card home-card--profile" style={leftCardStyle}>
-            <div className={`card-flip-inner ${isFlipped ? "rotate-y-180" : ""}`}>
+            <div className={`card-flip-inner ${isFlipped ? "rotate-y-180" : ""}`} aria-roledescription="flip card">
 
               {/* PROFILE */}
               <div className="card-flip-front rounded-lg bg-card border border-token p-5">
@@ -89,7 +89,7 @@ const HomeDeck = memo(function HomeDeck() {
             className={`home-card home-card--about ${isFlipped ? "collapsed" : ""}`}
             style={rightCardStyle}
           >
-            <div className={`card-flip-inner ${isFlipped ? "rotate-y-180" : ""}`}>
+            <div className={`card-flip-inner ${isFlipped ? "rotate-y-180" : ""}`} aria-roledescription="flip card">
 
               {/* ABOUT — synchronous, no Suspense needed */}
               <div className="card-flip-front rounded-lg bg-card border border-token overflow-hidden">
