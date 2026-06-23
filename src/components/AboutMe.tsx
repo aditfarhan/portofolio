@@ -9,32 +9,48 @@ interface AboutMeProps {
   isAnimating?: boolean;
 }
 
-// 3 principles in 2 rows (1 full-width + 2 halves) — compact, no overflow
-const PRINCIPLES = [
+// What I Build — 4 categories in a 2×2 grid (each col-span-2)
+const BUILD_FOCUS = [
   {
-    title: "Explicit trade-offs",
-    desc: "Decisions are intentional, documented, and shared with the team.",
-    span: "col-span-4",
+    title: "Healthcare Platforms",
+    desc: "HIS, EMR, inpatient workflows, clinical documentation, and discharge summaries.",
+    span: "col-span-2",
     prominent: true,
   },
   {
-    title: "Maintainable systems",
-    desc: "Written for the person who comes after.",
+    title: "Interoperability",
+    desc: "SATUSEHAT, HL7 FHIR, legacy database integration, and data validation.",
+    span: "col-span-2",
+    prominent: true,
+  },
+  {
+    title: "Enterprise Systems",
+    desc: "HCIS, secretariat platforms, employee data, and corporate workflows.",
     span: "col-span-2",
     prominent: false,
   },
   {
-    title: "Calm execution",
-    desc: "Urgency in shipping, not in panic.",
+    title: "Scalable Architecture",
+    desc: "React, Next.js, Docker, Kubernetes, CI/CD, feature flags, and design systems.",
     span: "col-span-2",
     prominent: false,
   },
 ];
 
 const SKILL_GROUPS = [
-  { label: "Frontend", skills: ["React", "Next.js", "TypeScript"] },
-  { label: "Backend", skills: ["Laravel", "Node.js", "PostgreSQL"] },
-  { label: "Infra", skills: ["Docker", "Kubernetes"] },
+  { label: "Frontend", skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
+  { label: "Backend", skills: ["Laravel", "Node.js", "PostgreSQL", "REST API"] },
+  { label: "Infra", skills: ["Docker", "Kubernetes", "Jenkins", "CI/CD"] },
+  { label: "Healthcare", skills: ["HIS/EMR", "SATUSEHAT", "HL7 FHIR", "Unleash"] },
+];
+
+const LEADERSHIP_SKILLS = [
+  "Sprint planning",
+  "Architecture reviews",
+  "Code reviews",
+  "Mentorship",
+  "Stakeholder alignment",
+  "Technical documentation",
 ];
 
 const AboutMe = memo(function AboutMe({
@@ -108,13 +124,14 @@ const AboutMe = memo(function AboutMe({
           `}
           style={{ letterSpacing: "var(--tracking-tight)" }}
         >
-          Build software with long-term{" "}
+          Building{" "}
           <em className="font-semibold not-italic text-foreground">
-            clarity
+            enterprise healthcare
           </em>{" "}
-          &amp; intent.
+          systems and scalable web platforms with long-term clarity.
         </h2>
 
+        {/* Stats row — visual counters are aria-hidden; sr-only spans carry correct values */}
         <div
           className={`
             flex items-center gap-0
@@ -126,10 +143,17 @@ const AboutMe = memo(function AboutMe({
           {PROFILE_STATS.map((stat, i) => (
             <div key={stat.label} className="flex items-center">
               <div className="flex flex-col items-center min-w-[2.5rem]">
-                <span className="about-stat-value">
+                {/* Animated counter — visual only */}
+                <span className="about-stat-value" aria-hidden="true">
                   {counts[i]}{stat.suffix}
                 </span>
-                <span className="about-stat-label">{stat.label}</span>
+                {/* Always-correct value for screen readers and SSR */}
+                <span className="sr-only">
+                  {stat.value}{stat.suffix} {stat.label}
+                </span>
+                <span className="about-stat-label" aria-hidden="true">
+                  {stat.label}
+                </span>
               </div>
               {i < PROFILE_STATS.length - 1 && (
                 <div className="about-stat-divider about-stat-divider--breathe" aria-hidden="true" />
@@ -149,67 +173,76 @@ const AboutMe = memo(function AboutMe({
         />
       </div>
 
-      {/* ── PRINCIPLES ────────────────────────────────────── */}
-      <div className="grid grid-cols-4 gap-1.5">
-        {PRINCIPLES.map((item, idx) => (
-          <div
-            key={item.title}
-            onMouseMove={handleShine}
-            className={`
-              group shine-card ${item.span} relative
-              rounded-lg border
-              px-2.5 py-2 sm:px-3 sm:py-2
-              cursor-default
-              transition-all duration-slow ease-out
-              hover:-translate-y-[2px]
-              active:translate-y-0 active:scale-[0.99]
-              ${item.prominent
-                ? "border-white/25 bg-surface-2 hover:border-white/38 hover:bg-surface-hover hover:shadow-lg"
-                : "border-border-1 bg-surface-1 hover:bg-surface-2 hover:border-border-2"
-              }
-            `}
-            style={{ transitionDelay: `calc(${idx} * var(--duration-instant))` }}
-          >
-            <span
-              className="absolute top-1.5 right-2 text-2xs text-white/25 font-mono select-none"
-              aria-hidden="true"
-            >
-              0{idx + 1}
-            </span>
-            <div className="
-              absolute inset-0 rounded-lg pointer-events-none opacity-0
-              group-hover:opacity-100 transition-opacity duration-slower
-              bg-[radial-gradient(circle_at_var(--mx,50%)_var(--my,50%),var(--surface-hover),transparent_60%)]
-            " />
-            <p
+      {/* ── WHAT I BUILD ────────────────────────────────── */}
+      <div className="flex flex-col gap-1.5">
+        <p
+          className="text-2xs text-white/25 uppercase"
+          style={{ letterSpacing: "var(--tracking-caps)" }}
+          aria-hidden="true"
+        >
+          What I build
+        </p>
+        <div className="grid grid-cols-4 gap-1.5">
+          {BUILD_FOCUS.map((item, idx) => (
+            <div
+              key={item.title}
+              onMouseMove={handleShine}
               className={`
-                relative font-semibold leading-tight
-                transition-all duration-slow
-                group-hover:-translate-y-[1px]
+                group shine-card ${item.span} relative
+                rounded-lg border
+                px-2.5 py-2 sm:px-3 sm:py-2
+                cursor-default
+                transition-all duration-slow ease-out
+                hover:-translate-y-[2px]
+                active:translate-y-0 active:scale-[0.99]
                 ${item.prominent
-                  ? "text-white/88 text-xs sm:text-sm group-hover:text-white"
-                  : "text-white/70 text-xs group-hover:text-white/88"
+                  ? "border-white/25 bg-surface-2 hover:border-white/38 hover:bg-surface-hover hover:shadow-lg"
+                  : "border-border-1 bg-surface-1 hover:bg-surface-2 hover:border-border-2"
                 }
               `}
-              style={{ letterSpacing: "var(--tracking-tight)" }}
+              style={{ transitionDelay: `calc(${idx} * var(--duration-instant))` }}
             >
-              {item.title}
-            </p>
-            <p
-              className={`
-                relative mt-0.5 leading-snug
-                transition-all duration-slow delay-[var(--duration-instant)]
-                group-hover:-translate-y-[1px]
-                ${item.prominent
-                  ? "text-white/55 text-2xs sm:text-xs group-hover:text-white/70"
-                  : "text-white/38 text-2xs sm:text-2xs group-hover:text-white/55"
-                }
-              `}
-            >
-              {item.desc}
-            </p>
-          </div>
-        ))}
+              <span
+                className="absolute top-1.5 right-2 text-2xs text-white/25 font-mono select-none"
+                aria-hidden="true"
+              >
+                0{idx + 1}
+              </span>
+              <div className="
+                absolute inset-0 rounded-lg pointer-events-none opacity-0
+                group-hover:opacity-100 transition-opacity duration-slower
+                bg-[radial-gradient(circle_at_var(--mx,50%)_var(--my,50%),var(--surface-hover),transparent_60%)]
+              " />
+              <p
+                className={`
+                  relative font-semibold leading-tight
+                  transition-all duration-slow
+                  group-hover:-translate-y-[1px]
+                  ${item.prominent
+                    ? "text-white/88 text-xs sm:text-sm group-hover:text-white"
+                    : "text-white/70 text-xs group-hover:text-white/88"
+                  }
+                `}
+                style={{ letterSpacing: "var(--tracking-tight)" }}
+              >
+                {item.title}
+              </p>
+              <p
+                className={`
+                  relative mt-0.5 leading-snug
+                  transition-all duration-slow delay-[var(--duration-instant)]
+                  group-hover:-translate-y-[1px]
+                  ${item.prominent
+                    ? "text-white/55 text-2xs sm:text-xs group-hover:text-white/70"
+                    : "text-white/38 text-2xs sm:text-2xs group-hover:text-white/55"
+                  }
+                `}
+              >
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* ── SKILLS ────────────────────────────────────────── */}
@@ -219,7 +252,7 @@ const AboutMe = memo(function AboutMe({
           transition-all duration-slower delay-200
           ${mounted ? "opacity-100" : "opacity-0"}
         `}
-        aria-label="Core technologies"
+        aria-label="Core technologies and skills"
       >
         {SKILL_GROUPS.map((group) => (
           <div key={group.label} className="flex flex-col gap-1">
@@ -234,9 +267,11 @@ const AboutMe = memo(function AboutMe({
                     "about-skill-chip",
                     group.label === "Frontend"
                       ? "ring-1 ring-white/18 text-white/88"
-                      : group.label === "Infra"
-                        ? "opacity-70"
-                        : "",
+                      : group.label === "Healthcare"
+                        ? "ring-1 ring-white/12 text-white/70"
+                        : group.label === "Infra"
+                          ? "opacity-70"
+                          : "",
                   ].join(" ")}
                 >
                   {skill}
@@ -245,6 +280,20 @@ const AboutMe = memo(function AboutMe({
             </div>
           </div>
         ))}
+
+        {/* Engineering Leadership */}
+        <div className="flex flex-col gap-1 w-full">
+          <span className="about-skill-group-label about-skill-group-label--enhanced">
+            Leadership
+          </span>
+          <div className="flex flex-wrap gap-1">
+            {LEADERSHIP_SKILLS.map((skill) => (
+              <span key={skill} className="about-skill-chip opacity-60">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* ── CTA ───────────────────────────────────────────── */}
@@ -258,7 +307,7 @@ const AboutMe = memo(function AboutMe({
             w-full sm:w-auto
             flex items-center justify-center sm:justify-start gap-2
           "
-          aria-label={`Browse ${projectCount} projects`}
+          aria-label={`Browse ${projectCount} projects — starting with HIS/EMR case study`}
         >
           <span className="relative overflow-visible">
             See what I&apos;ve built

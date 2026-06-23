@@ -16,6 +16,10 @@ const HomeDeck = memo(function HomeDeck() {
 
   const sortedProjects = useMemo(() => {
     return [...portfolio.projects].sort((a, b) => {
+      // Featured projects always appear first
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      // Then sort by most recent start date
       const aDate = a.period?.start ? new Date(a.period.start).getTime() : 0;
       const bDate = b.period?.start ? new Date(b.period.start).getTime() : 0;
       return bDate - aDate;
@@ -40,8 +44,9 @@ const HomeDeck = memo(function HomeDeck() {
   // onArrivalComplete callback fires first and wins in practice.
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setShowCards(true);
-      return;
+      // Immediately show cards — no animation delay needed when motion is reduced
+      const t = setTimeout(() => setShowCards(true), 0);
+      return () => clearTimeout(t);
     }
     const t = setTimeout(() => setShowCards(true), 1200);
     return () => clearTimeout(t);
@@ -60,6 +65,7 @@ const HomeDeck = memo(function HomeDeck() {
   useEffect(() => {
     if (isFlipped === showProjects) return;
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPanelExiting(true);
     const t = setTimeout(() => {
       setShowProjects(isFlipped);

@@ -23,7 +23,8 @@ const SESSION_KEY = "maf-visited";
 export default function ArrivalOrb({ onAnimationComplete }: ArrivalOrbProps) {
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const onCompleteRef = useRef(onAnimationComplete);
-  onCompleteRef.current = onAnimationComplete;
+  // Sync ref after every render so the effect always calls the latest callback
+  useEffect(() => { onCompleteRef.current = onAnimationComplete; });
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -35,6 +36,7 @@ export default function ArrivalOrb({ onAnimationComplete }: ArrivalOrbProps) {
     if (!prefersReducedMotion && isFirstVisit) {
       // Mark as visited so subsequent navigations skip the animation
       sessionStorage.setItem(SESSION_KEY, "1");
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShouldAnimate(true);
 
       const timer = setTimeout(() => {

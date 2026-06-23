@@ -66,10 +66,13 @@ export default function ProjectsViewer({
     : projects.filter((p) => INDUSTRY_MAP[p.company ?? ""] === activeFilter);
 
   const filteredLengthRef = useRef(filteredProjects.length);
-  filteredLengthRef.current = filteredProjects.length;
-
   const filteredProjectsRef = useRef(filteredProjects);
-  filteredProjectsRef.current = filteredProjects;
+
+  // Keep refs current after each render so callbacks read the latest values
+  useEffect(() => {
+    filteredLengthRef.current = filteredProjects.length;
+    filteredProjectsRef.current = filteredProjects;
+  });
 
   // Track whether content overflows — gate scroll-fade on it
   useEffect(() => {
@@ -168,6 +171,7 @@ export default function ProjectsViewer({
 
   const [isTouch, setIsTouch] = useState(false);
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
   }, []);
 

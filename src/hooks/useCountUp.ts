@@ -18,7 +18,9 @@ export function useCountUp(
     duration = 900,
     trigger = false
 ): number[] {
-    const [counts, setCounts] = useState<number[]>(targets.map(() => 0));
+    // Initialize with final values so SSR/initial render shows correct numbers for SEO and a11y.
+    // The visual animation resets to 0 via the RAF loop when trigger fires.
+    const [counts, setCounts] = useState<number[]>([...targets]);
     const rafRef = useRef<number | null>(null);
 
     useEffect(() => {

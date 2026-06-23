@@ -13,7 +13,7 @@ export const PROFILE_ROLE = "Software Engineer";
 export const PROFILE_INDUSTRIES = "Healthcare · Logistics · E-commerce · Telecom";
 
 /** Positioning tagline shown under name on both profile layouts. */
-export const PROFILE_TAGLINE = "Healthcare · Infrastructure · Scale";
+export const PROFILE_TAGLINE = "Enterprise Healthcare · HIS/EMR · Infrastructure";
 
 /**
  * Employment timeline — single source of truth for the company line in ProfileCard.
@@ -38,22 +38,49 @@ export const PROFILE_STATS: ProfileStat[] = [
  * Contact / social links — single source of truth used by ProfileCard and ProjectCard.
  */
 export const CONTACT_LINKS: ContactLink[] = [
-  { href: "mailto:aditiafarhan25@gmail.com", icon: "icon-mail", label: "Email", tooltip: "Email" },
-  { href: "/Muhammad-Aditia-Farhan-Resume.pdf", icon: "icon-download", label: "Download Resume", tooltip: "Resume", download: true },
-  { href: "https://github.com/aditfarhan", icon: "icon-github", label: "GitHub", tooltip: "GitHub", external: true },
-  { href: "https://www.linkedin.com/in/muhammad-aditia-farhan", icon: "icon-linkedin", label: "LinkedIn", tooltip: "LinkedIn", external: true },
+  {
+    href: "mailto:aditiafarhan25@gmail.com?subject=Software%20Engineer%20Opportunity",
+    icon: "icon-mail",
+    label: "Email Me",
+    tooltip: "Email",
+  },
+  {
+    href: "/Muhammad-Aditia-Farhan-Resume.pdf",
+    icon: "icon-download",
+    label: "Download 2026 Resume",
+    tooltip: "Resume 2026",
+    download: true,
+  },
+  {
+    href: "https://github.com/aditfarhan",
+    icon: "icon-github",
+    label: "GitHub",
+    tooltip: "GitHub",
+    external: true,
+  },
+  {
+    href: "https://www.linkedin.com/in/muhammad-aditia-farhan",
+    icon: "icon-linkedin",
+    label: "LinkedIn",
+    tooltip: "LinkedIn",
+    external: true,
+  },
 ];
+
+const CONFIDENTIALITY_NOTE =
+  "Due to healthcare data privacy and confidentiality requirements, production screenshots and source code are not publicly available. This case study focuses on architecture, responsibilities, technical decisions, and business impact.";
 
 export const portfolio: PortfolioData = {
   projects: [
     // ─── PERTAMINA / IHC ───────────────────────────────────────────────
     {
       id: "his-emr-platform",
+      featured: true,
       company: "PT. Pertamina Bina Medika IHC",
       title: "National HIS & EMR Platform",
       description:
-        "Hospital Information System and Electronic Medical Record deployed across 12+ hospitals under PT. Pertamina Bina Medika IHC, handling thousands of clinical transactions daily.",
-      impact: "12+ hospitals · 5,000+ daily clinical users",
+        "Hospital groups needed standardized clinical workflows across multiple facilities with different infrastructure readiness and operational requirements. I led the frontend development and continuous enhancement of this HIS/EMR platform, covering inpatient workflows from admission to discharge.",
+      impact: "12+ hospitals · Thousands of daily clinical transactions",
       period: { start: "2023-12", end: null },
       tags: [
         "React",
@@ -65,27 +92,34 @@ export const portfolio: PortfolioData = {
         "MinIO",
         "HashiCorp Vault",
         "Unleash",
+        "Storybook",
+        "Jenkins",
         "CI/CD",
       ],
       decision:
-        "Adopted a modular monorepo architecture with feature flags (Unleash) to allow safe progressive rollouts across hospitals with varying readiness levels.",
+        "Adopted a modular architecture with feature flags (Unleash) to enable safe, progressive rollouts across hospitals with varying infrastructure readiness and deployment strategies — supporting both hybrid cloud and on-premise environments.",
       outcome:
-        "Deployed to 12+ hospitals nationally. System handles thousands of daily clinical transactions. Integrated SATUSEHAT (national health data exchange) and supports EMR interoperability standards.",
+        "Platform deployed across 12+ hospitals nationally, handling thousands of daily clinical transactions. Integrated SATUSEHAT national health data exchange, established UI component consistency via Storybook, and improved release reliability through Jenkins CI/CD pipelines.",
       highlights: [
-        "Lead engineer behind nationwide HIS/EMR system across 12+ hospitals",
-        "Integrated SATUSEHAT national health data exchange protocol",
-        "Built Storybook component library shared across all hospital modules",
-        "Implemented HashiCorp Vault for secrets management and MinIO for medical file storage",
-        "Set up full CI/CD pipeline with GitLab runners on bare-metal Kubernetes",
+        "Lead engineer for nationwide HIS/EMR system deployed across 12+ hospitals",
+        "Built inpatient clinical workflows: assessment, diagnostic orders, results, treatment records, nursing notes, progress notes, discharge summaries, and follow-up care",
+        "Helped standardize EMR implementation across hospital facilities",
+        "Supported hybrid cloud and on-premise deployment strategies",
+        "Established Storybook component library shared across all hospital modules",
+        "Implemented Unleash feature flags for controlled, risk-mitigated rollouts",
+        "Integrated MinIO for medical document archiving and HashiCorp Vault for secrets management",
+        "Set up Jenkins CI/CD pipeline with Docker and Kubernetes on bare-metal infrastructure",
+        "Collaborated with clinical, product, and operational stakeholders across hospital sites",
       ],
+      note: CONFIDENTIALITY_NOTE,
     },
     {
       id: "satusehat-integration",
       company: "PT. Pertamina Bina Medika IHC",
-      title: "SATUSEHAT Integration",
+      title: "SATUSEHAT Integration Interface",
       description:
-        "National healthcare interoperability layer connecting hospital systems to Indonesia's SATUSEHAT platform (Ministry of Health), enabling standardized health data exchange across institutions.",
-      impact: "National health registry · HL7 FHIR compliant",
+        "Healthcare interoperability layer connecting IHC hospital systems to Indonesia's SATUSEHAT platform (Ministry of Health), enabling standardized health data exchange across multiple hospital facilities — including integration with legacy Sybase hospital databases.",
+      impact: "National health registry · HL7 FHIR compliant · Multi-hospital data sync",
       period: { start: "2024-03", end: null },
       tags: [
         "React",
@@ -94,53 +128,61 @@ export const portfolio: PortfolioData = {
         "HL7 FHIR",
         "REST API",
         "PostgreSQL",
+        "Sybase",
+        "Docker",
+        "Kubernetes",
       ],
       decision:
-        "Built a dedicated integration service using HL7 FHIR standards to map internal hospital data models to Indonesia's national health data schema.",
+        "Built a dedicated integration service using HL7 FHIR standards to map internal hospital data models to Indonesia's national health data schema, with transformation pipelines and retry mechanisms to ensure data reliability across heterogeneous source systems including legacy Sybase databases.",
       outcome:
-        "Enabled compliant health data exchange between IHC hospitals and the national registry, meeting Ministry of Health regulatory requirements.",
+        "Enabled compliant health data exchange between IHC hospitals and the national SATUSEHAT registry, meeting Ministry of Health regulatory requirements. Implemented audit mechanisms and data validation to ensure synchronization reliability across facilities.",
       highlights: [
-        "Implemented HL7 FHIR-compliant data mapping for national health records",
-        "Coordinated with Ministry of Health technical team on compliance requirements",
-        "Designed retry and audit mechanisms for critical healthcare data transmission",
+        "Built data transformation pipelines mapping hospital records to HL7 FHIR format",
+        "Integrated with legacy Sybase hospital databases alongside modern PostgreSQL systems",
+        "Implemented retry, audit, and validation mechanisms for reliable data synchronization",
+        "Coordinated with Ministry of Health technical team on compliance and data contract requirements",
+        "Deployed integration services on Docker and Kubernetes for scalability and reliability",
       ],
+      note: CONFIDENTIALITY_NOTE,
     },
     {
       id: "hcis",
       company: "PT. Pertamina Bina Medika IHC",
       title: "HCIS — Human Capital Information System",
       description:
-        "Internal HR platform for PT. Pertamina Bina Medika IHC managing employee data, payroll integration, attendance, and workforce analytics across the organization.",
-      impact: "Company-wide HR system · Full audit trails",
+        "Internal HR platform for PT. Pertamina Bina Medika IHC managing employee master data, payroll integration, attendance, organizational structure, and workforce analytics across the organization.",
+      impact: "Company-wide HR system · Full audit trails · Master data governance",
       period: { start: "2024-01", end: null },
       tags: ["React", "TypeScript", "Laravel", "PostgreSQL", "REST API"],
       decision:
-        "Replaced a legacy spreadsheet-based HR process with a centralized system, prioritizing data integrity and auditability for regulated healthcare workforce management.",
+        "Replaced a legacy spreadsheet-based HR process with a centralized system, prioritizing data integrity, auditability, and role-based access for regulated healthcare workforce management.",
       outcome:
-        "Reduced HR reporting time significantly and established a single source of truth for employee records across all hospital units.",
+        "Reduced HR reporting time and established a single source of truth for employee records across all hospital units, with role-based access control enforcing data governance requirements.",
       highlights: [
-        "Built payroll integration module with audit trails",
-        "Designed role-based access control for sensitive employee data",
-        "Implemented analytics dashboard for workforce planning",
+        "Built employee master data management with organizational hierarchy support",
+        "Implemented payroll integration module with full audit trails",
+        "Designed role-based access control for sensitive HR data",
+        "Built analytics dashboard for workforce planning and reporting",
       ],
     },
     {
       id: "ihc-office",
       company: "PT. Pertamina Bina Medika IHC",
-      title: "IHC Office Secretariat System",
+      title: "IHC Office — Enterprise Secretariat System",
       description:
-        "Digital office management platform for PT. Pertamina Bina Medika IHC handling correspondence, document workflows, approvals, and organizational communication.",
-      impact: "Paperless workflows · Multi-level digital approvals",
+        "Digital office management platform for PT. Pertamina Bina Medika IHC handling internal correspondence, document workflows, multi-level digital approvals, and organizational communication across the enterprise.",
+      impact: "Paperless workflows · Multi-level digital approvals · Audit trail",
       period: { start: "2023-12", end: null },
       tags: ["React", "TypeScript", "Laravel", "PostgreSQL"],
       decision:
-        "Digitized paper-based correspondence workflows into a trackable, auditable system with multi-level approval chains for enterprise compliance.",
+        "Digitized paper-based correspondence workflows into a trackable, auditable system with multi-level approval chains to meet enterprise compliance and administrative governance requirements.",
       outcome:
-        "Eliminated paper-based correspondence processes and reduced document processing time with full audit trail support.",
+        "Eliminated paper-based correspondence processes, reduced document processing time, and established complete audit trails across all organizational communication workflows.",
       highlights: [
-        "Implemented multi-level digital approval workflows",
-        "Built document versioning and audit trail system",
-        "Integrated e-notification for real-time status updates",
+        "Implemented multi-level digital approval workflows with configurable routing",
+        "Built document versioning and audit trail system for compliance",
+        "Integrated real-time e-notifications for approval status updates",
+        "Managed organizational correspondence across enterprise departments",
       ],
     },
 
@@ -150,7 +192,7 @@ export const portfolio: PortfolioData = {
       company: "OrderOnline.id",
       title: "OEXpress Logistics Platform",
       description:
-        "End-to-end logistics management platform built for OrderOnline.id and Ologi, handling order dispatch, driver tracking, route optimization, and delivery confirmation.",
+        "End-to-end logistics management platform for OrderOnline.id and Ologi, handling order dispatch, real-time driver tracking, route optimization, and delivery confirmation at scale.",
       impact: "Real-time tracking · Sub-second status updates",
       period: { start: "2023-06", end: "2023-11" },
       tags: [
@@ -163,9 +205,9 @@ export const portfolio: PortfolioData = {
         "REST API",
       ],
       decision:
-        "Adopted real-time pub/sub architecture for driver tracking to handle concurrent delivery updates without polling overhead.",
+        "Adopted a real-time pub/sub architecture for driver tracking to handle concurrent delivery updates without polling overhead, ensuring accurate status freshness at scale.",
       outcome:
-        "Achieved sub-second delivery status updates across the platform. Handled on-call production incidents and drove major dependency upgrades to reduce security debt.",
+        "Achieved sub-second delivery status updates across the platform. Handled on-call production incidents and led major dependency upgrades to reduce security debt.",
       highlights: [
         "Built real-time driver tracking with pub/sub architecture",
         "Participated in on-call rotation for production incident response",
@@ -193,9 +235,9 @@ export const portfolio: PortfolioData = {
         "Jest",
       ],
       decision:
-        "Adopted micro-frontend approach to allow independent team deployments across product verticals while sharing a core design system.",
+        "Adopted a micro-frontend approach to allow independent team deployments across product verticals while sharing a core design system.",
       outcome:
-        "Scaled platform to serve a growing user base. Introduced unit testing culture and led refactoring initiatives that improved code maintainability significantly.",
+        "Scaled platform to serve a growing user base. Introduced unit testing culture with Jest and led refactoring initiatives that improved code maintainability significantly.",
       highlights: [
         "Introduced unit testing with Jest across critical business flows",
         "Led refactoring of legacy components to TypeScript with zero regressions",
@@ -234,7 +276,7 @@ export const portfolio: PortfolioData = {
       company: "PT Bejana Investidata Globalindo",
       title: "Sales Prediction Platform",
       description:
-        "Internal business intelligence platform at PT Bejana Investidata Globalindo using ML-backed forecasting to help commercial teams predict regional sales performance.",
+        "Internal business intelligence platform using ML-backed forecasting to help commercial teams predict regional sales performance.",
       impact: "ML-powered forecasting · Regional sales planning",
       period: { start: "2020-06", end: "2021-02" },
       tags: ["React", "Python", "Flask", "PostgreSQL", "Chart.js"],

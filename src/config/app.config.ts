@@ -14,21 +14,21 @@
  */
 export const SEO_CONFIG = {
   siteUrl: "https://aditfarhan-portofolio.vercel.app",
-  defaultTitle: "Muhammad Aditia Farhan — Software Engineer Portfolio",
+  defaultTitle: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
   titleTemplate: "%s | Muhammad Aditia Farhan",
   defaultDescription:
-    "Professional software engineer portfolio of Muhammad Aditia Farhan. Specializing in React, Next.js, TypeScript, and healthcare technology. 5+ years experience building scalable web applications for enterprise clients.",
+    "Software Engineer in Jakarta with 5+ years building enterprise healthcare systems, HIS/EMR platforms, and scalable web applications across healthcare, logistics, e-commerce, and telecom. Lead engineer for HIS/EMR deployed across 12+ hospitals in Indonesia.",
   keywords: [
     "Muhammad Aditia Farhan",
-    "software engineer portfolio",
-    "React developer",
-    "Next.js developer",
-    "TypeScript expert",
-    "healthcare technology",
-    "web development Indonesia",
-    "full stack developer",
-    "frontend engineer",
-    "scalable web applications",
+    "healthcare software engineer Indonesia",
+    "HIS EMR developer",
+    "SATUSEHAT integration engineer",
+    "enterprise web development Jakarta",
+    "React Next.js TypeScript developer",
+    "Docker Kubernetes Jenkins",
+    "healthcare IT engineer Indonesia",
+    "hospital information system developer",
+    "full stack engineer healthcare",
   ],
   twitterHandle: "@adtfrhan",
 } as const;

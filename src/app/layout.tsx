@@ -19,7 +19,7 @@ const structuredData = [
     name: "Muhammad Aditia Farhan",
     jobTitle: PROFILE_ROLE,
     description:
-      "Experienced software engineer specializing in scalable web applications, healthcare technology, and modern development practices.",
+      "Software Engineer with 5+ years of experience building enterprise healthcare systems, HIS/EMR platforms, and scalable web applications. Lead engineer for a nationwide HIS/EMR platform deployed across 12+ hospitals in Indonesia.",
     url: "https://aditfarhan-portofolio.vercel.app",
     sameAs: [
       "https://www.linkedin.com/in/muhammad-aditia-farhan",
@@ -27,12 +27,13 @@ const structuredData = [
     ],
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Jakarta & Bandung",
+      addressLocality: "Jakarta",
       addressCountry: "Indonesia",
     },
     alumniOf: {
       "@type": "EducationalOrganization",
       name: "Bandung State Polytechnic",
+      description: "B.A.Sc. Informatics Engineering, GPA 3.34 / 4.00",
     },
     knowsAbout: [
       "React.js",
@@ -43,13 +44,23 @@ const structuredData = [
       "PostgreSQL",
       "Docker",
       "Kubernetes",
-      "Healthcare Technology",
-      "Hospital Information Systems",
-      "Electronic Medical Records",
-      "HL7 FHIR",
+      "Jenkins",
       "CI/CD",
-      "Web Development",
+      "Healthcare Information Systems",
+      "Electronic Medical Records",
+      "HIS/EMR Platform",
+      "SATUSEHAT Integration",
+      "HL7 FHIR",
+      "Healthcare Interoperability",
+      "Unleash Feature Flags",
+      "HashiCorp Vault",
+      "MinIO",
+      "Storybook",
+      "Enterprise Web Development",
       "Software Engineering",
+      "Engineering Leadership",
+      "Sprint Planning",
+      "Architecture Reviews",
     ],
     email: _emailAddress,
     worksFor: {
@@ -78,7 +89,7 @@ const structuredData = [
       "@type": "Person",
       name: "Muhammad Aditia Farhan",
       alternateName: "MAF",
-      description: "Software Engineer with 5+ years of experience",
+      description: "Software Engineer with 5+ years of experience building enterprise healthcare systems, HIS/EMR platforms, SATUSEHAT integration, and scalable web architecture across 4 industries in Indonesia.",
     },
   },
   // BreadcrumbList schema - for search result breadcrumbs
@@ -115,10 +126,10 @@ const structuredData = [
     mainEntity: [
       {
         "@type": "Question",
-        name: "What technologies does Muhammad Aditia Farhan specialize in?",
+        name: "What does Muhammad Aditia Farhan specialize in?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Muhammad Aditia Farhan specializes in React.js, Next.js, TypeScript, Node.js, and modern web development frameworks. He has extensive experience in healthcare technology, logistics platforms, and scalable enterprise applications.",
+          text: "Muhammad Aditia Farhan specializes in enterprise healthcare systems, HIS/EMR platforms, and healthcare interoperability. He is the lead engineer behind a nationwide Hospital Information System and Electronic Medical Record platform deployed across 12+ hospitals in Indonesia, with SATUSEHAT (Ministry of Health) integration using HL7 FHIR standards.",
         },
       },
       {
@@ -126,15 +137,15 @@ const structuredData = [
         name: "How many years of experience does Muhammad Aditia Farhan have?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Muhammad Aditia Farhan has over 5 years of professional experience as a software engineer, working on complex web applications and enterprise solutions.",
+          text: "Muhammad Aditia Farhan has over 5 years of professional experience as a Software Engineer, building enterprise web applications across healthcare, logistics, e-commerce, and telecommunications industries.",
         },
       },
       {
         "@type": "Question",
-        name: "What kind of projects has Muhammad Aditia Farhan worked on?",
+        name: "What technology stack does Muhammad Aditia Farhan use?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Muhammad has worked on various projects including healthcare information systems, logistics platforms, e-commerce ecosystems, telecom dashboards, and sales prediction platforms using modern technologies like React, Next.js, and TypeScript.",
+          text: "Muhammad Aditia Farhan works with React, Next.js, TypeScript, Laravel, PostgreSQL, Docker, Kubernetes, Jenkins, CI/CD pipelines, Unleash feature flags, HashiCorp Vault, MinIO, and Storybook. He specializes in both frontend architecture and backend integration for enterprise healthcare and web systems.",
         },
       },
       {
@@ -142,15 +153,15 @@ const structuredData = [
         name: "Where is Muhammad Aditia Farhan located?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Muhammad Aditia Farhan is based in Jakarta and Bandung, Indonesia, and has experience working with both local and international clients.",
+          text: "Muhammad Aditia Farhan is based in Jakarta, Indonesia, and is open to remote opportunities. He is experienced working with healthcare organizations, enterprise clients, and cross-functional teams.",
         },
       },
       {
         "@type": "Question",
-        name: "What is Muhammad Aditia Farhan's educational background?",
+        name: "What roles is Muhammad Aditia Farhan open to?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Muhammad Aditia Farhan graduated from Bandung State Polytechnic with a degree in software engineering, and continues to stay updated with the latest technologies and best practices.",
+          text: "Muhammad Aditia Farhan is open to Software Engineer, Senior Frontend Engineer, Full-stack Engineer, Healthcare IT Engineer, and Technical Lead / Lead Software Engineer roles.",
         },
       },
     ],
@@ -172,22 +183,22 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://aditfarhan-portofolio.vercel.app"),
   title: {
-    default: "Muhammad Aditia Farhan — Software Engineer",
+    default: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
     template: "%s | Muhammad Aditia Farhan",
   },
   description:
-    "Professional software engineer portfolio of Muhammad Aditia Farhan. Specializing in React, Next.js, TypeScript, and healthcare technology. 5+ years experience building scalable web applications for enterprise clients.",
+    "Software Engineer in Jakarta with 5+ years of experience building enterprise healthcare systems, HIS/EMR platforms, and scalable web applications across healthcare, logistics, e-commerce, and telecom. Lead engineer for HIS/EMR deployed across 12+ hospitals in Indonesia.",
   keywords: [
     "Muhammad Aditia Farhan",
     "software engineer portfolio",
-    "React developer",
-    "Next.js developer",
-    "TypeScript expert",
-    "healthcare technology",
-    "web development Indonesia",
-    "full stack developer",
-    "frontend engineer",
-    "scalable web applications",
+    "healthcare software engineer Indonesia",
+    "HIS EMR developer",
+    "SATUSEHAT integration engineer",
+    "enterprise web development Jakarta",
+    "React Next.js TypeScript developer",
+    "Docker Kubernetes Jenkins engineer",
+    "healthcare IT engineer Indonesia",
+    "hospital information system developer",
   ],
   authors: [{ name: "Muhammad Aditia Farhan" }],
   creator: "Muhammad Aditia Farhan",
@@ -195,10 +206,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title:
-      "Muhammad Aditia Farhan - Software Engineer | React, Next.js, Healthcare Tech",
+    title: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
     description:
-      "View Muhammad Aditia Farhan's professional portfolio. 5+ years experience building scalable web applications with React, Next.js, and TypeScript. Specializing in healthcare technology and enterprise solutions.",
+      "Healthcare and enterprise software engineer with 5+ years experience. Lead engineer for HIS/EMR systems across 12+ hospitals in Indonesia. Specializing in React, Next.js, TypeScript, Laravel, Docker, Kubernetes, and healthcare interoperability.",
     type: "website",
     locale: "en_US",
     url: "/",
@@ -208,15 +218,15 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Muhammad Aditia Farhan - Software Engineer Portfolio",
+        alt: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Aditia Farhan - Software Engineer Portfolio",
+    title: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
     description:
-      "Professional software engineer with 5+ years experience in React, Next.js, TypeScript, and healthcare technology. View my portfolio of scalable web applications.",
+      "Software Engineer specializing in enterprise healthcare systems, HIS/EMR platforms, SATUSEHAT integration, and scalable web architecture. 5+ years experience in Jakarta, Indonesia.",
     creator: "@adtfrhan",
     images: ["/opengraph-image"],
   },

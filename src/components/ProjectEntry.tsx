@@ -148,6 +148,29 @@ const ProjectEntry = memo(function ProjectEntry({
         </div>
       )}
 
+      {/* ── CONFIDENTIALITY NOTE ──── */}
+      {project.note && (
+        <aside
+          className="
+            flex items-start gap-2 mt-2
+            px-2.5 py-2 rounded border border-white/10 bg-white/3
+            text-2xs text-white/38 leading-snug
+          "
+          aria-label="Confidentiality note"
+        >
+          <svg
+            className="w-3 h-3 flex-shrink-0 mt-0.5 opacity-50"
+            aria-hidden="true"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <rect x="2" y="7" width="12" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.4" />
+            <path d="M5 7V5a3 3 0 0 1 6 0v2" stroke="currentColor" strokeWidth="1.4" />
+          </svg>
+          <span>{project.note}</span>
+        </aside>
+      )}
+
       {/* ── TECH CHIPS — +N expand/collapse ──── */}
       {allTags.length > 0 && (
         <div className="entry-tech">

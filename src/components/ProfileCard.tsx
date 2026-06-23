@@ -169,8 +169,9 @@ const ProfileCard = memo(function ProfileCard({
             ))}
           </div>
 
-          <p className="text-2xs text-white/25 tracking-[var(--tracking-caps)] text-center">
-            Available for new opportunities
+          <p className="text-2xs text-white/25 text-center leading-snug">
+            Open to Software Engineer, Senior Frontend,<br />
+            Healthcare IT &amp; Tech Lead roles
           </p>
 
           {showActionButton && (
@@ -362,42 +363,49 @@ const ProfileCard = memo(function ProfileCard({
           </span>
           <span className="inline-flex items-center gap-1 text-2xs text-white/38 group-hover:text-white/55 transition-colors duration-slow bg-white/3 border border-white/6 rounded-full px-1.5 py-0.5">
             <svg className="w-2.5 h-2.5 flex-shrink-0" aria-hidden="true"><use href="/icons.svg#icon-medical" /></svg>
-            Healthcare IT
+            HIS/EMR
           </span>
         </div>
 
         {/* ── CONTACT ICONS ─────────────────────────── */}
         <div
           className={`
-            mt-1 flex items-center gap-1.5
+            mt-1 flex flex-col items-center gap-1.5
             transition-all duration-slower delay-200
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
           `}
         >
-          {CONTACT_LINKS.map(({ href, icon, label, tooltip, download, external }) => (
-            <a
-              key={label}
-              href={href}
-              download={download}
-              target={external ? "_blank" : undefined}
-              rel={external ? "noopener noreferrer me" : undefined}
-              data-tooltip={tooltip}
-              className="
-                action-icon action-icon--tooltip action-icon--deemph
-                w-8 h-8 rounded-full border border-border-1
-                hover:border-white/38 hover:bg-surface-1
-                transition-all duration-fast active:scale-90
-              "
-              aria-label={label}
-            >
-              <svg className="w-4 h-4" aria-hidden="true">
-                <use href={`/icons.svg#${icon}`} />
-              </svg>
-              <span className="action-icon-label sm:hidden" aria-hidden="true">
-                {tooltip}
-              </span>
-            </a>
-          ))}
+          <div className="flex items-center gap-1.5">
+            {CONTACT_LINKS.map(({ href, icon, label, tooltip, download, external }) => (
+              <a
+                key={label}
+                href={href}
+                download={download}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer me" : undefined}
+                data-tooltip={tooltip}
+                className="
+                  action-icon action-icon--tooltip action-icon--deemph
+                  w-8 h-8 rounded-full border border-border-1
+                  hover:border-white/38 hover:bg-surface-1
+                  transition-all duration-fast active:scale-90
+                "
+                aria-label={label}
+              >
+                <svg className="w-4 h-4" aria-hidden="true">
+                  <use href={`/icons.svg#${icon}`} />
+                </svg>
+                <span className="action-icon-label sm:hidden" aria-hidden="true">
+                  {tooltip}
+                </span>
+              </a>
+            ))}
+          </div>
+
+          <p className="text-2xs text-white/20 text-center leading-snug">
+            Open to Software Engineer, Senior Frontend,<br />
+            Healthcare IT &amp; Tech Lead roles
+          </p>
         </div>
       </div>
     </div>

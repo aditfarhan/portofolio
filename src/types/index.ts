@@ -52,6 +52,10 @@ export interface Project {
   decision?: string;
   outcome?: string;
   highlights?: string[];
+  /** Pin this project to position 0 regardless of date sort */
+  featured?: boolean;
+  /** Confidentiality or context note shown in the project entry */
+  note?: string;
 }
 
 /**

@@ -80,13 +80,26 @@ export default async function Image() {
                 {/* Role */}
                 <div
                     style={{
-                        fontSize: '24px',
+                        fontSize: '22px',
                         color: 'rgba(255, 255, 255, 0.42)',
                         letterSpacing: '-0.01em',
-                        marginBottom: '40px',
+                        marginBottom: '8px',
                     }}
                 >
                     {PROFILE_ROLE}
+                </div>
+
+                {/* Positioning subtitle */}
+                <div
+                    style={{
+                        fontSize: '14px',
+                        color: 'rgba(255, 255, 255, 0.25)',
+                        letterSpacing: '0.05em',
+                        marginBottom: '36px',
+                        textTransform: 'uppercase',
+                    }}
+                >
+                    Enterprise Healthcare · HIS/EMR · Infrastructure
                 </div>
 
                 {/* Divider */}
