@@ -14,10 +14,10 @@
  */
 export const SEO_CONFIG = {
   siteUrl: "https://aditfarhan-portofolio.vercel.app",
-  defaultTitle: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
+  defaultTitle: "Muhammad Aditia Farhan — Senior Software Engineer | Healthcare & Enterprise Systems",
   titleTemplate: "%s | Muhammad Aditia Farhan",
   defaultDescription:
-    "Software Engineer in Jakarta with 5+ years building enterprise healthcare systems, HIS/EMR platforms, and scalable web applications across healthcare, logistics, e-commerce, and telecom. Lead engineer for HIS/EMR deployed across 12+ hospitals in Indonesia.",
+    "Senior Software Engineer in Jakarta with 5+ years building HIS/EMR platforms, SATUSEHAT integrations, and enterprise web systems. Lead engineer for a nationwide HIS/EMR platform deployed across 12+ hospitals, handling thousands of daily clinical transactions.",
   keywords: [
     "Muhammad Aditia Farhan",
     "healthcare software engineer Indonesia",

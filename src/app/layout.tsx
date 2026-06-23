@@ -19,7 +19,7 @@ const structuredData = [
     name: "Muhammad Aditia Farhan",
     jobTitle: PROFILE_ROLE,
     description:
-      "Software Engineer with 5+ years of experience building enterprise healthcare systems, HIS/EMR platforms, and scalable web applications. Lead engineer for a nationwide HIS/EMR platform deployed across 12+ hospitals in Indonesia.",
+      "Senior Software Engineer with 5+ years of experience building nationwide HIS/EMR platforms, SATUSEHAT integrations, and enterprise web systems. Lead engineer for a nationwide HIS/EMR platform deployed across 12+ hospitals in Indonesia, handling thousands of daily clinical transactions.",
     url: "https://aditfarhan-portofolio.vercel.app",
     sameAs: [
       "https://www.linkedin.com/in/muhammad-aditia-farhan",
@@ -89,7 +89,7 @@ const structuredData = [
       "@type": "Person",
       name: "Muhammad Aditia Farhan",
       alternateName: "MAF",
-      description: "Software Engineer with 5+ years of experience building enterprise healthcare systems, HIS/EMR platforms, SATUSEHAT integration, and scalable web architecture across 4 industries in Indonesia.",
+      description: "Senior Software Engineer with 5+ years of experience building nationwide HIS/EMR platforms, SATUSEHAT integration, and enterprise web systems across 4 industries in Indonesia.",
     },
   },
   // BreadcrumbList schema - for search result breadcrumbs
@@ -183,14 +183,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://aditfarhan-portofolio.vercel.app"),
   title: {
-    default: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
+    default: "Muhammad Aditia Farhan — Senior Software Engineer | Healthcare & Enterprise Systems",
     template: "%s | Muhammad Aditia Farhan",
   },
   description:
-    "Software Engineer in Jakarta with 5+ years of experience building enterprise healthcare systems, HIS/EMR platforms, and scalable web applications across healthcare, logistics, e-commerce, and telecom. Lead engineer for HIS/EMR deployed across 12+ hospitals in Indonesia.",
+    "Senior Software Engineer in Jakarta with 5+ years building nationwide HIS/EMR platforms, SATUSEHAT integrations, and enterprise web systems. Lead engineer for HIS/EMR deployed across 12+ hospitals, handling thousands of daily clinical transactions.",
   keywords: [
     "Muhammad Aditia Farhan",
-    "software engineer portfolio",
+    "senior software engineer portfolio",
     "healthcare software engineer Indonesia",
     "HIS EMR developer",
     "SATUSEHAT integration engineer",
@@ -206,9 +206,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
+    title: "Muhammad Aditia Farhan — Senior Software Engineer | Healthcare & Enterprise Systems",
     description:
-      "Healthcare and enterprise software engineer with 5+ years experience. Lead engineer for HIS/EMR systems across 12+ hospitals in Indonesia. Specializing in React, Next.js, TypeScript, Laravel, Docker, Kubernetes, and healthcare interoperability.",
+      "Senior Software Engineer with 5+ years experience in enterprise healthcare systems. Lead engineer for nationwide HIS/EMR across 12+ hospitals in Indonesia. Specializing in React, Next.js, TypeScript, Laravel, Docker, Kubernetes, and healthcare interoperability.",
     type: "website",
     locale: "en_US",
     url: "/",
@@ -218,15 +218,15 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
+        alt: "Muhammad Aditia Farhan — Senior Software Engineer | Healthcare & Enterprise Systems",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
+    title: "Muhammad Aditia Farhan — Senior Software Engineer | Healthcare & Enterprise Systems",
     description:
-      "Software Engineer specializing in enterprise healthcare systems, HIS/EMR platforms, SATUSEHAT integration, and scalable web architecture. 5+ years experience in Jakarta, Indonesia.",
+      "Senior Software Engineer specializing in nationwide HIS/EMR platforms, SATUSEHAT integration, and enterprise web systems. Lead engineer for 12+ hospitals. 5+ years in Jakarta, Indonesia.",
     creator: "@adtfrhan",
     images: ["/opengraph-image"],
   },

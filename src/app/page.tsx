@@ -5,11 +5,12 @@ import { portfolio, PROFILE_STATS, CONTACT_LINKS, PROFILE_INDUSTRIES } from "@/d
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
+  title: "Muhammad Aditia Farhan — Senior Software Engineer | Healthcare & Enterprise Systems",
   description:
-    "Software Engineer in Jakarta with 5+ years building enterprise web systems across healthcare, logistics, e-commerce, and telecom. Lead engineer for HIS/EMR platforms deployed across 12+ hospitals in Indonesia.",
+    "Senior Software Engineer in Jakarta with 5+ years building nationwide HIS/EMR platforms, SATUSEHAT integrations, and enterprise web systems. Lead engineer for HIS/EMR across 12+ hospitals.",
   keywords: [
     "Muhammad Aditia Farhan portfolio",
+    "senior software engineer Indonesia",
     "healthcare software engineer Indonesia",
     "HIS EMR developer Jakarta",
     "SATUSEHAT integration engineer",
@@ -21,9 +22,9 @@ export const metadata: Metadata = {
     "full stack engineer healthcare",
   ],
   openGraph: {
-    title: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
+    title: "Muhammad Aditia Farhan — Senior Software Engineer | Healthcare & Enterprise Systems",
     description:
-      "Healthcare and enterprise software engineer. Lead engineer for HIS/EMR systems deployed across 12+ hospitals in Indonesia. Expert in React, Next.js, TypeScript, Laravel, Docker, and Kubernetes.",
+      "Senior Software Engineer — Lead engineer for nationwide HIS/EMR across 12+ hospitals in Indonesia. Expert in React, Next.js, TypeScript, Laravel, Docker, Kubernetes, and healthcare interoperability.",
     type: "website",
     url: "/",
     siteName: "Muhammad Aditia Farhan Portfolio",
@@ -32,15 +33,15 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
+        alt: "Muhammad Aditia Farhan — Senior Software Engineer | Healthcare & Enterprise Systems",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Aditia Farhan — Software Engineer | Healthcare & Enterprise Systems",
+    title: "Muhammad Aditia Farhan — Senior Software Engineer | Healthcare & Enterprise Systems",
     description:
-      "Software Engineer specializing in enterprise healthcare systems, HIS/EMR platforms, SATUSEHAT integration, React, Next.js, TypeScript, and cloud-native infrastructure.",
+      "Senior Software Engineer specializing in nationwide HIS/EMR platforms, SATUSEHAT integration, enterprise systems, React, Next.js, TypeScript, and cloud-native infrastructure.",
     images: ["/opengraph-image"],
   },
 };
@@ -66,19 +67,19 @@ export default function Home() {
 
       {/* Hidden SEO content — generated from portfolio data so it never goes stale */}
       <div className="sr-only">
-        <h1>Muhammad Aditia Farhan — Software Engineer | Healthcare &amp; Enterprise Systems</h1>
+        <h1>Muhammad Aditia Farhan — Senior Software Engineer | Healthcare &amp; Enterprise Systems</h1>
         <p>
           {(() => {
             const years = PROFILE_STATS.find(s => s.label === "years")!;
             const hospitals = PROFILE_STATS.find(s => s.label === "hospitals")!;
             const industries = PROFILE_STATS.find(s => s.label === "industries")!;
             return <>
-              Muhammad Aditia Farhan is a Software Engineer based in Jakarta, Indonesia, with{" "}
-              {years.value}{years.suffix} {years.label} of experience building enterprise-grade web
-              applications across healthcare, logistics, e-commerce, and telecom.
+              Muhammad Aditia Farhan is a Senior Software Engineer based in Jakarta, Indonesia, with{" "}
+              {years.value}{years.suffix} {years.label} of experience building enterprise-grade healthcare
+              systems and web applications across healthcare, logistics, e-commerce, and telecom.
               He is the lead engineer behind a nationwide HIS/EMR platform deployed across{" "}
               {hospitals.value}{hospitals.suffix} {hospitals.label} under PT. Pertamina Bina Medika IHC,
-              supporting thousands of daily clinical transactions.
+              handling thousands of daily clinical transactions across full inpatient workflows.
               His work spans {industries.value} industries: {PROFILE_INDUSTRIES}.
             </>;
           })()}

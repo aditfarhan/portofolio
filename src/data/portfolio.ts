@@ -7,7 +7,7 @@
 import type { PortfolioData, ProfileStat, ContactLink } from "@/types";
 
 /** Single source of truth for displayed job title across ProfileCard, OG meta, and schema. */
-export const PROFILE_ROLE = "Software Engineer";
+export const PROFILE_ROLE = "Senior Software Engineer";
 
 /** Industries subtitle — avoids brittle PROFILE_STATS[2].detail index access. */
 export const PROFILE_INDUSTRIES = "Healthcare · Logistics · E-commerce · Telecom";
@@ -79,7 +79,15 @@ export const portfolio: PortfolioData = {
       company: "PT. Pertamina Bina Medika IHC",
       title: "National HIS & EMR Platform",
       description:
-        "Hospital groups needed standardized clinical workflows across multiple facilities with different infrastructure readiness and operational requirements. I led the frontend development and continuous enhancement of this HIS/EMR platform, covering inpatient workflows from admission to discharge.",
+        "Hospital groups needed standardized clinical workflows across multiple facilities with different infrastructure readiness and operational requirements — from inpatient admission and clinical documentation through to discharge summaries and follow-up care.",
+      myRole:
+        "Lead Frontend Engineer driving core HIS/EMR module development, continuous enhancement, frontend architecture, design system standardization, and deployment reliability across multiple hospital sites.",
+      scale:
+        "12+ hospitals nationally · Thousands of daily clinical transactions · 10+ clinical workflow modules · Hybrid cloud and on-premise deployments",
+      systemScope:
+        "Frontend (React/TypeScript) · Backend (Laravel/PostgreSQL) · CI/CD (Jenkins/Docker/Kubernetes) · Feature flags (Unleash) · Design system (Storybook) · Secrets management (HashiCorp Vault) · Document storage (MinIO)",
+      complexity:
+        "Multi-hospital standardization across facilities with varying infrastructure readiness; hybrid cloud and on-premise deployment strategies; clinical workflow accuracy requirements for patient safety; progressive rollout risk across active hospital environments.",
       impact: "12+ hospitals · Thousands of daily clinical transactions",
       period: { start: "2023-12", end: null },
       tags: [
@@ -103,7 +111,7 @@ export const portfolio: PortfolioData = {
       highlights: [
         "Lead engineer for nationwide HIS/EMR system deployed across 12+ hospitals",
         "Built inpatient clinical workflows: assessment, diagnostic orders, results, treatment records, nursing notes, progress notes, discharge summaries, and follow-up care",
-        "Helped standardize EMR implementation across hospital facilities",
+        "Standardized EMR implementation across hospital facilities with shared component library",
         "Supported hybrid cloud and on-premise deployment strategies",
         "Established Storybook component library shared across all hospital modules",
         "Implemented Unleash feature flags for controlled, risk-mitigated rollouts",
@@ -118,7 +126,15 @@ export const portfolio: PortfolioData = {
       company: "PT. Pertamina Bina Medika IHC",
       title: "SATUSEHAT Integration Interface",
       description:
-        "Healthcare interoperability layer connecting IHC hospital systems to Indonesia's SATUSEHAT platform (Ministry of Health), enabling standardized health data exchange across multiple hospital facilities — including integration with legacy Sybase hospital databases.",
+        "Hospitals needed reliable, compliant data exchange with Indonesia's national SATUSEHAT health platform (Ministry of Health), spanning multiple facilities with heterogeneous systems — including legacy Sybase hospital databases.",
+      myRole:
+        "Full-stack Engineer building the integration service, FHIR data transformation pipelines, legacy database connectors, validation mechanisms, and deployment infrastructure.",
+      scale:
+        "Multiple IHC hospital facilities · National SATUSEHAT health registry · Cross-system data synchronization",
+      systemScope:
+        "Frontend integration UI (React/TypeScript) · Backend integration service (Laravel) · HL7 FHIR transformation layer · PostgreSQL + legacy Sybase databases · Docker/Kubernetes deployment",
+      complexity:
+        "Mapping heterogeneous internal hospital data models to HL7 FHIR format; integrating with legacy Sybase databases alongside modern PostgreSQL systems; ensuring reliable synchronization with the national registry under Ministry of Health compliance requirements.",
       impact: "National health registry · FHIR-based data integration · Multi-hospital data sync",
       period: { start: "2024-03", end: null },
       tags: [
@@ -133,11 +149,11 @@ export const portfolio: PortfolioData = {
         "Kubernetes",
       ],
       decision:
-        "Built a dedicated integration service using HL7 FHIR standards to map internal hospital data models to Indonesia's national health data schema, with transformation pipelines and retry mechanisms to ensure data reliability across heterogeneous source systems including legacy Sybase databases.",
+        "Built a dedicated integration service using HL7 FHIR-based payload requirements to map internal hospital data models to Indonesia's national health data schema, with transformation pipelines and retry mechanisms to ensure data reliability across heterogeneous source systems.",
       outcome:
         "Enabled compliant health data exchange between IHC hospitals and the national SATUSEHAT registry, meeting Ministry of Health regulatory requirements. Implemented audit mechanisms and data validation to ensure synchronization reliability across facilities.",
       highlights: [
-        "Built data transformation pipelines mapping hospital records to HL7 FHIR format",
+        "Built data transformation pipelines mapping hospital records to FHIR-based payload format",
         "Integrated with legacy Sybase hospital databases alongside modern PostgreSQL systems",
         "Implemented retry, audit, and validation mechanisms for reliable data synchronization",
         "Coordinated with Ministry of Health technical team on compliance and data contract requirements",
@@ -150,7 +166,15 @@ export const portfolio: PortfolioData = {
       company: "PT. Pertamina Bina Medika IHC",
       title: "HCIS — Human Capital Information System",
       description:
-        "Internal HR platform for PT. Pertamina Bina Medika IHC managing employee master data, payroll integration, attendance, organizational structure, and workforce analytics across the organization.",
+        "Fragmented, spreadsheet-based HR processes across a regulated healthcare organization created data governance risks, audit gaps, and reporting inefficiencies. A centralized HR platform was needed to manage employee master data, payroll integration, attendance, and workforce analytics.",
+      myRole:
+        "Full-stack Engineer building the employee data management platform, payroll integration modules, role-based access control system, and analytics dashboards.",
+      scale:
+        "Company-wide deployment · All hospital units · Complete employee master data lifecycle · Full audit trails",
+      systemScope:
+        "Frontend (React/TypeScript) · Backend (Laravel/PostgreSQL) · Role-based access control · Payroll integration · Workforce analytics",
+      complexity:
+        "Regulated healthcare workforce data with strict governance requirements; replacing fragmented spreadsheet workflows without data loss; role-based access design for sensitive HR information across organizational hierarchy.",
       impact: "Company-wide HR system · Full audit trails · Master data governance",
       period: { start: "2024-01", end: null },
       tags: ["React", "TypeScript", "Laravel", "PostgreSQL", "REST API"],
@@ -170,7 +194,15 @@ export const portfolio: PortfolioData = {
       company: "PT. Pertamina Bina Medika IHC",
       title: "IHC Office — Enterprise Secretariat System",
       description:
-        "Digital office management platform for PT. Pertamina Bina Medika IHC handling internal correspondence, document workflows, multi-level digital approvals, and organizational communication across the enterprise.",
+        "Enterprise correspondence workflows were paper-based and untracked, creating compliance risks and processing delays across a multi-department healthcare organization. Multi-level approval chains for official documents had no digital audit trail.",
+      myRole:
+        "Full-stack Engineer designing and building the digital correspondence platform, multi-level approval engine, document versioning system, and real-time notification integration.",
+      scale:
+        "Enterprise-wide adoption · Multiple organizational departments · Multi-level approval chains",
+      systemScope:
+        "Frontend (React/TypeScript) · Backend (Laravel/PostgreSQL) · Multi-level approval routing engine · Document versioning · Real-time notifications",
+      complexity:
+        "Complex enterprise approval routing across organizational hierarchy with configurable chains; document versioning and audit trail requirements for compliance; replacing established paper-based workflows without disrupting operations.",
       impact: "Paperless workflows · Multi-level digital approvals · Audit trail",
       period: { start: "2023-12", end: null },
       tags: ["React", "TypeScript", "Laravel", "PostgreSQL"],

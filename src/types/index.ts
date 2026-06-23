@@ -44,11 +44,20 @@ export interface Project {
   id: string;
   title: string;
   company?: string;
+  /** Problem statement — what business/clinical/operational problem existed */
   description: string;
   impact?: string;
   tags: string[];
   links?: Link[];
   period?: Period;
+  /** Specific role held in the project (e.g. "Lead Frontend Engineer") */
+  myRole?: string;
+  /** Scale indicators — hospitals, users, transactions, modules */
+  scale?: string;
+  /** System scope — layers and services involved */
+  systemScope?: string;
+  /** What made the project technically or operationally complex */
+  complexity?: string;
   decision?: string;
   outcome?: string;
   highlights?: string[];

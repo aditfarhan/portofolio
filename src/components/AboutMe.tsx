@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { portfolio, PROFILE_STATS } from "@/data/portfolio";
+import { portfolio, PROFILE_STATS, CONTACT_LINKS } from "@/data/portfolio";
 import { useCountUp, useShineEffect } from "@/hooks";
 
 interface AboutMeProps {
@@ -9,7 +9,9 @@ interface AboutMeProps {
   isAnimating?: boolean;
 }
 
-// What I Build — 4 categories in a 2×2 grid (each col-span-2)
+const RESUME_LINK = CONTACT_LINKS.find((l) => l.download);
+
+// What I Build — 4 categories in a 2×2 grid
 const BUILD_FOCUS = [
   {
     title: "Healthcare Platforms",
@@ -65,6 +67,15 @@ const LEADERSHIP_SKILLS = [
   "Technical documentation",
   "Risk mitigation",
   "Production stability",
+];
+
+const HOW_I_WORK = [
+  "Clarify business and clinical workflow requirements first.",
+  "Design scalable frontend architecture and API contracts.",
+  "Reduce release risk with feature flags and staged rollouts.",
+  "Document architecture decisions and implementation tradeoffs.",
+  "Mentor engineers through code review and pairing sessions.",
+  "Optimize for long-term maintainability, not only delivery speed.",
 ];
 
 const AboutMe = memo(function AboutMe({
@@ -126,9 +137,8 @@ const AboutMe = memo(function AboutMe({
       role="region"
       aria-label="About Muhammad Aditia Farhan"
     >
-      {/* ── THESIS + STATS ──────────────────────────────── */}
-      <div className="flex flex-col gap-2">
-
+      {/* ── HERO HEADING + BIO ──────────────────────────── */}
+      <div className="flex flex-col gap-1.5">
         <h2
           className={`
             text-sm sm:text-base
@@ -138,13 +148,28 @@ const AboutMe = memo(function AboutMe({
           `}
           style={{ letterSpacing: "var(--tracking-tight)" }}
         >
-          Building{" "}
+          Senior Software Engineer building{" "}
           <em className="font-semibold not-italic text-foreground">
-            enterprise healthcare
+            nationwide HIS/EMR platforms
           </em>{" "}
-          systems and scalable web platforms with long-term clarity.
+          and enterprise healthcare systems.
         </h2>
 
+        <p
+          className={`
+            text-2xs sm:text-xs text-white/55 leading-relaxed
+            transition-all duration-slower delay-50
+            ${mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}
+          `}
+        >
+          Jakarta-based engineer with 5+ years across healthcare, logistics, e-commerce, and telecom.
+          Lead engineer for a nationwide HIS/EMR platform deployed across 12+ hospitals, covering
+          thousands of daily clinical transactions and full inpatient workflows.
+        </p>
+      </div>
+
+      {/* ── STATS ──────────────────────────────────────── */}
+      <div className="flex flex-col gap-2">
         {/* Single accessible text node — one clean read for AT and crawlers */}
         <span className="sr-only">
           {PROFILE_STATS.map(s => `${s.value}${s.suffix} ${s.label}`).join(", ")}
@@ -187,7 +212,7 @@ const AboutMe = memo(function AboutMe({
         />
       </div>
 
-      {/* ── WHAT I BUILD ────────────────────────────────── */}
+      {/* ── WHAT I BUILD ──────────────────────────────── */}
       <div className="flex flex-col gap-1.5">
         <p
           className="text-2xs text-white/25 uppercase"
@@ -259,7 +284,32 @@ const AboutMe = memo(function AboutMe({
         </div>
       </div>
 
-      {/* ── SKILLS ────────────────────────────────────────── */}
+      {/* ── HOW I WORK ────────────────────────────────── */}
+      <div
+        className={`
+          flex flex-col gap-1
+          transition-all duration-slower delay-150
+          ${mounted ? "opacity-100" : "opacity-0"}
+        `}
+      >
+        <p
+          className="text-2xs text-white/25 uppercase"
+          style={{ letterSpacing: "var(--tracking-caps)" }}
+          aria-hidden="true"
+        >
+          How I work
+        </p>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 list-none p-0 m-0">
+          {HOW_I_WORK.map((item) => (
+            <li key={item} className="flex items-start gap-1.5 text-2xs text-white/45 leading-snug">
+              <span className="text-accent/60 flex-shrink-0 mt-0.5" aria-hidden="true">›</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* ── SKILLS ────────────────────────────────────── */}
       <div
         className={`
           flex flex-wrap gap-x-4 gap-y-2
@@ -310,50 +360,71 @@ const AboutMe = memo(function AboutMe({
         </div>
       </div>
 
-      {/* ── CTA ───────────────────────────────────────────── */}
-      <div className="flex flex-col items-start gap-1 mt-auto">
-        <button
-          onClick={handleExplore}
-          disabled={isAnimating}
-          className="
-            group
-            about-cta-btn about-cta-btn--weighted
-            w-full sm:w-auto
-            flex items-center justify-center sm:justify-start gap-2
-          "
-          aria-label={`Browse ${projectCount} projects — starting with HIS/EMR case study`}
-        >
-          <span className="relative overflow-visible">
-            See what I&apos;ve built
-            <span
-              className="
-                absolute left-0 -bottom-0.5 h-px w-full
-                bg-white/38 scale-x-0 origin-left
-                transition-transform duration-slower
-                group-hover:scale-x-100
-              "
-              aria-hidden="true"
-            />
-          </span>
-          <svg
-            className="w-3.5 h-3.5 transition-transform duration-slow group-hover:translate-x-1.5"
-            aria-hidden="true"
-            viewBox="0 0 16 16"
-            fill="none"
+      {/* ── CTA ───────────────────────────────────────── */}
+      <div className="flex flex-col items-start gap-2 mt-auto">
+        {/* Primary CTA — opens healthcare case studies */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
+          <button
+            onClick={handleExplore}
+            disabled={isAnimating}
+            className="
+              group
+              about-cta-btn about-cta-btn--weighted
+              w-full sm:w-auto
+              flex items-center justify-center sm:justify-start gap-2
+            "
+            aria-label={`View ${projectCount} case studies — starting with HIS/EMR platform`}
           >
-            <path
-              d="M3 8h10M9 4l4 4-4 4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+            <span className="relative overflow-visible">
+              View Healthcare Case Studies
+              <span
+                className="
+                  absolute left-0 -bottom-0.5 h-px w-full
+                  bg-white/38 scale-x-0 origin-left
+                  transition-transform duration-slower
+                  group-hover:scale-x-100
+                "
+                aria-hidden="true"
+              />
+            </span>
+            <svg
+              className="w-3.5 h-3.5 transition-transform duration-slow group-hover:translate-x-1.5"
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M3 8h10M9 4l4 4-4 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
 
-        <span className="text-2xs sm:text-xs text-white/38"
-          style={{ letterSpacing: "var(--tracking-caps)" }}
-        >
+          {/* Secondary CTA — resume download */}
+          {RESUME_LINK && (
+            <a
+              href={RESUME_LINK.href}
+              download={RESUME_LINK.download}
+              className="
+                text-xs text-white/45 hover:text-white/70
+                flex items-center gap-1.5
+                transition-colors duration-fast
+                focus-visible:outline-2 focus-visible:outline-white/55 focus-visible:outline-offset-2 focus-visible:rounded
+              "
+              aria-label="Download 2026 Resume PDF"
+            >
+              <svg className="w-3 h-3" aria-hidden="true" viewBox="0 0 16 16" fill="none">
+                <path d="M8 2v8M5 7l3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Download Resume
+            </a>
+          )}
+        </div>
+
+        <span className="text-2xs text-white/30" style={{ letterSpacing: "var(--tracking-caps)" }}>
           Open to Software Engineer · Senior Frontend · Healthcare IT · Technical Lead roles
         </span>
       </div>

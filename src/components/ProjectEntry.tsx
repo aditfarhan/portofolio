@@ -59,6 +59,7 @@ const ProjectEntry = memo(function ProjectEntry({
   const hiddenCount = allTags.length - maxTags;
   const hasLinks = (project.links ?? []).length > 0;
   const hasHighlights = (project.highlights ?? []).length > 0;
+  const hasCaseStudyFields = project.scale || project.systemScope || project.complexity;
 
   // Split impact on · separator — each part becomes its own colored chip
   const impactChips = project.impact
@@ -94,10 +95,15 @@ const ProjectEntry = memo(function ProjectEntry({
       {/* ── TITLE ─────────────────────────────── */}
       <h3 className="entry-title">{project.title}</h3>
 
-      {/* ── IMPACT CHIPS — visual identity zone ─
-          Each · segment becomes its own colored chip.
-          Color is keyed by industry via data-industry on the article.
-      ──────────────────────────────────────────── */}
+      {/* ── MY ROLE ──────────────────────────── */}
+      {project.myRole && (
+        <div className="entry-section entry-section--role">
+          <span className="entry-label entry-label--role">My Role</span>
+          <p className="entry-text entry-text--primary">{project.myRole}</p>
+        </div>
+      )}
+
+      {/* ── IMPACT CHIPS — visual identity zone ─ */}
       {impactChips.length > 0 && (
         <div className="entry-impact-chips" aria-label="Project impact">
           {impactChips.map((chip) => (
@@ -108,11 +114,44 @@ const ProjectEntry = memo(function ProjectEntry({
         </div>
       )}
 
-      {/* ── HIGHLIGHTS — bullet achievements ─────────────────
-          First: most impressive content visible without scrolling.
-      ──────────────────────────────────────────────────────── */}
+      {/* ── PROBLEM / CONTEXT ─────────────────
+          Always shown — even when highlights exist.
+          Provides the "why" before the "what."
+      ──────────────────────────────────────── */}
+      {project.description && (
+        <div className="entry-section entry-section--problem">
+          <span className="entry-label entry-label--problem">Problem</span>
+          <p className="entry-context">{project.description}</p>
+        </div>
+      )}
+
+      {/* ── SCALE + SCOPE ────────────────────── */}
+      {hasCaseStudyFields && (
+        <div className="entry-case-study-meta">
+          {project.scale && (
+            <div className="entry-meta-item">
+              <span className="entry-meta-key">Scale</span>
+              <span className="entry-meta-val">{project.scale}</span>
+            </div>
+          )}
+          {project.systemScope && (
+            <div className="entry-meta-item">
+              <span className="entry-meta-key">System scope</span>
+              <span className="entry-meta-val">{project.systemScope}</span>
+            </div>
+          )}
+          {project.complexity && (
+            <div className="entry-meta-item">
+              <span className="entry-meta-key">Complexity</span>
+              <span className="entry-meta-val">{project.complexity}</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── HIGHLIGHTS — key contributions ───── */}
       {hasHighlights && (
-        <ul className="entry-highlights" aria-label="Key highlights">
+        <ul className="entry-highlights" aria-label="Key contributions">
           {project.highlights!.map((h, i) => (
             <li key={i} className="entry-highlight">
               <span className="entry-highlight-dot" aria-hidden="true" />
@@ -122,14 +161,7 @@ const ProjectEntry = memo(function ProjectEntry({
         </ul>
       )}
 
-      {/* ── CONTEXT — only shown when no highlights ──── */}
-      {!hasHighlights && project.description && (
-        <p className="entry-context">
-          {project.description}
-        </p>
-      )}
-
-      {/* ── BODY — technical decisions & impact ──── */}
+      {/* ── BODY — technical decisions & impact ── */}
       {(project.decision || project.outcome) && (
         <div className="entry-body">
           {project.decision && (
