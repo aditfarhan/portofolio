@@ -1,22 +1,18 @@
-"use client";
+import Link from "next/link";
+import type { Metadata } from "next";
 
-import { useEffect } from "react";
+export const metadata: Metadata = {
+  title: "404 – Page Not Found",
+  description: "This page doesn't exist. Head back to the portfolio.",
+  robots: { index: false, follow: false },
+};
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
+export default function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center h-[100dvh] bg-background px-6 text-center">
+      {/* Subtle monogram */}
       <div
-        className="w-10 h-10 rounded-full border border-border-1 bg-surface-1 flex items-center justify-center mb-6 font-semibold"
+        className="w-12 h-12 rounded-full border border-border-1 bg-surface-1 flex items-center justify-center mb-6 font-semibold"
         style={{
           fontSize: "var(--fs-2xs)",
           letterSpacing: "var(--tracking-caps)",
@@ -35,25 +31,25 @@ export default function Error({
           color: "rgba(255,255,255,var(--op-dim))",
         }}
       >
-        Error
+        404
       </p>
 
       <h1
-        className="text-xl font-bold leading-snug mb-2"
+        className="text-xl sm:text-2xl font-bold leading-snug mb-2"
         style={{ color: "rgba(255,255,255,var(--op-primary))" }}
       >
-        Something went wrong
+        Page not found
       </h1>
 
       <p
         className="text-sm max-w-xs leading-relaxed mb-8"
         style={{ color: "rgba(255,255,255,var(--op-faint))" }}
       >
-        An unexpected error occurred while loading the portfolio.
+        This URL doesn&apos;t exist. The portfolio lives at the root.
       </p>
 
-      <button
-        onClick={reset}
+      <Link
+        href="/"
         className="
           inline-flex items-center gap-2
           font-semibold
@@ -68,8 +64,8 @@ export default function Error({
           color: "rgba(255,255,255,var(--op-subdued))",
         }}
       >
-        Try again
-      </button>
+        ← Back to portfolio
+      </Link>
     </div>
   );
 }

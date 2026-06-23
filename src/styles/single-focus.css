@@ -1,141 +1,131 @@
 /* ========== SINGLE-FOCUS PROJECTS LAYOUT ========== */
 
 /**
- * Single-Focus Projects Layout
- * 
- * Transition from two-card layout to single-focus projects view.
- * Uses grid-column transitions for smooth layout changes.
- * 
- * Layout:
- * - Initial: Two cards side-by-side (grid-cols-2)
- * - Flip: Projects expands (col-span-2), About collapses (opacity-0, pointer-events-none)
+ * Architecture: Fixed viewport height for both states.
+ * Both cards always fill the viewport — no internal scroll, no page scroll.
+ *
+ * height: 100% chain (all three levels must have explicit height):
+ *   section h-[100dvh]
+ *     → .home-deck-grid { height: 100% }
+ *       → .home-card { height: 100% }
+ *         → inner wrapper { h-full }
+ *           → card content fills the card
+ *
+ * Natural height layouts (height: auto) break this chain because
+ * h-full on the inner bg-card wrapper resolves to auto, not to the
+ * flex-stretched card height.
+ *
+ * Default:          Profile (50%) | About (50%) — equal height, stretch
+ * projects-focused: Profile sidebar (~28%) | Projects (~72%)
  */
 
-/* Main container - Using Flex for smooth width/height transitions */
+/* ── MAIN CONTAINER ───────────────────────────────── */
+
 .home-deck-grid {
     display: flex;
     flex-direction: row;
     gap: 1.25rem;
-    height: 100%;
+    height: 100%;      /* 100% of section = 100dvh - section padding */
     width: 100%;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
-    transition: gap 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: gap var(--duration-scene) var(--ease-smooth);
 }
 
-/* Individual cards */
+/* ── INDIVIDUAL CARDS ─────────────────────────────── */
+
 .home-card {
     position: relative;
     flex: 1 1 0%;
     min-width: 0;
-    /* Fluid height — scales with viewport, never cramped or wasteful */
-    height: clamp(420px, 60dvh, 600px);
+    height: 100%;      /* fills grid height = 100dvh - section padding */
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
     transition:
-        flex 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
-        opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
-        visibility 0.7s step-start,
-        transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
-        margin 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
-        box-shadow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-    will-change: flex, opacity, transform;
+        flex var(--duration-scene) var(--ease-smooth),
+        opacity var(--duration-scene) var(--ease-smooth),
+        transform var(--duration-scene) var(--ease-smooth),
+        box-shadow var(--duration-scene) var(--ease-smooth);
+    will-change: opacity, transform;
 }
 
-/* ========== PROJECTS FOCUSED STATE ========== */
+/* ── PROJECTS FOCUSED STATE ───────────────────────── */
 
-/* When flipped/focused: Growth & Collapse Logic */
 .home-deck-grid.projects-focused {
-    gap: 0;
+    gap: 0.75rem;
 }
 
+/* Profile sidebar — compact but still full height */
 .home-deck-grid.projects-focused .home-card--profile {
-    flex: 3 1 0%;
-    /* More aggressive expansion */
-    z-index: 10;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    flex: 0 0 clamp(200px, 26%, 280px);
+    opacity: 0.96;
 }
 
+/* Projects card — fills remaining space */
 .home-deck-grid.projects-focused .home-card--about {
-    flex: 0 0 0%;
-    opacity: 0;
-    visibility: hidden;
-    /* Recede into background */
-    transform: scale(0.85) translateZ(-100px);
-    pointer-events: none;
-    margin: 0;
-    overflow: hidden;
-    transition:
-        flex 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
-        opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
-        visibility 0.7s step-end,
-        transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    flex: 1 1 0%;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    box-shadow: var(--shadow-lg);
 }
 
-/* ========== REDUCED MOTION SUPPORT ========== */
+/* ── REDUCED MOTION ───────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-
     .home-deck-grid,
-    .home-card,
-    .home-card--about .card-flip-inner {
+    .home-card {
         transition: none !important;
-    }
-
-    .home-deck-grid.projects-focused .home-card--about {
-        display: none;
-        visibility: hidden;
     }
 }
 
-/* ========== MOBILE RESPONSIVENESS ========== */
+/* ── MOBILE PORTRAIT (≤ 768px) ───────────────────── */
 
 @media (max-width: 768px) {
     .home-deck-grid {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.75rem;
+        align-items: stretch;
     }
 
     .home-card {
         flex: 0 0 auto;
         height: auto;
-        /* Fluid: adapts to viewport height instead of fixed 380px */
-        min-height: clamp(260px, 45dvh, 380px);
+        min-height: clamp(260px, 44dvh, 420px);
         width: 100%;
+        transition:
+            opacity var(--duration-slower) var(--ease-out),
+            transform var(--duration-slower) var(--ease-out),
+            min-height var(--duration-slower) var(--ease-out),
+            max-height var(--duration-slower) var(--ease-out);
     }
 
-    /* Mobile: Stack vertically initially */
-    .home-card--profile,
-    .home-card--about {
-        flex: 1 1 auto;
-    }
-
-    /* Mobile: Projects focused - Take visible area */
+    /* Mobile projects mode: profile strip + projects below */
     .home-deck-grid.projects-focused {
-        gap: 0;
+        gap: 0.75rem;
     }
 
     .home-deck-grid.projects-focused .home-card--profile {
-        flex: 1 0 auto;
-        /* Fluid: was hardcoded 45vh — now adapts to actual viewport */
-        max-height: clamp(320px, 72dvh, 85dvh);
-        min-height: auto;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+        flex: 0 0 auto;
+        min-height: 0;
+        max-height: clamp(160px, 24dvh, 220px);
+        height: auto;
+        overflow: hidden;
+        opacity: 1;
     }
 
     .home-deck-grid.projects-focused .home-card--about {
-        flex: 0 0 0%;
-        min-height: 0;
-        height: 0;
-        padding: 0;
-        border: none;
+        flex: 1 1 auto;
+        min-height: clamp(380px, 68dvh, 640px);
+        height: auto;
+        opacity: 1;
+        transform: none;
+        box-shadow: none;
     }
 }
 
-/* ======= LANDSCAPE MOBILE — side-by-side layout ======= */
-/* When in landscape on a short screen, stacking vertically
-   means nothing fits. Switch to row layout. */
+/* ── LANDSCAPE MOBILE (short screens) ────────────── */
+
 @media (orientation: landscape) and (max-height: 600px) {
     .home-deck-grid {
         flex-direction: row;
@@ -144,110 +134,14 @@
     }
 
     .home-card {
-        /* Fluid height in landscape — fill most of the short viewport */
-        height: clamp(180px, 85dvh, 340px) !important;
-        min-height: 0 !important;
-        flex: 1 1 0%;
+        height: 100%;
     }
 
     .home-deck-grid.projects-focused .home-card--profile {
-        flex: 3 1 0%;
-        max-height: none;
-        height: clamp(180px, 85dvh, 340px) !important;
+        flex: 0 0 clamp(140px, 20%, 200px);
     }
 
     .home-deck-grid.projects-focused .home-card--about {
-        flex: 0 0 0%;
-        height: 0 !important;
-        padding: 0;
-        border: none;
-    }
-}
-
-/* ========== ENSURE CONTINUOUS VISUAL FLOW ========== */
-
-/* Pre-process layout for expansion */
-.home-card {
-    contain: layout style paint;
-    will-change: flex, opacity, transform;
-    backface-visibility: hidden;
-}
-
-/* Smooth transitions on mobile */
-@media (max-width: 768px) {
-    .home-card {
-        transition:
-            flex 0.4s ease,
-            opacity 0.4s ease,
-            transform 0.4s ease,
-            visibility 0.4s step-end,
-            margin 0.4s ease,
-            padding 0.4s ease;
-    }
-}
-
-/* Ensure cards maintain visual continuity */
-.home-card--profile,
-.home-card--about {
-    transform-origin: center center;
-}
-
-/* Prevent content from jumping during collapse */
-.home-card--about .card-flip-inner {
-    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-/* When About collapses, ensure smooth fade */
-.home-deck-grid.projects-focused .home-card--about .card-flip-inner {
-    opacity: 0;
-    transform: scale(0.95);
-}
-
-/* ========== HARDWARE ACCELERATED SCROLL FIX ========== */
-.projects-scroll-fix {
-    transform: translateZ(0);
-    /* Force new compositor layer */
-    -webkit-overflow-scrolling: touch;
-    pointer-events: auto !important;
-    position: relative;
-    z-index: 10;
-    isolation: isolate;
-}
-
-/* Ensure child cards within scroll don't flicker */
-.projects-scroll-fix>* {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-}
-
-/* Desktop specific — fluid card heights */
-@media (min-width: 640px) {
-    .home-card {
-        height: clamp(440px, 62dvh, 620px);
-    }
-}
-
-/* Large desktop — more generous */
-@media (min-width: 1024px) {
-    .home-card {
-        height: clamp(480px, 58dvh, 640px);
-    }
-}
-
-/* Short landscape (mobile rotated) — compact card heights */
-@media (orientation: landscape) and (max-height: 600px) {
-    .home-deck-grid {
-        flex-direction: row;
-        gap: 0.75rem;
-    }
-
-    .home-card {
-        height: clamp(260px, 88dvh, 400px);
-    }
-
-    /* Hide principle cards grid — not enough vertical space */
-    .about-principles-grid {
-        display: none;
+        flex: 1 1 0%;
     }
 }

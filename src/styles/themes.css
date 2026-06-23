@@ -16,37 +16,173 @@
   /* Brand trio for masculine professional */
   --brand-a: #ffffff; /* white */
   --brand-b: #a0a0a0; /* silver */
-  --brand-c: #666666; /* dark grey */
-}
+  --brand-c: #8c8c8c; /* WCAG AA — lightened for 4.5:1 contrast on gradient text */
 
-/* Dark mode preference */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ffffff;
-    --primary: #ffffff;
-    --accent: #a0a0a0;
-    --muted: #1a1a1a;
-    --card: #1a1a1a;
-    --border: #333333;
-    --ring: #666666;
-    --lace: #ffffff;
-  }
+  /* ── TYPE SCALE ──────────────────────────────────── */
+  --fs-2xs: 0.6875rem; /* 11px   — smallest labels, badges, decorative hints */
+  --fs-xs:  0.75rem;   /* 12px   — chips, tags, secondary labels */
+  --fs-sm:  0.8rem;    /* 12.8px — body default, highlights, context */
+  --fs-md:  0.9rem;    /* 14.4px — thesis, subsection headings */
+  --fs-lg:  1.05rem;   /* 16.8px — card titles, project entry titles */
+  --fs-xl:  1.25rem;   /* 20px   — section headings */
+  --fs-2xl: 1.5rem;    /* 24px   — hero name (desktop) */
+
+  /* ── TRACKING SCALE ──────────────────────────────── */
+  --tracking-tight: -0.025em; /* names, headings — compressed professional feel */
+  --tracking-body:  -0.01em;  /* body default (matches global baseline) */
+  --tracking-caps:  0.10em;   /* uppercase micro-labels — wide spacing aids readability */
+  --tracking-mono:  0.04em;   /* mono timestamps, badge text */
+
+  /* ── OPACITY SCALE ───────────────────────────────── */
+  --op-dim:      0.25; /* barely visible — decorative, dividers */
+  --op-faint:    0.38; /* secondary labels, tags, hints */
+  --op-muted:    0.55; /* supporting text, body secondary */
+  --op-subdued:  0.70; /* interactive elements at rest, hover targets */
+  --op-primary:  0.88; /* main content, primary text */
+  --op-full:     1.00; /* maximum emphasis */
+
+  /* ── SHADOW SCALE ────────────────────────────────── */
+  --shadow-sm:  0 1px 4px rgba(0,0,0,0.40);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.50), 0 0 0 1px rgba(255,255,255,0.06);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.60), 0 0 0 1px rgba(255,255,255,0.10);
+  --shadow-xl:  0 20px 60px rgba(0,0,0,0.70), 0 0 0 1px rgba(255,255,255,0.15);
+
+  /* ── SURFACE LEVELS (alpha over #0a0a0a) ────────── */
+  --surface-1:     rgba(255,255,255,0.03);
+  --surface-2:     rgba(255,255,255,0.06);
+  --surface-3:     rgba(255,255,255,0.10);
+  --surface-hover: rgba(255,255,255,0.08);
+
+  /* ── BORDER LEVELS ───────────────────────────────── */
+  --border-1: rgba(255,255,255,0.08);
+  --border-2: rgba(255,255,255,0.12);
+  --border-3: rgba(255,255,255,0.22);
+
+  /* ── STATUS ──────────────────────────────────────── */
+  --status-available:        rgba(134,239,172,0.85);
+  --status-available-dot:    #86efac;               /* solid, for circular pulse dot */
+  --status-available-bg:     rgba(134,239,172,0.08);
+  --status-available-border: rgba(134,239,172,0.22);
+
+  /* ── DURATION SCALE ──────────────────────────────── */
+  --duration-instant:  60ms;   /* active/press states — immediate haptic feel */
+  --duration-fast:    150ms;   /* hover micro-transitions: color, icon, border */
+  --duration-base:    200ms;   /* standard UI: hover states, dropdowns */
+  --duration-slow:    300ms;   /* medium motion: focus rings, subtle lifts */
+  --duration-slower:  400ms;   /* panel reveals, card shadow transitions */
+  --duration-scene:   700ms;   /* full layout transitions, page arrivals */
+
+  /* ── BORDER RADIUS SCALE ─────────────────────────── */
+  --radius-chip: 3px;     /* chips, tags, code elements, entry frames */
+  --radius-btn:  6px;     /* buttons, badges, tooltips */
+  --radius-card: 12px;    /* cards, panels — matches profile-card hover */
+  --radius-full: 9999px;  /* pills, dots, avatar circles */
+
+  /* ── LINE HEIGHT SCALE ───────────────────────────── */
+  --lh-none:    1;     /* stats, mono counters — no extra leading */
+  --lh-title:   1.2;   /* headings, entry titles */
+  --lh-snug:    1.4;   /* highlights, dense lists — clearly tighter than body */
+  --lh-body:    1.6;   /* body prose, descriptions — comfortable reading rhythm */
+
+  /* ── EASING FUNCTIONS ────────────────────────────── */
+  --ease-card:   cubic-bezier(0.22, 0.61, 0.36, 1); /* card hover/lift */
+  --ease-sharp:  cubic-bezier(0.22, 1, 0.36, 1);    /* project slide-in */
+  --ease-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);    /* orb/focus reveal */
+  --ease-exit:   cubic-bezier(0.4, 0, 0.6, 1);      /* panel exit — sharp deceleration */
+  --ease-out:    ease-out;
+  --ease-in-out: ease-in-out;
+
+  /* ── Z-INDEX SCALE ───────────────────────────────── */
+  --z-bg:       -5;  /* deepest bg layer: night sky canvas */
+  --z-moon:     -4;  /* moon (behind stars) */
+  --z-stars:    -3;  /* star field */
+  --z-meteors:  -2;  /* meteor burst */
+  --z-below:    -1;  /* meteor containers, above meteor burst */
+  --z-base:      1;  /* arrival orb */
+  --z-overlay:   2;  /* sparkles, scroll fades */
+  --z-tooltip:  50;  /* action icon tooltips */
+  --z-skip:   1000;  /* skip-to-content accessibility link */
 }
 
 /* Expose tokens to Tailwind */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-accent: var(--accent);
-  --color-muted: var(--muted);
-  --color-card: var(--card);
-  --color-border: var(--border);
-  --color-ring: var(--ring);
-  --color-lace: var(--lace);
+  /* ── Base color palette ── */
+  --color-background:    var(--background);
+  --color-foreground:    var(--foreground);
+  --color-primary:       var(--primary);
+  --color-accent:        var(--accent);
+  --color-muted:         var(--muted);
+  --color-card:          var(--card);
+  --color-border:        var(--border);
+  --color-ring:          var(--ring);
+  --color-lace:          var(--lace);
+
+  /* ── Surface elevation colors → bg-surface-1/2/3, bg-surface-hover ── */
+  --color-surface-1:     var(--surface-1);
+  --color-surface-2:     var(--surface-2);
+  --color-surface-3:     var(--surface-3);
+  --color-surface-hover: var(--surface-hover);
+
+  /* ── Named border alpha levels → border-border-1/2/3 ── */
+  --color-border-1:      var(--border-1);
+  --color-border-2:      var(--border-2);
+  --color-border-3:      var(--border-3);
+
+  /* ── Status → text-available, bg-available-bg, border-available-border ── */
+  --color-available:        var(--status-available);
+  --color-available-bg:     var(--status-available-bg);
+  --color-available-border: var(--status-available-border);
+
+  /* ── Fonts ── */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* ── Type scale → text-2xs through text-2xl ── */
+  --text-2xs: var(--fs-2xs);   /* 11px — text-2xs */
+  /* text-xs (12px), text-sm (14px), text-base/lg/xl/2xl use Tailwind defaults */
+
+  /* ── Dark-themed shadows → shadow-sm/md/lg/xl ── */
+  /* Inline values override Tailwind defaults so JSX shadow-* classes use our dark palette */
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.40);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.50), 0 0 0 1px rgba(255,255,255,0.06);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.60), 0 0 0 1px rgba(255,255,255,0.10);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.70), 0 0 0 1px rgba(255,255,255,0.15);
+
+  /* ── Border radius → rounded-chip, rounded-btn, rounded-card ── */
+  --radius-chip: var(--radius-chip);
+  --radius-btn:  var(--radius-btn);
+  --radius-card: var(--radius-card);
+
+  /* ── Duration → duration-instant/fast/base/slow/slower/scene as Tailwind utilities ── */
+  --transition-duration-instant: var(--duration-instant);
+  --transition-duration-fast:    var(--duration-fast);
+  --transition-duration-base:    var(--duration-base);
+  --transition-duration-slow:    var(--duration-slow);
+  --transition-duration-slower:  var(--duration-slower);
+  --transition-duration-scene:   var(--duration-scene);
+
+  /* ── Delay → delay-instant/fast/base/slow as Tailwind utilities ── */
+  --transition-delay-instant: var(--duration-instant);
+  --transition-delay-fast:    var(--duration-fast);
+  --transition-delay-base:    var(--duration-base);
+  --transition-delay-slow:    var(--duration-slow);
+
+  /* ── Easing → transition-timing-ease-card etc via Tailwind ── */
+  --ease-card:   var(--ease-card);
+  --ease-sharp:  var(--ease-sharp);
+  --ease-smooth: var(--ease-smooth);
+  --ease-exit:   var(--ease-exit);
+
+  /* ── Z-Index → z-bg, z-moon, z-stars, z-meteors, z-below, z-base, z-overlay, z-tooltip, z-skip ── */
+  --z-bg:      var(--z-bg);
+  --z-moon:    var(--z-moon);
+  --z-stars:   var(--z-stars);
+  --z-meteors: var(--z-meteors);
+  --z-below:   var(--z-below);
+  --z-base:    var(--z-base);
+  --z-overlay: var(--z-overlay);
+  --z-tooltip: var(--z-tooltip);
+  --z-skip:    var(--z-skip);
 }
 
 /* Dark mode specific optimizations */

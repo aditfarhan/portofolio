@@ -1,9 +1,19 @@
 /* ========== PROJECT ENTRY (ENGINEERING LOG) ========== */
 
+/* ── Industry color tokens ─────────────────────────── */
+:root {
+    --industry-healthcare:  rgba(74,  222, 128, 1);
+    --industry-logistics:   rgba(251, 146,  60, 1);
+    --industry-ecommerce:   rgba(244, 114, 182, 1);
+    --industry-telecom:     rgba(96,  165, 250, 1);
+    --industry-other:       rgba(167, 139, 250, 1);
+    --industry-personal:    rgba(148, 163, 184, 1);
+}
+
 .project-entry {
     background: color-mix(in srgb, var(--card) 60%, transparent);
     border-left: 2px solid color-mix(in srgb, var(--border) 50%, transparent);
-    border-radius: 3px;
+    border-radius: var(--radius-chip);
     padding: 0.875rem 1rem 0.875rem 0.875rem;
     display: flex;
     flex-direction: column;
@@ -12,16 +22,79 @@
     width: 100%;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
     transition:
-        border-color 280ms ease,
-        box-shadow 280ms ease;
+        border-color var(--duration-slow) ease,
+        box-shadow var(--duration-slow) ease;
+    /* Top accent bar — communicates industry identity without screenshots */
+    overflow: hidden;
+}
+
+/* Subtle accent stripe at the very top, colored by industry */
+.project-entry::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: var(--radius-chip) var(--radius-chip) 0 0;
+    background: linear-gradient(to right, rgba(255,255,255,0.12), transparent 70%);
+    pointer-events: none;
+    transition: background var(--duration-slow) ease;
+}
+
+/* ── Industry accent stripe colors ── */
+.project-entry[data-industry="Healthcare"]::before {
+    background: linear-gradient(to right, rgba(74, 222, 128, 0.55) 0%, rgba(74, 222, 128, 0.1) 50%, transparent 90%);
+}
+.project-entry[data-industry="Logistics"]::before {
+    background: linear-gradient(to right, rgba(251, 146, 60, 0.55) 0%, rgba(251, 146, 60, 0.1) 50%, transparent 90%);
+}
+.project-entry[data-industry="E-commerce"]::before {
+    background: linear-gradient(to right, rgba(244, 114, 182, 0.55) 0%, rgba(244, 114, 182, 0.1) 50%, transparent 90%);
+}
+.project-entry[data-industry="Telecom"]::before {
+    background: linear-gradient(to right, rgba(96, 165, 250, 0.55) 0%, rgba(96, 165, 250, 0.1) 50%, transparent 90%);
+}
+.project-entry[data-industry="Other"]::before {
+    background: linear-gradient(to right, rgba(167, 139, 250, 0.55) 0%, rgba(167, 139, 250, 0.1) 50%, transparent 90%);
+}
+.project-entry[data-industry="Personal"]::before {
+    background: linear-gradient(to right, rgba(148, 163, 184, 0.45) 0%, rgba(148, 163, 184, 0.08) 50%, transparent 90%);
+}
+
+/* ── Industry accent on left border ── */
+.project-entry[data-industry="Healthcare"] {
+    border-left-color: rgba(74, 222, 128, 0.35);
+}
+.project-entry[data-industry="Logistics"] {
+    border-left-color: rgba(251, 146, 60, 0.35);
+}
+.project-entry[data-industry="E-commerce"] {
+    border-left-color: rgba(244, 114, 182, 0.35);
+}
+.project-entry[data-industry="Telecom"] {
+    border-left-color: rgba(96, 165, 250, 0.35);
+}
+.project-entry[data-industry="Other"] {
+    border-left-color: rgba(167, 139, 250, 0.35);
+}
+.project-entry[data-industry="Personal"] {
+    border-left-color: rgba(148, 163, 184, 0.28);
 }
 
 .project-entry:hover {
-    border-left-color: color-mix(in srgb, var(--accent) 70%, transparent);
     box-shadow:
         inset 0 1px 3px rgba(0, 0, 0, 0.2),
         -2px 0 12px rgba(255, 255, 255, 0.04);
 }
+
+/* Intensify left border on hover */
+.project-entry[data-industry="Healthcare"]:hover  { border-left-color: rgba(74,  222, 128, 0.65); }
+.project-entry[data-industry="Logistics"]:hover   { border-left-color: rgba(251, 146,  60, 0.65); }
+.project-entry[data-industry="E-commerce"]:hover  { border-left-color: rgba(244, 114, 182, 0.65); }
+.project-entry[data-industry="Telecom"]:hover     { border-left-color: rgba(96,  165, 250, 0.65); }
+.project-entry[data-industry="Other"]:hover       { border-left-color: rgba(167, 139, 250, 0.65); }
+.project-entry[data-industry="Personal"]:hover    { border-left-color: rgba(148, 163, 184, 0.55); }
 
 /* ── ENTRY SEQUENCING ────────────────────────────────── */
 
@@ -50,91 +123,141 @@
 }
 
 .animate-project-focus.is-next {
-    animation: projectSlideInNext 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: projectSlideInNext 260ms var(--ease-sharp) both;
 }
 
 .animate-project-focus.is-prev {
-    animation: projectSlideInPrev 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: projectSlideInPrev 260ms var(--ease-sharp) both;
 }
 
 .animate-fade-in-entry {
-    animation: projectSlideInNext 0.2s ease-out forwards;
+    animation: projectSlideInNext var(--duration-base) var(--ease-out) forwards;
+}
+
+/* ── COMPANY + PERIOD ROW ────────────────────────────── */
+
+.entry-meta-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 /* ── COMPANY BADGE ───────────────────────────────────── */
 
 .entry-company {
-    font-size: 0.6rem;
+    font-size: var(--fs-xs);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: var(--tracking-caps);
     color: var(--accent);
-    opacity: 0.65;
-    line-height: 1;
-    padding-bottom: 0.125rem;
-    /* Left border encodes company context, same visual grammar as sections */
+    opacity: 0.8;
+    line-height: var(--lh-none);
     padding-left: 0.375rem;
-    border-left: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+    transition: border-color var(--duration-slow) ease;
 }
 
-/* ── HEADER ──────────────────────────────────────────── */
+/* Industry-colored company badge accent */
+[data-industry="Healthcare"]  .entry-company { border-left-color: rgba(74,  222, 128, 0.5); }
+[data-industry="Logistics"]   .entry-company { border-left-color: rgba(251, 146,  60, 0.5); }
+[data-industry="E-commerce"]  .entry-company { border-left-color: rgba(244, 114, 182, 0.5); }
+[data-industry="Telecom"]     .entry-company { border-left-color: rgba(96,  165, 250, 0.5); }
+[data-industry="Other"]       .entry-company { border-left-color: rgba(167, 139, 250, 0.5); }
+[data-industry="Personal"]    .entry-company { border-left-color: rgba(148, 163, 184, 0.4); }
 
-.entry-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
+/* ── TITLE ───────────────────────────────────────────── */
 
 .entry-title {
-    font-size: 0.875rem;
+    font-size: clamp(var(--fs-md), 1.8vw + 0.4rem, var(--fs-lg));
     font-weight: 700;
     color: var(--foreground);
-    letter-spacing: -0.015em;
-    line-height: 1.2;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--lh-title);
+    /* Prevent excessively long lines on wide screens */
+    max-width: 72ch;
 }
 
 .entry-period {
     flex-shrink: 0;
-    font-size: 0.6rem;
-    color: rgba(255, 255, 255, 0.28);
+    font-size: var(--fs-2xs);
+    color: rgba(255, 255, 255, var(--op-dim));
     font-family: var(--font-geist-mono);
-    letter-spacing: 0.04em;
-    margin-top: 0.125rem;
+    letter-spacing: var(--tracking-mono);
     white-space: nowrap;
 }
 
-/* Impact callout — key metrics */
-.entry-impact {
+/* ── IMPACT CHIPS ────────────────────────────────────── */
+/* Replaces old single-badge impact: each · segment becomes its own chip,
+   colored by industry so users can immediately read project scale/domain. */
+
+.entry-impact-chips {
     display: flex;
-    align-items: center;
-    gap: 0.375rem;
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: var(--accent);
-    opacity: 0.75;
-    letter-spacing: 0.01em;
-    line-height: 1;
+    flex-wrap: wrap;
+    gap: 0.35rem;
 }
 
-.entry-impact-dot {
-    display: inline-block;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--accent);
-    opacity: 0.6;
-    flex-shrink: 0;
+.entry-impact-chip {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    line-height: var(--lh-none);
+    letter-spacing: var(--tracking-body);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-chip);
+    /* Default (neutral) — overridden by industry selectors below */
+    color: rgba(255, 255, 255, var(--op-subdued));
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition:
+        color var(--duration-fast) ease,
+        background var(--duration-fast) ease,
+        border-color var(--duration-fast) ease;
+}
+
+/* Industry-tinted impact chips */
+[data-industry="Healthcare"]  .entry-impact-chip {
+    color: rgba(74,  222, 128, 0.9);
+    background: rgba(74,  222, 128, 0.06);
+    border-color: rgba(74,  222, 128, 0.2);
+}
+[data-industry="Logistics"]   .entry-impact-chip {
+    color: rgba(251, 146,  60, 0.9);
+    background: rgba(251, 146,  60, 0.06);
+    border-color: rgba(251, 146,  60, 0.2);
+}
+[data-industry="E-commerce"]  .entry-impact-chip {
+    color: rgba(244, 114, 182, 0.9);
+    background: rgba(244, 114, 182, 0.06);
+    border-color: rgba(244, 114, 182, 0.2);
+}
+[data-industry="Telecom"]     .entry-impact-chip {
+    color: rgba(96,  165, 250, 0.9);
+    background: rgba(96,  165, 250, 0.06);
+    border-color: rgba(96,  165, 250, 0.2);
+}
+[data-industry="Other"]       .entry-impact-chip {
+    color: rgba(167, 139, 250, 0.9);
+    background: rgba(167, 139, 250, 0.06);
+    border-color: rgba(167, 139, 250, 0.2);
+}
+[data-industry="Personal"]    .entry-impact-chip {
+    color: rgba(148, 163, 184, 0.85);
+    background: rgba(148, 163, 184, 0.05);
+    border-color: rgba(148, 163, 184, 0.15);
 }
 
 /* Description — supporting context (not a quote; italic removed) */
 .entry-context {
     display: block;
-    font-size: 0.72rem;
+    font-size: var(--fs-xs);
     font-family: var(--font-geist-sans);
     font-style: normal;
-    color: rgba(255, 255, 255, 0.42);
-    line-height: 1.5;
-    margin-top: 0.0625rem;
+    color: rgba(255, 255, 255, var(--op-faint));
+    line-height: var(--lh-body);
+    max-width: 68ch;
 }
 
 /* ── BODY ────────────────────────────────────────────── */
@@ -153,13 +276,13 @@
 
 /* Decision section — left accent + faint bg wash to signal "key thought" */
 .entry-section--decision {
-    border-left: 2px solid rgba(255, 255, 255, 0.12);
+    border-left: 2px solid var(--border-2);
     padding-left: 0.5rem;
-    border-radius: 0 3px 3px 0;
+    border-radius: 0 var(--radius-chip) var(--radius-chip) 0;
     background: linear-gradient(to right,
             color-mix(in srgb, var(--accent) 3%, transparent),
             transparent 80%);
-    transition: border-color 220ms ease, background 220ms ease;
+    transition: border-color var(--duration-base) ease, background var(--duration-base) ease;
 }
 
 
@@ -175,7 +298,7 @@
 .entry-section--outcome {
     border-left: 2px solid rgba(255, 255, 255, 0.07);
     padding-left: 0.5rem;
-    transition: border-color 220ms ease;
+    transition: border-color var(--duration-base) ease;
 }
 
 .entry-section--outcome:hover {
@@ -190,15 +313,15 @@
 .entry-section--decision:active,
 .entry-section--outcome:active {
     border-left-color: rgba(255, 255, 255, 0.50);
-    transition-duration: 60ms;
+    transition-duration: var(--duration-instant);
 }
 
 
 .entry-label {
-    font-size: 0.575rem;
+    font-size: var(--fs-2xs);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.07em;
+    letter-spacing: var(--tracking-caps);
     color: var(--accent);
     opacity: 0.45;
 }
@@ -208,14 +331,84 @@
 }
 
 .entry-text {
-    font-size: 0.78rem;
-    line-height: 1.45;
-    color: var(--muted-fg);
+    font-size: var(--fs-sm);
+    line-height: var(--lh-body);
+    color: rgba(255, 255, 255, var(--op-muted));
+    max-width: 68ch;
 }
 
 .entry-text--primary {
-    color: var(--foreground);
-    opacity: 0.82;
+    color: rgba(255, 255, 255, var(--op-primary));
+}
+
+/* ── HIGHLIGHTS — key achievements ──────────────────── */
+
+.entry-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    /* Elevated surface + left accent to frame the "achievement block" */
+    background: linear-gradient(
+        to right,
+        rgba(255,255,255,0.025),
+        transparent 90%
+    );
+    border-left: 2px solid rgba(255,255,255,0.18);
+    border-radius: 0 var(--radius-chip) var(--radius-chip) 0;
+    padding: 0.45rem 0.625rem;
+    transition: border-color var(--duration-slow) ease;
+}
+
+.entry-highlights:hover {
+    border-left-color: rgba(255,255,255,0.32);
+}
+
+.entry-highlight {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    font-size: var(--fs-sm);
+    line-height: var(--lh-snug);
+    color: rgba(255, 255, 255, var(--op-muted));
+    transition: color var(--duration-fast) ease;
+}
+
+/* First highlight is the most important — emphasise it */
+.entry-highlight:first-child {
+    color: rgba(255, 255, 255, var(--op-primary));
+    font-weight: 600;
+}
+
+.entry-highlight:hover {
+    color: rgba(255, 255, 255, var(--op-primary));
+}
+
+.entry-highlight-dot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    flex-shrink: 0;
+    margin-top: 0.32rem; /* visual center of first line at --fs-sm/--lh-snug */
+}
+
+/* First highlight dot — slightly brighter */
+.entry-highlight:first-child .entry-highlight-dot {
+    background: rgba(255,255,255,var(--op-subdued));
+    width: 5px;
+    height: 5px;
+    margin-top: 0.28rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .entry-highlights,
+    .entry-highlight {
+        transition: none;
+    }
 }
 
 /* ── TECH CHIPS ──────────────────────────────────────── */
@@ -232,19 +425,19 @@
 .entry-tag {
     display: inline-block;
     padding: 0.2rem 0.4rem;
-    border-radius: 3px;
-    font-size: 0.575rem;
+    border-radius: var(--radius-chip);
+    font-size: var(--fs-xs);
     font-family: var(--font-geist-mono);
     font-weight: 500;
     background: rgba(255, 255, 255, 0.045);
-    color: rgba(255, 255, 255, 0.38);
+    color: rgba(255, 255, 255, var(--op-faint));
     border: 1px solid rgba(255, 255, 255, 0.07);
-    transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+    transition: background var(--duration-fast) ease, color var(--duration-fast) ease, border-color var(--duration-fast) ease;
 }
 
 .entry-tag:hover {
     background: rgba(255, 255, 255, 0.09);
-    color: rgba(255, 255, 255, 0.62);
+    color: rgba(255, 255, 255, var(--op-muted));
     border-color: rgba(255, 255, 255, 0.14);
 }
 
@@ -259,10 +452,10 @@
 /* ── KEYBOARD HINT ───────────────────────────────────── */
 
 .keyboard-hint {
-    font-size: 0.575rem;
-    color: rgba(255, 255, 255, 0.22);
+    font-size: var(--fs-2xs);
+    color: rgba(255, 255, 255, var(--op-dim));
     font-family: var(--font-geist-mono);
-    letter-spacing: 0.04em;
+    letter-spacing: var(--tracking-mono);
     animation: keyboardHintFade 3.5s ease-out forwards;
 }
 
@@ -287,26 +480,37 @@
     }
 
     .entry-title {
-        font-size: 0.8rem;
-        line-height: 1.15;
+        font-size: var(--fs-md);
+        line-height: var(--lh-title);
     }
 
     .entry-context {
-        font-size: 0.65rem;
+        font-size: var(--fs-xs);
+        max-width: none; /* allow full width on small screens */
+    }
+
+    .entry-text {
+        font-size: var(--fs-xs);
+        line-height: var(--lh-snug);
+        max-width: none;
     }
 
     .entry-body {
         gap: 0.375rem;
     }
 
-    .entry-text {
-        font-size: 0.7rem;
-        line-height: 1.35;
-    }
-
     .entry-tech {
         gap: 0.25rem;
         padding-top: 0.375rem;
+    }
+
+    .entry-impact-chips {
+        gap: 0.275rem;
+    }
+
+    .entry-impact-chip {
+        font-size: var(--fs-2xs);
+        padding: 0.175rem 0.4rem;
     }
 }
 
@@ -344,16 +548,6 @@
     opacity: 0.55;
 }
 
-/* ── RESPONSIVE TITLE SIZE ─────────────────────────────── */
-
-.entry-title {
-    font-size: clamp(0.875rem, 1.8vw + 0.4rem, 1.1rem);
-    font-weight: 700;
-    color: var(--foreground);
-    letter-spacing: -0.015em;
-    line-height: 1.2;
-}
-
 /* ── PROJECT LINKS ─────────────────────────────────────── */
 
 .entry-links {
@@ -370,23 +564,23 @@
     align-items: center;
     gap: 0.25rem;
     padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-    font-size: 0.575rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    color: rgba(255, 255, 255, 0.45);
+    border-radius: var(--radius-chip);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-mono);
+    color: rgba(255, 255, 255, var(--op-faint));
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.09);
     text-decoration: none;
     transition:
-        color 150ms ease,
-        background 150ms ease,
-        border-color 150ms ease,
-        transform 150ms ease;
+        color var(--duration-fast) ease,
+        background var(--duration-fast) ease,
+        border-color var(--duration-fast) ease,
+        transform var(--duration-fast) ease;
 }
 
 .entry-link:hover {
-    color: rgba(255, 255, 255, 0.78);
+    color: rgba(255, 255, 255, var(--op-subdued));
     background: rgba(255, 255, 255, 0.09);
     border-color: rgba(255, 255, 255, 0.18);
     transform: translateY(-1px);
@@ -394,7 +588,7 @@
 
 .entry-link:active {
     transform: scale(0.96) translateY(0);
-    transition-duration: 60ms;
+    transition-duration: var(--duration-instant);
 }
 
 .entry-link-label {
@@ -416,5 +610,41 @@
 }
 
 .animate-fade-in {
-    animation: fadeIn 150ms ease-out both;
+    animation: fadeIn var(--duration-fast) var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-fade-in {
+        animation: none;
+    }
+}
+
+/* ── MOBILE CONTACT STRIP ICONS ─────────────────────────── */
+
+.project-contact-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--radius-btn);
+    color: rgba(255, 255, 255, var(--op-faint));
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-1);
+    text-decoration: none;
+    transition:
+        color var(--duration-fast) ease,
+        background var(--duration-fast) ease,
+        border-color var(--duration-fast) ease;
+}
+
+.project-contact-icon:hover {
+    color: rgba(255, 255, 255, var(--op-subdued));
+    background: var(--surface-3);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.project-contact-icon:active {
+    transform: scale(0.93);
+    transition-duration: var(--duration-instant);
 }

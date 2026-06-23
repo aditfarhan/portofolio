@@ -51,6 +51,9 @@ export function useCountUp(
         return () => {
             if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
         };
+        // `targets` is intentionally excluded: it's a stable module-level constant
+        // (PROFILE_STATS never changes at runtime). Including it would restart the
+        // animation on every reference change, not just when values actually differ.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [trigger, duration]);
 

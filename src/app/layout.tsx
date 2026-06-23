@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 
-import { ThemeProvider } from "@/components";
 import { WebVitals } from "@/app/web-vitals";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { portfolio } from "@/data/portfolio";
+import { portfolio, PROFILE_ROLE, CONTACT_LINKS } from "@/data/portfolio";
+
+const _emailLink = CONTACT_LINKS.find(l => l.href.startsWith("mailto:"))!;
+const _emailAddress = _emailLink.href.replace("mailto:", "");
 
 // Structured data for SEO - Enhanced with additional schema types
 const structuredData = [
@@ -15,7 +17,7 @@ const structuredData = [
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Muhammad Aditia Farhan",
-    jobTitle: "Software Engineer",
+    jobTitle: PROFILE_ROLE,
     description:
       "Experienced software engineer specializing in scalable web applications, healthcare technology, and modern development practices.",
     url: "https://aditfarhan-portofolio.vercel.app",
@@ -49,7 +51,7 @@ const structuredData = [
       "Web Development",
       "Software Engineering",
     ],
-    email: "aditiafarhan25@gmail.com",
+    email: _emailAddress,
     worksFor: {
       "@type": "Organization",
       name: "PT. Pertamina Bina Medika IHC",
@@ -103,7 +105,7 @@ const structuredData = [
       "@type": "ListItem",
       position: i + 1,
       name: p.title,
-      description: p.description ?? p.tagline ?? "",
+      description: p.description,
     })),
   },
   // FAQPage schema - for FAQ rich results
@@ -158,26 +160,23 @@ const structuredData = [
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: "swap", // Optimize font loading
-  preload: true,
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-  display: "swap", // Optimize font loading
-  preload: true,
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://aditfarhan-portofolio.vercel.app"),
   title: {
-    default:
-      "Muhammad Aditia Farhan - Software Engineer Portfolio | React, Next.js, Healthcare Tech",
-    template: "%s | Muhammad Aditia Farhan", // Template for child pages
+    default: "Muhammad Aditia Farhan — Software Engineer",
+    template: "%s | Muhammad Aditia Farhan",
   },
   description:
-    "Professional software engineer portfolio of Muhammad Aditia Farhan. Expert in React, Next.js, TypeScript, and healthcare technology. 5+ years experience building scalable web applications for enterprise clients.",
+    "Professional software engineer portfolio of Muhammad Aditia Farhan. Specializing in React, Next.js, TypeScript, and healthcare technology. 5+ years experience building scalable web applications for enterprise clients.",
   keywords: [
     "Muhammad Aditia Farhan",
     "software engineer portfolio",
@@ -197,7 +196,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "Muhammad Aditia Farhan - Expert Software Engineer | React, Next.js, Healthcare Tech",
+      "Muhammad Aditia Farhan - Software Engineer | React, Next.js, Healthcare Tech",
     description:
       "View Muhammad Aditia Farhan's professional portfolio. 5+ years experience building scalable web applications with React, Next.js, and TypeScript. Specializing in healthcare technology and enterprise solutions.",
     type: "website",
@@ -206,7 +205,7 @@ export const metadata: Metadata = {
     siteName: "Muhammad Aditia Farhan Portfolio",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Muhammad Aditia Farhan - Software Engineer Portfolio",
@@ -219,7 +218,7 @@ export const metadata: Metadata = {
     description:
       "Professional software engineer with 5+ years experience in React, Next.js, TypeScript, and healthcare technology. View my portfolio of scalable web applications.",
     creator: "@adtfrhan",
-    images: ["/og-image.jpg"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -248,15 +247,12 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         {/* Performance optimizations */}
         <meta name="theme-color" content="#0a0a0a" />
-        <meta name="color-scheme" content="dark light" />
+        <meta name="color-scheme" content="dark" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
         <link rel="preload" href="/icons.svg" as="image" type="image/svg+xml" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="preconnect" href="https://logo.clearbit.com" />
         {structuredData.map((data, index) => (
           <script
             key={index}
@@ -273,16 +269,14 @@ export default function RootLayout({
         <WebVitals />
         <Analytics />
         <SpeedInsights />
-        <ThemeProvider>
-          <a href="#main" className="skip-link">
-            Skip to content
-          </a>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
 
-          {/* Full-viewport canvas, no vertical scrolling */}
-          <main id="main" className="h-[100dvh] overflow-hidden">
-            {children}
-          </main>
-        </ThemeProvider>
+        {/* Full-viewport canvas, no vertical scrolling */}
+        <main id="main" className="h-[100dvh] overflow-hidden">
+          {children}
+        </main>
 
       </body>
     </html>

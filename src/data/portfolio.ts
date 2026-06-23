@@ -1,46 +1,47 @@
 /**
  * Portfolio Data
  *
- * Central source of truth for all project data.
- * Updated with CV data — 10 projects total.
+ * Central source of truth for all project, profile, and contact data.
  */
 
-import type { PortfolioData, ProfileStat, Testimonial, HowIWorkItem } from "@/types";
+import type { PortfolioData, ProfileStat, ContactLink } from "@/types";
+
+/** Single source of truth for displayed job title across ProfileCard, OG meta, and schema. */
+export const PROFILE_ROLE = "Software Engineer";
+
+/** Industries subtitle — avoids brittle PROFILE_STATS[2].detail index access. */
+export const PROFILE_INDUSTRIES = "Healthcare · Logistics · E-commerce · Telecom";
+
+/** Positioning tagline shown under name on both profile layouts. */
+export const PROFILE_TAGLINE = "Healthcare · Infrastructure · Scale";
 
 /**
- * Shared stats used by both ProfileCard and AboutMe
+ * Employment timeline — single source of truth for the company line in ProfileCard.
+ * Order: most-recent first. `end: null` means current.
+ */
+export const EMPLOYMENT = [
+  { company: "Pertamina IHC", period: "2023–now", end: null },
+  { company: "Orami", period: "2021–2023", end: "2023-05" },
+] as const;
+
+/**
+ * Shared stats used by both ProfileCard and AboutMe.
+ * `detail` on the last stat renders as the industries subtitle in AboutMe.
  */
 export const PROFILE_STATS: ProfileStat[] = [
   { value: 5, suffix: "+", label: "years" },
   { value: 12, suffix: "+", label: "hospitals" },
-  { value: 3, suffix: "", label: "industries", detail: "Healthcare · Logistics · E-commerce" },
+  { value: 4, suffix: "", label: "industries", detail: PROFILE_INDUSTRIES },
 ];
 
 /**
- * Testimonials / endorsements
+ * Contact / social links — single source of truth used by ProfileCard and ProjectCard.
  */
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    quote: "Farhan consistently delivers clean, scalable solutions under tight deadlines. His work on the EMR rollout was critical to our nationwide deployment.",
-    name: "Technical Lead",
-    role: "Engineering Manager",
-    company: "PT. Pertamina Bina Medika IHC",
-  },
-  {
-    quote: "One of the most thorough frontend engineers I've worked with. He introduced testing culture and significantly improved our codebase quality.",
-    name: "Senior Engineer",
-    role: "Tech Lead",
-    company: "Orami by SIRCLO",
-  },
-];
-
-/**
- * How I Work — methodology bullets
- */
-export const HOW_I_WORK: HowIWorkItem[] = [
-  { title: "Iterative delivery", desc: "Ship in small, reviewable increments — weekly demos, not quarterly surprises." },
-  { title: "Async-first communication", desc: "PRs, RFCs, and docs over meetings. Context stays searchable." },
-  { title: "Cross-functional pairing", desc: "Work directly with designers, QA, and product — not in silos." },
+export const CONTACT_LINKS: ContactLink[] = [
+  { href: "mailto:aditiafarhan25@gmail.com", icon: "icon-mail", label: "Email", tooltip: "Email" },
+  { href: "/Muhammad-Aditia-Farhan-Resume.pdf", icon: "icon-download", label: "Download Resume", tooltip: "Resume", download: true },
+  { href: "https://github.com/aditfarhan", icon: "icon-github", label: "GitHub", tooltip: "GitHub", external: true },
+  { href: "https://www.linkedin.com/in/muhammad-aditia-farhan", icon: "icon-linkedin", label: "LinkedIn", tooltip: "LinkedIn", external: true },
 ];
 
 export const portfolio: PortfolioData = {
@@ -52,7 +53,7 @@ export const portfolio: PortfolioData = {
       title: "National HIS & EMR Platform",
       description:
         "Hospital Information System and Electronic Medical Record deployed across 12+ hospitals under PT. Pertamina Bina Medika IHC, handling thousands of clinical transactions daily.",
-      impact: "12+ hospitals · Thousands of daily clinical transactions",
+      impact: "12+ hospitals · 5,000+ daily clinical users",
       period: { start: "2023-12", end: null },
       tags: [
         "React",
@@ -200,6 +201,9 @@ export const portfolio: PortfolioData = {
         "Led refactoring of legacy components to TypeScript with zero regressions",
         "Built loyalty and points-based rewards integration",
         "Improved checkout conversion through UX optimization",
+      ],
+      links: [
+        { type: "demo", url: "https://www.orami.co.id", label: "Live platform" },
       ],
     },
 

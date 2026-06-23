@@ -1,49 +1,11 @@
 /* ========== UTILITY CLASSES ========== */
 
-.mobile-scroll-fix {
-  -webkit-overflow-scrolling: touch;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  will-change: scroll-position;
-  perspective: 0;
-  -webkit-perspective: 0;
-}
-
-.reveal {
-  opacity: 0.95;
-  transform: translateY(5px);
-  transition: opacity 160ms ease, transform 160ms ease;
-}
-
-.group:hover .reveal,
-.group:focus-within .reveal {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .border-token {
   border-color: var(--border);
 }
 
 .text-muted {
   color: var(--muted-fg);
-}
-
-.clamp-2,
-.clamp-3 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.clamp-2 {
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-}
-
-.clamp-3 {
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
 }
 
 .brand-gradient {
@@ -56,40 +18,7 @@
   background-clip: text;
   color: transparent;
   font-weight: 700;
-  letter-spacing: -0.025em;
-}
-
-.hero {
-  position: relative;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse at center,
-      transparent 0%,
-      transparent 40%,
-      rgba(255, 255, 255, 0.02) 70%,
-      rgba(255, 255, 255, 0.05) 100%);
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.01) 50%,
-      transparent 100%),
-    linear-gradient(0deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.01) 50%,
-      transparent 100%);
-  background-size: 60px 60px;
-  opacity: 0.3;
+  letter-spacing: var(--tracking-tight);
 }
 
 /* Skip Link */
@@ -101,11 +30,12 @@
   color: var(--background);
   padding: 0.5rem 0.75rem;
   border-radius: 0.125rem;
-  z-index: 1000;
-  transition: top 150ms ease;
+  z-index: var(--z-skip);
+  transition: top var(--duration-fast) ease;
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 0.75rem;
+  font-size: var(--fs-sm);
+  letter-spacing: var(--tracking-caps);
 }
 
 .skip-link:focus,
@@ -135,7 +65,7 @@
 .btn-press:active {
   transform: scale(0.95) translateY(1px);
   opacity: 0.85;
-  transition-duration: 60ms !important;
+  transition-duration: var(--duration-instant) !important;
 }
 
 /* Scrollbar Styles */
@@ -153,7 +83,7 @@
   background: var(--border);
   border-radius: 0;
   border: 0.0625rem solid var(--muted);
-  transition: background 150ms ease;
+  transition: background var(--duration-fast) ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -49,7 +49,7 @@ interface UseFlipAnimationReturn {
  * ```
  */
 export function useFlipAnimation(
-  animationDuration = 600
+  animationDuration = 700
 ): UseFlipAnimationReturn {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);

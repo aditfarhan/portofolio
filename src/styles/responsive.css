@@ -1,9 +1,9 @@
 /* ========== RESPONSIVE DESIGN ========== */
 
-/* Reduced motion preferences */
+/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
 
-  /* Disable meteor animations */
+  /* Disable atmospheric animations */
   .meteor-container,
   .meteor-shower-burst,
   .star-field,
@@ -11,14 +11,13 @@
     display: none !important;
   }
 
-  /* Keep moon but reduce animation */
-  .moon.ultra-bright,
+  /* Keep moon but freeze animation */
   .moon.realistic {
     animation: none !important;
     transition: none !important;
   }
 
-  /* Disable all complex animations */
+  /* Blanket animation freeze */
   *,
   *::before,
   *::after {
@@ -28,28 +27,27 @@
     scroll-behavior: auto !important;
   }
 
-  .shimmer-card.jewel-profile::before,
-  .shimmer-card.jewel-profile::after,
-  .shimmer-card.jewel-profile .jewel-sparkle,
-  .about-constellation .jewel-sparkle,
   .arrival-orb {
     animation: none !important;
     display: none !important;
   }
 
-  .bg-card:hover,
-  .btn:hover,
-  .btn-outline:hover,
-  .action-cta:hover,
   .action-icon:hover {
     transform: none !important;
   }
+
+  /* Show cards immediately — skip JS-driven arrival sequence */
+  .home-card--profile,
+  .home-card--about {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
-/* Enhanced Responsive Design for All Screen Sizes */
+/* ── Extra small (< 480px) ── */
 @media (max-width: 480px) {
 
-  /* Extra small devices - very mobile optimized */
   .star-field .star.small {
     display: none;
   }
@@ -76,96 +74,12 @@
 
   .meteor-shower-burst {
     display: none;
-    /* Disable meteor bursts on very small screens */
-  }
-
-  .moon.ultra-bright {
-    width: 50px;
-    height: 50px;
-  }
-
-  /* Set card height to 35% of screen height on mobile */
-  .card-flip-container {
-    height: 45vh !important;
-    /* Responsive to screen height */
-  }
-
-  /* Reduce gap between cards on mobile - responsive */
-  .grid.gap-5 {
-    gap: clamp(0.25rem,
-        1.5vw,
-        0.5rem) !important;
-    /* Smaller responsive gap to maximize card height */
-  }
-
-  /* AboutMe mobile optimizations - responsive sizing */
-  .card-flip-front .flex.flex-col>div:first-child {
-    padding: clamp(0.25rem, 2vw, 0.5rem) !important;
-    /* Responsive padding */
-  }
-
-  .card-flip-front .flex.flex-col h2 {
-    font-size: clamp(0.625rem,
-        3.5vw,
-        0.75rem) !important;
-    /* Responsive font size */
-  }
-
-
-
-  .card-flip-front .flex.flex-col [role="tabpanel"] p {
-    font-size: clamp(0.5rem,
-        2.5vw,
-        0.625rem) !important;
-    /* Responsive font size */
-  }
-
-  .card-flip-front .flex.flex-col [role="tabpanel"] span {
-    font-size: clamp(0.5rem,
-        2.5vw,
-        0.625rem) !important;
-    /* Responsive font size */
-  }
-
-  .card-flip-front .grid.grid-cols-1 .group.relative {
-    padding: clamp(0.25rem, 2vw, 0.5rem) !important;
-    /* Responsive padding */
-    min-height: clamp(4rem, 15vh, 6.25rem) !important;
-    /* Responsive height */
-  }
-
-  .card-flip-front .grid.grid-cols-1 .group.relative h4 {
-    font-size: clamp(0.5625rem,
-        3vw,
-        0.6875rem) !important;
-    /* Responsive font size */
-  }
-
-  .card-flip-front .grid.grid-cols-1 .group.relative p {
-    font-size: clamp(0.5rem,
-        2.5vw,
-        0.625rem) !important;
-    /* Responsive font size */
-  }
-
-  /* Reduce scrollable content height in AboutMe on mobile - responsive */
-  .card-flip-front .mobile-scroll-fix {
-    max-height: clamp(6rem, 25vh, 12.5rem) !important;
-    /* Responsive height */
-  }
-
-  /* Make Interests section scrollable on mobile - responsive */
-  .card-flip-front .grid.grid-cols-1 {
-    overflow-y: auto !important;
-    max-height: clamp(6rem, 25vh, 12.5rem) !important;
-    /* Responsive height */
-    -webkit-overflow-scrolling: touch;
   }
 }
 
+/* ── Small tablets (481–768px) ── */
 @media (min-width: 481px) and (max-width: 768px) {
 
-  /* Small tablets */
   .star-field .star.small {
     width: 0.5px;
     height: 0.5px;
@@ -186,13 +100,12 @@
 
   .meteor-shower-burst {
     opacity: 0.6;
-    /* Reduce intensity */
   }
 }
 
+/* ── Tablets / small laptops (769–1024px) ── */
 @media (min-width: 769px) and (max-width: 1024px) {
 
-  /* Tablets and small laptops */
   .star-field .star.small {
     display: block;
     opacity: 0.4;
@@ -212,9 +125,9 @@
   }
 }
 
+/* ── Desktop (≥ 1025px) ── */
 @media (min-width: 1025px) {
 
-  /* Desktop and larger screens - full effects */
   .star-field .star.small {
     display: block;
     opacity: 0.3;
@@ -242,7 +155,7 @@
   }
 }
 
-/* High-end displays */
+/* ── High-end displays (≥ 1440px) ── */
 @media (min-width: 1440px) {
   .star-field .star.large {
     width: 4px;
@@ -267,106 +180,77 @@
     height: 30px;
   }
 
-  .moon.ultra-bright {
-    width: 100px;
-    height: 100px;
-  }
-
-  /* Apply enhanced moon glow effects to desktop */
   .moon.realistic {
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
-      0 0 60px rgba(255, 255, 255, 0.5), 0 0 90px rgba(200, 200, 255, 0.3) !important;
-    /* Enhanced desktop glow effect */
+      0 0 60px rgba(255, 255, 255, 0.5),
+      0 0 90px rgba(200, 200, 255, 0.3) !important;
   }
 }
 
-/* Landscape orientation optimizations */
+/* ── Landscape on short screens ── */
 @media (orientation: landscape) and (max-height: 500px) {
+
   .star-field .star.small {
     display: none;
   }
 
   .meteor::before {
     height: 15px;
-    /* Shorter trails in landscape */
   }
 
   .meteor::after {
     height: 10px;
   }
-
-  .moon.ultra-bright {
-    width: 40px;
-    height: 40px;
-  }
 }
 
-/* Portrait orientation optimizations */
+/* ── Portrait orientation ── */
 @media (orientation: portrait) {
   .meteor-shower-burst .meteor-burst {
-    animation-duration: 1.2em;
-    /* Slower in portrait for better visibility */
+    animation-duration: 1.2s;
   }
 }
 
-/* Optimize for Mobile Performance */
+/* ── Mobile (≤ 768px) — atmosphere adjustments ── */
 @media (max-width: 768px) {
 
-  /* Enable subtle star field on mobile for atmosphere */
   .star-field {
     display: block !important;
     opacity: 0.4 !important;
-    /* Subtle opacity for atmosphere without distraction */
   }
 
   .meteor-container {
     display: block !important;
-    /* Enable meteor container for visible animation */
     opacity: 0.8 !important;
-    /* Higher opacity for better visibility */
   }
 
   .meteor-shower-burst {
     display: none !important;
-    /* Keep bursts disabled for performance */
   }
 
   .moon.realistic {
     display: block !important;
-    /* Enable moon for visible animation */
-    /* Start hidden, fade in after orb */
     opacity: 0;
     animation:
       moonFadeInMobileOnly 0.8s ease-out 2s forwards,
       realisticMoonAtmosphere 25s ease-in-out 2.8s infinite,
       lunarPhase 40s ease-in-out 2.8s infinite !important;
-    /* Slightly larger size for mobile */
     width: 60px !important;
     height: 60px !important;
     top: 50vh !important;
-    /* Position in the vertical center of the screen */
     left: 50% !important;
-    /* Center horizontally */
     transform: translate(-50%, -50%) !important;
-    /* Center the moon both horizontally and vertically */
-    /* Smooth transition for position changes */
-    transition: top 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    z-index: -1 !important;
-    /* Low z-index to ensure it appears behind the cards */
+    transition: top var(--duration-scene) var(--ease-in-out) !important;
+    z-index: var(--z-below) !important;
     position: fixed !important;
-    /* Ensure fixed positioning */
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
-      0 0 40px rgba(255, 255, 255, 0.3), 0 0 60px rgba(200, 200, 255, 0.2) !important;
-    /* Enhanced glow effect */
+      0 0 40px rgba(255, 255, 255, 0.3),
+      0 0 60px rgba(200, 200, 255, 0.2) !important;
   }
 
-  /* Moon position when projects are shown */
   .moon.realistic.moon-projects-view {
     top: 20vh !important;
-    /* Move to top 20% when showing projects */
   }
 
-  /* Make meteors more prominent on mobile */
   .meteor {
     width: 3px !important;
     height: 3px !important;
@@ -393,197 +277,17 @@
         transparent) !important;
   }
 
-  /* Simplify animations on mobile */
-  .shimmer-card.jewel-profile::before,
-  .shimmer-card.jewel-profile::after {
-    display: none !important;
-  }
-
+  /* Sparkles are too small and distracting on mobile */
   .jewel-sparkle {
     display: none !important;
   }
 
-  .about-constellation {
-    display: none !important;
-  }
-
-  /* Reduce card floating effects */
-  .card-floating {
-    box-shadow: none !important;
-  }
-
-  .card-floating:hover {
-    box-shadow: none !important;
-    transform: none !important;
-  }
-
-  /* Simplify action button animations */
-  .action-cta:hover,
   .action-icon:hover {
     transform: none !important;
   }
-
-  .mobile-scroll-fix {
-    /* Create proper containing block for mobile */
-    position: relative;
-    z-index: 1;
-  }
 }
 
-/* 3D Context Fixes */
-@media (min-width: 769px) {
-
-
-  /* CRITICAL FIX: Prevent front side from blocking back side interactions */
-  .card-flip-front {
-    /* When card is flipped, front side should not capture pointer events */
-    pointer-events: auto;
-  }
-
-  .rotate-y-180 .card-flip-front {
-    pointer-events: none !important;
-    z-index: 1 !important;
-  }
-
-  .card-flip-back {
-    pointer-events: auto;
-  }
-
-  .rotate-y-180 .card-flip-back {
-    pointer-events: auto !important;
-    z-index: 2 !important;
-  }
-
-  /* Ensure action buttons are always interactive when visible */
-  .card-flip-back .action-group,
-  .card-flip-back .action-cta,
-  .card-flip-back .action-icon {
-    pointer-events: auto !important;
-  }
-
-  /* Fix z-index stacking to ensure back side content is above front side when flipped */
-  .card-flip-inner {
-    position: relative;
-  }
-
-  .card-flip-front {
-    z-index: 2;
-  }
-
-  .rotate-y-180 .card-flip-front {
-    z-index: 1 !important;
-  }
-
-  .card-flip-back {
-    z-index: 1;
-  }
-
-  .rotate-y-180 .card-flip-back {
-    z-index: 2 !important;
-  }
-
-  /* Ensure ProfileCard content on back side has proper z-index */
-  .card-flip-back .action-group {
-    position: relative;
-    z-index: 10 !important;
-  }
-}
-
-/* Enhanced mobile scrolling - preserve existing functionality */
-@media (max-width: 768px) {
-  .mobile-scroll-fix {
-    -webkit-overflow-scrolling: touch;
-    overflow-scrolling: touch;
-    /* Apply hardware acceleration only on mobile */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    will-change: scroll-position;
-  }
-
-
-
-  /* CRITICAL FIX: Apply same pointer-events and z-index fixes for mobile */
-  .card-flip-front {
-    pointer-events: auto;
-  }
-
-  .rotate-y-180 .card-flip-front {
-    pointer-events: none !important;
-  }
-
-  .card-flip-back {
-    pointer-events: auto;
-  }
-
-  .rotate-y-180 .card-flip-back {
-    pointer-events: auto !important;
-  }
-
-  /* Ensure action buttons are always interactive when visible on mobile */
-  .card-flip-back .action-group,
-  .card-flip-back .action-cta,
-  .card-flip-back .action-icon {
-    pointer-events: auto !important;
-  }
-
-  /* Fix z-index stacking for mobile */
-  .card-flip-inner {
-    position: relative;
-  }
-
-  .card-flip-front {
-    z-index: 2;
-  }
-
-  .rotate-y-180 .card-flip-front {
-    z-index: 1 !important;
-  }
-
-  .card-flip-back {
-    z-index: 1;
-  }
-
-  .rotate-y-180 .card-flip-back {
-    z-index: 2 !important;
-  }
-
-  /* Ensure ProfileCard content on back side has proper z-index on mobile */
-  .card-flip-back .action-group {
-    position: relative;
-    z-index: 10 !important;
-  }
-
-  /* Additional mobile-specific fix: ensure touch events work properly */
-  .card-flip-back .action-cta,
-  .card-flip-back .action-icon {
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
-    touch-action: manipulation;
-    min-height: 44px;
-    /* Ensure minimum touch target size */
-    min-width: 44px;
-  }
-
-  /* Improve focus visibility on mobile */
-  .action-cta:focus-visible,
-  .action-icon:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 2px;
-  }
-
-  /* Ensure tab navigation works properly on mobile */
-  [role="tab"] {
-    min-height: 44px;
-    min-width: 44px;
-  }
-
-  /* Improve scrolling experience */
-  .mobile-scroll-fix {
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-  }
-}
-
-/* GPU Acceleration for Better Performance */
+/* ── GPU Acceleration ── */
 .meteor,
 .meteor-burst,
 .star,
@@ -594,7 +298,7 @@
   perspective: 1000px;
 }
 
-/* High DPI Display Optimization */
+/* ── High DPI ── */
 @media (-webkit-min-device-pixel-ratio: 2),
 (min-resolution: 192dpi) {
   .star.medium {
@@ -608,7 +312,7 @@
   }
 }
 
-/* Browser-specific optimizations */
+/* ── WebKit transforms ── */
 @supports (-webkit-appearance: none) {
   .meteor::before {
     -webkit-transform: translateY(-50%) rotate(45deg);
@@ -619,18 +323,7 @@
   }
 }
 
-/* Firefox specific optimizations */
-@-moz-document url-prefix() {
-
-  .meteor,
-  .meteor-burst,
-  .star,
-  .moon {
-    -moz-transform: translateZ(0);
-  }
-}
-
-/* Fallback for browsers without CSS Grid/Flexbox support */
+/* ── Grid/Flex fallback ── */
 @supports not (display: grid) {
   .star-field {
     display: block;
@@ -641,7 +334,7 @@
   }
 }
 
-/* Print media optimization */
+/* ── Print ── */
 @media print {
 
   .meteor-container,
@@ -649,5 +342,61 @@
   .star-field,
   .moon {
     display: none !important;
+  }
+}
+
+/* ── LANDSCAPE MOBILE TEXT FIXES ──────────────────────────
+   At low viewport heights (rotated phones), text must stay
+   readable. Prevent sub-0.7rem text in project entries.
+──────────────────────────────────────────────────────────── */
+
+@media (orientation: landscape) and (max-height: 600px) {
+  .entry-title {
+    font-size: var(--fs-md) !important;
+    line-height: var(--lh-title);
+  }
+
+  .entry-text,
+  .entry-context {
+    font-size: var(--fs-xs) !important;
+    line-height: var(--lh-snug);
+  }
+
+  .entry-highlight {
+    font-size: var(--fs-xs) !important;
+    line-height: var(--lh-snug);
+  }
+
+  .entry-label {
+    font-size: var(--fs-2xs) !important;
+  }
+
+  .entry-tag {
+    font-size: var(--fs-2xs) !important;
+  }
+
+  .project-entry {
+    padding: 0.5rem 0.75rem 0.5rem 0.625rem !important;
+    gap: 0.35rem !important;
+  }
+
+  .entry-body {
+    gap: 0.3rem !important;
+  }
+
+  .home-card--profile .text-xl,
+  .home-card--profile .text-2xl,
+  .home-card--profile h1 {
+    font-size: var(--fs-md) !important;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .home-card--profile .availability-badge {
+    font-size: var(--fs-2xs) !important;
+  }
+
+  .home-deck-grid.projects-focused .home-card--profile .about-stat-divider,
+  .home-deck-grid.projects-focused .home-card--profile [aria-label="Career highlights"] {
+    display: none;
   }
 }

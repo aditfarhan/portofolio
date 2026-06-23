@@ -22,18 +22,19 @@ src/
 │   ├── AboutMe.tsx        # Principles + skills card (right)
 │   ├── ProjectCard.tsx    # Projects viewer with keyboard + swipe nav
 │   ├── ProjectEntry.tsx   # Individual project log entry
-│   ├── BackgroundEffects/ # Stars, moon, meteors (lazy-loaded)
+│   ├── BackgroundEffects.tsx # Stars, moon, meteors (lazy-loaded)
 │   ├── ErrorBoundary.tsx  # Graceful fallback for ProjectsViewer
 │   └── ThemeProvider.tsx  # Applies data-theme attribute (no external dep)
 ├── data/
 │   └── portfolio.ts       # Single source of truth for all project data
 ├── hooks/
 │   ├── useFlipAnimation.ts # Card flip state with animation guard
+│   ├── useCountUp.ts      # Shared rAF loop for stat counters
+│   ├── useShineEffect.ts  # rAF-throttled cursor shine effect
 │   └── index.ts
 ├── lib/
-│   ├── utils.ts           # formatDate, getLogoUrl, debounce, throttle
-│   ├── constants.ts       # EXPERIENCE data (used by constants consumers)
-│   ├── env.ts             # Environment validation
+│   ├── utils.ts           # formatDate (UTC-safe)
+│   ├── constants.ts       # Star/meteor animation configs
 │   └── performance.ts     # Web vitals helpers
 ├── styles/
 │   ├── globals.css        # Design tokens, Tailwind base

@@ -197,34 +197,6 @@
   }
 }
 
-@keyframes realisticMoonGlow {
-
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.08),
-      0 0 40px rgba(255, 255, 255, 0.04);
-    transform: scale(1) rotate(0deg);
-  }
-
-  25% {
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.12),
-      0 0 60px rgba(255, 255, 255, 0.06), 0 0 80px rgba(255, 255, 255, 0.02);
-    transform: scale(1.02) rotate(0.5deg);
-  }
-
-  50% {
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.15),
-      0 0 80px rgba(255, 255, 255, 0.08), 0 0 100px rgba(255, 255, 255, 0.04);
-    transform: scale(1.05) rotate(0deg);
-  }
-
-  75% {
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.12),
-      0 0 60px rgba(255, 255, 255, 0.06), 0 0 80px rgba(255, 255, 255, 0.02);
-    transform: scale(1.02) rotate(-0.5deg);
-  }
-}
-
 /* Star Animations */
 @keyframes starTwinkle {
 
@@ -311,142 +283,6 @@
   }
 }
 
-/* ========== CV DOWNLOAD ANIMATIONS ========== */
-
-/* CV Download Button Animation */
-@keyframes cvDownloadPulse {
-
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
-    transform: scale(1);
-  }
-
-  50% {
-    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
-    transform: scale(1.02);
-  }
-}
-
-/* CV Document Floating Animation */
-@keyframes cvDocumentFloat {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-    opacity: 0.8;
-  }
-
-  25% {
-    transform: translateY(-8px) rotate(1deg);
-    opacity: 1;
-  }
-
-  50% {
-    transform: translateY(-4px) rotate(-0.5deg);
-    opacity: 0.9;
-  }
-
-  75% {
-    transform: translateY(-12px) rotate(0.8deg);
-    opacity: 0.95;
-  }
-
-  100% {
-    transform: translateY(0px) rotate(0deg);
-    opacity: 0.8;
-  }
-}
-
-/* CV Download Progress Animation */
-@keyframes cvDownloadProgress {
-  0% {
-    width: 0%;
-    background: linear-gradient(90deg, var(--brand-a), var(--brand-b));
-  }
-
-  100% {
-    width: 100%;
-    background: linear-gradient(90deg, var(--brand-b), var(--brand-c));
-  }
-}
-
-/* CV Sparkle Trail Effect */
-@keyframes cvSparkleTrail {
-  0% {
-    opacity: 0;
-    transform: translateX(0) translateY(0) scale(0);
-  }
-
-  20% {
-    opacity: 1;
-    transform: translateX(-10px) translateY(-5px) scale(1);
-  }
-
-  80% {
-    opacity: 0.8;
-    transform: translateX(-30px) translateY(-15px) scale(0.8);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateX(-50px) translateY(-25px) scale(0);
-  }
-}
-
-/* CV Hover Glow Effect */
-@keyframes cvHoverGlow {
-  0% {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-  }
-
-  50% {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
-      0 0 30px rgba(255, 255, 255, 0.3);
-  }
-
-  100% {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-  }
-}
-
-/* CV Download Success Animation */
-@keyframes cvDownloadSuccess {
-  0% {
-    transform: scale(1) rotate(0deg);
-    background: linear-gradient(135deg, var(--brand-a), var(--brand-b));
-  }
-
-  25% {
-    transform: scale(1.1) rotate(5deg);
-    background: linear-gradient(135deg, var(--brand-b), var(--brand-c));
-  }
-
-  50% {
-    transform: scale(1.05) rotate(-2deg);
-    background: linear-gradient(135deg, var(--brand-c), var(--brand-a));
-  }
-
-  75% {
-    transform: scale(1.02) rotate(1deg);
-    background: linear-gradient(135deg, var(--brand-a), var(--brand-b));
-  }
-
-  100% {
-    transform: scale(1) rotate(0deg);
-    background: linear-gradient(135deg, var(--brand-a), var(--brand-b));
-  }
-}
-
-/* Premium Shimmer Effect */
-@keyframes premiumShimmer {
-  0% {
-    background-position: -120% 0;
-  }
-
-  100% {
-    background-position: 120% 0;
-  }
-}
-
 /* Diamond Glow Effect */
 @keyframes diamondGlow {
 
@@ -488,21 +324,6 @@
   50% {
     opacity: 0.8;
     transform: translateY(-40%) rotate(45deg) scaleY(1.2);
-  }
-}
-
-/* Meteor Core Glow */
-@keyframes meteorCoreGlow {
-
-  0%,
-  100% {
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.9),
-      0 0 8px rgba(255, 240, 120, 0.7), 0 0 12px rgba(255, 200, 80, 0.5);
-  }
-
-  50% {
-    box-shadow: 0 0 6px rgba(255, 255, 255, 1),
-      0 0 12px rgba(255, 240, 120, 0.9), 0 0 18px rgba(255, 200, 80, 0.7);
   }
 }
 
@@ -563,38 +384,6 @@
   }
 }
 
-/* Bright Moon Glow */
-@keyframes brightMoonGlow {
-
-  0%,
-  100% {
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3),
-      0 0 80px rgba(255, 255, 255, 0.2), 0 0 120px rgba(255, 255, 255, 0.1),
-      inset -6px -6px 12px rgba(200, 200, 200, 0.3),
-      inset 4px 4px 8px rgba(255, 255, 255, 0.9);
-  }
-
-  50% {
-    box-shadow: 0 0 60px rgba(255, 255, 255, 0.4),
-      0 0 120px rgba(255, 255, 255, 0.3), 0 0 180px rgba(255, 255, 255, 0.15),
-      inset -6px -6px 12px rgba(200, 200, 200, 0.3),
-      inset 4px 4px 8px rgba(255, 255, 255, 0.9);
-  }
-}
-
-/* Bright Moon Float */
-@keyframes brightMoonFloat {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-3px);
-  }
-}
-
 /* Moon Fade In - Appears after arrival orb completes */
 @keyframes moonFadeIn {
   0% {
@@ -604,19 +393,6 @@
 
   100% {
     opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Moon Fade In Mobile - Higher final opacity for mobile visibility */
-@keyframes moonFadeInMobile {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-
-  100% {
-    opacity: 0.9;
     transform: scale(1);
   }
 }

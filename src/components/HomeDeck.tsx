@@ -1,13 +1,12 @@
 "use client";
 
-import { memo, useMemo, useState, lazy, Suspense } from "react";
+import { memo, useMemo, useState, lazy, Suspense, useEffect, useRef } from "react";
 import { portfolio } from "@/data/portfolio";
 import { ProfileCard, AboutMe } from "@/components";
 import { useFlipAnimation } from "@/hooks";
-import ProjectsViewer from "@/components/ProjectCard";
+import ProjectsViewer, { type FilterOption } from "@/components/ProjectCard";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
-// Lazy-load background effects — pure decoration, defer until after TTI
 const BackgroundEffects = lazy(() =>
   import("@/components").then((m) => ({ default: m.BackgroundEffects }))
 );
@@ -24,26 +23,67 @@ const HomeDeck = memo(function HomeDeck() {
   }, []);
 
   const [showCards, setShowCards] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<FilterOption>("All");
+  const projectsContentRef = useRef<HTMLDivElement | null>(null);
 
+  // Panel transition state:
+  //   showProjects — which content is currently MOUNTED
+  //   panelExiting — true while exit animation plays (220ms)
+  //   panelKey — increments on each switch to re-trigger the enter animation
+  const [showProjects, setShowProjects] = useState(false);
+  const [panelExiting, setPanelExiting] = useState(false);
+  const [panelKey, setPanelKey] = useState(0);
 
-  // Card entrance styles — left card primary (0ms), right card secondary (200ms)
+  // Resolve prefers-reduced-motion on the client only — avoids SSR/hydration mismatch.
+  // If reduced motion is set, skip the arrival delay and show cards immediately.
+  // Fallback timeout (1200ms) matches the orb animation duration; the orb's
+  // onArrivalComplete callback fires first and wins in practice.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setShowCards(true);
+      return;
+    }
+    const t = setTimeout(() => setShowCards(true), 1200);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    if (isFlipped && !isAnimating) {
+      const t = setTimeout(() => projectsContentRef.current?.focus(), 400);
+      return () => clearTimeout(t);
+    }
+    return undefined;
+  }, [isFlipped, isAnimating]);
+
+  // Coordinate smooth exit → switch → enter transition.
+  // isFlipped changes immediately; showProjects lags by 220ms (exit animation).
+  useEffect(() => {
+    if (isFlipped === showProjects) return;
+
+    setPanelExiting(true);
+    const t = setTimeout(() => {
+      setShowProjects(isFlipped);
+      setPanelExiting(false);
+      setPanelKey((k) => k + 1); // re-mount panel div → re-triggers enter animation
+    }, 220);
+    return () => clearTimeout(t);
+  }, [isFlipped, showProjects]);
+
   const leftCardStyle = {
-    transition: "opacity 700ms ease, transform 700ms ease",
     opacity: showCards ? 1 : 0,
     transform: showCards ? "translateY(0)" : "translateY(12px)",
-    transitionDelay: "0ms",
+    transition: "opacity var(--duration-scene) ease, transform var(--duration-scene) ease",
   };
 
   const rightCardStyle = {
-    transition: "opacity 700ms ease, transform 700ms ease",
     opacity: showCards ? 1 : 0,
     transform: showCards ? "translateY(0)" : "translateY(12px)",
-    transitionDelay: showCards ? "200ms" : "0ms",
+    transition: "opacity var(--duration-scene) ease, transform var(--duration-scene) ease",
+    transitionDelay: showCards ? "var(--duration-base)" : "0ms",
   };
 
   return (
     <>
-      {/* Background — lazy-loaded, non-blocking. Fixed-size fallback avoids CLS on hydration */}
       <Suspense fallback={<div className="fixed inset-0 pointer-events-none" />}>
         <BackgroundEffects
           onArrivalComplete={() => setShowCards(true)}
@@ -51,63 +91,52 @@ const HomeDeck = memo(function HomeDeck() {
         />
       </Suspense>
 
-      <section className={`mx-auto max-w-5xl px-4 py-3 h-[100dvh] overflow-hidden`}>
+      {/* Fixed viewport height: both cards always fill exactly 100dvh.
+          No page scroll, no internal scroll — content is designed to fit. */}
+      <section
+        className="mx-auto max-w-5xl px-4 py-3 h-[100dvh] overflow-hidden"
+        aria-label="Portfolio"
+      >
         <div className={`home-deck-grid ${isFlipped ? "projects-focused" : ""}`}>
 
-          {/* LEFT CARD — primary, arrives first */}
+          {/* LEFT CARD — ProfileCard (full) or sidebar (when flipped) */}
           <div className="home-card home-card--profile" style={leftCardStyle}>
-            <div className={`card-flip-inner ${isFlipped ? "rotate-y-180" : ""}`} aria-roledescription="flip card">
-
-              {/* PROFILE */}
-              <div className="card-flip-front rounded-lg bg-card border border-token p-5">
-                <ProfileCard
-                  size="large"
-                  onToggleFlip={toggleFlip}
-                  isFlipped={isFlipped}
-                  isAnimating={isAnimating}
-                />
-              </div>
-
-              {/* PROJECTS — lazy mounted: only exists when card is flipped */}
-              <div className="card-flip-back rounded-lg bg-card border border-token p-5">
-                {isFlipped && (
-                  <ErrorBoundary>
-                    <ProjectsViewer
-                      projects={sortedProjects}
-                      onClose={toggleFlip}
-                      isActive={isFlipped}
-                    />
-                  </ErrorBoundary>
-                )}
-              </div>
-
+            <div className="rounded-lg bg-card border border-token h-full overflow-hidden">
+              <ProfileCard
+                size="large"
+                onToggleFlip={toggleFlip}
+                isFlipped={isFlipped}
+                isAnimating={isAnimating}
+              />
             </div>
           </div>
 
-          {/* RIGHT CARD — secondary, arrives 200ms later */}
-          <div
-            className={`home-card home-card--about ${isFlipped ? "collapsed" : ""}`}
-            style={rightCardStyle}
-          >
-            <div className={`card-flip-inner ${isFlipped ? "rotate-y-180" : ""}`} aria-roledescription="flip card">
-
-              {/* ABOUT — synchronous, no Suspense needed */}
-              <div className="card-flip-front rounded-lg bg-card border border-token overflow-hidden">
-                <AboutMe onToggleFlip={toggleFlip} isAnimating={isAnimating} />
-              </div>
-
-              {/* Back ProfileCard — lazy mounted: only exists when flipped */}
-              <div className="card-flip-back rounded-lg bg-card border border-token p-5">
-                {isFlipped && (
-                  <ProfileCard
-                    size="large"
-                    onToggleFlip={toggleFlip}
-                    isFlipped={isFlipped}
-                    isAnimating={isAnimating}
-                  />
+          {/* RIGHT CARD — AboutMe or ProjectsViewer.
+              panelExiting: plays exit animation on current content.
+              panelKey increment: re-mounts div, re-triggers enter animation on new content. */}
+          <div className="home-card home-card--about" style={rightCardStyle}>
+            <div className="rounded-lg bg-card border border-token h-full overflow-hidden">
+              <div
+                key={panelKey}
+                className={`h-full ${panelExiting ? "card-panel-exit" : "card-panel-enter"}`}
+              >
+                {showProjects ? (
+                  <ErrorBoundary>
+                    <div className="p-5 h-full">
+                      <ProjectsViewer
+                        projects={sortedProjects}
+                        onClose={toggleFlip}
+                        isActive={isFlipped}
+                        contentRef={projectsContentRef}
+                        activeFilter={activeFilter}
+                        onFilterChange={setActiveFilter}
+                      />
+                    </div>
+                  </ErrorBoundary>
+                ) : (
+                  <AboutMe onToggleFlip={toggleFlip} isAnimating={isAnimating} />
                 )}
               </div>
-
             </div>
           </div>
 

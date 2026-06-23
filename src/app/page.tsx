@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 import HomeDeck from "@/components/HomeDeck";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import { portfolio, PROFILE_STATS, CONTACT_LINKS, PROFILE_INDUSTRIES } from "@/data/portfolio";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title:
-    "Muhammad Aditia Farhan - Software Engineer Portfolio | React Next.js TypeScript Developer",
+  title: "Muhammad Aditia Farhan — Software Engineer Portfolio",
   description:
     "Professional software engineer Muhammad Aditia Farhan portfolio. 5+ years experience in React, Next.js, TypeScript. Healthcare tech, logistics platforms, scalable web apps. Jakarta Indonesia.",
   keywords: [
@@ -24,109 +24,84 @@ export const metadata: Metadata = {
     title:
       "Muhammad Aditia Farhan - Software Engineer | React, Next.js, Healthcare Tech",
     description:
-      "View Muhammad Aditia Farhan's professional portfolio. Expert in React, Next.js, TypeScript with 5+ years building scalable applications for healthcare and logistics.",
+      "View Muhammad Aditia Farhan's professional portfolio. Specializing in React, Next.js, TypeScript with 5+ years building scalable applications for healthcare and logistics.",
     type: "website",
     url: "/",
     siteName: "Muhammad Aditia Farhan Portfolio",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Muhammad Aditia Farhan - Software Engineer Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Muhammad Aditia Farhan - Software Engineer Portfolio",
     description:
       "Professional software engineer specializing in React, Next.js, TypeScript, and healthcare technology solutions.",
+    images: ["/opengraph-image"],
   },
 };
 
+// Collect unique tags from all projects for the skills section
+function collectAllTags(projects: typeof portfolio.projects): string[] {
+  const seen = new Set<string>();
+  for (const p of projects) {
+    for (const tag of p.tags) seen.add(tag);
+  }
+  return Array.from(seen);
+}
+
 export default function Home() {
+  const allTags = collectAllTags(portfolio.projects);
+  const emailLink = CONTACT_LINKS.find((l) => l.href.startsWith("mailto:"));
+
   return (
     <>
       <Suspense fallback={<LoadingSkeleton />}>
         <HomeDeck />
       </Suspense>
-      {/* Hidden SEO content for search engines */}
+
+      {/* Hidden SEO content — generated from portfolio data so it never goes stale */}
       <div className="sr-only">
-        <h1>
-          Muhammad Aditia Farhan - Professional Software Engineer Portfolio
-        </h1>
+        <p><strong>Muhammad Aditia Farhan — Software Engineer Portfolio</strong></p>
         <p>
-          Muhammad Aditia Farhan is a skilled software engineer with over 5
-          years of experience specializing in React.js, Next.js, TypeScript, and
-          healthcare technology solutions. Based in Jakarta and Bandung,
-          Indonesia, he has worked on enterprise-scale applications for
-          healthcare information systems, logistics platforms, and e-commerce
-          ecosystems.
+          {(() => {
+            const years = PROFILE_STATS.find(s => s.label === "years")!;
+            const hospitals = PROFILE_STATS.find(s => s.label === "hospitals")!;
+            const industries = PROFILE_STATS.find(s => s.label === "industries")!;
+            return <>
+              Muhammad Aditia Farhan is a software engineer with{" "}
+              {years.value}{years.suffix} {years.label} of experience,
+              having worked across {industries.value} industries including{" "}
+              {PROFILE_INDUSTRIES}. He has deployed systems to{" "}
+              {hospitals.value}{hospitals.suffix} {hospitals.label}, based in Jakarta, Indonesia.
+            </>;
+          })()}
         </p>
 
-        <h2>Technical Expertise</h2>
+        <h2>Key Projects ({portfolio.projects.length} total)</h2>
         <ul>
-          <li>Frontend Development: React.js, Next.js, TypeScript, Vue.js</li>
-          <li>Backend Development: Laravel, Node.js, REST APIs, GraphQL</li>
-          <li>DevOps & Cloud: Docker, Kubernetes, CI/CD, GCP, AWS</li>
-          <li>Databases: PostgreSQL, MySQL, MongoDB</li>
-          <li>Tools: Git, Jenkins, Storybook, Figma</li>
+          {portfolio.projects.map((p) => (
+            <li key={p.id}>
+              <strong>{p.title}</strong>
+              {p.company ? ` — ${p.company}` : ""}
+              {p.impact ? `: ${p.impact}.` : "."}
+              {" "}{p.description}
+            </li>
+          ))}
         </ul>
 
-        <h2>Professional Experience</h2>
-        <h3>
-          Software Engineer at PT. Pertamina Bina Medika IHC (2023-Present)
-        </h3>
-        <p>
-          Leading digital transformation across Indonesia's hospital network,
-          developing scalable EMR/HIS platforms used by medical teams
-          nationwide.
-        </p>
+        <h2>Technologies</h2>
+        <p>{allTags.join(", ")}.</p>
 
-        <h3>Frontend Engineer at OrderOnline.id (2023)</h3>
+        <h2>Contact</h2>
         <p>
-          Built logistics tracking applications and warehousing automation
-          systems for SMEs, implementing feature flags and API standardization.
-        </p>
-
-        <h3>Frontend Engineer at Orami by SIRCLO (2021-2022)</h3>
-        <p>
-          Developed core modules for reseller, brand, and influencer platforms,
-          creating scalable component foundations for high-traffic applications.
-        </p>
-
-        <h2>Key Projects</h2>
-        <h3>National HIS & EMR Platform</h3>
-        <p>
-          Large-scale hospital information system serving corporate and regional
-          hospitals across Indonesia with clinical workflows and hybrid
-          deployments.
-        </p>
-
-        <h3>OEXpress Logistics Platform</h3>
-        <p>
-          Modern logistics platform for delivery tracking, revenue monitoring,
-          and shipment management with reliability and smooth user experience.
-        </p>
-
-        <h3>IbuSibuk E-commerce Ecosystem</h3>
-        <p>
-          Multi-platform e-commerce solution for resellers, brands, and
-          influencers with elegant user experiences and scalable frontend
-          architecture.
-        </p>
-
-        <h2>Contact Information</h2>
-        <p>
-          Location: Jakarta & Bandung, Indonesia
-          <br />
-          Email: Available upon request
-          <br />
+          {emailLink && <>Email: {emailLink.href.replace("mailto:", "")}<br /></>}
           LinkedIn: linkedin.com/in/muhammad-aditia-farhan
-          <br />
-          Education: Bandung State Polytechnic (2020)
-        </p>
-
-        <h2>Skills & Technologies</h2>
-        <p>
-          Muhammad Aditia Farhan is proficient in modern web development
-          technologies including React.js, Next.js, TypeScript, Node.js,
-          Laravel, Docker, Kubernetes, PostgreSQL, MySQL, and various DevOps
-          tools. He specializes in building scalable applications for
-          healthcare, logistics, and e-commerce industries.
         </p>
       </div>
     </>

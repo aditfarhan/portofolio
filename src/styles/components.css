@@ -8,7 +8,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: -5;
+  z-index: var(--z-bg);
   background: radial-gradient(ellipse at center bottom,
       rgba(20, 25, 40, 0.3) 0%,
       rgba(10, 15, 25, 0.6) 40%,
@@ -47,7 +47,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: -3;
+  z-index: var(--z-stars);
 }
 
 .star {
@@ -89,7 +89,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: -1;
+  z-index: var(--z-below);
   overflow: hidden;
 }
 
@@ -125,7 +125,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: -2;
+  z-index: var(--z-meteors);
 }
 
 .meteor-burst {
@@ -171,7 +171,7 @@
   background: radial-gradient(circle at 30% 30%, #f0f0f0, #d0d0d0, #a0a0a0);
   border-radius: 50%;
   animation: moonGlow 6s ease-in-out infinite;
-  z-index: -1;
+  z-index: var(--z-below);
   pointer-events: none;
 }
 
@@ -231,7 +231,7 @@
     moonFadeIn 0.8s ease-out 2s forwards,
     realisticMoonAtmosphere 25s ease-in-out 2.8s infinite,
     lunarPhase 40s ease-in-out 2.8s infinite;
-  z-index: -4;
+  z-index: var(--z-moon);
   pointer-events: none;
   box-shadow: inset -8px -8px 15px rgba(150, 150, 150, 0.3),
     inset 5px 5px 10px rgba(255, 255, 255, 0.6),
@@ -343,124 +343,49 @@
     0 3px 15px rgba(200, 180, 160, 0.15);
 }
 
-/* Card Components */
-.card-flip-container {
-  perspective: 1200px;
+/* Card panel enter animation —
+   Fires on keyed re-mount when switching About ↔ Projects.
+   Subtle perspective gives a sense of depth without requiring fixed-height absolute stacking. */
+@keyframes cardPanelEnter {
+  from {
+    opacity: 0;
+    transform: perspective(600px) rotateY(8deg) translateY(4px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: perspective(600px) rotateY(0deg) translateY(0) scale(1);
+  }
 }
 
-.card-flip-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  /* Spring overshoot — peak-end rule: makes the flip the memorable moment.
-     cubic-bezier y1=1.28 causes slight overshoot past 180° before settling. */
-  transition: transform 0.68s cubic-bezier(0.34, 1.28, 0.64, 1);
-  transform-style: preserve-3d;
+.card-panel-enter {
+  animation: cardPanelEnter var(--duration-slow) var(--ease-card) both;
 }
 
-.card-flip-front,
-.card-flip-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  /* Sync visibility with rotation timing */
-  transition: visibility 0.7s step-start;
+@keyframes cardPanelExit {
+  from {
+    opacity: 1;
+    transform: perspective(600px) rotateY(0deg) translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: perspective(600px) rotateY(-6deg) translateY(-3px) scale(0.985);
+  }
 }
 
-.card-flip-front {
-  z-index: 2;
-  visibility: visible;
+.card-panel-exit {
+  animation: cardPanelExit var(--duration-base) var(--ease-exit) both;
+  pointer-events: none;
 }
 
-.card-flip-back {
-  transform: rotateY(180deg);
-  z-index: 1;
-  visibility: hidden;
-  /* Back starts hidden and becomes visible immediately on flip */
-}
-
-/* Symmetric visibility for flip state */
-.rotate-y-180 .card-flip-front {
-  visibility: hidden;
-  transition: visibility 0.7s step-end;
-  /* Delayed hide until rotation finishes */
-}
-
-.rotate-y-180 .card-flip-back {
-  visibility: visible;
-  transition: visibility 0.7s step-start;
-  /* Immediate show when rotation starts */
-}
-
-.rotate-y-180 {
-  transform: rotateY(180deg);
-}
-
-.rotate-y-0 {
-  transform: rotateY(0deg);
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-.card-floating {
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
-  transition: box-shadow 150ms ease;
-}
-
-.card-floating:hover {
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
-}
-
-/* Glassmorphism hover border on card faces */
-.card-flip-front:hover,
-.card-flip-back:hover {
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 0 80px rgba(255, 255, 255, 0.01);
-}
-
-/* Action Components */
-.action-group {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid var(--border);
-  border-radius: 0.125rem;
-  background-color: var(--card);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
-  overflow: hidden;
-}
-
-.action-cta {
-  height: 3rem;
-  padding: 0 1.25rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.75rem;
-  color: var(--background);
-  text-decoration: none;
-  border-right: 1px solid var(--border);
-  background-image: linear-gradient(135deg, var(--brand-a), var(--brand-b));
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: filter 150ms ease, transform 150ms ease;
-}
-
-.action-cta:hover {
-  filter: brightness(1.1);
-  transform: translateY(-1px);
-}
-
-.action-divider {
-  width: 1px;
-  height: 32px;
-  background: var(--border);
+@media (prefers-reduced-motion: reduce) {
+  .card-panel-enter {
+    animation: none;
+  }
+  .card-panel-exit {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 .action-icon {
@@ -471,8 +396,8 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  transition: color 140ms ease, background-color 140ms ease,
-    transform 140ms ease;
+  transition: color var(--duration-fast) ease, background-color var(--duration-fast) ease,
+    transform var(--duration-fast) ease;
   border-left: 1px solid var(--border);
 }
 
@@ -483,107 +408,9 @@
   transform: translateY(-1px);
 }
 
-/* Tooltip on action icons — shows aria-label on hover */
+/* Tooltip is handled by .action-icon--tooltip in profile-card.css via data-tooltip */
 .action-icon {
   position: relative;
-}
-
-.action-icon[aria-label]:focus-visible::after,
-.action-icon[aria-label]:hover::after {
-  content: attr(aria-label);
-  position: absolute;
-  bottom: -1.6rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.6rem;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.5);
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 1;
-  z-index: 50;
-}
-
-/* Logo Components */
-.logo-chip {
-  width: 2.5rem;
-  height: 2.5rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border);
-  border-radius: 0.125rem;
-  background: var(--card);
-  transition: all 140ms ease;
-  overflow: hidden;
-}
-
-.logo-chip img {
-  width: 1.25rem;
-  height: 1.25rem;
-  object-fit: contain;
-  filter: brightness(0.8) contrast(1.1);
-  pointer-events: none;
-}
-
-.logo-chip:hover {
-  border-color: var(--foreground);
-  background-color: var(--border);
-  transform: translateY(-1px);
-}
-
-.logo-chip--selected {
-  border-color: var(--foreground);
-  background-color: var(--border);
-  box-shadow: 0 0 0 2px var(--accent) inset;
-}
-
-/* Shimmer Effects */
-.shimmer-card.jewel-profile {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer-card.jewel-profile::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.04) 45%,
-      rgba(255, 255, 255, 0.08) 50%,
-      rgba(255, 255, 255, 0.04) 55%,
-      transparent 100%),
-    radial-gradient(circle at 30% 30%,
-      rgba(255, 255, 255, 0.02) 0%,
-      transparent 50%),
-    radial-gradient(circle at 70% 70%,
-      rgba(255, 255, 255, 0.02) 0%,
-      transparent 50%);
-  background-size: 120% 100%, 200px 200px, 150px 150px;
-  animation: premiumShimmer 8s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.shimmer-card.jewel-profile::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg,
-      transparent 30%,
-      rgba(255, 255, 255, 0.015) 50%,
-      transparent 70%);
-  background-size: 100px 100px;
-  animation: premiumShimmer 12s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
 }
 
 .jewel-sparkle {
@@ -597,7 +424,7 @@
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
   animation: diamondGlow 6s ease-in-out infinite;
   pointer-events: none;
-  z-index: 2;
+  z-index: var(--z-overlay);
 }
 
 .jewel-sparkle:nth-child(1) {
@@ -636,66 +463,6 @@
   animation-delay: 5s;
 }
 
-/* Additional Components */
-.about-constellation {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.2;
-  isolation: isolate;
-}
-
-.geometric-line {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--border);
-  border-radius: 1px;
-}
-
-.geometric-line--lg {
-  width: 80%;
-  height: 0.0625rem;
-  opacity: 0.3;
-}
-
-.geometric-line--md {
-  width: 60%;
-  height: 0.0625rem;
-  opacity: 0.4;
-}
-
-.geometric-line--sm {
-  width: 40%;
-  height: 0.0625rem;
-  opacity: 0.5;
-}
-
-.orb {
-  position: absolute;
-  width: 0.1875rem;
-  height: 0.1875rem;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0.25rem var(--accent);
-}
-
-.orb-a {
-  top: 20%;
-  left: 60%;
-}
-
-.orb-b {
-  top: 60%;
-  left: 25%;
-}
-
-.orb-c {
-  top: 40%;
-  left: 80%;
-}
-
 .crater-large {
   position: absolute;
   top: 45%;
@@ -725,178 +492,22 @@
   filter: blur(0.0125rem);
 }
 
-/* ========== CV DOWNLOAD COMPONENT STYLES ========== */
-
-/* CV Download Button Styles */
-.cv-download-btn {
-  position: relative;
-  overflow: hidden;
-  transition: all 140ms ease;
-}
-
-.cv-download-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent);
-  transition: left 0.5s ease;
-}
-
-.cv-download-btn:hover::before {
-  left: 100%;
-}
-
-.cv-download-btn:hover {
-  color: var(--foreground);
-  background-color: var(--border);
-  transform: translateY(-1px);
-  animation: cvDownloadPulse 2s ease-in-out infinite;
-}
-
-/* CV Download Animation States */
-.cv-download-animating {
-  animation: cvDownloadSuccess 1.5s ease-in-out;
-  position: relative;
-}
-
-.cv-download-animating::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  background: radial-gradient(circle,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.3) 100%);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: cvSparkleTrail 1.5s ease-out;
-  pointer-events: none;
-}
-
-/* CV Document Preview Effect */
-.cv-download-btn:hover svg {
-  animation: cvDocumentFloat 2s ease-in-out infinite;
-}
-
-/* Download Progress Indicator */
-.cv-download-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--brand-a), var(--brand-b));
-  width: 0%;
-  transition: width 0.3s ease;
-}
-
-.cv-download-animating .cv-download-progress {
-  animation: cvDownloadProgress 1.5s ease-out;
-}
-
-/* Enhanced Hover Effects for CV Button */
-.cv-download-btn:hover {
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1),
-    0 0 0 1px var(--brand-a) inset, 0 0 20px rgba(255, 255, 255, 0.15);
-}
-
-.cv-download-btn:focus-visible {
-  outline: 2px solid var(--brand-a);
-  outline-offset: 2px;
-}
-
-/* CV Button Active State */
-.cv-download-btn:active {
-  transform: translateY(0px) scale(0.98);
-  transition: transform 100ms ease;
-}
-
-/* Sparkle Trail Effect for CV Download */
-.cv-download-btn .sparkle-trail {
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  width: 2px;
-  height: 2px;
-  background: radial-gradient(circle,
-      rgba(255, 255, 255, 0.9) 0%,
-      rgba(255, 255, 255, 0.4) 100%);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.cv-download-animating .sparkle-trail {
-  animation: cvSparkleTrail 1.5s ease-out;
-}
-
-/* Success State for CV Download */
-.cv-download-success {
-  color: var(--brand-a) !important;
-  background-color: var(--border) !important;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3),
-    0 0 40px rgba(255, 255, 255, 0.1) !important;
-}
-
-/* Premium CV Button Glow */
-.cv-download-btn.premium-glow {
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2),
-    0 0 20px rgba(255, 255, 255, 0.1),
-    inset 0 0 10px rgba(255, 255, 255, 0.05);
-  animation: cvHoverGlow 3s ease-in-out infinite;
-}
-
-/* ========== PROJECT COUNTER PILL ========== */
-
-.project-counter {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  font-size: 0.625rem;
-  font-family: var(--font-geist-mono);
-  color: rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 99px;
-  padding: 0.2rem 0.55rem;
-  letter-spacing: 0.03em;
-  line-height: 1;
-}
-
-.project-counter strong {
-  color: rgba(255, 255, 255, 0.65);
-  font-weight: 600;
-}
-
-.project-counter-sep {
-  opacity: 0.4;
-  margin: 0 0.05rem;
-}
-
 /* ========== ABOUT — STATS ROW ========== */
 
 .about-stat-value {
-  font-size: 1.1rem;
+  font-size: var(--fs-lg);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.88);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-none);
+  color: rgba(255, 255, 255, var(--op-primary));
   font-variant-numeric: tabular-nums;
 }
 
 .about-stat-label {
-  font-size: 0.58rem;
+  font-size: var(--fs-2xs);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: var(--tracking-caps);
+  color: rgba(255, 255, 255, var(--op-dim));
   margin-top: 0.2rem;
   font-weight: 600;
 }
@@ -904,7 +515,7 @@
 .about-stat-divider {
   width: 1px;
   height: 1.75rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-3);
   margin: 0 0.875rem;
   flex-shrink: 0;
 }
@@ -936,16 +547,16 @@
 /* ========== ABOUT — SKILL GROUPS ========== */
 
 .about-skill-group-label {
-  font-size: 0.55rem;
+  font-size: var(--fs-2xs);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.22);
+  letter-spacing: var(--tracking-caps);
+  color: rgba(255, 255, 255, var(--op-dim));
 }
 
 /* Enhanced version — higher visibility + left accent border */
 .about-skill-group-label--enhanced {
-  color: rgba(255, 255, 255, 0.40);
+  color: rgba(255, 255, 255, var(--op-faint));
   padding-left: 0.375rem;
   border-left: 1.5px solid rgba(255, 255, 255, 0.18);
 }
@@ -955,57 +566,62 @@
 .about-skill-chip {
   display: inline-block;
   padding: 0.2rem 0.45rem;
-  border-radius: 3px;
-  font-size: 0.6rem;
+  border-radius: var(--radius-chip);
+  font-size: var(--fs-xs);
   font-family: var(--font-geist-mono);
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 255, 255, var(--op-faint));
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+  border: 1px solid var(--border-1);
+  transition: color var(--duration-fast) ease, background var(--duration-fast) ease, border-color var(--duration-fast) ease;
 }
 
 .about-skill-chip:hover {
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, var(--op-muted));
+  background: var(--surface-hover);
+  border-color: var(--border-2);
 }
 
 /* ========== ABOUT — CTA BUTTON ========== */
 
 .about-cta-btn {
   position: relative;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: rgba(255, 255, 255, var(--op-muted));
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
+  border-radius: var(--radius-btn);
   padding: 0.45rem 1rem;
   cursor: pointer;
-  letter-spacing: 0.01em;
+  letter-spacing: var(--tracking-body);
   overflow: visible;
   transition:
-    color 200ms ease,
-    border-color 200ms ease,
-    background 200ms ease,
-    transform 120ms ease;
+    color var(--duration-base) ease,
+    border-color var(--duration-base) ease,
+    background var(--duration-base) ease,
+    transform var(--duration-instant) ease;
 }
 
 .about-cta-btn:hover {
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, var(--op-primary));
   border-color: rgba(255, 255, 255, 0.32);
   background: rgba(255, 255, 255, 0.04);
 }
 
 .about-cta-btn:active {
   transform: scale(0.96) translateY(1px);
-  transition-duration: 60ms;
+  transition-duration: var(--duration-instant);
 }
 
 .about-cta-btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+.about-cta-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.55);
+  outline-offset: 3px;
 }
 
 /* ========== FITTS LAW — DOT NAVIGATION ========== */
@@ -1016,14 +632,14 @@
 .nav-dot-btn {
   position: relative;
   display: inline-block;
-  border-radius: 9999px;
+  border-radius: var(--radius-full);
   cursor: pointer;
   /* GPU-composited transitions only */
   transition:
-    background-color 300ms ease,
-    transform 300ms ease,
-    opacity 300ms ease,
-    width 300ms ease;
+    background-color var(--duration-slow) ease,
+    transform var(--duration-slow) ease,
+    opacity var(--duration-slow) ease,
+    width var(--duration-slow) ease;
 }
 
 .nav-dot-btn::before {
@@ -1032,7 +648,7 @@
   /* 12px extra padding = effective 6+(12×2)=30px touch area per axis,
      larger with gap between dots = comfortably above 44px Apple guideline */
   inset: -12px;
-  border-radius: 9999px;
+  border-radius: var(--radius-full);
 }
 
 .nav-dot-btn:hover {
@@ -1042,7 +658,7 @@
 .nav-dot-btn:active {
   transform: scale(0.88);
   opacity: 0.7;
-  transition-duration: 60ms;
+  transition-duration: var(--duration-instant);
 }
 
 /* ========== ABOUT — CTA WEIGHTED VARIANT ========== */
@@ -1078,7 +694,7 @@
       transparent,
       color-mix(in srgb, var(--card) 80%, transparent));
   pointer-events: none;
-  z-index: 2;
+  z-index: var(--z-overlay);
   margin-top: -28px;
   flex-shrink: 0;
 }
@@ -1087,19 +703,19 @@
 
 .entry-tag--expand {
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.50);
+  background: var(--surface-1);
+  border-color: var(--border-2);
+  color: rgba(255, 255, 255, var(--op-subdued)); /* 0.55 — matches --op-subdued token */
   font-style: normal;
 }
 
 .entry-tag--expand:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-hover);
   color: rgba(255, 255, 255, 0.75);
   border-color: rgba(255, 255, 255, 0.18);
 }
 
 .entry-tag--expand:active {
   transform: scale(0.95);
-  transition-duration: 60ms;
+  transition-duration: var(--duration-instant);
 }

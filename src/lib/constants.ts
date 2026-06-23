@@ -70,21 +70,21 @@ export const METEOR_CONFIGS: readonly AnimationConfig[] = [
   },
   {
     style: {
-      animationName: "meteorRealisticPhysicsAlt, meteorHeatColor",
+      animationName: "meteorRealisticFireball, meteorHeatColor",
       animationDuration: "28s, 4.2s",
       animationDelay: "8s, 2.5s",
     },
   },
   {
     style: {
-      animationName: "meteorMicrometeorAlt, meteorHeatColor",
+      animationName: "meteorMicrometeor, meteorHeatColor",
       animationDuration: "32s, 4.8s",
       animationDelay: "18s, 5s",
     },
   },
   {
     style: {
-      animationName: "meteorRealisticPhysicsAlt2, meteorHeatColor",
+      animationName: "meteorRealisticPhysics, meteorHeatColor",
       animationDuration: "26s, 3.8s",
       animationDelay: "30s, 7s",
     },

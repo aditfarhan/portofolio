@@ -5,14 +5,10 @@ import type { ReactNode } from "react";
 /**
  * ThemeProvider
  *
- * Applies the "masculine" dark theme via a data-theme attribute on the root.
- * Previously used `next-themes` but that dependency was removed since there
- * is only one fixed theme and no toggle UI.
+ * Thin wrapper that sets the single fixed dark theme. The theme tokens are
+ * defined on :root in themes.css. No toggle UI exists — one theme only.
+ * The `data-theme` attribute was removed because no CSS selector used it.
  */
 export default function ThemeProvider({ children }: { children: ReactNode }) {
-  return (
-    <div data-theme="masculine" className="h-full contents">
-      {children}
-    </div>
-  );
+  return <>{children}</>;
 }

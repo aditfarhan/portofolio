@@ -44,11 +44,7 @@ export default function BackgroundEffects({ onArrivalComplete, isFlipped }: { on
       </div>
 
       {/* Arrival Orb - First-visit ignition cue */}
-      {/* Mounted above background, below cards - synced with meteor timing */}
-      <div className="arrival-orb-wrapper" aria-hidden="true">
-        {/* Lazy import ArrivalOrb to avoid SSR issues with sessionStorage */}
-        <LazyArrivalOrb onComplete={onArrivalComplete} />
-      </div>
+      <LazyArrivalOrb onComplete={onArrivalComplete} />
 
       {/* Realistic Meteors - Trajectories Aligned with Night Sky */}
       <div className="meteor-container" aria-hidden="true">

@@ -3,63 +3,57 @@
 import { useEffect, useState, useRef } from "react";
 
 /**
- * ArrivalOrb - First-visit arrival cue that provides a subtle ignition effect
+ * ArrivalOrb — first-visit ignition cue.
  *
- * Displays a small glowing orb that ignites once when the user first visits.
- * Respects reduced motion preferences and uses sessionStorage for persistence.
+ * Plays once per browser session (sessionStorage key "maf-visited").
+ * On repeat visits within the same session, skips straight to onAnimationComplete.
+ * Respects prefers-reduced-motion: fires completion immediately when reduced.
  *
- * Animation sequence:
- * 1. Fade in softly (0-300ms)
- * 2. Brief expand/energy pulse (300-700ms)
- * 3. Dissolve/fade out (700-2000ms)
- *
- * Mounted above cards but below UI interactions (pointer-events: none).
+ * Animation sequence (2 s):
+ *   0–300 ms  fade in softly
+ *   300–700 ms  energy pulse / expand
+ *   700–2000 ms dissolve / fade out
  */
 interface ArrivalOrbProps {
-    onAnimationComplete?: () => void;
+  onAnimationComplete?: () => void;
 }
 
+const SESSION_KEY = "maf-visited";
+
 export default function ArrivalOrb({ onAnimationComplete }: ArrivalOrbProps) {
-    const [shouldAnimate, setShouldAnimate] = useState(false);
-    // Stabilise callback in a ref to prevent re-render cycles
-    const onCompleteRef = useRef(onAnimationComplete);
-    onCompleteRef.current = onAnimationComplete;
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const onCompleteRef = useRef(onAnimationComplete);
+  onCompleteRef.current = onAnimationComplete;
 
-    useEffect(() => {
-        // Check reduced motion preference
-        const prefersReducedMotion = window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-        let timer: NodeJS.Timeout;
-        if (!prefersReducedMotion) {
-            setShouldAnimate(true);
+    const isFirstVisit = !sessionStorage.getItem(SESSION_KEY);
 
-            // Trigger completion callback after animation duration (2s)
-            timer = setTimeout(() => {
-                onCompleteRef.current?.();
-            }, 2000);
-        } else {
-            // If reduced motion is preferred, trigger completion immediately
-            onCompleteRef.current?.();
-        }
+    if (!prefersReducedMotion && isFirstVisit) {
+      // Mark as visited so subsequent navigations skip the animation
+      sessionStorage.setItem(SESSION_KEY, "1");
+      setShouldAnimate(true);
 
-        return () => {
-            if (timer) clearTimeout(timer);
-        };
-    }, []); // Stable — no function dependency
+      const timer = setTimeout(() => {
+        onCompleteRef.current?.();
+      }, 1200);
 
-    // Don't render anything if not first visit or animation complete
-    if (!shouldAnimate) {
-        return null;
+      return () => clearTimeout(timer);
+    } else {
+      // Repeat visit or reduced motion — skip animation, show cards immediately
+      onCompleteRef.current?.();
+      return undefined;
     }
+  }, []);
 
-    return (
-        <div
-            className="arrival-orb-container"
-            aria-hidden="true"
-        >
-            <div className="arrival-orb" />
-        </div>
-    );
+  if (!shouldAnimate) return null;
+
+  return (
+    <div className="arrival-orb-container" aria-hidden="true">
+      <div className="arrival-orb" />
+    </div>
+  );
 }

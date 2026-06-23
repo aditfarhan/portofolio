@@ -23,9 +23,9 @@ export class ErrorBoundary extends Component<Props, State> {
             return (
                 this.props.fallback ?? (
                     <div className="h-full flex flex-col items-center justify-center gap-2 p-6 text-center">
-                        <p className="text-sm text-white/40">Unable to load this section.</p>
+                        <p className="text-sm text-white/38">Unable to load this section.</p>
                         <button
-                            className="text-[11px] text-white/30 underline underline-offset-2 hover:text-white/55 transition-colors"
+                            className="text-2xs text-white/25 underline underline-offset-2 hover:text-white/55 transition-colors"
                             onClick={() => this.setState({ hasError: false })}
                         >
                             Try again

@@ -2,9 +2,6 @@
  * Centralized Type Definitions
  *
  * Only types actively used by current components are kept here.
- * Previously removed orphaned types for unused features:
- *   ExperienceRole, Experience, AboutTab, TechGroup, Theme,
- *   ComponentSize, ErrorSeverity, AppError.
  *
  * @module types
  */
@@ -47,13 +44,11 @@ export interface Project {
   id: string;
   title: string;
   company?: string;
-  tagline?: string;
   description: string;
   impact?: string;
   tags: string[];
   links?: Link[];
   period?: Period;
-  image?: string;
   decision?: string;
   outcome?: string;
   highlights?: string[];
@@ -100,7 +95,8 @@ export interface StarFieldPositions {
 }
 
 /**
- * A single stat entry used in both ProfileCard and AboutMe
+ * A single stat entry used in both ProfileCard and AboutMe.
+ * detail is rendered as a subtitle under the stat group (optional).
  */
 export interface ProfileStat {
   value: number;
@@ -110,20 +106,13 @@ export interface ProfileStat {
 }
 
 /**
- * Testimonial / recommendation from a colleague or manager
+ * Contact / social link shown in ProfileCard and ProjectCard
  */
-export interface Testimonial {
-  quote: string;
-  name: string;
-  role: string;
-  company: string;
+export interface ContactLink {
+  href: string;
+  icon: string;
+  label: string;
+  tooltip: string;
+  download?: boolean;
+  external?: boolean;
 }
-
-/**
- * A work-methodology bullet for the "How I Work" section
- */
-export interface HowIWorkItem {
-  title: string;
-  desc: string;
-}
-

@@ -1,8 +1,7 @@
 "use client";
 
 import { memo, useCallback, useEffect, useState } from "react";
-import "@/styles/profile-card.css";
-import { PROFILE_STATS } from "@/data/portfolio";
+import { PROFILE_STATS, EMPLOYMENT, CONTACT_LINKS, PROFILE_ROLE, PROFILE_TAGLINE } from "@/data/portfolio";
 import { useShineEffect } from "@/hooks";
 
 interface ProfileCardProps {
@@ -22,7 +21,6 @@ const ProfileCard = memo(function ProfileCard({
 }: ProfileCardProps) {
   const isLarge = size === "large";
   const [mounted, setMounted] = useState(false);
-  const [isPressed, setIsPressed] = useState(false);
   const [copiedName, setCopiedName] = useState(false);
   const { shineRef, handleShine } = useShineEffect<HTMLDivElement>();
 
@@ -31,32 +29,176 @@ const ProfileCard = memo(function ProfileCard({
     return () => clearTimeout(t);
   }, []);
 
-  // isPressed cleanup — no setState on unmounted component
-  useEffect(() => {
-    if (!isPressed) return;
-    const t = setTimeout(() => setIsPressed(false), 120);
-    return () => clearTimeout(t);
-  }, [isPressed]);
-
   const handleToggleFlip = useCallback(() => {
     if (isAnimating || !onToggleFlip) return;
-    setIsPressed(true);
     onToggleFlip();
   }, [isAnimating, onToggleFlip]);
 
-  // Copy full name to clipboard — MAF logo interaction
   const handleCopyName = useCallback(async () => {
     try {
       await navigator.clipboard.writeText("Muhammad Aditia Farhan");
       setCopiedName(true);
       setTimeout(() => setCopiedName(false), 1800);
     } catch {
-      // clipboard not available (e.g. Firefox without permission)
+      // Clipboard API unavailable — select the text as a fallback hint
+      window.getSelection()?.selectAllChildren(document.activeElement ?? document.body);
     }
   }, []);
 
-  // Shine effect handled by useShineEffect hook
+  /* ── SIDEBAR LAYOUT (projects open) ──────────────────────────────────
+     Three-section layout with justify-between:
+       TOP   — identity (MAF, name, title, badge, tagline)
+       MID   — stats + achievement highlight (with separators)
+       BOT   — contact icons + available hint + return button
+  ────────────────────────────────────────────────────────────────────── */
+  if (isFlipped) {
+    return (
+      <div
+        ref={shineRef}
+        onMouseMove={handleShine}
+        className="profile-sidebar shine-card group relative h-full flex flex-col justify-between px-4 py-5"
+        role="region"
+        aria-label="Profile"
+      >
+        {/* ── TOP: IDENTITY ─────────────────────────── */}
+        <div className="flex flex-col items-center text-center gap-2.5">
 
+          {/* MAF mark */}
+          <button
+            type="button"
+            title={copiedName ? "Copied!" : "Copy name"}
+            onClick={handleCopyName}
+            aria-label={copiedName ? "Copied!" : "Copy name: Muhammad Aditia Farhan"}
+            className="
+              maf-logo maf-logo--breathe shine-card relative
+              inline-flex items-center justify-center rounded-full
+              border border-white/25 bg-card/60 text-white font-semibold
+              w-9 h-9 text-xs flex-shrink-0
+              hover:scale-[1.06] cursor-pointer transition-transform duration-fast
+              focus-visible:outline-2 focus-visible:outline-white/55 focus-visible:outline-offset-2
+            "
+          >
+            MAF
+            {copiedName && (
+              <span
+                className="
+                  absolute -top-7 left-1/2 -translate-x-1/2
+                  bg-black/80 text-white/88 text-2xs
+                  px-2 py-0.5 rounded whitespace-nowrap pointer-events-none
+                  animate-fade-in
+                "
+                aria-hidden="true"
+              >
+                Copied!
+              </span>
+            )}
+          </button>
+
+          {/* Name + title + badge */}
+          <div className="space-y-1">
+            <p
+              className="text-sm font-bold tracking-tight leading-tight text-white"
+              style={{ letterSpacing: "var(--tracking-tight)" }}
+            >
+              Muhammad Aditia Farhan
+            </p>
+            <p className="text-xs text-white/70">{PROFILE_ROLE}</p>
+            <div className="flex justify-center mt-0.5">
+              <span className="availability-badge" aria-label="Open to work">
+                <span className="availability-dot" aria-hidden="true" />
+                Open to Work
+              </span>
+            </div>
+          </div>
+
+          {/* Tagline */}
+          <p className="text-2xs text-white/38 tracking-[var(--tracking-caps)] leading-snug">
+            {PROFILE_TAGLINE}
+          </p>
+        </div>
+
+        {/* ── MIDDLE: STATS + ACHIEVEMENT ──────────── */}
+        <div className="flex flex-col items-center gap-2.5">
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+
+          <div
+            className="grid grid-cols-3 w-full gap-1 text-center"
+            aria-label="Career highlights"
+          >
+            {PROFILE_STATS.map((stat) => (
+              <div key={stat.label} className="flex flex-col items-center">
+                <span className="text-sm font-bold text-white/88 tabular-nums">
+                  {stat.value}{stat.suffix}
+                </span>
+                <span className="text-2xs text-white/38 leading-tight mt-0.5">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+        </div>
+
+        {/* ── BOTTOM: CONTACT + RETURN ─────────────── */}
+        <div className="flex flex-col items-center gap-2">
+
+          {/* Contact icons — no tooltip (card overflow:hidden clips ::after) */}
+          <div className="grid grid-cols-4 gap-1.5 w-full">
+            {CONTACT_LINKS.map(({ href, icon, label, download, external }) => (
+              <a
+                key={label}
+                href={href}
+                download={download}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer me" : undefined}
+                className="
+                  action-icon action-icon--prominent
+                  rounded-lg flex items-center justify-center
+                  w-full h-10
+                  hover:scale-[1.08] hover:bg-surface-hover
+                  active:scale-95
+                  transition-all duration-fast
+                "
+                aria-label={label}
+              >
+                <svg className="w-4 h-4" aria-hidden="true">
+                  <use href={`/icons.svg#${icon}`} />
+                </svg>
+              </a>
+            ))}
+          </div>
+
+          <p className="text-2xs text-white/25 tracking-[var(--tracking-caps)] text-center">
+            Available for new opportunities
+          </p>
+
+          {showActionButton && (
+            <button
+              onClick={handleToggleFlip}
+              disabled={isAnimating}
+              className="
+                text-2xs text-white/38 hover:text-white/70
+                flex items-center gap-1
+                transition-colors duration-fast
+                focus-visible:outline-2 focus-visible:outline-white/38
+                focus-visible:outline-offset-2 focus-visible:rounded
+                active:scale-95 disabled:opacity-40
+              "
+              aria-label="Return to About"
+            >
+              <svg width="8" height="8" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                <path d="M9 5H1M4 2L1 5l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              About
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  /* ── FULL CARD LAYOUT (default — projects not open) ──────────────── */
   return (
     <div
       ref={shineRef}
@@ -69,17 +211,14 @@ const ProfileCard = memo(function ProfileCard({
       <div className="jewel-sparkle opacity-20" />
       <div className="jewel-sparkle opacity-10" />
 
-      {/* ── READING-FLOW ANCHOR — always faintly visible ──────────
-          Dimly present on mount (opacity-25), brightens on hover.
-          Gives the eye a downward rail: Mark → Name → Hook → CTA
-      ─────────────────────────────────────────────────────────── */}
+      {/* Reading-flow anchor */}
       <div
         className="
           absolute left-4 top-[18%] bottom-[12%]
           w-px
-          bg-gradient-to-b from-transparent via-white/10 to-transparent
+          bg-gradient-to-b from-transparent via-white/25 to-transparent
           opacity-25 group-hover:opacity-100
-          transition-opacity duration-700
+          transition-opacity duration-scene
           pointer-events-none
         "
         aria-hidden="true"
@@ -87,11 +226,11 @@ const ProfileCard = memo(function ProfileCard({
 
       <div
         className={`
-          flex flex-col items-center text-center
-          ${isLarge ? "gap-4 py-4 px-4" : "gap-2 py-3 px-3"}
+          flex flex-col items-center text-center w-full
+          ${isLarge ? "gap-3 py-4 px-4" : "gap-2 py-3 px-3"}
         `}
       >
-        {/* ── LAYER 1: MAF MARK — click copies full name ─────── */}
+        {/* ── MAF MARK ──────────────────────────────── */}
         <button
           type="button"
           title={copiedName ? "Copied!" : "Copy name"}
@@ -100,24 +239,23 @@ const ProfileCard = memo(function ProfileCard({
           className={`
             maf-logo maf-logo--breathe shine-card
             inline-flex items-center justify-center rounded-full
-            border border-white/20 bg-card/60 text-white font-semibold
-            transition-all duration-500 hover:scale-[1.06] cursor-pointer
-            focus-visible:outline-2 focus-visible:outline-white/50 focus-visible:outline-offset-2
+            border border-white/25 bg-card/60 text-white font-semibold
+            transition-all duration-slower hover:scale-[1.06] cursor-pointer
+            focus-visible:outline-2 focus-visible:outline-white/55 focus-visible:outline-offset-2
             relative
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"}
             ${isLarge
-              ? "w-8 h-8 md:w-9 md:h-9 lg:w-11 lg:h-11 text-xs md:text-sm"
-              : "w-7 h-7 md:w-8 md:h-8 text-[10px] md:text-xs"
+              ? "w-9 h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 text-xs md:text-sm"
+              : "w-7 h-7 md:w-8 md:h-8 text-2xs md:text-xs"
             }
           `}
         >
           MAF
-          {/* "Copied!" tooltip */}
           {copiedName && (
             <span
               className="
                 absolute -top-7 left-1/2 -translate-x-1/2
-                bg-black/80 text-white/90 text-[9px]
+                bg-black/80 text-white/88 text-2xs
                 px-2 py-0.5 rounded whitespace-nowrap
                 pointer-events-none animate-fade-in
               "
@@ -128,184 +266,139 @@ const ProfileCard = memo(function ProfileCard({
           )}
         </button>
 
-        {/* ── LAYER 2: IDENTITY ─────────────────────────────────── */}
+        {/* ── IDENTITY ──────────────────────────────── */}
         <div
           className={`
-            space-y-0.5
-            transition-all duration-500 delay-75
+            space-y-1
+            transition-all duration-slower delay-75
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
           `}
         >
           <h1
             className={`
-              font-extrabold tracking-tight
-              ${isLarge ? "text-lg md:text-xl lg:text-3xl" : "text-base md:text-lg"}
-              group-hover:-translate-y-[1px] transition-transform duration-300
+              font-bold
+              ${isLarge ? "text-xl md:text-2xl lg:text-2xl" : "text-lg md:text-xl"}
+              group-hover:-translate-y-[1px] transition-transform duration-slow
             `}
-            style={{ letterSpacing: "-0.015em" }}
+            style={{ letterSpacing: "var(--tracking-tight)" }}
           >
             Muhammad Aditia Farhan
           </h1>
 
           <div className="flex items-center justify-center gap-2 flex-wrap">
             <p className={`
-              text-white/75 transition-colors duration-300
-              ${isLarge
-                ? "text-xs md:text-sm lg:text-base leading-snug"
-                : "text-[11px] md:text-xs leading-snug"
-              }
-              group-hover:text-white/90
+              text-white/70 transition-colors duration-slow
+              ${isLarge ? "text-xs md:text-sm leading-snug" : "text-2xs md:text-xs leading-snug"}
+              group-hover:text-white/88
             `}>
-              Software Engineer
+              {PROFILE_ROLE}
             </p>
-
-            {/* Availability badge — contextual */}
             <span className="availability-badge" aria-label="Open to work opportunities">
               <span className="availability-dot" aria-hidden="true" />
               Open to Work
             </span>
           </div>
 
-          {/* Company names — title-case with current role context */}
-          <p className="text-[10px] md:text-[11px] text-white/50 group-hover:text-white/65 transition-colors duration-300 tracking-wide mt-0.5">
-            Pertamina IHC (2024–now)&nbsp;·&nbsp;Orami
+          <p className={`
+            text-white/38 transition-colors duration-slow group-hover:text-white/55
+            ${isLarge ? "text-2xs md:text-xs" : "text-2xs"}
+          `}
+            style={{ letterSpacing: "var(--tracking-caps)" }}
+          >
+            {PROFILE_TAGLINE}
+          </p>
+
+          <p className="text-2xs md:text-xs text-white/38 group-hover:text-white/55 transition-colors duration-slow"
+            style={{ letterSpacing: "var(--tracking-caps)" }}
+          >
+            {EMPLOYMENT.map((e, i) => (
+              <span key={e.company}>
+                {i > 0 && <>&nbsp;·&nbsp;</>}
+                {e.company}
+                {e.end === null && <span className="text-white/25"> ({e.period})</span>}
+              </span>
+            ))}
           </p>
         </div>
 
-        {/* ── LAYER 3: IMPACT — stat row (numbers first) ────────── */}
+        {/* ── IMPACT ────────────────────────────────── */}
         <div
           className={`
             flex flex-col items-center gap-1
-            transition-all duration-500 delay-100
+            transition-all duration-slower delay-100
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
           `}
         >
-          {/* Stat row — flex-wrap for ultra-small screens */}
-          <div className="flex items-center flex-wrap gap-x-2 gap-y-1 justify-center text-white/55 group-hover:text-white/75 transition-colors duration-400">
+          <div className="flex items-center flex-wrap gap-x-2 gap-y-1 justify-center text-white/55 group-hover:text-white/70 transition-colors duration-slower">
             {PROFILE_STATS.map((stat, i) => (
               <span key={stat.label} className="flex items-center gap-1">
-                {i > 0 && <span className="text-white/20" aria-hidden="true">·</span>}
-                <span className={`font-semibold ${isLarge ? "text-[11px] md:text-xs lg:text-sm" : "text-[10px]"}`}>
+                {i > 0 && <span className="text-white/25" aria-hidden="true">·</span>}
+                <span className={`font-semibold ${isLarge ? "text-xs md:text-sm" : "text-2xs md:text-xs"}`}>
                   {stat.value}{stat.suffix}
                 </span>
-                <span className={isLarge ? "text-[10px] md:text-[11px]" : "text-[9px]"}>
+                <span className={isLarge ? "text-2xs md:text-xs" : "text-2xs"}>
                   {stat.label}
                 </span>
               </span>
             ))}
           </div>
-
-          {/* Achievement teaser — seeds curiosity before CTA */}
-          <p className={`
-            hidden sm:block
-            text-white/50 group-hover:text-white/65 transition-colors duration-500
-            ${isLarge ? "text-[10px] md:text-[11px]" : "text-[9px]"}
-          `}>
-            Led EMR rollout across 12 hospitals · 5,000+ daily clinical users
-          </p>
         </div>
 
-        {/* ── LAYER 4: CONTEXT — location as mini pills ─────────── */}
+        {/* ── CONTEXT ───────────────────────────────── */}
         <div
           className={`
             flex items-center justify-center gap-1.5 flex-wrap
-            transition-all duration-500 delay-150
+            transition-all duration-slower delay-150
             ${mounted ? "opacity-100" : "opacity-0"}
           `}
         >
-          <span className="
-            text-[9px] text-white/50 group-hover:text-white/65
-            transition-colors duration-300
-            bg-white/5 border border-white/8 rounded-full px-1.5 py-0.5
-          ">
-            🌏 Jakarta
+          <span className="inline-flex items-center gap-1 text-2xs text-white/38 group-hover:text-white/55 transition-colors duration-slow bg-white/5 border border-white/8 rounded-full px-1.5 py-0.5">
+            <svg className="w-2.5 h-2.5 flex-shrink-0" aria-hidden="true"><use href="/icons.svg#icon-location" /></svg>
+            Jakarta
           </span>
-          <span className="
-            text-[9px] text-white/50 group-hover:text-white/65
-            transition-colors duration-300
-            bg-white/5 border border-white/8 rounded-full px-1.5 py-0.5
-          ">
-            🌐 Remote-ready
+          <span className="inline-flex items-center gap-1 text-2xs text-white/38 group-hover:text-white/55 transition-colors duration-slow bg-white/5 border border-white/8 rounded-full px-1.5 py-0.5">
+            <svg className="w-2.5 h-2.5 flex-shrink-0" aria-hidden="true"><use href="/icons.svg#icon-globe" /></svg>
+            Remote-ready
           </span>
-          {/* Currently building — ambient live signal */}
-          <span className="
-            hidden sm:inline-flex
-            text-[9px] text-white/45 group-hover:text-white/60
-            transition-colors duration-300
-            bg-white/3 border border-white/6 rounded-full px-1.5 py-0.5
-          ">
-            🏥 Healthcare IT
+          <span className="inline-flex items-center gap-1 text-2xs text-white/38 group-hover:text-white/55 transition-colors duration-slow bg-white/3 border border-white/6 rounded-full px-1.5 py-0.5">
+            <svg className="w-2.5 h-2.5 flex-shrink-0" aria-hidden="true"><use href="/icons.svg#icon-medical" /></svg>
+            Healthcare IT
           </span>
         </div>
 
-        {/* ── LAYER 5: ACTIONS ──────────────────────────────────── */}
-        {showActionButton && (
-          <div
-            className={`
-              mt-1 flex justify-center
-              transition-all duration-500 delay-200
-              ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
-            `}
-          >
-            <div className="action-group inline-flex items-center overflow-hidden">
-              {/* PRIMARY CTA — pill background at rest for clear affordance */}
-              <button
-                onClick={handleToggleFlip}
-                disabled={isAnimating}
-                aria-pressed={isFlipped}
-                className={`
-                  action-cta action-cta--weighted underline-react
-                  transition-all duration-200
-                  ${isAnimating
-                    ? "opacity-50 animate-pulse cursor-not-allowed"
-                    : isPressed
-                      ? "scale-[0.96] opacity-75"
-                      : "hover:opacity-90 hover:translate-x-[1px] active:scale-95 active:opacity-80"
-                  }
-                `}
-              >
-                {isPressed ? "…" : isFlipped ? "← Back" : "View My Work"}
-              </button>
-
-              <span aria-hidden="true" className="action-divider" />
-
-              {/* UTILITY CTAs — de-emphasised at rest, clearer on group hover */}
-              {[
-                { href: "mailto:aditiafarhan25@gmail.com", icon: "icon-mail", label: "Email", tooltip: "Email" },
-                { href: "/Muhammad-Aditia-Farhan-Resume.pdf", icon: "icon-download", label: "Download Resume", tooltip: "Resume", download: true },
-                { href: "https://github.com/aditfarhan", icon: "icon-github", label: "GitHub", tooltip: "GitHub", external: true, me: true },
-                { href: "https://www.linkedin.com/in/muhammad-aditia-farhan", icon: "icon-linkedin", label: "LinkedIn", tooltip: "LinkedIn", external: true, me: true },
-              ].map(({ href, icon, label, tooltip, download, external, me }) => (
-                <a
-                  key={label}
-                  href={href}
-                  download={download}
-                  target={external ? "_blank" : undefined}
-                  rel={[
-                    external ? "noopener noreferrer" : "",
-                    me ? "me" : "",
-                  ].filter(Boolean).join(" ") || undefined}
-                  data-tooltip={tooltip}
-                  className="
-                    action-icon action-icon--tooltip action-icon--deemph
-                    transition-all duration-200
-                    hover:scale-[1.08] hover:bg-white/10
-                    active:scale-95 active:opacity-75
-                  "
-                  aria-label={label}
-                >
-                  <svg className="w-5 h-5" aria-hidden="true">
-                    <use href={`/icons.svg#${icon}`} />
-                  </svg>
-                  {/* Visible label on mobile only */}
-                  <span className="action-icon-label sm:hidden" aria-hidden="true">
-                    {tooltip}
-                  </span>
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* ── CONTACT ICONS ─────────────────────────── */}
+        <div
+          className={`
+            mt-1 flex items-center gap-1.5
+            transition-all duration-slower delay-200
+            ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
+          `}
+        >
+          {CONTACT_LINKS.map(({ href, icon, label, tooltip, download, external }) => (
+            <a
+              key={label}
+              href={href}
+              download={download}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer me" : undefined}
+              data-tooltip={tooltip}
+              className="
+                action-icon action-icon--tooltip action-icon--deemph
+                w-8 h-8 rounded-full border border-border-1
+                hover:border-white/38 hover:bg-surface-1
+                transition-all duration-fast active:scale-90
+              "
+              aria-label={label}
+            >
+              <svg className="w-4 h-4" aria-hidden="true">
+                <use href={`/icons.svg#${icon}`} />
+              </svg>
+              <span className="action-icon-label sm:hidden" aria-hidden="true">
+                {tooltip}
+              </span>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );

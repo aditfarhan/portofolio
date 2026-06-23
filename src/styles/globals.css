@@ -10,8 +10,8 @@
 @import "./orb-ignition.css";
 @import "./single-focus.css";
 @import "./project-card.css";
-@import "./additional-animations.css";
 @import "./components.css";
+@import "./profile-card.css";
 @import "./utilities.css";
 @import "./responsive.css";
 
@@ -30,41 +30,14 @@ body {
     Segoe UI, Roboto, Helvetica, Arial;
   text-rendering: optimizeLegibility;
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-body);
 }
 
 /* ========== ACCESSIBILITY ========== */
 
-/* Enhanced focus indicators for keyboard navigation */
-/* NOTE: base ring also defined in utilities.css — keep in sync */
-*:focus-visible {
-  outline: 3px solid var(--ring);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
 /* Remove default outline for mouse users */
 *:focus:not(:focus-visible) {
   outline: none;
-}
-
-/* Enhanced Skip Link for Keyboard Navigation */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: #3b82f6;
-  color: white;
-  padding: 8px 16px;
-  text-decoration: none;
-  z-index: 100;
-  border-radius: 0 0 4px 0;
-  font-weight: 600;
-  transition: top 0.2s ease;
-}
-
-.skip-link:focus {
-  top: 0;
 }
 
 /* Ensure Tailwind imports font variables */
