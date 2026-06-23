@@ -54,8 +54,10 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
             role="complementary"
             aria-label="Profile summary"
           >
-            {/* Mobile: compact horizontal strip */}
-            <div className="flex lg:hidden items-center gap-4 px-5 py-4">
+            {/* Mobile: 3-row identity strip — avoids name wrapping on any phone */}
+            <div className="flex lg:hidden items-start gap-3 px-4 py-4">
+
+              {/* MAF avatar */}
               <button
                 type="button"
                 title={copiedName ? "Copied!" : "Copy name"}
@@ -65,7 +67,7 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
                   maf-logo maf-logo--breathe shine-card
                   inline-flex items-center justify-center rounded-full
                   border border-white/25 bg-card/60 text-white font-semibold
-                  w-9 h-9 text-xs flex-shrink-0
+                  w-9 h-9 text-xs flex-shrink-0 mt-0.5
                   hover:scale-[1.06] cursor-pointer transition-transform duration-fast
                   focus-visible:outline-2 focus-visible:outline-white/55 focus-visible:outline-offset-2
                   relative
@@ -81,38 +83,29 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
                   </span>
                 )}
               </button>
-              <div className="min-w-0">
-                <p className="text-sm font-bold leading-tight truncate" style={{ letterSpacing: "var(--tracking-tight)" }}>
+
+              {/* Identity text — pure identity, no icons competing for width */}
+              <div className="flex-1 min-w-0">
+
+                {/* Row 1: name — gets all available width, never wraps */}
+                <p
+                  className="text-sm font-bold leading-snug"
+                  style={{ letterSpacing: "var(--tracking-tight)" }}
+                >
                   Muhammad Aditia Farhan
                 </p>
-                <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                  <p className="text-xs text-white/60">{PROFILE_ROLE}</p>
+
+                {/* Row 2: role */}
+                <p className="text-xs text-white/52 mt-0.5">{PROFILE_ROLE}</p>
+
+                {/* Row 3: availability badge only — fits any screen width */}
+                <div className="mt-2">
                   <span className="availability-badge" aria-label="Open to work">
                     <span className="availability-dot" aria-hidden="true" />
                     Open to Work
                   </span>
                 </div>
-              </div>
-              <div className="ml-auto flex items-center gap-1.5 flex-shrink-0">
-                {CONTACT_LINKS.map(({ href, icon, label, tooltip, download, external }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    download={download}
-                    target={external ? "_blank" : undefined}
-                    rel={external ? "noopener noreferrer me" : undefined}
-                    className="
-                      action-icon action-icon--tooltip action-icon--deemph
-                      w-7 h-7 rounded-full border border-border-1
-                      hover:border-white/38 hover:bg-surface-1
-                      transition-all duration-fast active:scale-90
-                    "
-                    aria-label={label}
-                    data-tooltip={tooltip}
-                  >
-                    <svg className="w-3.5 h-3.5" aria-hidden="true"><use href={`/icons.svg#${icon}`} /></svg>
-                  </a>
-                ))}
+
               </div>
             </div>
 
@@ -334,9 +327,11 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
                   className="
                     text-sm text-white/45 hover:text-white/70
                     flex items-center justify-center gap-1.5
-                    transition-colors duration-fast
+                    border border-white/10 hover:border-white/22
+                    rounded-btn px-4 py-3
+                    w-full sm:w-auto
+                    transition-all duration-fast
                     focus-visible:outline-2 focus-visible:outline-white/55 focus-visible:outline-offset-2 focus-visible:rounded
-                    min-h-[44px] px-1
                   "
                   aria-label="Download 2026 Resume PDF"
                 >
@@ -350,7 +345,7 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
 
             {/* Scroll hint */}
             <div
-              className="mt-10 sm:mt-12 flex items-center gap-1.5 text-2xs text-white/18"
+              className="mt-10 sm:mt-12 flex items-center gap-1.5 text-2xs text-white/25"
               aria-hidden="true"
             >
               <svg

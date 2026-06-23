@@ -95,7 +95,7 @@ const OtherProjects = memo(function OtherProjects({ projects }: OtherProjectsPro
                   )}
                   {project.period && (
                     <span
-                      className="text-2xs text-white/22 flex-shrink-0 font-mono tabular-nums"
+                      className="text-2xs text-white/35 flex-shrink-0 font-mono tabular-nums"
                       style={{ letterSpacing: "var(--tracking-mono)" }}
                     >
                       {project.period.start.slice(0, 4)}

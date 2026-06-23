@@ -71,7 +71,7 @@ const CaseStudyCard = memo(function CaseStudyCard({ project, index, visible }: C
           </span>
         )}
         {project.period && (
-          <span className="text-2xs text-white/25 font-mono tabular-nums flex-shrink-0" style={{ letterSpacing: "var(--tracking-mono)" }}>
+          <span className="text-2xs text-white/35 font-mono tabular-nums flex-shrink-0" style={{ letterSpacing: "var(--tracking-mono)" }}>
             {project.period.end === null ? `${project.period.start.slice(0, 4)}–now` : project.period.start.slice(0, 4)}
           </span>
         )}
@@ -103,7 +103,7 @@ const CaseStudyCard = memo(function CaseStudyCard({ project, index, visible }: C
       {/* Role */}
       {summary?.role && (
         <div className="flex items-center gap-1.5">
-          <span className="text-2xs text-white/25" style={{ letterSpacing: "var(--tracking-caps)" }}>MY ROLE</span>
+          <span className="text-2xs text-white/38" style={{ letterSpacing: "var(--tracking-caps)" }}>MY ROLE</span>
           <span className="text-xs text-white/60 font-medium">{summary.role}</span>
         </div>
       )}
@@ -163,7 +163,7 @@ const FeaturedCaseStudies = forwardRef<HTMLElement, FeaturedCaseStudiesProps>(
         ref={(el) => {
           if (typeof ref === "function") ref(el);
           else if (ref) ref.current = el;
-          (revealRef as React.MutableRefObject<HTMLElement | null>).current = el;
+          (revealRef as React.RefObject<HTMLElement | null>).current = el;
         }}
         id="case-studies"
         className="relative py-16 sm:py-20"

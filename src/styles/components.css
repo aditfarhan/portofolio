@@ -821,7 +821,7 @@
   font-size: var(--fs-2xs);
   font-family: var(--font-geist-mono);
   font-weight: 700;
-  color: rgba(255, 255, 255, var(--op-dim));
+  color: rgba(255, 255, 255, var(--op-faint));
   letter-spacing: var(--tracking-caps);
 }
 
@@ -891,7 +891,7 @@
 
 .impact-metric-context {
   font-size: var(--fs-2xs);
-  color: rgba(255, 255, 255, var(--op-dim));
+  color: rgba(255, 255, 255, var(--op-faint));
   line-height: var(--lh-snug);
 }
 

@@ -34,8 +34,8 @@ const TrustNote = memo(function TrustNote() {
             <path d="M5 7V5a3 3 0 0 1 6 0v2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
           </svg>
 
-          <p className="text-xs text-white/28 leading-relaxed">
-            <span className="text-white/42 font-semibold">Confidentiality-first portfolio. </span>
+          <p className="text-xs text-white/42 leading-relaxed">
+            <span className="text-white/60 font-semibold">Confidentiality-first portfolio. </span>
             Enterprise and healthcare projects are summarized without patient data, private screenshots,
             credentials, or sensitive infrastructure details. Production code and client systems
             remain private by professional obligation.

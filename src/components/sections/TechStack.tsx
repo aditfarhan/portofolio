@@ -107,7 +107,7 @@ const TechStack = memo(function TechStack() {
           </span>
           <div className="flex flex-wrap gap-1.5">
             {LEADERSHIP_SKILLS.map((skill) => (
-              <span key={skill} className="about-skill-chip opacity-60">
+              <span key={skill} className="about-skill-chip">
                 {skill}
               </span>
             ))}
