@@ -205,7 +205,7 @@ export default function ProjectsViewer({
 
   return (
     <div
-      className="h-full flex flex-col justify-between"
+      className="flex-1 flex flex-col justify-between"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       style={{ touchAction: "pan-y" }}

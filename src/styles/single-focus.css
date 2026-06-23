@@ -1,22 +1,21 @@
 /* ========== SINGLE-FOCUS PROJECTS LAYOUT ========== */
 
 /**
- * Architecture: Fixed viewport height for both states.
- * Both cards always fill the viewport — no internal scroll, no page scroll.
+ * Architecture: flex-1 chain fills section min-height.
  *
- * height: 100% chain (all three levels must have explicit height):
- *   section h-[100dvh]
- *     → .home-deck-grid { height: 100% }
- *       → .home-card { height: 100% }
- *         → inner wrapper { h-full }
- *           → card content fills the card
+ * section (flex col, min-h-dvh)             ← HomeDeck.tsx
+ *   .home-deck-grid (flex row, flex-1)
+ *     .home-card (flex col, flex-1)
+ *       inner wrapper (flex-1, flex col, overflow-hidden)
+ *         ProfileCard / AboutMe (flex-1)
  *
- * Natural height layouts (height: auto) break this chain because
- * h-full on the inner bg-card wrapper resolves to auto, not to the
- * flex-stretched card height.
+ * Cards fill at least the full viewport. Content taller than the viewport
+ * causes the flex chain to grow and the page scrolls naturally (no clipping).
  *
- * Default:          Profile (50%) | About (50%) — equal height, stretch
- * projects-focused: Profile sidebar (~28%) | Projects (~72%)
+ * Desktop: project content area uses overflow-y-auto + flex-1/min-h-0 so
+ *          the prev/next navigation stays pinned to the card bottom.
+ * Mobile:  project content area switches to overflow-visible so the page
+ *          scrolls instead of creating a nested scroll trap.
  */
 
 /* ── MAIN CONTAINER ───────────────────────────────── */
@@ -25,7 +24,8 @@
     display: flex;
     flex-direction: row;
     gap: 1.25rem;
-    height: 100%;      /* 100% of section = 100dvh - section padding */
+    flex: 1;
+    min-height: 0;
     width: 100%;
     align-items: stretch;
     justify-content: center;
@@ -38,7 +38,9 @@
     position: relative;
     flex: 1 1 0%;
     min-width: 0;
-    height: 100%;      /* fills grid height = 100dvh - section padding */
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
     opacity: 1;
     transform: scale(1) translateY(0);
     transition:
@@ -55,7 +57,7 @@
     gap: 0.75rem;
 }
 
-/* Profile sidebar — compact but still full height */
+/* Profile sidebar — compact width */
 .home-deck-grid.projects-focused .home-card--profile {
     flex: 0 0 clamp(200px, 26%, 280px);
     opacity: 0.96;
@@ -86,6 +88,8 @@
         flex-direction: column;
         gap: 0.75rem;
         align-items: stretch;
+        flex: none;
+        min-height: auto;
     }
 
     .home-card {
@@ -95,12 +99,10 @@
         width: 100%;
         transition:
             opacity var(--duration-slower) var(--ease-out),
-            transform var(--duration-slower) var(--ease-out),
-            min-height var(--duration-slower) var(--ease-out),
-            max-height var(--duration-slower) var(--ease-out);
+            transform var(--duration-slower) var(--ease-out);
     }
 
-    /* Mobile projects mode: profile strip + projects below */
+    /* Mobile projects mode: compact profile strip at top */
     .home-deck-grid.projects-focused {
         gap: 0.75rem;
     }
@@ -114,27 +116,52 @@
         opacity: 1;
     }
 
+    /* Projects card: natural height, page scrolls */
     .home-deck-grid.projects-focused .home-card--about {
-        flex: 1 1 auto;
-        min-height: clamp(380px, 68dvh, 640px);
+        flex: 0 0 auto;
+        min-height: auto;
         height: auto;
         opacity: 1;
         transform: none;
         box-shadow: none;
     }
+
+    /* Remove nested scroll on mobile — page scrolls instead */
+    .project-content-area {
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        flex: none !important;
+        min-height: 0 !important;
+        height: auto !important;
+    }
+
+    /* No scroll-fade on mobile since there's no internal scroll */
+    .project-scroll-fade {
+        display: none !important;
+    }
+
+    /* Limit highlights to 3 on mobile to reduce density */
+    .entry-highlight:nth-child(n+4) {
+        display: none;
+    }
 }
 
-/* ── LANDSCAPE MOBILE (short screens) ────────────── */
+/* ── LANDSCAPE MOBILE (short screens, ≤ 600px tall) ─ */
 
 @media (orientation: landscape) and (max-height: 600px) {
     .home-deck-grid {
         flex-direction: row;
         gap: 0.5rem;
         align-items: stretch;
+        flex: 1;
+        min-height: 0;
     }
 
+    /* Restore flex card sizing for landscape row layout */
     .home-card {
-        height: 100%;
+        flex: 1 1 0%;
+        height: auto;
+        min-height: 0;
     }
 
     .home-deck-grid.projects-focused .home-card--profile {
@@ -143,5 +170,18 @@
 
     .home-deck-grid.projects-focused .home-card--about {
         flex: 1 1 0%;
+    }
+
+    /* On landscape-short screens, restore internal scroll (short viewport needs it) */
+    .project-content-area {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        flex: 1 !important;
+        min-height: 0 !important;
+        height: auto !important;
+    }
+
+    .project-scroll-fade {
+        display: block !important;
     }
 }

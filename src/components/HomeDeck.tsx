@@ -97,17 +97,15 @@ const HomeDeck = memo(function HomeDeck() {
         />
       </Suspense>
 
-      {/* Fixed viewport height: both cards always fill exactly 100dvh.
-          No page scroll, no internal scroll — content is designed to fit. */}
       <section
-        className="mx-auto max-w-5xl px-4 py-3 h-[100dvh] overflow-hidden"
+        className="mx-auto max-w-[1440px] px-4 py-4 sm:px-6 lg:py-5 flex flex-col min-h-dvh"
         aria-label="Portfolio"
       >
         <div className={`home-deck-grid ${isFlipped ? "projects-focused" : ""}`}>
 
           {/* LEFT CARD — ProfileCard (full) or sidebar (when flipped) */}
           <div className="home-card home-card--profile" style={leftCardStyle}>
-            <div className="rounded-lg bg-card border border-token h-full overflow-hidden">
+            <div className="rounded-lg bg-card border border-token flex-1 flex flex-col overflow-hidden">
               <ProfileCard
                 size="large"
                 onToggleFlip={toggleFlip}
@@ -121,14 +119,14 @@ const HomeDeck = memo(function HomeDeck() {
               panelExiting: plays exit animation on current content.
               panelKey increment: re-mounts div, re-triggers enter animation on new content. */}
           <div className="home-card home-card--about" style={rightCardStyle}>
-            <div className="rounded-lg bg-card border border-token h-full overflow-hidden">
+            <div className="rounded-lg bg-card border border-token flex-1 flex flex-col overflow-hidden">
               <div
                 key={panelKey}
-                className={`h-full ${panelExiting ? "card-panel-exit" : "card-panel-enter"}`}
+                className={`flex-1 flex flex-col ${panelExiting ? "card-panel-exit" : "card-panel-enter"}`}
               >
                 {showProjects ? (
                   <ErrorBoundary>
-                    <div className="p-5 h-full">
+                    <div className="p-5 flex-1 flex flex-col">
                       <ProjectsViewer
                         projects={sortedProjects}
                         onClose={toggleFlip}

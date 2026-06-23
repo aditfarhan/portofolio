@@ -283,8 +283,7 @@ export default function RootLayout({
           Skip to content
         </a>
 
-        {/* Full-viewport canvas, no vertical scrolling */}
-        <main id="main" className="h-[100dvh] overflow-hidden">
+        <main id="main" className="min-h-dvh overflow-x-hidden">
           {children}
         </main>
 

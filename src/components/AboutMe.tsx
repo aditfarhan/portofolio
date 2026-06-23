@@ -105,7 +105,7 @@ const AboutMe = memo(function AboutMe({
     <section
       ref={sectionRef}
       className="
-        interactive-card relative h-full
+        interactive-card relative flex-1
         flex flex-col gap-2.5
         px-5 py-4 sm:px-6 sm:py-5
       "
@@ -131,32 +131,27 @@ const AboutMe = memo(function AboutMe({
           systems and scalable web platforms with long-term clarity.
         </h2>
 
-        {/* Stats row — visual counters are aria-hidden; sr-only spans carry correct values */}
+        {/* Stats row — container aria-label carries the accessible text; all children hidden from AT */}
         <div
           className={`
             flex items-center gap-0
             transition-all duration-scene delay-100
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
           `}
-          aria-label="Career highlights"
+          aria-label={PROFILE_STATS.map(s => `${s.value}${s.suffix} ${s.label}`).join(", ")}
         >
           {PROFILE_STATS.map((stat, i) => (
-            <div key={stat.label} className="flex items-center">
+            <div key={stat.label} className="flex items-center" aria-hidden="true">
               <div className="flex flex-col items-center min-w-[2.5rem]">
-                {/* Animated counter — visual only */}
-                <span className="about-stat-value" aria-hidden="true">
+                <span className="about-stat-value">
                   {counts[i]}{stat.suffix}
                 </span>
-                {/* Always-correct value for screen readers and SSR */}
-                <span className="sr-only">
-                  {stat.value}{stat.suffix} {stat.label}
-                </span>
-                <span className="about-stat-label" aria-hidden="true">
+                <span className="about-stat-label">
                   {stat.label}
                 </span>
               </div>
               {i < PROFILE_STATS.length - 1 && (
-                <div className="about-stat-divider about-stat-divider--breathe" aria-hidden="true" />
+                <div className="about-stat-divider about-stat-divider--breathe" />
               )}
             </div>
           ))}
@@ -206,7 +201,7 @@ const AboutMe = memo(function AboutMe({
                 className="absolute top-1.5 right-2 text-2xs text-white/25 font-mono select-none"
                 aria-hidden="true"
               >
-                0{idx + 1}
+                {`0${idx + 1}`}
               </span>
               <div className="
                 absolute inset-0 rounded-lg pointer-events-none opacity-0

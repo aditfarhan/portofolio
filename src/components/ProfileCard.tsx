@@ -56,7 +56,7 @@ const ProfileCard = memo(function ProfileCard({
       <div
         ref={shineRef}
         onMouseMove={handleShine}
-        className="profile-sidebar shine-card group relative h-full flex flex-col justify-between px-4 py-5"
+        className="profile-sidebar shine-card group relative flex-1 flex flex-col justify-between px-4 py-5"
         role="region"
         aria-label="Profile"
       >
@@ -204,7 +204,7 @@ const ProfileCard = memo(function ProfileCard({
     <div
       ref={shineRef}
       onMouseMove={handleShine}
-      className="profile-card shine-card group relative h-full flex items-center justify-center"
+      className="profile-card shine-card group relative flex-1 flex items-center justify-center"
       role="region"
       aria-label="Profile"
     >
