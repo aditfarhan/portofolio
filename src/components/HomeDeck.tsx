@@ -2,23 +2,35 @@
 
 import { memo, useRef, lazy, Suspense } from "react";
 import { portfolio } from "@/data/portfolio";
+import SectionNav from "@/components/SectionNav";
 import HeroSection from "@/components/sections/HeroSection";
+import ImpactMetrics from "@/components/sections/ImpactMetrics";
 import FeaturedCaseStudies from "@/components/sections/FeaturedCaseStudies";
 import WhatIBuild from "@/components/sections/WhatIBuild";
 import WorkProcess from "@/components/sections/WorkProcess";
 import TechStack from "@/components/sections/TechStack";
 import OtherProjects from "@/components/sections/OtherProjects";
+import TrustNote from "@/components/sections/TrustNote";
 import FinalCTA from "@/components/sections/FinalCTA";
 
-const BackgroundEffects = lazy(() =>
-  import("@/components/BackgroundEffects")
-);
+const BackgroundEffects = lazy(() => import("@/components/BackgroundEffects"));
+
+function SectionDivider() {
+  return (
+    <div
+      className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8"
+      aria-hidden="true"
+    >
+      <div className="h-px bg-gradient-to-r from-transparent via-white/7 to-transparent" />
+    </div>
+  );
+}
 
 const HomeDeck = memo(function HomeDeck() {
   const caseStudiesRef = useRef<HTMLElement>(null);
 
   const featuredProjects = portfolio.projects.filter((p) => p.featured);
-  const otherProjects = portfolio.projects.filter((p) => !p.featured);
+  const otherProjects    = portfolio.projects.filter((p) => !p.featured);
 
   function scrollToCaseStudies() {
     caseStudiesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -31,70 +43,48 @@ const HomeDeck = memo(function HomeDeck() {
         <BackgroundEffects />
       </Suspense>
 
-      {/* Scrolling landing page content */}
+      {/* Landing page — all sections */}
       <div className="relative" style={{ zIndex: 1 }}>
-        {/* 1 — Hero: identity + headline + CTA — fills first viewport */}
+        {/* Sticky section navigation */}
+        <SectionNav />
+
+        {/* 1 — Hero: identity + headline + CTAs */}
         <HeroSection onScrollToCaseStudies={scrollToCaseStudies} />
 
-        {/* Subtle divider between hero and content */}
-        <div
-          className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
-          aria-hidden="true"
-        />
+        {/* 2 — Impact Metrics: animated proof strip */}
+        <ImpactMetrics />
 
-        {/* 2 — Featured Case Studies */}
-        <FeaturedCaseStudies
-          ref={caseStudiesRef}
-          projects={featuredProjects}
-        />
+        <SectionDivider />
 
-        {/* Divider */}
-        <div
-          className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8"
-          aria-hidden="true"
-        >
-          <div className="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-        </div>
+        {/* 3 — Featured Case Studies: top 3 healthcare systems */}
+        <FeaturedCaseStudies ref={caseStudiesRef} projects={featuredProjects} />
 
-        {/* 3 — What I Build */}
+        <SectionDivider />
+
+        {/* 4 — What I Build: 4-card expertise grid */}
         <WhatIBuild />
 
-        {/* Divider */}
-        <div
-          className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8"
-          aria-hidden="true"
-        >
-          <div className="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-        </div>
+        <SectionDivider />
 
-        {/* 4 — How I Work */}
+        {/* 5 — How I Work: 4-step visual process */}
         <WorkProcess />
 
-        {/* Divider */}
-        <div
-          className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8"
-          aria-hidden="true"
-        >
-          <div className="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-        </div>
+        <SectionDivider />
 
-        {/* 5 — Technical Stack */}
+        {/* 6 — Technical Stack: grouped skill chips */}
         <TechStack />
 
-        {/* Divider */}
-        <div
-          className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8"
-          aria-hidden="true"
-        >
-          <div className="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-        </div>
+        <SectionDivider />
 
-        {/* 6 — Other Projects */}
+        {/* 7 — Other Projects: compact grid */}
         {otherProjects.length > 0 && (
           <OtherProjects projects={otherProjects} />
         )}
 
-        {/* 7 — Final CTA */}
+        {/* 8 — Confidentiality / trust note */}
+        <TrustNote />
+
+        {/* 9 — Final CTA */}
         <FinalCTA />
       </div>
     </>

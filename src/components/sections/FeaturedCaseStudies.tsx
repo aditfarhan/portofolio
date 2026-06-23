@@ -20,7 +20,7 @@ const INDUSTRY_MAP: Record<string, string> = {
 const CARD_SUMMARIES: Record<string, { context: string; role: string; impactChips: string[] }> = {
   "his-emr-platform": {
     context: "Nationwide HIS/EMR platform deployed across 12+ hospitals, covering inpatient, outpatient, and clinical documentation workflows.",
-    role: "Lead Frontend Engineer",
+    role: "Lead Software Engineer",
     impactChips: ["12+ Hospitals", "Thousands of daily transactions", "10+ clinical modules"],
   },
   "satusehat-integration": {
@@ -197,8 +197,8 @@ const FeaturedCaseStudies = forwardRef<HTMLElement, FeaturedCaseStudiesProps>(
             </p>
           </div>
 
-          {/* Cards grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+          {/* Cards grid — items-start prevents card stretching when one expands */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 items-start">
             {projects.map((project, i) => (
               <CaseStudyCard
                 key={project.id}

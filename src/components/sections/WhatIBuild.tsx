@@ -40,6 +40,7 @@ const WhatIBuild = memo(function WhatIBuild() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
+      id="what-i-build"
       className="relative py-16 sm:py-20"
       aria-label="What I build"
     >
@@ -77,7 +78,7 @@ const WhatIBuild = memo(function WhatIBuild() {
               <span className="absolute top-3 right-3 text-2xs text-white/18 font-mono select-none" aria-hidden="true">
                 {item.number}
               </span>
-              <p
+              <h3
                 className={`
                   font-semibold leading-tight mb-1.5
                   ${item.prominent ? "text-sm sm:text-base text-white/88" : "text-sm text-white/70"}
@@ -85,7 +86,7 @@ const WhatIBuild = memo(function WhatIBuild() {
                 style={{ letterSpacing: "var(--tracking-tight)" }}
               >
                 {item.title}
-              </p>
+              </h3>
               <p className={`text-xs leading-relaxed ${item.prominent ? "text-white/50" : "text-white/38"}`}>
                 {item.desc}
               </p>

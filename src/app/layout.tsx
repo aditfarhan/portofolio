@@ -283,7 +283,8 @@ export default function RootLayout({
           Skip to content
         </a>
 
-        <main id="main" className="min-h-dvh overflow-x-hidden">
+        {/* tabIndex=-1 allows skip link to move focus here without adding to tab order */}
+        <main id="main" className="min-h-dvh overflow-x-hidden" tabIndex={-1}>
           {children}
         </main>
 

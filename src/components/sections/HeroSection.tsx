@@ -11,7 +11,7 @@ interface HeroSectionProps {
 const RESUME_LINK = CONTACT_LINKS.find((l) => l.download);
 
 const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSectionProps) {
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted]     = useState(false);
   const [copiedName, setCopiedName] = useState(false);
   const { shineRef, handleShine } = useShineEffect<HTMLDivElement>();
 
@@ -32,7 +32,8 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
 
   return (
     <section
-      className="relative flex items-center min-h-dvh py-10 sm:py-12"
+      id="overview"
+      className="relative flex items-center min-h-dvh pt-14 pb-10 sm:pt-16 sm:pb-12"
       aria-label="Introduction"
     >
       <div className="mx-auto max-w-[1200px] w-full px-4 sm:px-6 lg:px-8">
@@ -51,9 +52,9 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
               ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
             `}
             role="complementary"
-            aria-label="Profile"
+            aria-label="Profile summary"
           >
-            {/* Mobile horizontal layout */}
+            {/* Mobile: compact horizontal strip */}
             <div className="flex lg:hidden items-center gap-4 px-5 py-4">
               <button
                 type="button"
@@ -115,7 +116,7 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
               </div>
             </div>
 
-            {/* Desktop full vertical layout */}
+            {/* Desktop: full vertical card */}
             <div className="hidden lg:flex flex-col items-center text-center flex-1 gap-4 px-5 py-7">
               {/* MAF mark */}
               <button
@@ -179,18 +180,26 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
                 ))}
               </p>
 
-              {/* Divider */}
-              <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" aria-hidden="true" />
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-white/18 to-transparent" aria-hidden="true" />
 
-              {/* Stats */}
-              <div className="flex items-center justify-center gap-0 w-full" aria-label="Key stats" aria-hidden="true">
+              {/* Key stats — concise */}
+              <div
+                className="flex items-center justify-center gap-0 w-full"
+                aria-label="Career highlights"
+              >
                 {PROFILE_STATS.map((stat, i) => (
                   <div key={stat.label} className="flex items-center">
                     <div className="flex flex-col items-center px-3">
-                      <span className="text-base font-bold text-white/88 tabular-nums" style={{ letterSpacing: "var(--tracking-tight)" }}>
+                      <span
+                        className="text-base font-bold text-white/88 tabular-nums"
+                        style={{ letterSpacing: "var(--tracking-tight)" }}
+                      >
                         {stat.value}{stat.suffix}
                       </span>
-                      <span className="text-2xs text-white/35 mt-0.5" style={{ letterSpacing: "var(--tracking-caps)" }}>
+                      <span
+                        className="text-2xs text-white/35 mt-0.5"
+                        style={{ letterSpacing: "var(--tracking-caps)" }}
+                      >
                         {stat.label}
                       </span>
                     </div>
@@ -201,15 +210,14 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
                 ))}
               </div>
 
-              {/* Divider */}
-              <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" aria-hidden="true" />
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-white/18 to-transparent" aria-hidden="true" />
 
               {/* Context chips */}
               <div className="flex items-center justify-center flex-wrap gap-1.5">
                 {[
                   { icon: "icon-location", label: "Jakarta" },
-                  { icon: "icon-globe", label: "Remote-ready" },
-                  { icon: "icon-medical", label: "HIS/EMR" },
+                  { icon: "icon-globe",    label: "Remote-ready" },
+                  { icon: "icon-medical",  label: "HIS/EMR" },
                 ].map(({ icon, label }) => (
                   <span
                     key={label}
@@ -244,7 +252,10 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
                 ))}
               </div>
 
-              <p className="text-2xs text-white/30 text-center leading-snug" style={{ letterSpacing: "var(--tracking-caps)" }}>
+              <p
+                className="text-2xs text-white/28 text-center leading-snug"
+                style={{ letterSpacing: "var(--tracking-caps)" }}
+              >
                 Open to Software Engineer · Senior Frontend<br />
                 Healthcare IT · Technical Lead roles
               </p>
@@ -259,7 +270,7 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
               ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
             `}
           >
-            {/* Section label */}
+            {/* Eyebrow label */}
             <p
               className="text-2xs text-white/25 mb-4 sm:mb-5"
               style={{ letterSpacing: "var(--tracking-caps)" }}
@@ -268,27 +279,29 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
               SENIOR SOFTWARE ENGINEER · JAKARTA, INDONESIA
             </p>
 
-            {/* Main headline */}
-            <h2
-              className="hero-headline text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-4 sm:mb-5"
+            {/* H1 — the single page heading, includes sr-only name for screen readers */}
+            <h1
+              className="hero-headline font-bold mb-4 sm:mb-5"
               style={{ letterSpacing: "var(--tracking-tight)" }}
             >
+              <span className="sr-only">Muhammad Aditia Farhan — </span>
               Building{" "}
               <em className="not-italic text-white/88">
                 nationwide healthcare systems
               </em>{" "}
               that serve 12+ hospitals.
-            </h2>
+            </h1>
 
-            {/* Supporting copy */}
-            <p className="text-sm sm:text-base text-white/55 leading-relaxed max-w-[560px] mb-6 sm:mb-7">
+            {/* Supporting copy — one strong sentence */}
+            <p className="text-sm sm:text-base text-white/55 leading-relaxed max-w-[540px] mb-7 sm:mb-8">
               I lead and build HIS/EMR, SATUSEHAT integration, and enterprise platforms used daily
               across hospitals in Indonesia — from clinical workflows to national health data exchange.
             </p>
 
-            {/* CTAs — visible in the first viewport */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-8 sm:mb-9">
+            {/* Primary CTAs — visible without scrolling on all common laptop screens */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <button
+                type="button"
                 onClick={onScrollToCaseStudies}
                 className="
                   group about-cta-btn about-cta-btn--weighted
@@ -335,34 +348,16 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
               )}
             </div>
 
-            {/* Compact metric strip */}
-            <div
-              className="flex flex-wrap gap-3 sm:gap-4"
-              aria-label="Key metrics"
-            >
-              {[
-                { value: "5+", label: "Years Experience" },
-                { value: "12+", label: "Hospitals Deployed" },
-                { value: "4", label: "Industries" },
-                { value: "1000s", label: "Daily Clinical Transactions" },
-              ].map((m) => (
-                <div
-                  key={m.label}
-                  className="flex flex-col hero-metric-card"
-                >
-                  <span className="text-base sm:text-lg font-bold text-white/88 tabular-nums" style={{ letterSpacing: "var(--tracking-tight)" }}>
-                    {m.value}
-                  </span>
-                  <span className="text-2xs text-white/35 mt-0.5" style={{ letterSpacing: "var(--tracking-caps)" }}>
-                    {m.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
             {/* Scroll hint */}
-            <div className="mt-10 sm:mt-12 flex items-center gap-1.5 text-2xs text-white/20" aria-hidden="true">
-              <svg className="w-3 h-3 animate-bounce" viewBox="0 0 16 16" fill="none">
+            <div
+              className="mt-10 sm:mt-12 flex items-center gap-1.5 text-2xs text-white/18"
+              aria-hidden="true"
+            >
+              <svg
+                className="w-3 h-3 motion-safe:animate-bounce"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
                 <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               scroll to explore

@@ -81,7 +81,7 @@ export const portfolio: PortfolioData = {
       description:
         "Hospital groups needed standardized clinical workflows across multiple facilities with different infrastructure readiness and operational requirements — from inpatient admission and clinical documentation through to discharge summaries and follow-up care.",
       myRole:
-        "Lead Frontend Engineer driving core HIS/EMR module development, continuous enhancement, frontend architecture, design system standardization, and deployment reliability across multiple hospital sites.",
+        "Lead Software Engineer driving core HIS/EMR module development, continuous enhancement, frontend architecture, design system standardization, and deployment reliability across multiple hospital sites.",
       scale:
         "12+ hospitals nationally · Thousands of daily clinical transactions · 10+ clinical workflow modules · Hybrid cloud and on-premise deployments",
       systemScope:

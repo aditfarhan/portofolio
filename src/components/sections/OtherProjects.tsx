@@ -36,6 +36,7 @@ const OtherProjects = memo(function OtherProjects({ projects }: OtherProjectsPro
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
+      id="other-projects"
       className="relative py-16 sm:py-20"
       aria-label="Other projects"
     >

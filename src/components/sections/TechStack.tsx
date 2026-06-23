@@ -43,6 +43,7 @@ const TechStack = memo(function TechStack() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
+      id="tech-stack"
       className="relative py-16 sm:py-20"
       aria-label="Technical stack and skills"
     >

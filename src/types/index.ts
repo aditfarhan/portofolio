@@ -50,7 +50,7 @@ export interface Project {
   tags: string[];
   links?: Link[];
   period?: Period;
-  /** Specific role held in the project (e.g. "Lead Frontend Engineer") */
+  /** Specific role held in the project (e.g. "Lead Software Engineer") */
   myRole?: string;
   /** Scale indicators — hospitals, users, transactions, modules */
   scale?: string;

@@ -32,6 +32,7 @@ const WorkProcess = memo(function WorkProcess() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
+      id="process"
       className="relative py-16 sm:py-20"
       aria-label="How I work"
     >
@@ -62,9 +63,9 @@ const WorkProcess = memo(function WorkProcess() {
               style={{ transitionDelay: visible ? `${idx * 80}ms` : "0ms" }}
             >
               <span className="process-step-number">{step.number}</span>
-              <p className="text-sm font-semibold text-white/88 leading-snug" style={{ letterSpacing: "var(--tracking-tight)" }}>
+              <h3 className="text-sm font-semibold text-white/88 leading-snug" style={{ letterSpacing: "var(--tracking-tight)" }}>
                 {step.title}
-              </p>
+              </h3>
               <p className="text-xs text-white/45 leading-relaxed">
                 {step.desc}
               </p>
