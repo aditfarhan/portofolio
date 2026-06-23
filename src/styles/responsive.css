@@ -386,7 +386,7 @@
 
   .home-card--profile .text-xl,
   .home-card--profile .text-2xl,
-  .home-card--profile h1 {
+  .home-card--profile .profile-name {
     font-size: var(--fs-md) !important;
     letter-spacing: var(--tracking-tight);
   }

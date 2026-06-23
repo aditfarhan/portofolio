@@ -39,6 +39,32 @@ const nextConfig: NextConfig = {
   },
 
 
+  // Permanent redirects — old resume filenames → stable clean URL
+  async redirects() {
+    return [
+      {
+        source: '/ATS%20CV%202025%203.0%20-%20Muhammad%20Aditia%20Farhan.pdf',
+        destination: '/Muhammad-Aditia-Farhan-Resume.pdf',
+        permanent: true,
+      },
+      {
+        source: '/ATS%20CV%202026%20-%20Muhammad%20Aditia%20Farhan.pdf',
+        destination: '/Muhammad-Aditia-Farhan-Resume.pdf',
+        permanent: true,
+      },
+      {
+        source: '/ATS CV 2025 3.0 - Muhammad Aditia Farhan.pdf',
+        destination: '/Muhammad-Aditia-Farhan-Resume.pdf',
+        permanent: true,
+      },
+      {
+        source: '/ATS CV 2026 - Muhammad Aditia Farhan.pdf',
+        destination: '/Muhammad-Aditia-Farhan-Resume.pdf',
+        permanent: true,
+      },
+    ];
+  },
+
   // Headers for security and performance
   async headers() {
     return [

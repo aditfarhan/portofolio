@@ -121,9 +121,10 @@ const ProfileCard = memo(function ProfileCard({
         <div className="flex flex-col items-center gap-2.5">
           <div className="w-full h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
 
+          {/* Visual stats — aria-hidden; page sr-only section provides accessible text */}
           <div
             className="grid grid-cols-3 w-full gap-1 text-center"
-            aria-label="Career highlights"
+            aria-hidden="true"
           >
             {PROFILE_STATS.map((stat) => (
               <div key={stat.label} className="flex flex-col items-center">
@@ -169,9 +170,9 @@ const ProfileCard = memo(function ProfileCard({
             ))}
           </div>
 
-          <p className="text-2xs text-white/25 text-center leading-snug">
+          <p className="text-2xs text-white/45 text-center leading-snug">
             Open to Software Engineer, Senior Frontend,<br />
-            Healthcare IT &amp; Tech Lead roles
+            Healthcare IT &amp; Technical Lead roles
           </p>
 
           {showActionButton && (
@@ -275,16 +276,16 @@ const ProfileCard = memo(function ProfileCard({
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
           `}
         >
-          <h1
+          <p
             className={`
-              font-bold
+              profile-name font-bold
               ${isLarge ? "text-xl md:text-2xl lg:text-2xl" : "text-lg md:text-xl"}
               group-hover:-translate-y-[1px] transition-transform duration-slow
             `}
             style={{ letterSpacing: "var(--tracking-tight)" }}
           >
             Muhammad Aditia Farhan
-          </h1>
+          </p>
 
           <div className="flex items-center justify-center gap-2 flex-wrap">
             <p className={`
@@ -330,10 +331,14 @@ const ProfileCard = memo(function ProfileCard({
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
           `}
         >
-          <div className="flex items-center flex-wrap gap-x-2 gap-y-1 justify-center text-white/55 group-hover:text-white/70 transition-colors duration-slower">
+          {/* Visual stats — hidden from AT; page sr-only section provides the accessible text */}
+          <div
+            aria-hidden="true"
+            className="flex items-center flex-wrap gap-x-2 gap-y-1 justify-center text-white/55 group-hover:text-white/70 transition-colors duration-slower"
+          >
             {PROFILE_STATS.map((stat, i) => (
               <span key={stat.label} className="flex items-center gap-1">
-                {i > 0 && <span className="text-white/25" aria-hidden="true">·</span>}
+                {i > 0 && <span className="text-white/25">·</span>}
                 <span className={`font-semibold ${isLarge ? "text-xs md:text-sm" : "text-2xs md:text-xs"}`}>
                   {stat.value}{stat.suffix}
                 </span>
@@ -402,9 +407,9 @@ const ProfileCard = memo(function ProfileCard({
             ))}
           </div>
 
-          <p className="text-2xs text-white/20 text-center leading-snug">
+          <p className="text-2xs text-white/45 text-center leading-snug">
             Open to Software Engineer, Senior Frontend,<br />
-            Healthcare IT &amp; Tech Lead roles
+            Healthcare IT &amp; Technical Lead roles
           </p>
         </div>
       </div>

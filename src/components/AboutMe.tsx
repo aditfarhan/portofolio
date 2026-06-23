@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { portfolio, PROFILE_STATS, PROFILE_INDUSTRIES } from "@/data/portfolio";
+import { portfolio, PROFILE_STATS } from "@/data/portfolio";
 import { useCountUp, useShineEffect } from "@/hooks";
 
 interface AboutMeProps {
@@ -38,10 +38,22 @@ const BUILD_FOCUS = [
 ];
 
 const SKILL_GROUPS = [
-  { label: "Frontend", skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
-  { label: "Backend", skills: ["Laravel", "Node.js", "PostgreSQL", "REST API"] },
-  { label: "Infra", skills: ["Docker", "Kubernetes", "Jenkins", "CI/CD"] },
-  { label: "Healthcare", skills: ["HIS/EMR", "SATUSEHAT", "HL7 FHIR", "Unleash"] },
+  {
+    label: "Frontend",
+    skills: ["React", "Next.js", "TypeScript", "JavaScript", "Redux", "Zustand", "Tailwind CSS", "Storybook"],
+  },
+  {
+    label: "Backend",
+    skills: ["Laravel", "Node.js", "Express.js", "PostgreSQL", "MySQL", "REST API", "GraphQL"],
+  },
+  {
+    label: "Infra",
+    skills: ["Docker", "Kubernetes", "Jenkins", "CI/CD", "MinIO", "HashiCorp Vault"],
+  },
+  {
+    label: "Healthcare",
+    skills: ["HIS/EMR", "SATUSEHAT", "HL7 FHIR", "Unleash", "Healthcare Interoperability"],
+  },
 ];
 
 const LEADERSHIP_SKILLS = [
@@ -51,6 +63,8 @@ const LEADERSHIP_SKILLS = [
   "Mentorship",
   "Stakeholder alignment",
   "Technical documentation",
+  "Risk mitigation",
+  "Production stability",
 ];
 
 const AboutMe = memo(function AboutMe({
@@ -131,17 +145,22 @@ const AboutMe = memo(function AboutMe({
           systems and scalable web platforms with long-term clarity.
         </h2>
 
-        {/* Stats row — container aria-label carries the accessible text; all children hidden from AT */}
+        {/* Single accessible text node — one clean read for AT and crawlers */}
+        <span className="sr-only">
+          {PROFILE_STATS.map(s => `${s.value}${s.suffix} ${s.label}`).join(", ")}
+        </span>
+
+        {/* Visual animated stats — entirely hidden from AT to prevent duplication */}
         <div
+          aria-hidden="true"
           className={`
             flex items-center gap-0
             transition-all duration-scene delay-100
             ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
           `}
-          aria-label={PROFILE_STATS.map(s => `${s.value}${s.suffix} ${s.label}`).join(", ")}
         >
           {PROFILE_STATS.map((stat, i) => (
-            <div key={stat.label} className="flex items-center" aria-hidden="true">
+            <div key={stat.label} className="flex items-center">
               <div className="flex flex-col items-center min-w-[2.5rem]">
                 <span className="about-stat-value">
                   {counts[i]}{stat.suffix}
@@ -335,7 +354,7 @@ const AboutMe = memo(function AboutMe({
         <span className="text-2xs sm:text-xs text-white/38"
           style={{ letterSpacing: "var(--tracking-caps)" }}
         >
-          {PROFILE_INDUSTRIES}
+          Open to Software Engineer · Senior Frontend · Healthcare IT · Technical Lead roles
         </span>
       </div>
 

@@ -129,19 +129,19 @@ const ProjectEntry = memo(function ProjectEntry({
         </p>
       )}
 
-      {/* ── BODY — decision & outcome ──── */}
+      {/* ── BODY — technical decisions & impact ──── */}
       {(project.decision || project.outcome) && (
         <div className="entry-body">
           {project.decision && (
             <div className="entry-section entry-section--decision">
-              <span className="entry-label entry-label--decision">Decision</span>
+              <span className="entry-label entry-label--decision">Technical Decisions</span>
               <p className="entry-text entry-text--primary">{project.decision}</p>
             </div>
           )}
 
           {project.outcome && (
             <div className="entry-section entry-section--outcome">
-              <span className="entry-label entry-label--outcome">Outcome</span>
+              <span className="entry-label entry-label--outcome">Impact</span>
               <p className="entry-text">{project.outcome}</p>
             </div>
           )}

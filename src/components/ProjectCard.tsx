@@ -247,7 +247,12 @@ export default function ProjectsViewer({
       </div>
 
       {/* ── INDUSTRY FILTERS ───────────────────────────── */}
-      <div className="flex flex-wrap gap-1 mb-2 flex-shrink-0" role="group" aria-label="Filter by industry">
+      <div
+        className="flex gap-1 mb-2 flex-shrink-0 overflow-x-auto pb-0.5 scrollbar-none"
+        role="group"
+        aria-label="Filter by industry"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
         {FILTER_OPTIONS.map((opt) => {
           const count = filterCounts[opt] ?? 0;
           if (count === 0 && opt !== "All") return null;
@@ -257,7 +262,7 @@ export default function ProjectsViewer({
               key={opt}
               onClick={() => handleFilterChange(opt)}
               className={[
-                "text-2xs px-2 py-0.5 rounded-full border transition-all duration-fast",
+                "text-2xs px-2.5 py-1 rounded-full border transition-all duration-fast whitespace-nowrap flex-shrink-0 min-h-[1.875rem]",
                 isActive
                   ? "border-white/38 bg-surface-2 text-white/88 font-semibold shadow-sm"
                   : "border-border-1 bg-surface-1 text-white/38 hover:text-white/70 hover:border-border-2 hover:bg-surface-2",

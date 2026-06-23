@@ -119,7 +119,7 @@ export const portfolio: PortfolioData = {
       title: "SATUSEHAT Integration Interface",
       description:
         "Healthcare interoperability layer connecting IHC hospital systems to Indonesia's SATUSEHAT platform (Ministry of Health), enabling standardized health data exchange across multiple hospital facilities — including integration with legacy Sybase hospital databases.",
-      impact: "National health registry · HL7 FHIR compliant · Multi-hospital data sync",
+      impact: "National health registry · FHIR-based data integration · Multi-hospital data sync",
       period: { start: "2024-03", end: null },
       tags: [
         "React",
