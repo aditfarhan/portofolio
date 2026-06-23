@@ -123,6 +123,7 @@ export const portfolio: PortfolioData = {
     },
     {
       id: "satusehat-integration",
+      featured: true,
       company: "PT. Pertamina Bina Medika IHC",
       title: "SATUSEHAT Integration Interface",
       description:
@@ -191,6 +192,7 @@ export const portfolio: PortfolioData = {
     },
     {
       id: "ihc-office",
+      featured: true,
       company: "PT. Pertamina Bina Medika IHC",
       title: "IHC Office — Enterprise Secretariat System",
       description:
