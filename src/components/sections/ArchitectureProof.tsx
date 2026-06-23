@@ -66,6 +66,7 @@ function StepCard({ step, index }: StepCardProps) {
   return (
     <div
       className="
+        self-stretch flex flex-col
         flex-shrink-0 w-[100px] sm:w-[116px]
         bg-surface-1 border border-border-1 rounded-md
         px-2.5 py-2.5
@@ -153,13 +154,13 @@ const ArchitectureProof = memo(function ArchitectureProof() {
 
               {/* Step chain — horizontal scroll on mobile */}
               <div
-                className="flex items-start -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-1"
+                className="flex items-stretch -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-1"
                 style={{ scrollbarWidth: "none" }}
                 role="list"
                 aria-label={`${workflow.label} steps`}
               >
                 {workflow.steps.map((step, sIdx) => (
-                  <div key={step.label} className="flex items-start" role="listitem">
+                  <div key={step.label} className="flex items-center" role="listitem">
                     {sIdx > 0 && <ArrowConnector />}
                     <StepCard step={step} index={sIdx} />
                   </div>

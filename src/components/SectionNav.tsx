@@ -74,9 +74,9 @@ export default function SectionNav() {
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
 
         {/* MAF brand mark — scrolls to top */}
-        <button
-          type="button"
-          onClick={() => scrollTo("#overview")}
+        <a
+          href="#overview"
+          onClick={(e) => { e.preventDefault(); scrollTo("#overview"); }}
           className="
             text-2xs font-bold text-white/35 hover:text-white/65
             transition-colors duration-fast rounded
@@ -86,22 +86,17 @@ export default function SectionNav() {
           aria-label="Back to top — Muhammad Aditia Farhan"
         >
           MAF
-        </button>
+        </a>
 
         {/* Desktop section links */}
-        <div
-          className="hidden lg:flex items-center gap-0.5"
-          role="list"
-          aria-label="Sections"
-        >
+        <div className="hidden lg:flex items-center gap-0.5">
           {NAV_ITEMS.map((item) => {
             const isActive = (item.ids as readonly string[]).includes(active);
             return (
-              <button
+              <a
                 key={item.href}
-                role="listitem"
-                type="button"
-                onClick={() => scrollTo(item.href)}
+                href={item.href}
+                onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
                 className={`
                   text-2xs px-2.5 py-1.5 rounded
                   transition-all duration-fast
@@ -111,10 +106,10 @@ export default function SectionNav() {
                     : "text-white/28 hover:text-white/58 hover:bg-white/4"}
                 `}
                 style={{ letterSpacing: "var(--tracking-caps)" }}
-                aria-current={isActive ? ("location" as const) : undefined}
+                aria-current={isActive ? ("page" as const) : undefined}
               >
                 {item.label}
-              </button>
+              </a>
             );
           })}
         </div>

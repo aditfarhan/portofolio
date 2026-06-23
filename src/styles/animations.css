@@ -384,26 +384,26 @@
   }
 }
 
-/* Moon Fade In - Appears after arrival orb completes */
+/* Moon Fade In — desktop (≥1280px): subtle atmosphere, not focal point */
 @keyframes moonFadeIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  0%   { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 0.26; transform: scale(1); }
 }
 
-/* Moon Fade In Mobile Only - Opacity only, no transform (for mobile/tablet with fixed positioning) */
-@keyframes moonFadeInMobileOnly {
-  0% {
-    opacity: 0;
-  }
+/* Moon Fade In — laptop (1024–1279px): slightly dimmer */
+@keyframes moonFadeInLaptop {
+  0%   { opacity: 0; transform: scale(0.85); }
+  100% { opacity: 0.21; transform: scale(1); }
+}
 
-  100% {
-    opacity: 0.9;
-  }
+/* Moon Fade In — tablet (768–1023px): softer still */
+@keyframes moonFadeInTablet {
+  0%   { opacity: 0; transform: scale(0.85); }
+  100% { opacity: 0.16; transform: scale(1); }
+}
+
+/* Moon Fade In — mobile (<768px): very subtle, repositioned to upper-right */
+@keyframes moonFadeInMobileOnly {
+  0%   { opacity: 0; }
+  100% { opacity: 0.12; }
 }

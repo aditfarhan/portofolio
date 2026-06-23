@@ -181,9 +181,11 @@
   }
 
   .moon.realistic {
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
-      0 0 60px rgba(255, 255, 255, 0.5),
-      0 0 90px rgba(200, 200, 255, 0.3) !important;
+    box-shadow: inset -8px -8px 15px rgba(150, 150, 150, 0.3),
+      inset 5px 5px 10px rgba(255, 255, 255, 0.6),
+      0 0 20px rgba(255, 255, 255, 0.06),
+      0 0 40px rgba(255, 255, 255, 0.03),
+      0 0 70px rgba(200, 200, 255, 0.02) !important;
   }
 }
 
@@ -210,6 +212,26 @@
   }
 }
 
+/* ── Tablet (768–1023px) — intermediate moon brightness ── */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .moon.realistic {
+    animation:
+      moonFadeInTablet 0.8s ease-out 2s forwards,
+      realisticMoonAtmosphere 25s ease-in-out 2.8s infinite,
+      lunarPhase 40s ease-in-out 2.8s infinite !important;
+  }
+}
+
+/* ── Laptop (1024–1279px) — slightly dimmer than desktop ── */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .moon.realistic {
+    animation:
+      moonFadeInLaptop 0.8s ease-out 2s forwards,
+      realisticMoonAtmosphere 25s ease-in-out 2.8s infinite,
+      lunarPhase 40s ease-in-out 2.8s infinite !important;
+  }
+}
+
 /* ── Mobile (≤ 768px) — atmosphere adjustments ── */
 @media (max-width: 768px) {
 
@@ -227,6 +249,7 @@
     display: none !important;
   }
 
+  /* Moon repositioned to upper-right — does not overlap hero text */
   .moon.realistic {
     display: block !important;
     opacity: 0;
@@ -234,21 +257,21 @@
       moonFadeInMobileOnly 0.8s ease-out 2s forwards,
       realisticMoonAtmosphere 25s ease-in-out 2.8s infinite,
       lunarPhase 40s ease-in-out 2.8s infinite !important;
-    width: 60px !important;
-    height: 60px !important;
-    top: 50vh !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    transition: top var(--duration-scene) var(--ease-in-out) !important;
+    width: 55px !important;
+    height: 55px !important;
+    top: 10vh !important;
+    right: -12px !important;
+    left: auto !important;
+    /* No centering transform — lunarPhase animation works cleanly */
     z-index: var(--z-below) !important;
     position: fixed !important;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
-      0 0 40px rgba(255, 255, 255, 0.3),
-      0 0 60px rgba(200, 200, 255, 0.2) !important;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15),
+      0 0 24px rgba(255, 255, 255, 0.08),
+      0 0 40px rgba(200, 200, 255, 0.04) !important;
   }
 
   .moon.realistic.moon-projects-view {
-    top: 20vh !important;
+    top: 10vh !important;
   }
 
   .meteor {
