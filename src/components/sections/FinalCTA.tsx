@@ -71,7 +71,7 @@ const FinalCTA = memo(function FinalCTA() {
             style={{ letterSpacing: "var(--tracking-caps)" }}
             aria-hidden="true"
           >
-            06 · GET IN TOUCH
+            07 · GET IN TOUCH
           </p>
 
           {/* Main heading */}
@@ -177,6 +177,18 @@ const FinalCTA = memo(function FinalCTA() {
               </a>
             ))}
           </div>
+
+          {/* GitHub context note — transparent about private production work */}
+          <p
+            className={`
+              mt-5 text-2xs text-white/20 leading-relaxed max-w-xs mx-auto
+              transition-all duration-slower delay-[280ms]
+              ${visible ? "opacity-100" : "opacity-0"}
+            `}
+          >
+            Most production healthcare work is private by professional obligation.
+            Public GitHub contains sanitized patterns and experiments.
+          </p>
 
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, memo, useState, useCallback } from "react";
+import { memo, useState, useCallback } from "react";
 import type { Project } from "@/types";
 import ProjectEntry from "@/components/ProjectEntry";
 import { useScrollReveal } from "@/hooks";
@@ -154,17 +154,12 @@ const CaseStudyCard = memo(function CaseStudyCard({ project, index, visible }: C
   );
 });
 
-const FeaturedCaseStudies = forwardRef<HTMLElement, FeaturedCaseStudiesProps>(
-  function FeaturedCaseStudies({ projects }, ref) {
-    const { ref: revealRef, visible } = useScrollReveal(0.08);
+const FeaturedCaseStudies = memo(function FeaturedCaseStudies({ projects }: FeaturedCaseStudiesProps) {
+  const { ref: revealRef, visible } = useScrollReveal(0.08);
 
-    return (
-      <section
-        ref={(el) => {
-          if (typeof ref === "function") ref(el);
-          else if (ref) ref.current = el;
-          (revealRef as React.RefObject<HTMLElement | null>).current = el;
-        }}
+  return (
+    <section
+        ref={revealRef as React.RefObject<HTMLElement>}
         id="case-studies"
         className="relative py-16 sm:py-20"
         aria-label="Featured case studies"

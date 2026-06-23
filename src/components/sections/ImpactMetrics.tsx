@@ -73,7 +73,7 @@ const ImpactMetrics = memo(function ImpactMetrics() {
             delay={140}
           />
           <MetricCard
-            value="1000s"
+            value="1,000s+"
             label="Daily Clinical Transactions"
             context="Handled by production HIS/EMR at active hospitals"
             visible={visible}

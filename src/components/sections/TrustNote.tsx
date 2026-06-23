@@ -7,7 +7,7 @@ const TrustNote = memo(function TrustNote() {
   const { ref, visible } = useScrollReveal(0.2);
 
   return (
-    <section
+    <aside
       ref={ref as React.RefObject<HTMLElement>}
       id="trust"
       className="relative pb-6"
@@ -42,7 +42,7 @@ const TrustNote = memo(function TrustNote() {
           </p>
         </div>
       </div>
-    </section>
+    </aside>
   );
 });
 

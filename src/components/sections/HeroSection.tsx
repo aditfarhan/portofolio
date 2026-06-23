@@ -4,13 +4,9 @@ import { memo, useCallback, useEffect, useState } from "react";
 import { PROFILE_STATS, CONTACT_LINKS, PROFILE_ROLE, PROFILE_TAGLINE, EMPLOYMENT } from "@/data/portfolio";
 import { useShineEffect } from "@/hooks";
 
-interface HeroSectionProps {
-  onScrollToCaseStudies: () => void;
-}
-
 const RESUME_LINK = CONTACT_LINKS.find((l) => l.download);
 
-const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSectionProps) {
+const HeroSection = memo(function HeroSection() {
   const [mounted, setMounted]     = useState(false);
   const [copiedName, setCopiedName] = useState(false);
   const { shineRef, handleShine } = useShineEffect<HTMLDivElement>();
@@ -293,15 +289,14 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
 
             {/* Primary CTAs — visible without scrolling on all common laptop screens */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-              <button
-                type="button"
-                onClick={onScrollToCaseStudies}
+              <a
+                href="#case-studies"
                 className="
                   group about-cta-btn about-cta-btn--weighted
                   flex items-center gap-2 px-5 py-2.5 text-sm
                   w-full sm:w-auto justify-center sm:justify-start
                 "
-                aria-label="Scroll to featured case studies"
+                aria-label="View featured case studies"
               >
                 <span className="relative overflow-visible">
                   View Case Studies
@@ -318,7 +313,7 @@ const HeroSection = memo(function HeroSection({ onScrollToCaseStudies }: HeroSec
                 >
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-              </button>
+              </a>
 
               {RESUME_LINK && (
                 <a

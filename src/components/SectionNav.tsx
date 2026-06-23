@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 
 const NAV_ITEMS = [
   { label: "Overview",     href: "#overview",       ids: ["overview", "impact"] },
-  { label: "Case Studies", href: "#case-studies",   ids: ["case-studies", "what-i-build"] },
+  { label: "Case Studies", href: "#case-studies",   ids: ["case-studies", "architecture", "what-i-build"] },
   { label: "Process",      href: "#process",        ids: ["process"] },
   { label: "Stack",        href: "#tech-stack",     ids: ["tech-stack"] },
   { label: "Projects",     href: "#other-projects", ids: ["other-projects"] },
@@ -12,7 +12,7 @@ const NAV_ITEMS = [
 ] as const;
 
 const ORDERED_IDS = [
-  "overview", "impact", "case-studies", "what-i-build",
+  "overview", "impact", "case-studies", "architecture", "what-i-build",
   "process", "tech-stack", "other-projects", "trust", "contact",
 ] as const;
 
@@ -64,13 +64,12 @@ export default function SectionNav() {
     <nav
       className={`
         fixed top-0 left-0 right-0 h-12 z-[100]
-        transition-all duration-base
+        border-b transition-all duration-base
         ${scrolled
-          ? "bg-background/90 border-b border-border-1 shadow-sm"
-          : "bg-transparent"}
+          ? "bg-background/90 border-border-1 shadow-sm backdrop-blur-[10px]"
+          : "bg-transparent border-transparent shadow-none backdrop-blur-none"}
       `}
       aria-label="Page sections"
-      style={{ backdropFilter: scrolled ? "blur(10px)" : "none" }}
     >
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
 

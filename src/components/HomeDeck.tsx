@@ -1,11 +1,12 @@
 "use client";
 
-import { memo, useRef, lazy, Suspense } from "react";
+import { memo, lazy, Suspense } from "react";
 import { portfolio } from "@/data/portfolio";
 import SectionNav from "@/components/SectionNav";
 import HeroSection from "@/components/sections/HeroSection";
 import ImpactMetrics from "@/components/sections/ImpactMetrics";
 import FeaturedCaseStudies from "@/components/sections/FeaturedCaseStudies";
+import ArchitectureProof from "@/components/sections/ArchitectureProof";
 import WhatIBuild from "@/components/sections/WhatIBuild";
 import WorkProcess from "@/components/sections/WorkProcess";
 import TechStack from "@/components/sections/TechStack";
@@ -27,14 +28,8 @@ function SectionDivider() {
 }
 
 const HomeDeck = memo(function HomeDeck() {
-  const caseStudiesRef = useRef<HTMLElement>(null);
-
   const featuredProjects = portfolio.projects.filter((p) => p.featured);
   const otherProjects    = portfolio.projects.filter((p) => !p.featured);
-
-  function scrollToCaseStudies() {
-    caseStudiesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
 
   return (
     <>
@@ -49,7 +44,7 @@ const HomeDeck = memo(function HomeDeck() {
         <SectionNav />
 
         {/* 1 — Hero: identity + headline + CTAs */}
-        <HeroSection onScrollToCaseStudies={scrollToCaseStudies} />
+        <HeroSection />
 
         {/* 2 — Impact Metrics: animated proof strip */}
         <ImpactMetrics />
@@ -57,34 +52,39 @@ const HomeDeck = memo(function HomeDeck() {
         <SectionDivider />
 
         {/* 3 — Featured Case Studies: top 3 healthcare systems */}
-        <FeaturedCaseStudies ref={caseStudiesRef} projects={featuredProjects} />
+        <FeaturedCaseStudies projects={featuredProjects} />
 
         <SectionDivider />
 
-        {/* 4 — What I Build: 4-card expertise grid */}
+        {/* 4 — Architecture / Workflow Proof: sanitized system diagrams */}
+        <ArchitectureProof />
+
+        <SectionDivider />
+
+        {/* 5 — What I Build: 4-card expertise grid */}
         <WhatIBuild />
 
         <SectionDivider />
 
-        {/* 5 — How I Work: 4-step visual process */}
+        {/* 6 — How I Work: 4-step visual process */}
         <WorkProcess />
 
         <SectionDivider />
 
-        {/* 6 — Technical Stack: grouped skill chips */}
+        {/* 7 — Technical Stack: grouped skill chips */}
         <TechStack />
 
         <SectionDivider />
 
-        {/* 7 — Other Projects: compact grid */}
+        {/* 8 — Other Projects: compact grid */}
         {otherProjects.length > 0 && (
           <OtherProjects projects={otherProjects} />
         )}
 
-        {/* 8 — Confidentiality / trust note */}
+        {/* 9 — Confidentiality / trust note */}
         <TrustNote />
 
-        {/* 9 — Final CTA */}
+        {/* 10 — Final CTA */}
         <FinalCTA />
       </div>
     </>

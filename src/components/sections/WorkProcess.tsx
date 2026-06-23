@@ -43,7 +43,7 @@ const WorkProcess = memo(function WorkProcess() {
           className={`mb-8 sm:mb-10 transition-all duration-slower ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
         >
           <p className="text-2xs text-white/25 mb-2" style={{ letterSpacing: "var(--tracking-caps)" }} aria-hidden="true">
-            03 · PROCESS
+            04 · PROCESS
           </p>
           <h2 className="text-xl sm:text-2xl font-bold text-white" style={{ letterSpacing: "var(--tracking-tight)" }}>
             How I Work

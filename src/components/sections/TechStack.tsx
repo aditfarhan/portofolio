@@ -54,7 +54,7 @@ const TechStack = memo(function TechStack() {
           className={`mb-8 sm:mb-10 transition-all duration-slower ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
         >
           <p className="text-2xs text-white/25 mb-2" style={{ letterSpacing: "var(--tracking-caps)" }} aria-hidden="true">
-            04 · TECHNICAL STACK
+            05 · TECHNICAL STACK
           </p>
           <h2 className="text-xl sm:text-2xl font-bold text-white" style={{ letterSpacing: "var(--tracking-tight)" }}>
             Core Technologies
