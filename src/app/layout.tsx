@@ -258,9 +258,10 @@ export default function RootLayout({
         {/* Performance optimizations */}
         <meta name="theme-color" content="#0a0a0a" />
         <meta name="color-scheme" content="dark" />
+        {/* No maximum-scale / user-scalable cap — users must be able to zoom (WCAG 1.4.4) */}
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=5"
+          content="width=device-width, initial-scale=1"
         />
         <link rel="preload" href="/icons.svg" as="image" type="image/svg+xml" />
         {structuredData.map((data, index) => (
