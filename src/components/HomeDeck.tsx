@@ -1,6 +1,5 @@
-"use client";
-
-import { memo, lazy, Suspense } from "react";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { portfolio } from "@/data/portfolio";
 import SectionNav from "@/components/SectionNav";
 import HeroSection from "@/components/sections/HeroSection";
@@ -14,7 +13,10 @@ import OtherProjects from "@/components/sections/OtherProjects";
 import TrustNote from "@/components/sections/TrustNote";
 import FinalCTA from "@/components/sections/FinalCTA";
 
-const BackgroundEffects = lazy(() => import("@/components/BackgroundEffects"));
+const BackgroundEffects = dynamic(() => import("@/components/BackgroundEffects"), {
+  ssr: false,
+  loading: () => <div className="night-sky" aria-hidden="true" />,
+});
 
 function SectionDivider() {
   return (
@@ -27,7 +29,7 @@ function SectionDivider() {
   );
 }
 
-const HomeDeck = memo(function HomeDeck() {
+export default function HomeDeck() {
   const featuredProjects = portfolio.projects.filter((p) => p.featured);
   const otherProjects    = portfolio.projects.filter((p) => !p.featured);
 
@@ -89,6 +91,4 @@ const HomeDeck = memo(function HomeDeck() {
       </div>
     </>
   );
-});
-
-export default HomeDeck;
+}

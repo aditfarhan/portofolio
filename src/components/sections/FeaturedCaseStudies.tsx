@@ -1,10 +1,7 @@
-"use client";
-
-import { memo } from "react";
 import Link from "next/link";
 import type { Project } from "@/types";
 import { getProjectSlug } from "@/data/case-studies";
-import { useScrollReveal } from "@/hooks";
+import { RevealSection } from "@/components/RevealSection";
 
 interface FeaturedCaseStudiesProps {
   projects: Project[];
@@ -17,7 +14,6 @@ const INDUSTRY_MAP: Record<string, string> = {
   "PT Nexwave (Huawei)": "Telecom",
 };
 
-// Short summaries for the compact homepage card view
 const CARD_SUMMARIES: Record<string, {
   context: string;
   roleLabel: string;
@@ -45,15 +41,9 @@ const CARD_SUMMARIES: Record<string, {
 
 interface CaseStudyCardProps {
   project: Project;
-  index: number;
-  visible: boolean;
 }
 
-const CaseStudyCard = memo(function CaseStudyCard({
-  project,
-  index,
-  visible,
-}: CaseStudyCardProps) {
+function CaseStudyCard({ project }: CaseStudyCardProps) {
   const industry = INDUSTRY_MAP[project.company ?? ""] ?? "Other";
   const summary = CARD_SUMMARIES[project.id];
   const slug = getProjectSlug(project.id);
@@ -65,12 +55,7 @@ const CaseStudyCard = memo(function CaseStudyCard({
   return (
     <article
       data-industry={industry}
-      className={`
-        case-study-card
-        transition-all duration-slower
-        ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}
-      `}
-      style={{ transitionDelay: visible ? `${index * 80}ms` : "0ms" }}
+      className="reveal-card case-study-card"
       aria-label={project.title}
     >
       {/* Company + period row */}
@@ -105,7 +90,7 @@ const CaseStudyCard = memo(function CaseStudyCard({
 
       {/* One-line context summary */}
       {summary && (
-        <p className="text-xs sm:text-sm text-white/50 leading-relaxed">
+        <p className="text-xs sm:text-sm text-white/55 leading-relaxed">
           {summary.context}
         </p>
       )}
@@ -121,7 +106,7 @@ const CaseStudyCard = memo(function CaseStudyCard({
         </div>
       )}
 
-      {/* Project role — safe, responsibility-based wording */}
+      {/* Project role */}
       {summary?.roleLabel && (
         <div className="flex items-center gap-1.5">
           <span
@@ -140,7 +125,7 @@ const CaseStudyCard = memo(function CaseStudyCard({
         aria-hidden="true"
       />
 
-      {/* Read full case study — real semantic link */}
+      {/* Read full case study */}
       {slug ? (
         <Link
           href={`/case-studies/${slug}`}
@@ -171,31 +156,21 @@ const CaseStudyCard = memo(function CaseStudyCard({
       ) : null}
     </article>
   );
-});
+}
 
-const FeaturedCaseStudies = memo(function FeaturedCaseStudies({
-  projects,
-}: FeaturedCaseStudiesProps) {
-  const { ref: revealRef, visible } = useScrollReveal(0.08);
-
+export default function FeaturedCaseStudies({ projects }: FeaturedCaseStudiesProps) {
   return (
-    <section
-      ref={revealRef as React.RefObject<HTMLElement>}
+    <RevealSection
       id="case-studies"
       className="relative py-16 sm:py-20"
       aria-label="Featured case studies"
+      threshold={0.08}
       style={{ scrollMarginTop: "3rem" }}
     >
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
-        <div
-          className={`
-            mb-10 sm:mb-12
-            transition-all duration-slower
-            ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
-          `}
-        >
+        <div className="reveal-header mb-10 sm:mb-12">
           <p
             className="text-2xs text-white/25 mb-2"
             style={{ letterSpacing: "var(--tracking-caps)" }}
@@ -209,7 +184,7 @@ const FeaturedCaseStudies = memo(function FeaturedCaseStudies({
           >
             Top Healthcare Case Studies
           </h2>
-          <p className="text-sm text-white/45 mt-2 max-w-lg">
+          <p className="text-sm text-white/52 mt-2 max-w-lg">
             Enterprise-scale systems serving real patients at real hospitals — built, led, and
             maintained in production.
           </p>
@@ -217,25 +192,14 @@ const FeaturedCaseStudies = memo(function FeaturedCaseStudies({
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 items-start">
-          {projects.map((project, i) => (
-            <CaseStudyCard
-              key={project.id}
-              project={project}
-              index={i}
-              visible={visible}
-            />
+          {projects.map((project) => (
+            <CaseStudyCard key={project.id} project={project} />
           ))}
         </div>
 
-        {/* Resume CTA below case studies */}
-        <div
-          className={`
-            mt-10 sm:mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-3
-            transition-all duration-slower delay-[300ms]
-            ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}
-          `}
-        >
-          <span className="text-sm text-white/30">Want the full professional summary?</span>
+        {/* Resume CTA */}
+        <div className="reveal-card mt-10 sm:mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <span className="text-sm text-white/35">Want the full professional summary?</span>
           <a
             href="/Muhammad-Aditia-Farhan-Resume.pdf"
             download
@@ -263,8 +227,6 @@ const FeaturedCaseStudies = memo(function FeaturedCaseStudies({
         </div>
 
       </div>
-    </section>
+    </RevealSection>
   );
-});
-
-export default FeaturedCaseStudies;
+}

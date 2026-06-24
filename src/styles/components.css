@@ -1,5 +1,46 @@
 /* ========== COMPONENT STYLES ========== */
 
+/* ── Scroll-reveal utilities (CSS-driven, data-visible attr set by RevealSection) ──
+   .reveal-header  — section header block
+   .reveal-card    — staggered child cards (nth-child 1–6 get delays)
+   Base: hidden. [data-visible] ancestor: shown.
+   reduced-motion: always visible, no transition.
+───────────────────────────────────────────────────────────────────────────────── */
+.reveal-header,
+.reveal-card {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition:
+    opacity var(--duration-slower) ease,
+    transform var(--duration-slower) ease;
+}
+
+[data-visible] .reveal-header {
+  opacity: 1;
+  transform: none;
+}
+
+[data-visible] .reveal-card {
+  opacity: 1;
+  transform: none;
+}
+
+[data-visible] .reveal-card:nth-child(1) { transition-delay:  80ms; }
+[data-visible] .reveal-card:nth-child(2) { transition-delay: 140ms; }
+[data-visible] .reveal-card:nth-child(3) { transition-delay: 200ms; }
+[data-visible] .reveal-card:nth-child(4) { transition-delay: 260ms; }
+[data-visible] .reveal-card:nth-child(5) { transition-delay: 320ms; }
+[data-visible] .reveal-card:nth-child(6) { transition-delay: 380ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-header,
+  .reveal-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* Background Components */
 .night-sky {
   position: fixed;
@@ -547,16 +588,16 @@
 /* ========== ABOUT — SKILL GROUPS ========== */
 
 .about-skill-group-label {
-  font-size: var(--fs-2xs);
+  font-size: var(--fs-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: var(--tracking-caps);
-  color: rgba(255, 255, 255, var(--op-dim));
+  color: rgba(255, 255, 255, 0.45);
 }
 
 /* Enhanced version — higher visibility + left accent border */
 .about-skill-group-label--enhanced {
-  color: rgba(255, 255, 255, var(--op-faint));
+  color: rgba(255, 255, 255, 0.55);
   padding-left: 0.375rem;
   border-left: 1.5px solid rgba(255, 255, 255, 0.18);
 }
@@ -569,7 +610,7 @@
   border-radius: var(--radius-chip);
   font-size: var(--fs-xs);
   font-family: var(--font-geist-mono);
-  color: rgba(255, 255, 255, var(--op-faint));
+  color: rgba(255, 255, 255, 0.58);
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-1);
   transition: color var(--duration-fast) ease, background var(--duration-fast) ease, border-color var(--duration-fast) ease;
@@ -890,8 +931,8 @@
 }
 
 .impact-metric-context {
-  font-size: var(--fs-2xs);
-  color: rgba(255, 255, 255, var(--op-faint));
+  font-size: var(--fs-xs);
+  color: rgba(255, 255, 255, 0.52);
   line-height: var(--lh-snug);
 }
 

@@ -1,8 +1,5 @@
-"use client";
-
-import { memo } from "react";
 import type { Project } from "@/types";
-import { useScrollReveal } from "@/hooks";
+import { RevealSection } from "@/components/RevealSection";
 
 interface OtherProjectsProps {
   projects: Project[];
@@ -27,15 +24,11 @@ const INDUSTRY_COLORS: Record<string, string> = {
   Personal: "rgba(148, 163, 184, 0.7)",
 };
 
-
-const OtherProjects = memo(function OtherProjects({ projects }: OtherProjectsProps) {
-  const { ref, visible } = useScrollReveal();
-
+export default function OtherProjects({ projects }: OtherProjectsProps) {
   if (projects.length === 0) return null;
 
   return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
+    <RevealSection
       id="other-projects"
       className="relative py-16 sm:py-20"
       aria-label="Other projects"
@@ -43,23 +36,21 @@ const OtherProjects = memo(function OtherProjects({ projects }: OtherProjectsPro
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div
-          className={`mb-8 sm:mb-10 transition-all duration-slower ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-        >
+        <div className="reveal-header mb-8 sm:mb-10">
           <p className="text-2xs text-white/25 mb-2" style={{ letterSpacing: "var(--tracking-caps)" }} aria-hidden="true">
             06 · MORE WORK
           </p>
           <h2 className="text-xl sm:text-2xl font-bold text-white" style={{ letterSpacing: "var(--tracking-tight)" }}>
             Other Projects
           </h2>
-          <p className="text-sm text-white/40 mt-1.5">
+          <p className="text-sm text-white/52 mt-1.5">
             Logistics, e-commerce, telecom, and personal projects across 5+ years.
           </p>
         </div>
 
         {/* Compact grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-          {projects.map((project, idx) => {
+          {projects.map((project) => {
             const industry = INDUSTRY_MAP[project.company ?? ""] ?? "Other";
             const accentColor = INDUSTRY_COLORS[industry] ?? INDUSTRY_COLORS.Other;
             const impactParts = project.impact
@@ -71,12 +62,7 @@ const OtherProjects = memo(function OtherProjects({ projects }: OtherProjectsPro
               <article
                 key={project.id}
                 data-industry={industry}
-                className={`
-                  other-project-card
-                  transition-all duration-slower
-                  ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
-                `}
-                style={{ transitionDelay: visible ? `${idx * 50}ms` : "0ms" }}
+                className="reveal-card other-project-card"
                 aria-label={project.title}
               >
                 {/* Company row */}
@@ -114,7 +100,7 @@ const OtherProjects = memo(function OtherProjects({ projects }: OtherProjectsPro
 
                 {/* Impact */}
                 {impactParts.length > 0 && (
-                  <p className="text-xs text-white/40 mb-2.5 leading-snug">
+                  <p className="text-xs text-white/50 mb-2.5 leading-snug">
                     {impactParts.join(" · ")}
                   </p>
                 )}
@@ -164,8 +150,6 @@ const OtherProjects = memo(function OtherProjects({ projects }: OtherProjectsPro
           })}
         </div>
       </div>
-    </section>
+    </RevealSection>
   );
-});
-
-export default OtherProjects;
+}
