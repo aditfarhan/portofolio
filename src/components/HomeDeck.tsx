@@ -1,6 +1,6 @@
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
 import { portfolio } from "@/data/portfolio";
+import BackgroundEffectsClient from "@/components/BackgroundEffectsClient";
+
 import SectionNav from "@/components/SectionNav";
 import HeroSection from "@/components/sections/HeroSection";
 import ImpactMetrics from "@/components/sections/ImpactMetrics";
@@ -12,11 +12,6 @@ import TechStack from "@/components/sections/TechStack";
 import OtherProjects from "@/components/sections/OtherProjects";
 import TrustNote from "@/components/sections/TrustNote";
 import FinalCTA from "@/components/sections/FinalCTA";
-
-const BackgroundEffects = dynamic(() => import("@/components/BackgroundEffects"), {
-  ssr: false,
-  loading: () => <div className="night-sky" aria-hidden="true" />,
-});
 
 function SectionDivider() {
   return (
@@ -36,9 +31,7 @@ export default function HomeDeck() {
   return (
     <>
       {/* Fixed atmospheric background — star field, meteors, moon */}
-      <Suspense fallback={<div className="night-sky" aria-hidden="true" />}>
-        <BackgroundEffects />
-      </Suspense>
+      <BackgroundEffectsClient />
 
       {/* Landing page — all sections */}
       <div className="relative" style={{ zIndex: 1 }}>
