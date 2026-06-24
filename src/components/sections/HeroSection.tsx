@@ -154,19 +154,19 @@ const HeroSection = memo(function HeroSection() {
 
               {/* Tagline */}
               <p
-                className="text-2xs text-white/35"
+                className="text-xs text-white/45"
                 style={{ letterSpacing: "var(--tracking-caps)" }}
               >
                 {PROFILE_TAGLINE}
               </p>
 
               {/* Employment */}
-              <p className="text-2xs text-white/30" style={{ letterSpacing: "var(--tracking-caps)" }}>
+              <p className="text-xs text-white/50" style={{ letterSpacing: "var(--tracking-caps)" }}>
                 {EMPLOYMENT.map((e, i) => (
                   <span key={e.company}>
                     {i > 0 && <>&nbsp;·&nbsp;</>}
                     {e.company}
-                    {e.end === null && <span className="text-white/20"> ({e.period})</span>}
+                    {e.end === null && <span className="text-white/30"> ({e.period})</span>}
                   </span>
                 ))}
               </p>
@@ -188,7 +188,7 @@ const HeroSection = memo(function HeroSection() {
                         {stat.value}{stat.suffix}
                       </span>
                       <span
-                        className="text-2xs text-white/35 mt-0.5"
+                        className="text-2xs text-white/50 mt-0.5"
                         style={{ letterSpacing: "var(--tracking-caps)" }}
                       >
                         {stat.label}
@@ -212,7 +212,7 @@ const HeroSection = memo(function HeroSection() {
                 ].map(({ icon, label }) => (
                   <span
                     key={label}
-                    className="inline-flex items-center gap-1 text-2xs text-white/38 bg-white/4 border border-white/8 rounded-full px-2 py-0.5"
+                    className="inline-flex items-center gap-1 text-xs text-white/55 bg-white/4 border border-white/8 rounded-full px-2 py-0.5"
                   >
                     <svg className="w-2.5 h-2.5 flex-shrink-0" aria-hidden="true"><use href={`/icons.svg#${icon}`} /></svg>
                     {label}
@@ -244,7 +244,7 @@ const HeroSection = memo(function HeroSection() {
               </div>
 
               <p
-                className="text-2xs text-white/28 text-center leading-snug"
+                className="text-xs text-white/50 text-center leading-snug"
                 style={{ letterSpacing: "var(--tracking-caps)" }}
               >
                 Open to Software Engineer · Senior Frontend<br />

@@ -78,7 +78,7 @@ export default function SectionNav() {
           href="#overview"
           onClick={(e) => { e.preventDefault(); scrollTo("#overview"); }}
           className="
-            text-2xs font-bold text-white/35 hover:text-white/65
+            text-2xs font-bold text-white/50 hover:text-white/75
             transition-colors duration-fast rounded
             focus-visible:outline-2 focus-visible:outline-white/55 focus-visible:outline-offset-2
           "
@@ -102,8 +102,8 @@ export default function SectionNav() {
                   transition-all duration-fast
                   focus-visible:outline-2 focus-visible:outline-white/55 focus-visible:outline-offset-1
                   ${isActive
-                    ? "text-white/75 bg-white/7"
-                    : "text-white/28 hover:text-white/58 hover:bg-white/4"}
+                    ? "text-white/80 bg-white/7"
+                    : "text-white/45 hover:text-white/68 hover:bg-white/4"}
                 `}
                 style={{ letterSpacing: "var(--tracking-caps)" }}
                 aria-current={isActive ? ("page" as const) : undefined}
@@ -118,7 +118,7 @@ export default function SectionNav() {
         <a
           href="mailto:aditiafarhan25@gmail.com?subject=Software%20Engineer%20Opportunity"
           className="
-            flex items-center gap-1.5 text-2xs text-white/28 hover:text-white/58
+            flex items-center gap-1.5 text-2xs text-white/50 hover:text-white/72
             border border-border-1 hover:border-border-2
             rounded-btn px-2.5 py-1.5
             transition-all duration-fast
