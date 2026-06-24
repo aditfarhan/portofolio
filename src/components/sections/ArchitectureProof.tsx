@@ -117,7 +117,7 @@ const ArchitectureProof = memo(function ArchitectureProof() {
             style={{ letterSpacing: "var(--tracking-caps)" }}
             aria-hidden="true"
           >
-            PROOF OF WORK
+            02 · PROOF OF WORK
           </p>
           <h2
             className="text-xl sm:text-2xl font-bold text-white"

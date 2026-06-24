@@ -189,7 +189,6 @@ const FinalCTA = memo(function FinalCTA() {
             Most production healthcare work is private by professional obligation.
             Public GitHub contains sanitized patterns and experiments.
           </p>
-
         </div>
       </div>
     </section>

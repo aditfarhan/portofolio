@@ -83,16 +83,17 @@ const HeroSection = memo(function HeroSection() {
               {/* Identity text — pure identity, no icons competing for width */}
               <div className="flex-1 min-w-0">
 
-                {/* Row 1: name — gets all available width, never wraps */}
+                {/* Row 1: name — decorative (screen-reader name comes from H1) */}
                 <p
                   className="text-sm font-bold leading-snug"
                   style={{ letterSpacing: "var(--tracking-tight)" }}
+                  aria-hidden="true"
                 >
                   Muhammad Aditia Farhan
                 </p>
 
                 {/* Row 2: role */}
-                <p className="text-xs text-white/52 mt-0.5">{PROFILE_ROLE}</p>
+                <p className="text-xs text-white/52 mt-0.5" aria-hidden="true">{PROFILE_ROLE}</p>
 
                 {/* Row 3: availability badge only — fits any screen width */}
                 <div className="mt-2">
@@ -133,15 +134,16 @@ const HeroSection = memo(function HeroSection() {
                 )}
               </button>
 
-              {/* Name + role + badge */}
+              {/* Name + role + badge — decorative (screen-reader name comes from H1) */}
               <div className="space-y-1.5">
                 <p
                   className="text-lg xl:text-xl font-bold leading-tight"
                   style={{ letterSpacing: "var(--tracking-tight)" }}
+                  aria-hidden="true"
                 >
                   Muhammad Aditia Farhan
                 </p>
-                <p className="text-xs text-white/70">{PROFILE_ROLE}</p>
+                <p className="text-xs text-white/70" aria-hidden="true">{PROFILE_ROLE}</p>
                 <div className="flex justify-center">
                   <span className="availability-badge" aria-label="Open to work opportunities">
                     <span className="availability-dot" aria-hidden="true" />
