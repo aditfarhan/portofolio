@@ -1,7 +1,4 @@
-"use client";
-
-import { memo } from "react";
-import { useScrollReveal } from "@/hooks";
+import { RevealSection } from "@/components/RevealSection";
 
 const PROCESS_STEPS = [
   {
@@ -26,12 +23,9 @@ const PROCESS_STEPS = [
   },
 ] as const;
 
-const WorkProcess = memo(function WorkProcess() {
-  const { ref, visible } = useScrollReveal();
-
+export default function WorkProcess() {
   return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
+    <RevealSection
       id="process"
       className="relative py-16 sm:py-20"
       aria-label="How I work"
@@ -39,9 +33,7 @@ const WorkProcess = memo(function WorkProcess() {
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div
-          className={`mb-8 sm:mb-10 transition-all duration-slower ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-        >
+        <div className="reveal-header mb-8 sm:mb-10">
           <p className="text-2xs text-white/25 mb-2" style={{ letterSpacing: "var(--tracking-caps)" }} aria-hidden="true">
             04 · PROCESS
           </p>
@@ -52,21 +44,13 @@ const WorkProcess = memo(function WorkProcess() {
 
         {/* Steps */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {PROCESS_STEPS.map((step, idx) => (
-            <div
-              key={step.number}
-              className={`
-                process-step
-                transition-all duration-slower
-                ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}
-              `}
-              style={{ transitionDelay: visible ? `${idx * 80}ms` : "0ms" }}
-            >
-              <span className="process-step-number">{step.number}</span>
+          {PROCESS_STEPS.map((step) => (
+            <div key={step.number} className="reveal-card process-step">
+              <span className="process-step-number" aria-hidden="true">{step.number}</span>
               <h3 className="text-sm font-semibold text-white/88 leading-snug" style={{ letterSpacing: "var(--tracking-tight)" }}>
                 {step.title}
               </h3>
-              <p className="text-xs text-white/45 leading-relaxed">
+              <p className="text-xs text-white/52 leading-relaxed">
                 {step.desc}
               </p>
             </div>
@@ -74,8 +58,6 @@ const WorkProcess = memo(function WorkProcess() {
         </div>
 
       </div>
-    </section>
+    </RevealSection>
   );
-});
-
-export default WorkProcess;
+}

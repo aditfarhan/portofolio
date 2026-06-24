@@ -2,20 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 /**
  * Fires `visible = true` the first time the element enters the viewport.
  * Disconnects the observer after first trigger — no re-animations on scroll back up.
- * Respects `prefers-reduced-motion` by skipping the delay and making everything visible immediately.
+ * Respects `prefers-reduced-motion` — starts visible immediately so no animation runs.
  */
 export function useScrollReveal(threshold = 0.12) {
   const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState<boolean>(() => prefersReducedMotion());
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
+    if (visible) return; // already revealed (reduced-motion or prior trigger)
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -29,7 +31,7 @@ export function useScrollReveal(threshold = 0.12) {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [threshold, visible]);
 
   return { ref, visible };
 }

@@ -1,7 +1,6 @@
-"use client";
-
-import { memo, lazy, Suspense } from "react";
 import { portfolio } from "@/data/portfolio";
+import BackgroundEffectsClient from "@/components/BackgroundEffectsClient";
+
 import SectionNav from "@/components/SectionNav";
 import HeroSection from "@/components/sections/HeroSection";
 import ImpactMetrics from "@/components/sections/ImpactMetrics";
@@ -14,8 +13,6 @@ import OtherProjects from "@/components/sections/OtherProjects";
 import TrustNote from "@/components/sections/TrustNote";
 import FinalCTA from "@/components/sections/FinalCTA";
 
-const BackgroundEffects = lazy(() => import("@/components/BackgroundEffects"));
-
 function SectionDivider() {
   return (
     <div
@@ -27,16 +24,14 @@ function SectionDivider() {
   );
 }
 
-const HomeDeck = memo(function HomeDeck() {
+export default function HomeDeck() {
   const featuredProjects = portfolio.projects.filter((p) => p.featured);
   const otherProjects    = portfolio.projects.filter((p) => !p.featured);
 
   return (
     <>
       {/* Fixed atmospheric background — star field, meteors, moon */}
-      <Suspense fallback={<div className="night-sky" aria-hidden="true" />}>
-        <BackgroundEffects />
-      </Suspense>
+      <BackgroundEffectsClient />
 
       {/* Landing page — all sections */}
       <div className="relative" style={{ zIndex: 1 }}>
@@ -89,6 +84,4 @@ const HomeDeck = memo(function HomeDeck() {
       </div>
     </>
   );
-});
-
-export default HomeDeck;
+}

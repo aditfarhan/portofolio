@@ -1,7 +1,4 @@
-"use client";
-
-import { memo } from "react";
-import { useScrollReveal } from "@/hooks";
+import { RevealSection } from "@/components/RevealSection";
 
 const SKILL_GROUPS = [
   {
@@ -37,12 +34,9 @@ const LEADERSHIP_SKILLS = [
   "Production stability",
 ] as const;
 
-const TechStack = memo(function TechStack() {
-  const { ref, visible } = useScrollReveal();
-
+export default function TechStack() {
   return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
+    <RevealSection
       id="tech-stack"
       className="relative py-16 sm:py-20"
       aria-label="Technical stack and skills"
@@ -50,9 +44,7 @@ const TechStack = memo(function TechStack() {
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div
-          className={`mb-8 sm:mb-10 transition-all duration-slower ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-        >
+        <div className="reveal-header mb-8 sm:mb-10">
           <p className="text-2xs text-white/25 mb-2" style={{ letterSpacing: "var(--tracking-caps)" }} aria-hidden="true">
             05 · TECHNICAL STACK
           </p>
@@ -63,16 +55,8 @@ const TechStack = memo(function TechStack() {
 
         {/* Skill groups — 2-column on tablet+, 1-column mobile */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-6">
-          {SKILL_GROUPS.map((group, idx) => (
-            <div
-              key={group.label}
-              className={`
-                flex flex-col gap-2
-                transition-all duration-slower
-                ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
-              `}
-              style={{ transitionDelay: visible ? `${idx * 60}ms` : "0ms" }}
-            >
+          {SKILL_GROUPS.map((group) => (
+            <div key={group.label} className="reveal-card flex flex-col gap-2">
               <span className="about-skill-group-label about-skill-group-label--enhanced">
                 {group.label}
               </span>
@@ -94,14 +78,7 @@ const TechStack = memo(function TechStack() {
         </div>
 
         {/* Leadership row */}
-        <div
-          className={`
-            flex flex-col gap-2
-            transition-all duration-slower
-            ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
-          `}
-          style={{ transitionDelay: visible ? "280ms" : "0ms" }}
-        >
+        <div className="reveal-card flex flex-col gap-2">
           <span className="about-skill-group-label about-skill-group-label--enhanced">
             Engineering Leadership
           </span>
@@ -115,8 +92,6 @@ const TechStack = memo(function TechStack() {
         </div>
 
       </div>
-    </section>
+    </RevealSection>
   );
-});
-
-export default TechStack;
+}

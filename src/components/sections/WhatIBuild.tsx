@@ -1,7 +1,4 @@
-"use client";
-
-import { memo } from "react";
-import { useScrollReveal } from "@/hooks";
+import { RevealSection } from "@/components/RevealSection";
 
 const BUILD_FOCUS = [
   {
@@ -34,12 +31,9 @@ const BUILD_FOCUS = [
   },
 ] as const;
 
-const WhatIBuild = memo(function WhatIBuild() {
-  const { ref, visible } = useScrollReveal();
-
+export default function WhatIBuild() {
   return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
+    <RevealSection
       id="what-i-build"
       className="relative py-16 sm:py-20"
       aria-label="What I build"
@@ -47,9 +41,7 @@ const WhatIBuild = memo(function WhatIBuild() {
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div
-          className={`mb-8 sm:mb-10 transition-all duration-slower ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-        >
+        <div className="reveal-header mb-8 sm:mb-10">
           <p className="text-2xs text-white/25 mb-2" style={{ letterSpacing: "var(--tracking-caps)" }} aria-hidden="true">
             03 · EXPERTISE
           </p>
@@ -60,20 +52,18 @@ const WhatIBuild = memo(function WhatIBuild() {
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          {BUILD_FOCUS.map((item, idx) => (
+          {BUILD_FOCUS.map((item) => (
             <div
               key={item.id}
               className={`
-                group relative rounded-lg border px-4 py-4 sm:px-5 sm:py-4
-                transition-all duration-slow ease-out
+                reveal-card group relative rounded-lg border px-4 py-4 sm:px-5 sm:py-4
+                transition-colors duration-slow ease-out
                 hover:-translate-y-[2px] hover:shadow-lg
-                ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
                 ${item.prominent
                   ? "border-white/18 bg-surface-2 hover:border-white/28 hover:bg-surface-hover"
                   : "border-border-1 bg-surface-1 hover:border-border-2 hover:bg-surface-2"
                 }
               `}
-              style={{ transitionDelay: visible ? `${80 + idx * 60}ms` : "0ms" }}
             >
               <span className="absolute top-3 right-3 text-2xs text-white/18 font-mono select-none" aria-hidden="true">
                 {item.number}
@@ -87,7 +77,7 @@ const WhatIBuild = memo(function WhatIBuild() {
               >
                 {item.title}
               </h3>
-              <p className={`text-xs leading-relaxed ${item.prominent ? "text-white/50" : "text-white/38"}`}>
+              <p className={`text-xs leading-relaxed ${item.prominent ? "text-white/55" : "text-white/50"}`}>
                 {item.desc}
               </p>
             </div>
@@ -95,8 +85,6 @@ const WhatIBuild = memo(function WhatIBuild() {
         </div>
 
       </div>
-    </section>
+    </RevealSection>
   );
-});
-
-export default WhatIBuild;
+}

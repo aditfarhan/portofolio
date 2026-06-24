@@ -1,7 +1,4 @@
-"use client";
-
-import { memo } from "react";
-import { useScrollReveal } from "@/hooks";
+import { RevealSection } from "@/components/RevealSection";
 
 const WORKFLOWS = [
   {
@@ -82,36 +79,28 @@ function StepCard({ step, index }: StepCardProps) {
         {String(index + 1).padStart(2, "0")}
       </div>
       <div
-        className="text-xs font-semibold text-white/78 leading-tight mb-0.5"
+        className="text-xs font-semibold text-white/80 leading-tight mb-0.5"
         style={{ letterSpacing: "var(--tracking-tight)" }}
       >
         {step.label}
       </div>
-      <div className="text-2xs text-white/38 leading-snug">{step.detail}</div>
+      <div className="text-xs text-white/50 leading-snug">{step.detail}</div>
     </div>
   );
 }
 
-const ArchitectureProof = memo(function ArchitectureProof() {
-  const { ref, visible } = useScrollReveal(0.08);
-
+export default function ArchitectureProof() {
   return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
+    <RevealSection
       id="architecture"
       className="relative py-16 sm:py-20"
       aria-label="Architecture and workflow proof"
+      threshold={0.08}
     >
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
-        <div
-          className={`
-            mb-10 sm:mb-12
-            transition-all duration-slower
-            ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
-          `}
-        >
+        <div className="reveal-header mb-10 sm:mb-12">
           <p
             className="text-2xs text-white/25 mb-2"
             style={{ letterSpacing: "var(--tracking-caps)" }}
@@ -125,22 +114,15 @@ const ArchitectureProof = memo(function ArchitectureProof() {
           >
             How These Systems Work
           </h2>
-          <p className="text-sm text-white/42 mt-2 max-w-lg">
+          <p className="text-sm text-white/55 mt-2 max-w-lg">
             Sanitized workflow overviews — no patient data, credentials, or internal infrastructure details.
           </p>
         </div>
 
         {/* Workflow flows */}
         <div className="flex flex-col gap-8 sm:gap-10">
-          {WORKFLOWS.map((workflow, wIdx) => (
-            <div
-              key={workflow.id}
-              className={`
-                transition-all duration-slower
-                ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
-              `}
-              style={{ transitionDelay: visible ? `${wIdx * 100}ms` : "0ms" }}
-            >
+          {WORKFLOWS.map((workflow) => (
+            <div key={workflow.id} className="reveal-card">
               {/* Workflow label */}
               <div className="mb-3">
                 <h3
@@ -149,7 +131,7 @@ const ArchitectureProof = memo(function ArchitectureProof() {
                 >
                   {workflow.label}
                 </h3>
-                <p className="text-xs text-white/38 mt-0.5">{workflow.desc}</p>
+                <p className="text-xs text-white/50 mt-0.5">{workflow.desc}</p>
               </div>
 
               {/* Step chain — horizontal scroll on mobile */}
@@ -171,8 +153,6 @@ const ArchitectureProof = memo(function ArchitectureProof() {
         </div>
 
       </div>
-    </section>
+    </RevealSection>
   );
-});
-
-export default ArchitectureProof;
+}

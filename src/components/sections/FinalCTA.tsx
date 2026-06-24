@@ -67,7 +67,7 @@ const FinalCTA = memo(function FinalCTA() {
         >
           {/* Section label */}
           <p
-            className="text-2xs text-white/22 mb-5"
+            className="text-2xs text-white/25 mb-5"
             style={{ letterSpacing: "var(--tracking-caps)" }}
             aria-hidden="true"
           >
@@ -83,7 +83,7 @@ const FinalCTA = memo(function FinalCTA() {
           </h2>
 
           {/* Supporting copy */}
-          <p className="text-sm sm:text-base text-white/42 mb-8 sm:mb-10 leading-relaxed">
+          <p className="text-sm sm:text-base text-white/55 mb-8 sm:mb-10 leading-relaxed">
             Open to Software Engineer, Senior Frontend, Healthcare IT, and Technical Lead roles.
             Jakarta-based, remote-ready.
           </p>
@@ -118,7 +118,7 @@ const FinalCTA = memo(function FinalCTA() {
                 href={resumeLink.href}
                 download={resumeLink.download}
                 className="
-                  flex items-center gap-2 px-5 py-3 text-sm text-white/52
+                  flex items-center gap-2 px-5 py-3 text-sm text-white/55
                   border border-border-1 hover:border-border-2 hover:text-white/78
                   rounded-btn transition-all duration-fast
                   w-full sm:w-auto justify-center
@@ -181,7 +181,7 @@ const FinalCTA = memo(function FinalCTA() {
           {/* GitHub context note — transparent about private production work */}
           <p
             className={`
-              mt-5 text-2xs text-white/20 leading-relaxed max-w-xs mx-auto
+              mt-5 text-xs text-white/45 leading-relaxed max-w-xs mx-auto
               transition-all duration-slower delay-[280ms]
               ${visible ? "opacity-100" : "opacity-0"}
             `}
