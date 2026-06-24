@@ -311,12 +311,28 @@
 }
 
 /* ── GPU Acceleration ── */
+/* Meteors animate blur() — filter layer needed */
 .meteor,
-.meteor-burst,
-.star,
-.moon {
+.meteor-burst {
   transform: translateZ(0);
   will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Stars: starTwinkle uses only brightness() — no blur, so no filter layer needed.
+   Omitting filter reduces compositor layer overhead across 20+ star elements. */
+.star {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Moon: realisticMoonAtmosphere uses brightness() only; lunarPhase uses transform.
+   Omitting filter from will-change saves one compositor layer. */
+.moon {
+  transform: translateZ(0);
+  will-change: transform, opacity;
   backface-visibility: hidden;
   perspective: 1000px;
 }
